@@ -499,7 +499,7 @@ a.alternate-grey::active{
     /*-webkit-background-size:cover;
     -moz-background-size:cover;
     -o-background-size:cover;*/
-    transition: transform .35s ease-out;
+    transition: transform .35s ease-out, opacity .25s ease-out;
     background-size: cover;
     background-position:center center;
 }
@@ -529,7 +529,7 @@ a.alternate-grey::active{
     /*-webkit-background-size:cover;
     -moz-background-size:cover;
     -o-background-size:cover;*/
-    transition: transform .35s ease-out;
+    transition: transform .35s ease-out, opacity .25s ease-out;
     background-size: cover;
     background-position:center center;
 }
@@ -559,7 +559,7 @@ a.alternate-grey::active{
     /*-webkit-background-size:cover;
     -moz-background-size:cover;
     -o-background-size:cover;*/
-    transition: transform .35s ease-out;
+    transition: transform .35s ease-out, opacity .25s ease-out;
     background-size: cover;
     background-position:center center;
 }
