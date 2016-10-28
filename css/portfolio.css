@@ -545,6 +545,9 @@ a.alternate-grey::active{
     max-height: 450px;
     min-height: 240px;
 }
+.padding top{
+    margin-top: 55px;
+}
 .whitepike:after{
     content: '';
     z-index: -1;

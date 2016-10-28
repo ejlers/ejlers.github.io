@@ -6,7 +6,7 @@ $(document).ready(function(){
     });
 });
 
-<!-- Demos hover -->
+// Demos hover
 
 $(document).ready(function(){
     $(".story-demo-hover-1").on({
