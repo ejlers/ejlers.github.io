@@ -284,6 +284,7 @@ a.alternate-grey::active{
 .start {
     background-color: #fff;
     height: 65vh;
+    max-height: 650px;
     min-height: 420px;
 }
 .case-expand-button-container{
