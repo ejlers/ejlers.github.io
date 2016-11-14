@@ -293,6 +293,7 @@ a.alternate-grey::active{
     left: 0;
     text-align: center;
     width: 100%;
+    opacity: 0.6;
 }
 .expand-button {
     width: 20px;
