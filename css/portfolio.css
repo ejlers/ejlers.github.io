@@ -306,10 +306,10 @@ a.alternate-grey::active{
     text-align: center;
 }
 .expand-button{
-    width: 15px;
+    width: 12px;
 }
 .expand-button-text {
-    font-size: 12px;
+    font-size: 0.9em;
     margin-bottom: 0;
 }
 .arrow-container{
