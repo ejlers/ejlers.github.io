@@ -305,7 +305,11 @@ a.alternate-grey::active{
     text-align: center;
 }
 .expand-button{
-    width: 20px;
+    width: 15px;
+}
+.expand-button-text {
+    font-size: 12px;
+    margin-bottom: 0;
 }
 .arrow-container{
     width: 50%;
