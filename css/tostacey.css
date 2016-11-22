@@ -34,6 +34,7 @@ body{
 }
 .background-img{
     background-color: pink;
+    overflow: hidden;
     background-repeat:no-repeat;
     -webkit-background-size:cover;
     -moz-background-size:cover;
