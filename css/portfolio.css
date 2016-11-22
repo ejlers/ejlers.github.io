@@ -283,9 +283,13 @@ a.alternate-grey::active{
 }
 .start {
     background-color: #fff;
+    
     height: 65vh;
     max-height: 550px;
     min-height: 420px;
+}
+.explore{
+    cursor:pointer;
 }
 .case-expand-button-container{
     position: absolute;
