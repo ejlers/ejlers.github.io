@@ -3,10 +3,12 @@
 .material-icons.md-36 { font-size: 36px; }
 .material-icons.md-48 { font-size: 48px; }
 
-
-.button{
-    border: none;
-
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 3.0em;
+    line-height: 1.5em;
+    letter-spacing: -1px;
 }
 .stacey-text{
     color: white;
@@ -14,8 +16,15 @@
     text-align: center;
     max-width: 1000px;
 }
+@media (max-width: 1000px) {
+  .stacey-text{
+    font-size: 40px;
+  }
+}
 .stacey-button{
     padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     font-size: 18px;
     font-weight: bold;
     color: white;
