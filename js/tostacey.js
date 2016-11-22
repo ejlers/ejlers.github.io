@@ -6,4 +6,4 @@ $(document).ready(function(){
 		$(".stacey-text").fadeIn(2000);
 		$(".stacey-img").fadeIn(2000);
 	});
-});
+}); 
