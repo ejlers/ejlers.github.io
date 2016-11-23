@@ -38,6 +38,7 @@ body{
     background-color: mediumorchid;
     color: #fff;
     border-color: transparent;
+    cursor:pointer;
 }
 .content {
     background-color: white;
