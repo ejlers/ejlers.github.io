@@ -9,6 +9,7 @@ body{
     font-size: 3.0em;
     letter-spacing: -1px;
     margin: 0px;
+    background-color: #8FA78D;
 }
 .stacey-text{
     color: white;
@@ -30,18 +31,43 @@ body{
     padding-right: 15px;
     font-size: 18px;
     font-weight: bold;
-    color: black;
+    color: #F4EB9E;
     background-color: transparent;
-    border-color: black;
+    border-style: solid;
+    border-color: #F4EB9E;
+}
+.yellow {
+    color: #F4EB9E;
+}
+.yellow-bg {
+    background-color: #F4EB9E;
+}
+.red {
+    color: #FB573B;
+}
+.red-bg {
+    background-color: #FB573B;
+}
+.brown {
+    color: #4E3835;
+}
+.brown {
+    background-color: #4E3835;
+}
+.green {
+    color:#8FA78D;
 }
 .stacey-button:hover{
-    background-color: mediumorchid;
-    color: #fff;
+    background-color: #FB573B;
+    color: #F4EB9E;
     border-color: transparent;
     cursor:pointer;
 }
+.start-screen{
+    margin-top: -30px;
+}
 .content {
-    background-color: white;
+    background-color: #F4EB9E;
     background-repeat:no-repeat;
     -webkit-background-size:cover;
     -moz-background-size:cover;
@@ -57,7 +83,22 @@ body{
 #two {
     background-image: url(https://media.giphy.com/media/hJ4DSRqEmIasg/giphy.gif);
 }
-
+.header-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    top: 10px;
+}
+.header-items{
+    display: flex;
+    flex-flow: row wrap;
+}
+.header-text{
+    font-size: 17px; 
+    color: #F4EB9E;
+}
 .flex-container{
     margin: 0px;
     display: flex;
@@ -65,6 +106,9 @@ body{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+}
+.material-icons{
+    color: #F4EB9E;
 }
 .item-flex{
     display: flex;
@@ -85,14 +129,14 @@ body{
 }
 .footer-text{
     font-size: 17px; 
-    color: #999; 
+    color: #F4EB9E; 
     letter-spacing: 5px;
 }
 .current{
-    color: black;
+    color: #F4EB9E;
     border: 2px;
     border-top-style: solid;
-    border-color: black;
+    border-color: F4EB9E;
     padding-top: 2px;
     padding-right: 2px;
     padding-left: 3px;
