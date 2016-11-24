@@ -11,8 +11,15 @@ body{
     margin: 0px;
     background-color: #8FA78D;
 }
+p {
+    font-family: 'Montserrat', sans-serif;
+    color: #F4EB9E;
+    font-weight: 300;
+    font-size: 15pt;
+    line-height: 1.7em;
+}
 .stacey-text{
-    color: white;
+    color: #F4EB9E;
     font-size: 100px;
     text-align: center;
     max-width: 1000px;
@@ -83,6 +90,14 @@ body{
 #two {
     background-image: url(https://media.giphy.com/media/hJ4DSRqEmIasg/giphy.gif);
 }
+#three {
+    background-image: url(https://media.giphy.com/media/Cmjc0NPS1TTSU/giphy.gif);
+}
+.vertical-text{
+    transform: rotate(90deg);
+    font-size: 27px;
+    letter-spacing: 3px;
+}
 .header-container{
     display: flex;
     justify-content: center;
@@ -105,7 +120,7 @@ body{
     height: 100vh;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-flow: column wrap;
 }
 .material-icons{
     color: #F4EB9E;
@@ -113,7 +128,7 @@ body{
 .item-flex{
     display: flex;
     margin: 30px;
-    flex-flow: row wrap;
+    align-items: center;
 }
 .footer-container{
     display: flex;
@@ -127,10 +142,14 @@ body{
     display: flex;
     flex-flow: row wrap;
 }
+.footer-item-2{
+    display: flex;
+    flex-flow: row wrap;
+}
 .footer-text{
     font-size: 17px; 
     color: #F4EB9E; 
-    letter-spacing: 5px;
+    padding-right: 6px;
 }
 .current{
     color: #F4EB9E;
@@ -171,13 +190,6 @@ h5{
     font-style: italic;
     font-weight: 300;
     letter-spacing: 3px;
-}
-p {
-    font-family: 'Montserrat', sans-serif;
-    color: #000;
-    font-weight: 300;
-    font-size: 1.1em;
-    line-height: 1.7em;
 }
 ul {
     padding-left: -100px;
