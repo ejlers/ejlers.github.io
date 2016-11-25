@@ -129,6 +129,14 @@ p {
     align-items: center;
     flex-flow: column wrap;
 }
+.flex-container-row{
+    margin: 0px;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+}
 .material-icons{
     color: #F4EB9E;
 }
@@ -136,6 +144,12 @@ p {
     display: flex;
     margin: 30px;
     align-items: center;
+}
+.item-flex-row{
+    display: flex;
+    margin: 30px;
+    align-items: center;
+    flex-flow: row wrap;
 }
 .footer-container{
     display: flex;
