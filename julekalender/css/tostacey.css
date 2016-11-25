@@ -64,6 +64,9 @@ p {
 .green {
     color:#8FA78D;
 }
+.countdown-text{
+    letter-spacing: 4px;
+}
 .stacey-button:hover{
     background-color: #FB573B;
     color: #F4EB9E;
@@ -92,6 +95,10 @@ p {
 }
 #three {
     background-image: url(https://media.giphy.com/media/Cmjc0NPS1TTSU/giphy.gif);
+}
+#four {
+    background-image: url(https://media.giphy.com/media/ay3VbYvjqkVbi/giphy.gif);
+    background-position:center center;
 }
 .vertical-text{
     transform: rotate(90deg);
