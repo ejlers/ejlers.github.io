@@ -104,6 +104,10 @@ p {
     background-image: url(https://media.giphy.com/media/11EEXw1EIEoHaE/giphy.gif);
     background-position:center center;
 }
+#six {
+    background-image: url(http://farm4.static.flickr.com/3399/3296922181_73a3dc0b34.jpg);
+    background-position:center center;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
@@ -154,6 +158,12 @@ p {
     margin: 30px;
     align-items: center;
     flex-flow: row wrap;
+}
+.item-flex-column{
+    display: flex;
+    margin: 30px;
+    align-items: center;
+    flex-flow: column wrap;
 }
 .footer-container{
     display: flex;
