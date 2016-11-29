@@ -108,6 +108,10 @@ p {
     background-image: url(http://farm4.static.flickr.com/3399/3296922181_73a3dc0b34.jpg);
     background-position:center center;
 }
+#seven {
+    background-image: url(../img/cs.jul.jpg);
+    background-position:left center;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
