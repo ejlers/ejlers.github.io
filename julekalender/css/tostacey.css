@@ -112,6 +112,10 @@ p {
     background-image: url(../img/cs.jul.jpg);
     background-position:left center;
 }
+#eight {
+    background-image: url(http://2.bp.blogspot.com/_SlZtT335XYc/TRzgp3w4mpI/AAAAAAAAAF8/6j1_knzhDfA/s1600/Morning+Cyclist+Surprise.jpg);
+    background-position:center center;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
