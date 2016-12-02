@@ -121,8 +121,9 @@ p {
     background-position:top left;
 }
 #ten {
-    background-image: url(https://media.giphy.com/media/yXBqba0Zx8S4/giphy.gif);
-    background-position:top center;
+    background-image: url(https://media.giphy.com/media/138f4Lkn0krZwA/giphy.gif);
+    background-position:center center;
+
 }
 .vertical-text{
     transform: rotate(90deg);
