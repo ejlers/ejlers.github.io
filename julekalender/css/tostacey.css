@@ -120,6 +120,10 @@ p {
     background-image: url(https://media.giphy.com/media/aNOSBiZ2C5nXy/giphy.gif);
     background-position:top center;
 }
+#ten {
+    background-image: url(https://media.giphy.com/media/yXBqba0Zx8S4/giphy.gif);
+    background-position:top center;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
