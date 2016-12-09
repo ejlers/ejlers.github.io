@@ -128,6 +128,10 @@ p {
     background-image: url(http://multimedia.pol.dk/archive/00770/lol-test_770302a.jpg);
     background-position:center center;
 }
+#twelve {
+    background-image: url(../img/manga.png);
+    background-position:center center;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
