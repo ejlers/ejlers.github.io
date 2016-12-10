@@ -132,6 +132,10 @@ p {
     background-image: url(../img/manga.png);
     background-position:center center;
 }
+#thirteen {
+    background-image: url(../img/girls.jpg);
+    background-position:right top;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
