@@ -258,6 +258,49 @@ a.header{
 .sales {
     max-width: 100px;
 }
+button:focus {
+    outline:0;
+}
+button {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 3px;
+    border: none;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.23), rgba(0, 0, 0, 0.0)), linear-gradient(#00adee, #00adee);
+}
+button:hover {
+   color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 3px;
+    border: none;
+    background-blend-mode: multiply;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.23), rgba(0, 0, 0, 0.0)), linear-gradient(#2783c3, #2783c3);
+}
+button:active {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 3px;
+    border: none;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.23), rgba(0, 0, 0, 0.0)), linear-gradient(#005a99, #005a99);
+}
 a.button {
     color: #ffffff;
     text-decoration: none;
@@ -1720,4 +1763,7 @@ hr.black {
 
 #Group-134 {
     
+}
+input.ng-invalid {
+    color: #D0011B
 }
