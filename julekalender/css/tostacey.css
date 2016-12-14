@@ -140,6 +140,10 @@ p {
     background-image: url(../img/kransekage.jpg);
     background-position:top center;
 }
+#fifteen {
+    background-image: url(https://kglteater.dk/globalassets/det-sker/sason-2016-2017/hero-images-desktop-1600x1000/aie_1600x1000e.jpg?id=11212);
+    background-position:top center;
+}
 .vertical-text{
     transform: rotate(90deg);
     font-size: 27px;
