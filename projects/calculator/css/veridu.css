@@ -7,7 +7,10 @@
     width: 100%; 
   }
 }
-
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+}
 .margin-button-bottom {
     margin-bottom: 20px;
 }
@@ -27,7 +30,7 @@
     display: flex;
 }
 .stretch-big{
-    flex-grow: 1;
+    flex-grow: 2;
 }
 .stretch-bigger{
     flex-grow: 2;
@@ -40,6 +43,7 @@
 }
 .max-width-header-box{
     max-width: 400px;
+    width: auto;
 }
 .label-number {
     font-size: .5em;
@@ -75,7 +79,7 @@ h2 {
 p{
     font-family: HelveticaNeueLTStd-Lt;
     color: #000;
-    font-size: 1.1em;
+    font-size: 1.0em;
     line-height: 25px;
 }
 h3, h4, h5 { 

@@ -77,7 +77,7 @@
 						<h3 class="darkblue">
 						Please provide us with some data
 						</h3>
-						<hr>
+						<div class="divider"></div>
 						<form name="transactionForm" action="">
 							<p>No. monthly transactions:</p>
 							<input type="text" name="numMonthlyTransactions" ui-number-mask="0" ng-model="App.numMonthlyTransactions" onClick="this.setSelectionRange(0, this.value.length)" placeholder="{{ monthlyPlaceholder }}">
@@ -88,7 +88,7 @@
 							<p>% of transactions declined:</p>
 							<input type="text" max="1.0" ng-model="App.percentageDeclined" ui-percentage-mask="1" onClick="this.setSelectionRange(0, this.value.length)" placeholder="{{ percentagePlaceholder }}">
 							<br>
-							<p>Potential value of false declines:</p>
+							<p>Potential monthly value of false declines:</p>
 							<input style="border:0" ng-style="{'color' : transactionForm.$dirty ? '' : '#a7a7a7'}" class="ng-invalid" type="text" value="{{App.potentialMonthlyLoss() | currency: '£ ' : 0 }}" placeholder="{{ monthlyLossPlaceholder }}" readonly>
 						</form> 
 					</div>
@@ -99,11 +99,10 @@
 						<h3 class="darkblue">
 							What you could recover with Veridu:
 						</h3>
-						<div style="font-weight: 600; font-size: 2.5em; color: #1a5aa2;">
+						<div style="font-weight: 600; font-size: 2em; color: #1a5aa2;">
 							<span>
 								£ {{ App.potentialYearlyLoss() | currency: '' : 0}}<span class="label-number">/ year</span></span>
 						</div>
-						<hr>
 						<br>
 						<p>
 							Can you afford not to get in touch?<br>

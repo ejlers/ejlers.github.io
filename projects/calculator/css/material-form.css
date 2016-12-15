@@ -15,11 +15,12 @@
   margin-bottom:0px; 
 }
 input               {
-  font-size:2.5em;
+  font-size:2.0em;
   padding:0px 0px 0px 0px;
   display:block;
   background-color: transparent;
-  width:230px;
+  min-width:60px;
+  max-width: 180px;
   border:none;
   border-bottom:1px solid #999;
 }
