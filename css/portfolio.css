@@ -11,13 +11,13 @@ body {
 h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-    font-size: 3.0em;
-    line-height: 1.5em;
+    font-size: 2.8em;
+    line-height: 1.8em;
     letter-spacing: -1px;
 }
 h2 {
     font-size: 2.2em;
-    line-height: 1.5em;
+    line-height: 1.7em;
     color: #000;
 }
 h3 {
@@ -27,9 +27,9 @@ h3 {
     font-weight: 300;
 }
 h4{
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 300;
-    line-height: 1.6em;
+    line-height: 1.8em;
 }
 h5{
     font-family: 'Montserrat', sans-serif;
@@ -59,8 +59,8 @@ q {
     padding-bottom: 4%;
 }
 mark {
-    color: #EF5350;
-    background-color: transparent;
+    color: #333;
+    background-color: #f1f1f1;
 }
 ol {
     color: #000;
@@ -389,7 +389,9 @@ a.alternate-grey::active{
 .case-1-description-mobile {
     padding: 10% 10% 10% 10%;
 }
-
+.img-hover{
+    
+}
 .top{
     z-index:9;
     position: relative;
@@ -459,13 +461,13 @@ a.alternate-grey::active{
     width: 180px;
 }
 .maxwidth-small{
-    max-width: 300px;
+    max-width: 350px;
 }
 .maxwidth-big{
-    max-width: 950px;
+    max-width: 1050px;
 }
 .maxwidth-med{
-    max-width: 750px;
+    max-width: 665px;
 }
 .maxwidth-p{
     max-width: 49vw;
