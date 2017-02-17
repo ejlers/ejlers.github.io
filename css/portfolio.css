@@ -27,7 +27,7 @@ h3 {
     font-weight: 300;
 }
 h4{
-    font-size: 1.3em;
+    font-size: 1.4em;
     font-weight: 300;
     line-height: 1.8em;
 }
@@ -284,8 +284,11 @@ a.alternate-grey::active{
 .start {
     background-color: #fff;
     height: 65vh;
-    max-height: 550px;
+    max-height: 500px;
     min-height: 450px;
+}
+.subheading-textbox {
+    padding-top: 25px;
 }
 .explore{
     cursor:pointer;
@@ -555,6 +558,9 @@ a.alternate-grey::active{
 }
 .padding top{
     margin-top: 55px;
+}
+.black {
+    color: #000;
 }
 .whitepike:after{
     content: '';
