@@ -11,7 +11,7 @@
         var numberOfCases = cases.length / 2;
 
 
-        $( className ).slideToggle( "slow" );
+        $( className ).slideToggle( "fast" );
 
         $.map(cases, function (x) {
             var $x = $(x);
@@ -33,12 +33,6 @@
             scrollTop: $(className).offset().top
         }, 500);
 
-    });
-
-    $("#click-3").click(function (){
-        $('html, body').animate({
-            scrollTop: $("#headline-3").offset().top
-        }, 500);
     });
 });
 
