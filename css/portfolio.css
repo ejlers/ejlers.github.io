@@ -767,3 +767,6 @@ a.alternate-grey::active{
      max-width: 1000px;
      margin: auto;
  }
+ .img-stick {
+     margin-top: -20px;
+ }
