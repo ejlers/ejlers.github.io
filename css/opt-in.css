@@ -84,9 +84,6 @@ a {
     50%{background-position:10% 100%}
     100%{background-position:91% 0%}
 }
-.notifications{
-    max-width: 250px;
-}
 .end {
     background: linear-gradient(270deg, #30CFD0, #330867);
     background-size: 400% 400%;
@@ -134,12 +131,6 @@ a {
 }
 .flex-item {
     
-}
-.phone {
-   max-height: 65vh;
-   padding-top: 20px;
-   padding-bottom: 20px;
-   overflow: hidden;
 }
 
 .make-an-i-os-app-that {
@@ -212,12 +203,12 @@ input[type=submit] {
     .text-top {
         padding-top: 10vh;
     }
+    .phone {
+   max-height: 65vh;
+   padding-top: 20px;
+   padding-bottom: 20px;
+   overflow: hidden;
 }
-
-.boxes {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 40px;
 }
 @media (max-width: 769px) {
     .boxes {
@@ -229,6 +220,15 @@ input[type=submit] {
     }
 }
 
+.boxes {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 40px;
+}
 hr {
     color: #484848;
+}
+
+.notifications{
+    max-width: 250px;
 }
