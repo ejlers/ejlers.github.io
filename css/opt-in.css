@@ -84,7 +84,9 @@ a {
     50%{background-position:10% 100%}
     100%{background-position:91% 0%}
 }
-
+.notifications{
+    max-width: 250px;
+}
 .end {
     background: linear-gradient(270deg, #30CFD0, #330867);
     background-size: 400% 400%;
