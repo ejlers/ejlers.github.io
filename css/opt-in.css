@@ -176,7 +176,6 @@ input[type=submit] {
     text-decoration: none;
     transition: all .15s ease;
 }
-
 @media (min-width: 440px) {
     .input-container {
     width: 380px;
@@ -188,6 +187,8 @@ input[type=submit] {
     width: 100px;
     margin-left: 10px;
     }
+}
+@media (min-width: 766px) {
     .text-padding {
     max-width: 250px;
     }
@@ -197,7 +198,7 @@ input[type=submit] {
     clear: both;
     }
     .text-top {
-        padding-top: 15vh;
+        padding-top: 10vh;
     }
 }
 
@@ -211,7 +212,6 @@ input[type=submit] {
     padding-left: 40px;
     }
     .text-padding {
-    max-width: 250px;
     margin-right: 35px;
     margin-left: 55px;
     }
