@@ -94,7 +94,7 @@ a {
     animation: AnimationName2 30s ease infinite;  
 }
 .grey {
-    background: linear-gradient(270deg, #3B3B3B, #505050);
+    background: linear-gradient(270deg, #373737, #373737);
     background-size: 400% 400%;
     -webkit-animation: AnimationName2 30s ease infinite;
     -moz-animation: AnimationName2 30s ease infinite;
