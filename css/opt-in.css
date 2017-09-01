@@ -10,6 +10,9 @@ body {
 .white {
     color: #ffffff;
 }
+.bold {
+    font-weight: 600;
+}
 mark {
     
 }
@@ -141,13 +144,13 @@ a {
 }
 .we-made-it-easy-for {
     margin-top: 25px;
-    max-width: 500px;
+    max-width: 410px;
 	line-height: 1.5;
     text-align: left;
     color: #fff;
 }
 .be-the-first {
-    margin-top: 50px;
+    margin-top: 20px; 
     color: #fff;
 }
 
