@@ -485,7 +485,7 @@ a.alternate-grey::active{
     width: 180px;
 }
 .maxwidth-small{
-    max-width: 350px;
+    max-width: 300px;
 }
 .maxwidth-big{
     max-width: 1050px;
