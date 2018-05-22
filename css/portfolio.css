@@ -4,45 +4,47 @@
 .material-icons.md-48 { font-size: 48px; }
 
 body { 
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'IBM Plex Mono', monospace;
     background-color: #fff;
-    font-weight: 300;
+    font-weight: 600;
 }
 h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
     font-size: 2.8em;
-    line-height: 1.8em;
+    line-height: 1.4em;
     letter-spacing: -1px;
 }
 h2 {
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 2.2em;
-    font-weight: 300;
+    font-weight: 600;
     line-height: 1.7em;
     color: #000;
 }
 h3 {
+    font-family: 'IBM Plex Mono', monospace;
     color: #000;
-    font-weight: 300;
+    font-weight: 700;
     font-size: 1.6em;
     line-height: 1.7em;
     font-weight: 300;
 }
-h4{
+h4{ 
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 1.4em;
-    font-weight: 300;
-    font-weight: 300;
+    font-weight: 600;
     line-height: 1.8em;
 }
 h5{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'IBM Plex Mono', monospace;
     font-size: 2.2em;
     font-style: italic;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 3px;
 }
 p {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'IBM Plex Mono', monospace;
     color: #000;
     font-weight: 300;
     font-size: 1.1em;
@@ -339,7 +341,7 @@ a.alternate-grey::active{
     padding-bottom: 7%;
 }
 .case-style-donkey {
-    background-color: #425D78;
+    background-color: #222;
     min-height: auto;
     padding: 5%;
     padding-top: 20px;
@@ -424,6 +426,9 @@ a.alternate-grey::active{
 .low{
     z-index:-1;
     position: relative;
+}
+.paragraph-section {
+    max-width: 500px;;   
 }
 .divider-small{
     height: 10px;
@@ -560,7 +565,7 @@ a.alternate-grey::active{
     width: 100%;
     height: 100%;
     position: absolute;
-    background-image: url('../img/donkey/donkey.png');
+    background-image: url('../img/donkey/donkey2.png');
     background-repeat:repeat;
     /*-webkit-background-size:cover;
     -moz-background-size:cover;
@@ -764,7 +769,6 @@ a.alternate-grey::active{
 }
 
  .donkey-first-look-phone{
-     max-width: 1000px;
      margin: auto;
  }
  .img-stick {
