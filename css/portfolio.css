@@ -297,6 +297,7 @@ a.alternate-grey::active{
 }
 .subheading-textbox {
     padding-top: 25px;
+    color: grey;
 }
 .explore{
     cursor:pointer;
