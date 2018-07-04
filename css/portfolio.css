@@ -10,7 +10,7 @@ body {
 }
 h1 {
     font-family: 'IBM Plex Mono', monospace;
-    font-weight: 600;
+    font-weight: 300;
     font-size: 2.8em;
     line-height: 1.4em;
     letter-spacing: -1px;
@@ -18,14 +18,14 @@ h1 {
 h2 {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 2.2em;
-    font-weight: 600;
+    font-weight: 300;
     line-height: 1.7em;
     color: #000;
 }
 h3 {
     font-family: 'IBM Plex Mono', monospace;
     color: #000;
-    font-weight: 700;
+    font-weight: 300;
     font-size: 1.6em;
     line-height: 1.7em;
     font-weight: 300;
@@ -33,7 +33,7 @@ h3 {
 h4{ 
     font-family: 'IBM Plex Mono', monospace;
     font-size: 1.4em;
-    font-weight: 600;
+    font-weight: 300;
     line-height: 1.8em;
 }
 h5{
