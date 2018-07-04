@@ -93,6 +93,9 @@ a:hover{
     font-size: inherit;
     cursor: pointer;
 }
+.line-height-headline{
+    line-height: 1.7em;
+}
 .maxwidth{
     max-width: 500px;
 }
