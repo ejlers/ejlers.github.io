@@ -779,3 +779,31 @@ a.alternate-grey::active{
  .img-stick {
      margin-top: -20px;
  }
+
+
+ .fix_alignment {
+    margin-left: 5px;
+}
+
+.shadow_now {
+    box-shadow: 0px 10px 30px #aeaeae;
+    max-width: 100%;
+}
+
+.grey_bg_parallax {
+    background-image: url(https://unreasonable.studio/img/donkey/map.jpg);
+    width: 100%;
+    border: 15px;
+    border-style: solid;
+    border-color: #222;
+    padding: 40px 20px 40px 20px;
+}
+
+@media (min-width: 800px) {
+    .grey_bg_parallax{
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
