@@ -44,6 +44,10 @@ h4{
     font-weight: 600;
     line-height: 1.8em;
 }
+h4.b {
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
 p {
     font-family: 'PT Serif', serif;
     color: #000;
@@ -88,11 +92,15 @@ ul {
     line-height: 25px;
 }
 a{
-    color: inherit;
+    color: #666;
     font-weight: inherit;
     text-decoration: underline;
     font-size: inherit;
     cursor: pointer;
+}
+.link-in-tag {
+    margin-bottom: 10px;
+    margin-top: 0px;
 }
 a:hover{
     color: #444;
@@ -113,9 +121,6 @@ a:hover{
 .margin-article {
     padding-top: 5%;
 }
-.head {
-
-}
 .subhead {
     padding-bottom: 70px;
     max-width: 560px;
@@ -125,20 +130,11 @@ a:hover{
 }
 .profile-text {
     margin-top: -65px;
-    margin-left: 85px;
+    margin-left: 80px;
     margin-bottom: 0px;
 }
 .sub-profile-text {
     font-weight: 300;
-}
-
-@media (max-width: 800px) {
-    h1{
-        font-size: 2.4em;
-    }
-    h2{
-        font-size: 1.3em;
-    }
 }
 .erfaring-box {
     margin-top: 40px;
@@ -174,4 +170,25 @@ a:hover{
 }
 .divider {
     margin-top: 20px;
+}
+.tagsbottom {
+    padding-right: 110px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+@media (max-width: 800px) {
+    h1{
+        font-size: 2.4em;
+    }
+    h2{
+        font-size: 1.3em;
+    }
+    .content-container {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+    .margin-header {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
 }
