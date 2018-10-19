@@ -13,7 +13,7 @@ h1 {
     font-family: 'PT Sans', sans-serif;
     font-weight: 600;
     font-size: 3.5em;
-    line-height: 1.3em;
+    line-height: 1.3z4em;
     letter-spacing: -1px;
 }
 h2 {
@@ -21,12 +21,10 @@ h2 {
     font-size: 1.7em;
     font-weight: 600;
     line-height: 1.6em;
-    color: #000;
 }
 h3 {
     font-family: 'PT Sans', sans-serif;
     text-transform: uppercase;
-    color: #000;
     font-weight: 600;
     font-size: 1em;
     letter-spacing: 1px;
