@@ -45,6 +45,9 @@ h4.b {
     margin-bottom: 10px;
     margin-top: 0px;
 }
+h4.c {
+    line-height: 1.3em;
+}
 p {
     font-family: 'PT Serif', serif;
     color: #000;
@@ -151,7 +154,21 @@ a:hover{
     padding-bottom: 0.3px;
 }
 #more {display: none;}
+button {
+    background-color: white;
+    color: grey;
+    border-radius: 30px;
+    padding: 5px 15px 5px 15px;
+}
+button:hover {
+    background-color: #f9f9f9;
+    outline:0;
+}
+button:focus {outline:0;}
 
+.margin-top-button {
+    margin-top: 3px;
+}
 .read_more {
     color: #666;
     text-decoration: none;
@@ -173,6 +190,19 @@ a:hover{
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.card {
+    margin-left:-230px;
+    margin-top: 45px;
+    padding: 10px 20px 20px 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 55px 0 rgba(208, 208, 208, 0.4);
+    border-radius: 4px;
+    min-width: 230px;
+}
+.headline-card {
+    margin-top: 15px;
+    line-height: 30px;
+}
 @media (max-width: 800px) {
     h1{
         font-size: 2.4em;
@@ -187,5 +217,14 @@ a:hover{
     .margin-header {
         padding-right: 40px;
         padding-left: 40px;
+    }
+}
+@media (max-width: 1199px) {
+    .card {
+        margin-left: 0;
+        margin-top: -50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        max-width: 300px;
     }
 }
