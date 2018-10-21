@@ -156,6 +156,7 @@ a:hover{
 #more {display: none;}
 button {
     background-color: white;
+    border: solid 1px;
     color: grey;
     border-radius: 30px;
     padding: 5px 15px 5px 15px;
