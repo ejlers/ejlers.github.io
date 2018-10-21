@@ -153,22 +153,23 @@ a:hover{
     padding-top: 10px;
     padding-bottom: 0.3px;
 }
-#more {display: none;}
-button {
+a.button {
     background-color: white;
     border: solid 1px;
     color: grey;
     border-radius: 30px;
     padding: 5px 15px 5px 15px;
+    text-decoration: none;
 }
-button:hover {
+a.button:hover {
     background-color: #f9f9f9;
     outline:0;
 }
 button:focus {outline:0;}
 
 .margin-top-button {
-    margin-top: 3px;
+    margin-top: 20px;
+    margin-bottom: 5px;
 }
 .read_more {
     color: #666;
@@ -227,5 +228,14 @@ button:focus {outline:0;}
         margin-left: 20px;
         margin-right: 20px;
         max-width: 300px;
+    }
+}
+@media (max-width: 354px) {
+    .card {
+        margin-left: 0;
+        margin-top: -70px;
+        margin-left: 20px;
+        margin-right: 20px;
+        min-width:100px;    
     }
 }
