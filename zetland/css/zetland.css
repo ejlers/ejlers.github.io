@@ -237,7 +237,9 @@ button:focus {outline:0;}
     box-shadow: 0px 10px 30px #aeaeae;
     max-width: 100%;
 }
-
+.min_width_row {
+    background-color: #F3F4F7;
+}
 @media (min-width: 800px) {
     .grey_bg_parallax{
         background-attachment: fixed;
@@ -261,6 +263,10 @@ button:focus {outline:0;}
     .margin-header {
         padding-right: 40px;
         padding-left: 40px;
+    }
+    .no-margin {
+        margin-left: -0px;
+        margin-right: -0px;
     }
 }
 @media (max-width: 1199px) {
