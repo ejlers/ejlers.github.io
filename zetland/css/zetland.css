@@ -13,14 +13,14 @@ h1 {
     font-family: 'PT Sans', sans-serif;
     font-weight: 600;
     font-size: 3.5em;
-    line-height: 1.3z4em;
+    line-height: em;
     letter-spacing: -1px;
 }
 h2 {
     font-family: 'PT Sans', sans-serif;
     font-size: 1.7em;
     font-weight: 600;
-    line-height: 1.6em;
+    line-height: 1.5em;
 }
 h3 {
     font-family: 'PT Sans', sans-serif;
@@ -202,10 +202,51 @@ button:focus {outline:0;}
     border-radius: 4px;
     min-width: 230px;
 }
+.card2 {
+    margin-left:-300px;
+    margin-right:60px;
+    margin-top: 45px;
+    padding: 10px 20px 20px 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 55px 0 rgba(208, 208, 208, 0.4);
+    border-radius: 4px;
+    min-width: 230px;
+}
 .headline-card {
     margin-top: 15px;
     line-height: 30px;
 }
+.header-video {
+    margin-top: 5vw;
+}
+.divider-large {
+    margin-top: 25px;
+}
+.grey_bg_parallax {
+    background-image: url(https://unreasonable.studio/img/donkey/map.jpg);
+    width: 100%;
+    border: 0px;
+    border-style: solid;
+    border-color: none;
+    padding: 40px 20px 40px 20px;
+}
+.fix_alignment {
+    margin-left: 5px;
+}
+.shadow_now {
+    box-shadow: 0px 10px 30px #aeaeae;
+    max-width: 100%;
+}
+
+@media (min-width: 800px) {
+    .grey_bg_parallax{
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
 @media (max-width: 800px) {
     h1{
         font-size: 2.4em;
@@ -230,11 +271,25 @@ button:focus {outline:0;}
         margin-right: 20px;
         max-width: 300px;
     }
+    .card2 {
+        margin-left: 0;
+        margin-top: -50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        max-width: 300px;
+    }
 }
 @media (max-width: 354px) {
     .card {
         margin-left: 0;
-        margin-top: -70px;
+        margin-top: -0px;
+        margin-left: 20px;
+        margin-right: 20px;
+        min-width:100px;    
+    }
+    .card2 {
+        margin-left: 0;
+        margin-top: -50px;
         margin-left: 20px;
         margin-right: 20px;
         min-width:100px;    
