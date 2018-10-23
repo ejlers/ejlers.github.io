@@ -1,0 +1,313 @@
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+body { 
+    font-family: 'PT Sans', sans-serif;
+    background-color: #fff;
+    font-weight: 600;
+    padding-bottom: 100px;
+}
+h1 {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 600;
+    font-size: 3.2em;
+    line-height: em;
+    letter-spacing: -1px;
+}
+h2 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.7em;
+    font-weight: 600;
+    line-height: 1.5em;
+}
+h3 {
+    font-family: 'PT Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1em;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+h3.b {
+    margin-top: 0px;
+}
+h4{ 
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1.0em;
+    font-weight: 600;
+    line-height: 1.8em;
+}
+h4.b {
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+h4.c {
+    line-height: 1.3em;
+}
+h4.d {
+    line-height: 1em;
+    margin-top: 15px;
+}
+p {
+    font-family: 'PT Serif', serif;
+    color: #000;
+    font-weight: 300;
+    font-size: 1em;
+    line-height: 1.5em;
+    max-width: 600px;
+}
+p.b {
+    font-family: 'PT Serif', serif;
+    color: #000;
+    font-weight: 300;
+    font-size: 1em;
+}
+ul {
+    padding-left: -100px;
+}
+q {
+    color: #164591;
+    font-weight: 100;
+    font-size: 1.8em;
+    line-height: 33px;
+    padding-top: 4%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 4%;
+}
+mark {
+    color: #333;
+    background-color: #f4f4f4;
+}
+ol {
+    color: #000;
+    font-weight: 400;
+    font-size: 1.1em;
+    line-height: 25px;
+}
+ul {
+    color: #000;
+    font-weight: 400;
+    font-size: 1.1em;
+    line-height: 25px;
+}
+a{
+    color: #666;
+    font-weight: inherit;
+    text-decoration: underline;
+    font-size: inherit;
+    cursor: pointer;
+}
+.link-in-tag {
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+a:hover{
+    color: #444;
+    text-decoration: underline;
+    font-weight: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+.margin-header {
+}
+.header-bg {
+    padding-top: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 55px 0 rgba(208, 208, 208, 0.4);
+    border-radius: 4px;
+    margin-bottom: 50px;
+}
+.no-shadow {
+    box-shadow: none;
+}
+.margin-article {
+    padding-top: 5%;
+}
+.subhead {
+    padding-top: 15px;
+    padding-bottom: 70px;
+    max-width: 560px;
+}
+.profile-picture {
+    max-width: 60px;
+}
+.profile-text {
+    margin-top: -58px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+}
+.sub-profile-text {
+    font-weight: 300;
+}
+.erfaring-box {
+    margin-top: 40px;
+    height: 100%;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: 0 10px 55px 0 rgba(208, 208, 208, 0.4);
+    border-radius: 4px;
+}
+.tag {
+    font-size: 1em;
+    color: #666;
+    border-radius: 4px;
+    background-color: #f9f9f9; 
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 0.3px;
+}
+a.button {
+    background-color: white;
+    border: solid 1px;
+    color: grey;
+    border-radius: 30px;
+    padding: 5px 15px 5px 15px;
+    text-decoration: none;
+}
+a.button:hover {
+    background-color: #f9f9f9;
+    outline:0;
+}
+button:focus {outline:0;}
+
+.margin-top-button {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.read_more {
+    color: #666;
+    text-decoration: none;
+    font-size: 1em;
+    background-color: #fff;
+    border-radius: 20px;
+}
+.video-max-width {
+    max-width: 600px;
+
+}
+.content-container {
+    padding-right: 50px;
+}
+.divider {
+    margin-top: 20px;
+}
+.tagsbottom {
+    padding-right: 110px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card {
+    margin-left:-230px;
+    margin-top: 45px;
+    padding: 10px 20px 20px 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 55px 0 rgba(208, 208, 208, 0.4);
+    border-radius: 4px;
+    min-width: 230px;
+    border: none;
+}
+.card2 {
+    margin-left:-300px;
+    margin-right:60px;
+    margin-top: 45px;
+    padding: 10px 20px 20px 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 55px 0 rgba(208, 208, 208, 0.4);
+    border-radius: 4px;
+    min-width: 230px;
+}
+.headline-card {
+    margin-top: 15px;
+    line-height: 30px;
+}
+.header-video {
+    margin-top: 5vw;
+}
+.divider-large {
+    margin-top: 25px;
+}
+.grey_bg_parallax {
+    background-image: url(https://unreasonable.studio/img/donkey/map.jpg);
+    width: 100%;
+    border: 0px;
+    border-style: solid;
+    border-color: none;
+    padding: 40px 20px 40px 20px;
+}
+.fix_alignment {
+    margin-left: 5px;
+}
+.shadow_now {
+    box-shadow: 0px 10px 30px #aeaeae;
+    max-width: 100%;
+}
+.min_width_row {
+    background-color: #F3F4F7;
+}
+@media (min-width: 800px) {
+    .grey_bg_parallax{
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 800px) {
+    h1{
+        font-size: 2.4em;
+    }
+    h2{
+        font-size: 1.3em;
+    }
+    .content-container {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+    .margin-header {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+    .no-margin {
+        margin-left: -0px;
+        margin-right: -0px;
+    }
+}
+@media (max-width: 991px) {
+    .card {
+        margin-left: 0;
+        margin-top: -50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        max-width: 300px;
+    }
+    .card2 {
+        margin-left: 0;
+        margin-top: -50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        max-width: 300px;
+    }
+}
+@media (max-width: 354px) {
+    .card {
+        margin-left: 0;
+        margin-top: -0px;
+        margin-left: 20px;
+        margin-right: 20px;
+        min-width:100px;    
+    }
+    .card2 {
+        margin-left: 0;
+        margin-top: -50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        min-width:100px;    
+    }
+}
