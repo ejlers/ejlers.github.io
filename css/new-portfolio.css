@@ -259,7 +259,7 @@ button:focus {outline:0;}
 
 @media (max-width: 800px) {
     h1{
-        font-size: 1.9em;
+        font-size: 2em;
     }
     h2{
         font-size: 1.3em;
