@@ -271,8 +271,6 @@ a.back-button {
     min-width: 230px;
     transition: margin-top .4s; /* Animation */
 }
-.card2:hover{
-}
 .card2clickable {
     position: absolute; 
     width:100%;
