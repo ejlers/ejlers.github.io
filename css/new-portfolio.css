@@ -162,22 +162,69 @@ a:hover{
 }
 a.button {
     background-color: white;
+    font-size: 0.9em;
+    min-width: 400px;
+    font-weight: 600;
     border: solid 1px;
-    color: grey;
+    border-color: rgb(220, 220, 220);
+    color: rgb(70, 70, 70);
     border-radius: 30px;
     padding: 5px 15px 5px 15px;
     text-decoration: none;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
 }
 a.button:hover {
-    background-color: #f9f9f9;
+    background-color: rgb(240, 240, 240);
     outline:0;
+    border-color: transparent;
 }
 button:focus {outline:0;}
 
-.margin-top-button {
-    margin-top: 20px;
-    margin-bottom: 5px;
+a.back-button {
+    padding-right: 100px;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-right: 13px;
+    padding-left: 0px;
+    -webkit-transition: background-color 0.5s ease-out;
+    -moz-transition: background-color 0.5s ease-out;
+    -o-transition: background-color 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
+    -webkit-transition: padding-left 0.3s ease-out;
+    -moz-transition: padding-left 0.3s ease-out;
+    -o-transition: padding-left 0.3s ease-out;
+    transition: padding-left 0.3s ease-out;
 }
+    .back-button:hover {
+        background-color: rgb(240, 240, 240);
+        padding-left: 8px;
+    }
+    .icon-back-button {
+        max-width: 100px;
+        margin-top: -2px;
+        margin-left: 4px;
+        margin-right: 5px;
+    }
+    .margin-top-button {
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+    .content-container-back-button {
+        min-width: 300px;
+        margin-bottom: 20px;
+    }
+
+
+
 .read_more {
     color: #666;
     text-decoration: none;
