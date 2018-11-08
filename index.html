@@ -25,7 +25,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="./css/new-portfolio.css">
 		<!--ANIMATE-->
-		<link href="./css/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 		<script src="./js/wow.min.js"></script>
         <script>new WOW().init();</script>
         <!--SCROLL TO ELEMENT-->
@@ -39,16 +39,14 @@
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
 			ga('create', 'UA-10760312-1', 'auto');
 			ga('send', 'pageview');
-
 		</script>
 	</head>
 	<body>
 	<div class="header-bg no-shadow">
 		<div class="container margin-header">
-			<div class="row">
+			<div class="row animated fadeIn wow">
 				<div class="col-xs-12 col-sm-12 col-l-12 col-lg-12">
 					<img src="./img/carl.png" class="profile-picture">
 					<div class="profile-text">
@@ -59,14 +57,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row animated fadeInUp faster wow">
 				<div class="col-xs-12 col-sm-12 col-l-12 col-lg-12 head">
 					<h1 style="max-width:1000px;"></h1>
 					<!--<h1 style="max-width:800px;">Design handler om at løse problemer og skabe resultater folk holder af.</h1>-->
-					<h1 style="max-width:950px;">I believe design is about imagining and creating a better world than yesterday.</h1>
+					<h1 class="" style="max-width:950px;">I believe design is about imagining and creating a better world than yesterday.</h1>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-l-12 col-lg-12 subhead">
-					<h2>I'm a UX/UI designer with experience in leading startup innovation and a background in creating advertising campaigns.</h2>
+					<h2 class="">I'm a UX/UI designer with experience in leading startup innovation and a background in creating advertising campaigns.</h2>
 					<br>
 					<a href="mailto:ejlers@me.com" class="button">Get in touch</a><p style="display: inline; color: white;">_</p><a href="https://www.linkedin.com/in/ejlers/" target="blank" class="button">LinkedIn</a>
 				</div>
@@ -76,7 +74,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-l-12 col-lg-12">	
-					<div class="row">
+					<div class="row animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-8 col-lg-10">
 							<img class="img-fluid" alt="Responsive image" src="./img/donkey/d1.png" alt="Chania">
 						</div>
@@ -93,7 +91,7 @@
 					</div>
 					<br>
 					<br>
-					<div class="row">
+					<div class="row animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-8 col-lg-10">
 							<img class="img-fluid" alt="Responsive image" src="./img/veridu/v2.png" alt="Chania">
 						</div>
@@ -110,7 +108,7 @@
 					</div>
 					<br>
 					<br>
-					<div class="row">
+					<div class="row animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-8 col-lg-10">
 							<img class="img-fluid" alt="Responsive image" src="./img/calc/2.png" alt="Chania">
 						</div>
@@ -127,7 +125,7 @@
 					</div>
 					<br>
 					<br>
-					<div class="row">
+					<div class="row animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-8 col-lg-10">
 							<img class="img-fluid" alt="Responsive image" src="./img/wp/wp1.png" alt="Chania">
 						</div>
@@ -144,7 +142,7 @@
 					</div>
 					<br>
 					<br>
-					<div class="row">
+					<div class="row animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-8 col-lg-10">
 							<img class="img-fluid" alt="Responsive image" src="./img/migogminmad/thumb.png" alt="Chania">
 						</div>
@@ -161,7 +159,7 @@
 					</div>
 					<br>
 					<br>
-					<div class="row">
+					<div class="row animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-8 col-lg-10">
 							<img class="img-fluid" alt="Responsive image" src="./gif/husky_brand_website.gif" alt="Chania">
 						</div>
@@ -179,7 +177,7 @@
 					<br>
 					<br>
 					<br>
-					<div class="row margin-header">
+					<div class="row margin-header animated fadeInUp faster wow">
 						<div class="col-xs-12 col-sm-12 col-l-12 col-lg-12">
 							<h4>Contact</h4>
 							<p class="b" style="max-width: 400px;">Want to know more about me, or do you have an exciting thing we should work on together? Feel free to reach out. I'm easy to get to.</p>
@@ -202,22 +200,4 @@
 			$(".lazy").trigger("sporty");
 		}, 3000);
 	})
-</script>
-
-<script>
-	function myFunction() {
-	var dots = document.getElementById("dots");
-	var moreText = document.getElementById("more");
-	var btnText = document.getElementById("myBtn");
-
-	if (dots.style.display === "none") {
-		dots.style.display = "inline";
-		btnText.innerHTML = "Read more"; 
-		moreText.style.display = "none";
-	} else {
-		dots.style.display = "none";
-		btnText.innerHTML = "Read less"; 
-		moreText.style.display = "inline";
-	}
-	}
 </script>
