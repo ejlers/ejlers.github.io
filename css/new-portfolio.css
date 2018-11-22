@@ -312,6 +312,19 @@ a.back-button {
 .min_width_row {
     background-color: #F3F4F7;
 }
+.nakey_tape_logo {
+    width: 400px;
+    position: absolute;
+    margin-top: -20px;
+    margin-left: 50px;
+}
+@media (max-width: 800px) {
+    .nakey_tape_logo {
+        width: 200px;
+        margin-top: -20px;
+        margin-left: 0px;
+    }
+}
 @media (min-width: 800px) {
     .grey_bg_parallax{
         background-attachment: fixed;
