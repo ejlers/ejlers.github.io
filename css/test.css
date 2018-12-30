@@ -192,10 +192,11 @@ nav ul {list-style-type:none; margin:0; padding:0;}
 }
 .erfaring {
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 5px;
+    margin-right: 5px;
     color: white ;
-    border-radius: 200px;
+    border-radius: 0px;
     border-color: #303544;
     background-color:#8c94aa;
     padding: 0px 15px 0px 15px;
