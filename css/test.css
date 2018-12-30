@@ -6,14 +6,9 @@ body {
     z-index: -1;
     width: 100vw;
     height: 100vh;
-    background-color: #303544
-    /* background-image: url("../test/img/bg.png"); /* The image used */
-    /* background-color: #cccccc; /* Used if the image is unavailable */
-    /* height: 100vh; /* You must set a specified height */
-    /* background-position: center; /* Center the image */
-    /* background-repeat: no-repeat; /* Do not repeat the image */
-    /* background-size: cover; /* Resize the background image to cover the entire container */
+    background-color: #303544;
 }
+
 .header_2 {
     position: relative;
     z-index: -1;
@@ -29,6 +24,12 @@ body {
     min-height: 100vh;
     background-color: #303544;
     padding-bottom: 50px;
+    background-image: url("../test/img/bg.png"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100vh; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
 }
 .header_3 {
     position: relative;
@@ -148,25 +149,6 @@ h4 {
 .divider-text {
     height: 20px;
 }
-@media screen and (max-width: 700px) {
-    .left-spacing {
-        padding-left: 77px;
-    }
-    h1 {
-        font-size: 20px;
-        line-height: 30px;
-    }
-    .header-text {
-        margin-top: -40px;
-    }
-    h2 {
-       font-size: 20px; 
-       line-height: 30px;
-    }
-    .margin-top-correct {
-        margin-top: 0px;
-    }
-}
 .white {
     color: white;
 }
@@ -207,4 +189,46 @@ nav ul {list-style-type:none; margin:0; padding:0;}
     color:#303544;
     background-color: white;
     text-decoration: none;
+}
+.erfaring {
+    display: inline-block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: white ;
+    border-radius: 200px;
+    border-color: #303544;
+    background-color:#8c94aa;
+    padding: 0px 15px 0px 15px;
+    font-family: 'PT Sans';
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.city {
+    color: #303544;
+}
+
+@media screen and (max-width: 700px) {
+    .left-spacing {
+        padding-left: 77px;
+    }
+    h1 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .header-text {
+        margin-top: -40px;
+    }
+    h2 {
+       font-size: 20px; 
+       line-height: 30px;
+    }
+    .margin-top-correct {
+        margin-top: 0px;
+    }
+    .erfaring {
+        font-size: 10px;
+        display: auto;
+        padding: 10px;
+    }
 }
