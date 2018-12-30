@@ -15,7 +15,7 @@ body {
     width: 100vw;
     min-height: 100vh;
     background-color: #ffffff;
-    padding-bottom: 50px;
+    padding-bottom: 100px;  
 }
 .header_2_1 {
     position: relative;
@@ -23,10 +23,9 @@ body {
     width: 100vw;
     min-height: 100vh;
     background-color: #303544;
-    padding-bottom: 50px;
+    padding-bottom: 100px;
     background-image: url("../test/img/bg.png"); /* The image used */
     background-color: #cccccc; /* Used if the image is unavailable */
-    height: 100vh; /* You must set a specified height */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
