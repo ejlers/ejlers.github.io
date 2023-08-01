@@ -71,7 +71,7 @@
 				let clickCount = 0;
 				const texts = [
 					'At the moment I\'m looking for new opportunities. Let\'s grab a coffee where I can show you my work in detail and we can talk about what I can do for you.',
-					'I\'m not sure what else to write here so from now on it\'s Chat GPT: Carl Ejlers blends creativity with strategy to deliver visually captivating and impactful designs. With a rich career spanning various innovative startups in Copenhagen and abroad, Carl\'s work is grounded in user-centric design principles and strategic business goals. His leadership and collaborative skills are notable, contributing to comprehensive and effective design solutions. Dive deeper into his extensive experience and prowess in the design landscape through his LinkedIn profile.',
+					'I\'m not sure what else to write here so from now on it\'s Chat GPT: Carl Ejlers blends creativity with strategy to deliver visually captivating and impactful designs. With a rich career spanning various innovative startups in Copenhagen and abroad, Carl\'s work is grounded in user-centric design principles and strategic business goals. His leadership and collaborative skills are notable, contributing to comprehensive and effective design solutions. Dive deeper into his extensive experience through his LinkedIn profile.',
 					'Chat GPT continued: Carl is always excited to embark on new journeys and create meaningful products that resonate with users and if you\'re interested in discussing potential collaborations or opportunities... ME: No seriously, I\'d love to connect over a cup of coffee.'
 				];
 				const tellMeMoreButton = document.querySelector('.button-container .btn:first-child');
@@ -96,6 +96,10 @@
 						h1Element.textContent = ''; // instant deletion
 						typeText(h1Element, texts[clickCount], 0);
 						clickCount++;
+					}
+
+					if (clickCount === 1) {
+						tellMeMoreButton.textContent = 'Continue ...'; // Change button text after first click
 					}
 
 					if (clickCount === 3) {
