@@ -38,20 +38,18 @@
 		<div class="info-box">
 			<div class="top-section">
 				<img class="avatar" src="./img/avatar.jpg" alt="Avatar">
+				<div class="unread-message-dot">1</div>
 				<div class="info">
 					<p class="name">Carl Ejlers</p>
 					<p class="title">Senior Product Designer</p>
-				</div>
+				</div>	
 			</div>
-			<div class="text-section">
-				<h1>Hi there. I have 10+ years of experience working with startup innovation through product design.</h1>
-				<div class="primary-btn-container">
-				<!--<h2>Pretentious level 1 - <a href="">Increase</a></h2>
-				<h2>Updated: August 1, 2023</h2>-->
-				</div>
+			<div class="text-section hidden">
+				<h1></h1>
 			</div>
-			<div class="button-container">
-				<button class="btn">Tell me more</button>
+			<button id="open-chat" class="btn openchat-btn">Start chat</button>
+			<div class="button-container hidden">
+				<button class="btn">Tell me more</button>	
 				<button class="btn" >Get in touch</button>
 			</div>
 		</div>
@@ -66,58 +64,121 @@
 			}
 			
 			setInterval(nextSlide, 5000); // Change slide every 5 seconds
-			</script>
-			<script>
-				let clickCount = 0;
-				const texts = [
-					'At the moment I\'m looking for new opportunities. Let\'s grab a coffee where I can show you my work in detail and we can talk about what I can do for you.',
-					'I\'m not sure what else to write here so from now on it\'s Chat GPT: Carl Ejlers blends creativity with strategy to deliver visually captivating and impactful designs. With a rich career spanning various innovative startups in Copenhagen and abroad, Carl\'s work is grounded in user-centric design principles and strategic business goals. His leadership and collaborative skills are notable, contributing to comprehensive and effective design solutions. Dive deeper into his extensive experience through his LinkedIn profile.',
-					'Chat GPT continued: Carl is always excited to embark on new journeys and create meaningful products that resonate with users and if you\'re interested in discussing potential collaborations or opportunities... ME: No seriously, I\'d love to connect over a cup of coffee.'
-				];
-				const tellMeMoreButton = document.querySelector('.button-container .btn:first-child');
-				const getInTouchButton = document.querySelector('.button-container .btn:nth-child(2)');
-				let isTyping = false;
-				let inTouchText = 'Let\'s talk! Shoot me an email or check out my CV and connect with me on LinkedIn.';
-
-				function typeText(element, text, index) {
-					if (index < text.length) {
-						element.textContent += text.charAt(index);
-						setTimeout(() => typeText(element, text, index + 1), 5);
-					} else {
-						element.innerHTML = element.textContent.replace('LinkedIn', '<a href="https://www.linkedin.com/in/ejlers/" target="_blank" rel="noopener noreferrer">LinkedIn</a>').replace('email', '<a href="mailto:ejlers@me.com">email</a>').replace('CV', '<a href="https://docs.google.com/document/d/1QHB-UN1QAZNNeqNeSKFEwKYZBvKIy3GgnAYZfENN65Y/edit?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>');
-						isTyping = false;
-					}
+		</script>
+		<script>
+			let clickCount = 0;
+			const texts = [
+				'I\'ve worked with multiple startups over the years, latest as Lead Product Designer at The Org. Let\'s grab a coffee where I can show you my work in detail and we can talk about what I can do for you.',
+				'Instead of me bragging on, I asked Chat GPT to do it for me: "Carl blends creativity with strategy to deliver visually captivating and impactful digital products. With a rich career spanning various innovative startups in Copenhagen and abroad, Carl\'s work is grounded in user-centric design principles and strategic business goals. His leadership and collaborative skills are notable, contributing to comprehensive and effective design solutions."',
+				'Thanks! Very nice of you to say. If you want to know more about me, why don\'t we grab a coffee sometime?'
+			];
+			const tellMeMoreButton = document.querySelector('.button-container .btn:first-child');
+			const getInTouchButton = document.querySelector('.button-container .btn:nth-child(2)');
+			let isTyping = false;
+			let inTouchText = 'Let\'s talk! Shoot me an email. We sould also connect on LinkedIn. You can also download my CV here.';
+		
+			function typeText(element, textArray, index) {
+				if (index < textArray.length) {
+					element.textContent += textArray[index] + " ";
+					setTimeout(() => typeText(element, textArray, index + 1), 20);
+				} else {
+					element.innerHTML = element.textContent.replace('LinkedIn', '<a href="https://www.linkedin.com/in/ejlers/" target="_blank" rel="noopener noreferrer">LinkedIn</a>').replace('email', '<a href="mailto:ejlers@me.com">email</a>').replace('CV', '<a href="https://docs.google.com/document/d/1QHB-UN1QAZNNeqNeSKFEwKYZBvKIy3GgnAYZfENN65Y/edit?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a>');
+					isTyping = false;
 				}
+			}
+		
+			tellMeMoreButton.addEventListener('click', function() {
+				if (!isTyping && clickCount < 3) {
+					isTyping = true;
+					let h1Element = document.querySelector('.text-section h1');
+					h1Element.textContent = ''; // instant deletion
+					typeText(h1Element, texts[clickCount].split(' '), 0);
+					clickCount++;
+				}
+		
+				if (clickCount === 1) {
+					tellMeMoreButton.textContent = 'Wait, go on...'; // Change button text after first click
+				}
+		
+				if (clickCount === 2) {
+					tellMeMoreButton.textContent = 'Wow, I\'m impressed!'; // Change button text after first click
+				}
+		
+				if (clickCount === 3) {
+					tellMeMoreButton.style.display = 'none';
+				}
+			});
+		
+			getInTouchButton.addEventListener('click', function() {
+				if (!isTyping) {
+					isTyping = true;
+					let h1Element = document.querySelector('.text-section h1');
+					h1Element.textContent = ''; // instant deletion
+					typeText(h1Element, inTouchText.split(' '), 0);
+					getInTouchButton.style.display = 'none'; // Hide the 'Get in touch' button
+					tellMeMoreButton.style.display = 'none'; // Hide the 'Tell me more' button
+				}
+			});
+		</script>
+		
+		<script>
+			document.getElementById('open-chat').addEventListener('click', function() {
+				var textSection = document.querySelector('.text-section');
+				var buttonContainer = document.querySelector('.button-container');
+				
+				textSection.classList.remove('hidden');
+				textSection.style.display = 'block';  // Or 'flex' if you need a flexbox layout
 
-				tellMeMoreButton.addEventListener('click', function() {
-					if (!isTyping && clickCount < 3) {
-						isTyping = true;
-						let h1Element = document.querySelector('.text-section h1');
-						h1Element.textContent = ''; // instant deletion
-						typeText(h1Element, texts[clickCount], 0);
-						clickCount++;
-					}
+				buttonContainer.classList.remove('hidden');
+				buttonContainer.style.display = 'flex'; // Assuming you want these to be flex containers
 
-					if (clickCount === 1) {
-						tellMeMoreButton.textContent = 'Continue ...'; // Change button text after first click
-					}
+				this.classList.add('hidden'); // Hide the "Open Chat" button
+			});
+			document.getElementById('open-chat').addEventListener('click', function() {
+				var textSection = document.querySelector('.text-section');
+				var buttonContainer = document.querySelector('.button-container');
+				var unreadDot = document.querySelector('.unread-message-dot');
 
-					if (clickCount === 3) {
-						tellMeMoreButton.style.display = 'none';
-					}
-				});
+				textSection.classList.remove('hidden');
+				textSection.style.display = 'block';  // Or 'flex' if you need a flexbox layout
 
-				getInTouchButton.addEventListener('click', function() {
-					if (!isTyping) {
-						isTyping = true;
-						let h1Element = document.querySelector('.text-section h1');
-						h1Element.textContent = ''; // instant deletion
-						typeText(h1Element, inTouchText, 0);
-						getInTouchButton.style.display = 'none'; // Hide the 'Get in touch' button
-						tellMeMoreButton.style.display = 'none'; // Hide the 'Tell me more' button
-					}
-				});
-			</script>
+				buttonContainer.classList.remove('hidden');
+				buttonContainer.style.display = 'flex'; // Assuming you want these to be flex containers
+
+				unreadDot.style.display = 'none'; // Hide the unread message dot
+				
+				this.classList.add('hidden'); // Hide the "Open Chat" button
+			});
+		</script>
+		
+		<script>
+			// Typing effect function
+			function typeEffect(element, textArray, index) {
+				if (index < textArray.length) {
+					element.textContent += textArray[index] + ' ';
+					setTimeout(() => typeEffect(element, textArray, index + 1), 20); // Adjust the delay to your liking
+				}
+			}
+		
+			document.getElementById('open-chat').addEventListener('click', function() {
+				var textSection = document.querySelector('.text-section');
+				var buttonContainer = document.querySelector('.button-container');
+				var initialText = 'Hi there. I have 10+ years of experience working with startup innovation through product design. At the moment I\'m looking for new opportunities both full time and freelance.';
+				
+				textSection.classList.remove('hidden');
+				textSection.style.display = 'block'; // Or 'flex' if you need a flexbox layout
+		
+				buttonContainer.classList.remove('hidden');
+				buttonContainer.style.display = 'flex'; // Assuming you want these to be flex containers
+		
+				this.classList.add('hidden'); // Hide the "Open Chat" button
+		
+				// Type the initial text with typewriter effect
+				var h1Element = document.querySelector('.text-section h1');
+				h1Element.textContent = ''; // Empty the h1 element before typing
+				typeEffect(h1Element, initialText.split(' '), 0);
+			});
+		</script>
 	</body>
 </html>
 
