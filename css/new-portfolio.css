@@ -56,6 +56,26 @@ body, html {
     border-radius: 10px;
     border: 1px solid #d4dfee;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05); /* This line adds a soft shadow with blur */
+    animation: slideup 0.5s ease-out forwards;
+}
+
+@keyframes slideup {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 20px));
+    }
+    20% {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 20px));
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.info-box {
+    animation: slideup 0.5s ease-out;
 }
 
 .top-section {
@@ -115,14 +135,6 @@ body, html {
 
 a {
     color: #3d72c2;
-}
-
-h3 {
-    font-size: 14px; /* Adjust as needed */
-    word-wrap: break-word;
-    font-weight: normal;
-    font-size: 14px;
-    color: black; /* Adjust as needed */
 }
 
 .text-section {
@@ -189,7 +201,35 @@ h3 {
 }
 
 .openchat-btn:hover {
-    background-color: rgb(19, 19, 19);
+    background-color: #255296;
+}
+
+.chat-again {
+    display: none;
+    background-color: #d4dfee;
+    color: #3261a7;
+    font-weight: normal;
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(0,0,0,0);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 15px 2px rgba(0,140,186,.5);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(0,0,0,0);
+    }
 }
 
 .text-section, .button-container {
@@ -198,4 +238,71 @@ h3 {
 
 .hidden {
     display: none;
+}
+
+.span-section {
+    width: auto;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 5px;
+    background-color: #e1ebf8;
+    border-radius: 10px;
+}
+
+.image-link {
+    display: flex;
+    align-items: center;
+}
+
+.image-link img {
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.app-image {
+    height: 24px;
+    width: auto;
+}
+
+.gpt-section {
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0px;
+    background-color: #444653;
+    border-radius: 10px;
+}
+
+.gpt-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gpt-header-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0; /* Prevents the image from shrinking */
+    height: 50px; /* Adjust this value to suit your needs */
+    width: auto;
+}
+
+h3 {
+    font-size: 14px;
+    color: #444653;
+    line-height: 1.5;
+    word-wrap: break-word;
+    font-weight: normal;
+    color: #D2D5DA;
+}
+
+.white-text {
+    color: white;
 }
