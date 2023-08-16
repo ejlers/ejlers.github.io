@@ -1,0 +1,424 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.cover-picture {
+    width: 100%;
+    height: auto;   /* Reset any height */
+    min-height: 0; /* Override any min-height if set somewhere else */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.cover-picture img {
+    height: auto; 
+    width: 100%;
+}
+
+.content {
+    max-width: 400px;
+    min-width: 270px;
+    overflow-y: hidden;
+    border-left: 1px solid rgb(231, 231, 231); /* A light border to separate the columns */
+    height: 100%;
+    padding-top: 50px;
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-bottom: 50px;
+    gap: 10px;
+    overflow-y: scroll;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+
+.profile-picture {
+    margin-right: 16px;
+}
+
+.profile-picture img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Ensure left alignment */
+    margin-top: -14px;
+}
+
+.name {
+    color: #252525;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 2px;
+}
+
+.title {
+    color: #535353;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.description-container {
+    padding: 0px; /* This gives some spacing around the description. Adjust as necessary. */
+    margin-bottom: 30px;
+}
+
+.description-intro {
+    color: #5e5e5e;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+}
+
+.buttons-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.custom-button {
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    background: #F6F6F6;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Removed justify-content: center; to let content align to the start */
+}
+
+.custom-button:hover {
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    background: #e4e4e4;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    /* Removed justify-content: center; to let content align to the start */
+}
+
+.button-text {
+    color: #595959;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 22px;
+    width: auto;
+    text-align: left;
+    margin-left: 10px;
+    flex-grow: 1; /* This ensures the text section fills out the remaining space */
+}
+
+.button-icon {
+    display: flex;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-container a.custom-button {
+    text-decoration: none;
+    /* other styling as needed */
+}
+
+.buttons-container a.custom-button,
+.buttons-container a.custom-button:hover,
+.buttons-container a.custom-button:active {
+    text-decoration: none;
+    /* other styling as needed */
+}
+
+@media (max-width: 463px) {
+    .buttons-container {
+        flex-direction: column;
+        align-items: stretch; /* Makes the buttons take full width of the container */
+    }
+    
+    .custom-button {
+        margin-bottom: 5px; /* This adds a space between the buttons when stacked vertically, adjust as needed */
+    }
+
+    .content {
+        max-width: 500px;
+        width: auto;
+        border-left: 1px solid #ccc; /* A light border to separate the columns */
+        height: 100%;
+        padding-top: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 50px;
+        gap: 10px;
+        overflow-y: scroll;
+    }
+}
+
+/* Mobile view */
+@media (max-width: 1000px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;  /* Allow it to grow/shrink based on content */
+        overflow-y: scroll;
+        overflow-x: hidden;
+        justify-content: center; /* Centers children vertically */
+        align-items: center;     /* Centers children horizontally */
+    }
+
+    .cover-picture {
+        width: auto;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .content {
+        width: auto;
+        margin: 0 auto; /* This will center the .content horizontally */
+        height: auto;
+        border-left: none;
+        overflow-y: auto;
+    }
+
+    .slide {
+        display: none;  /* hide all slides by default */
+        max-height: calc(100vh - 70px); 
+        width: 100%;    /* set this to 100% */
+        object-fit: cover;
+        }
+        
+    .slide > img {
+        height: 275px;
+        width: auto; 
+    }
+    .cover-picture {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; /* in case there are other elements or paddings that might push the boundaries */
+    }
+    .cover-picture img {
+        width: 100%;   /* Full viewport width */
+        height: auto;  /* Maintain aspect ratio */
+    }
+}
+
+.cv-section {
+    width: 100%;
+    padding: 20px 0; /* Adjust if necessary */
+    margin-bottom: 50px;
+}
+
+.cv-entry {
+    margin-bottom: 30px; /* Space between each CV entry, adjust if necessary */
+}
+
+.cv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.workplace {
+    margin: 0;
+    color: #252525;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; /* Adjust if you want a different size for h1 */
+    font-weight: 600;
+}
+
+.green {
+    color: #2CC47B;
+}
+
+.date {
+    margin: 0;
+    color: #747474;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; /* Adjust if you want a different size for h2 */
+    font-weight: 400;
+}
+
+.position {
+    color: #878787;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.description {
+    color: #747474;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+    margin-top: 10px;
+}
+
+.cv-headline {
+    color: #878787;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+/* Slideshow */
+
+.cover-picture {
+    width: 100;
+    height: auto;   /* Reset any height */
+    min-height: 0; /* Override any min-height if set somewhere else */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.slideshow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 100%; /* Ensures it takes up the full height of its parent, .cover-picture */
+    width: 100%;
+    background-color: #EBEBEB;
+}
+
+.slides-wrapper {
+    flex-grow: 1; /* Allows this container to take up all available space */
+    display: flex;
+    background-color: #F5F5F5;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+.slide {
+    display: none;  /* hide all slides by default */
+    max-height: auto; /* Subtracting the approximate height of the navigation container, adjust if needed */
+    width: auto;
+}
+
+.slideshow-navigation {
+    display: flex;
+    flex-wrap: wrap; /* Allow elements to wrap to the next line */
+    justify-content: center; /* Change from space-between to center */
+    align-items: center;
+    width: 100%; 
+    background: #EBEBEB; 
+    padding: 15px 15px; /* Adjusted padding */
+    box-sizing: border-box;
+    gap:5px;
+}
+
+.slide-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;  /* Adjust as needed for spacing between the icon and the title */
+}
+
+.prev-slide, .next-slide {
+    margin: 0px 10px; /* Add horizontal margin for spacing */
+    background: none; /* Remove the background */
+    border: none;
+    padding: 5px; /* Reset padding */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+}
+
+.prev-slide:hover, .next-slide:hover {
+    margin: 0px 10px; /* Add horizontal margin for spacing */
+    background: #DEDEDE; /* Remove the background */
+    border: none;
+    padding: 5px; /* Reset padding */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+}
+
+.prev-slide img, .next-slide img {
+    max-height: 24px; /* or any size you prefer */
+    width: auto;
+}
+
+.slide-info {
+    display: flex; /* Change from flex-direction: column to the default row */
+    align-items: center;
+}
+
+.slide-h2 {
+    font-weight: 600;
+    color: #252525;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.slide-p {
+    width: 100%; /* Make it span the full width */
+    text-align: center; /* Center align the text */
+    color: #747474;
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px; /* 178.571% */
+}
+
+.slide-h2,
+.slide-p {
+    margin: 0;  /* Reset default margins */
+}
+
+@media (max-width: 768px) {
+    .slideshow-navigation {
+        overflow: hidden; /* allows scrolling if there's overflow */
+        box-sizing: none;
+    }
+}
+
