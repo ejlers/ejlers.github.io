@@ -166,6 +166,7 @@
 		<script>
 			let slideIndex = 0;
 			let autoSlideInterval;
+			let manualTriggered = false; // Added flag to check if manual navigation was triggered
 
 			const slideTitles = [
 				"Donkey Republic",
@@ -209,20 +210,20 @@
 			// Start the automatic slide show only if the browser width is more than 900px
 			if (window.innerWidth > 900) {
 				autoSlideInterval = setInterval(() => {
-					showSlide(++slideIndex);
+					if(!manualTriggered) {  // Only auto navigate if manual navigation wasn't triggered
+						showSlide(++slideIndex);
+					}
 				}, 5000);  // 5 seconds
 			}
 
 			function manualNavigation(n) {
 				clearInterval(autoSlideInterval); // Stop the automatic slide show when user navigates manually
+				manualTriggered = true; // Set the flag
 				showSlide(n);
 
-				// Optional: Restart auto-advancement under the same width condition
-				if (window.innerWidth > 900) {
-					autoSlideInterval = setInterval(() => {
-						showSlide(++slideIndex);
-					}, 5000);
-				}
+				setTimeout(() => { // Reset the flag after a delay (5 seconds in this case)
+					manualTriggered = false;
+				}, 5000);
 			}
 
 			document.querySelector(".prev-slide").addEventListener("click", () => {
