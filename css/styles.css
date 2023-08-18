@@ -353,15 +353,9 @@ body, html {
     gap:5px;
 }
 
-.slide-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;  /* Adjust as needed for spacing between the icon and the title */
-}
-
 .prev-slide, .next-slide {
     margin: 0px 10px; /* Add horizontal margin for spacing */
-    background: none; /* Remove the background */
+    background: #DEDEDE; /* Remove the background */
     border: none;
     padding: 5px; /* Reset padding */
     cursor: pointer;
@@ -372,7 +366,7 @@ body, html {
 
 .prev-slide:hover, .next-slide:hover {
     margin: 0px 10px; /* Add horizontal margin for spacing */
-    background: #DEDEDE; /* Remove the background */
+    background: #d3d3d3; /* Remove the background */
     border: none;
     padding: 5px; /* Reset padding */
     cursor: pointer;
@@ -389,6 +383,9 @@ body, html {
 .slide-info {
     display: flex; /* Change from flex-direction: column to the default row */
     align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Allow it to take up available space */
+    width: 70%;  /* Set width to 70% of the container it's in */
 }
 
 .slide-h2 {
@@ -396,6 +393,12 @@ body, html {
     color: #252525;
     margin-left: 40px;
     margin-right: 40px;
+}
+
+.slide-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;  /* Adjust as needed for spacing between the icon and the title */
 }
 
 .slide-p {
