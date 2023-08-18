@@ -365,7 +365,7 @@ body, html {
 }
 
 .prev-slide:hover, .next-slide:hover {
-    margin: 0px 10px; /* Add horizontal margin for spacing */
+    margin: 0px 0px; /* Add horizontal margin for spacing */
     background: #d3d3d3; /* Remove the background */
     border: none;
     padding: 5px; /* Reset padding */
@@ -424,3 +424,4 @@ body, html {
         box-sizing: none;
     }
 }
+
