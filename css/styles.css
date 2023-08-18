@@ -354,7 +354,7 @@ body, html {
 }
 
 .prev-slide, .next-slide {
-    margin: 0px 10px; /* Add horizontal margin for spacing */
+    margin: 0px 0px; /* Add horizontal margin for spacing */
     background: #DEDEDE; /* Remove the background */
     border: none;
     padding: 5px; /* Reset padding */
