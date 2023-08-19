@@ -61,7 +61,7 @@
 				</div>
 				<div class="description-container">
 					<p class="description-intro">
-						I take pride in making experiences that feel novel yet familiar to the user. What I enjoy the most is working in small efficient teams where I can be a part of taking a project from a strategic vision to a final product.
+						I take pride in making experiences that feel novel yet familiar to the user. What I enjoy the most is to work in efficient teams where I can take a project from a strategic vision to a final product.
 					</p>
 				</div>
 				<div class="buttons-container">
@@ -236,6 +236,13 @@
 
 			document.querySelector(".next-slide").addEventListener("click", () => {
 				manualNavigation(++slideIndex);
+			});
+			document.addEventListener("keydown", function(event) {
+				if (event.key === "ArrowRight") {  // Check if the right arrow key was pressed
+					manualNavigation(++slideIndex);
+				} else if (event.key === "ArrowLeft") {  // Check if the left arrow key was pressed
+					manualNavigation(--slideIndex);
+				}
 			});
 		</script>
 	</body>
