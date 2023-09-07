@@ -93,7 +93,7 @@ body, html {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    line-height: 25px;
+    line-height: 24px;
 }
 
 .buttons-container {
@@ -287,7 +287,7 @@ body, html {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 400;
-    line-height: 25px;
+    line-height: 23px;
     margin-top: 10px;
 }
 
@@ -351,11 +351,12 @@ body, html {
     padding: 15px 15px; /* Adjusted padding */
     box-sizing: border-box;
     gap:5px;
+    position: relative;  /* Make sure it's relative to add the loader bar inside */
 }
 
 .prev-slide, .next-slide {
     margin: 0px 0px; /* Add horizontal margin for spacing */
-    background: #DEDEDE; /* Remove the background */
+    background: #fff; /* Remove the background */
     border: none;
     padding: 5px; /* Reset padding */
     cursor: pointer;
@@ -424,4 +425,5 @@ body, html {
         box-sizing: none;
     }
 }
+
 
