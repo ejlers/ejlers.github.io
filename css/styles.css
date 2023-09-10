@@ -260,7 +260,7 @@ body, html {
     color: #252525;
     font-family: 'Inter', sans-serif;
     font-size: 16px; /* Adjust if you want a different size for h1 */
-    font-weight: 600;
+    font-weight: 600; /* This sets the font weight to Semi-Bold */
 }
 
 .green {
@@ -279,12 +279,12 @@ body, html {
     color: #878787;
     font-family: 'Inter', sans-serif;
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: 6   px;
     font-weight: 500;
 }
 
 .description {
-     color: #979797;
+    color: #8d8d8d;
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 400;
