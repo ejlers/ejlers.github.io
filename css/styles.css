@@ -27,9 +27,8 @@ body, html {
 }
 
 .content {
-    max-width: 400px;
+    max-width: 20%;
     min-width: 270px;
-    overflow-y: hidden;
     border-left: 1px solid rgb(231, 231, 231); /* A light border to separate the columns */
     height: 100%;
     padding-top: 40px;
@@ -158,30 +157,6 @@ body, html {
     /* other styling as needed */
 }
 
-@media (max-width: 463px) {
-    .buttons-container {
-        flex-direction: column;
-        align-items: stretch; /* Makes the buttons take full width of the container */
-    }
-    
-    .custom-button {
-        margin-bottom: 5px; /* This adds a space between the buttons when stacked vertically, adjust as needed */
-    }
-
-    .content {
-        max-width: 500px;
-        width: auto;
-        border-left: 1px solid #ccc; /* A light border to separate the columns */
-        height: 100%;
-        padding-top: 50px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 50px;
-        gap: 10px;
-        overflow-y: scroll;
-    }
-}
-
 /* Mobile view */
 @media (max-width: 1000px) {
     .container {
@@ -208,7 +183,7 @@ body, html {
     }
 
     .content {
-        width: auto;
+        max-width:500px;
         margin: 0 auto; /* This will center the .content horizontally */
         height: auto;
         border-left: none;
@@ -236,6 +211,32 @@ body, html {
     .cover-picture img {
         width: 100%;   /* Full viewport width */
         height: auto;  /* Maintain aspect ratio */
+    }
+}
+
+
+@media (max-width: 463px) {
+    .buttons-container {
+        flex-direction: column;
+        align-items: stretch; /* Makes the buttons take full width of the container */
+    }
+    
+    .custom-button {
+        margin-bottom: 5px; /* This adds a space between the buttons when stacked vertically, adjust as needed */
+    }
+
+    .content {
+        min-width: none;
+        max-width: 500px;
+        width: auto;
+        border-left: 1px solid #ccc; /* A light border to separate the columns */
+        height: 100%;
+        padding-top: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 50px;
+        gap: 10px;
+        overflow-y: scroll;
     }
 }
 
