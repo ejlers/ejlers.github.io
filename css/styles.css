@@ -354,7 +354,7 @@ body, html {
     background: #F5F5F5; 
     padding: 1% 9% 5% 9%; /* Adjusted padding */
     box-sizing: border-box;
-    gap:10px;
+    gap: 10px;
     position: relative;  /* Make sure it's relative to add the loader bar inside */
 }
 
@@ -409,10 +409,10 @@ body, html {
 .slide-p {
     width: 100%; /* Make it span the full width */
     text-align: center; /* Center align the text */
-    color: #747474;
+    color: #888888;
     text-align: center;
     font-family: Inter;
-    font-size: 14px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 400;
     line-height: 25px; /* 178.571% */
@@ -427,12 +427,24 @@ body, html {
     .slideshow-navigation {
         overflow: hidden; /* allows scrolling if there's overflow */
         box-sizing: none;
+        gap: 10px;
     }
     .prev-slide, .next-slide {
         padding: 5px; /* Reset padding */
     }
     .slide-h2 {
         font-size: 16px;
+    }
+    .slide-p {
+        width: 100%; /* Make it span the full width */
+        text-align: center; /* Center align the text */
+        color: #747474;
+        text-align: center;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 25px; /* 178.571% */
     }
 }
 
