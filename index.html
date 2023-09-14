@@ -298,6 +298,27 @@
 				manualNavigation(--slideIndex, "prev");
 			}
 		});
+		let startX = 0; // to store starting touch x coordinate
+
+		document.addEventListener("touchstart", (e) => {
+			startX = e.touches[0].clientX; // store x coordinate of touchstart
+		}, false);
+
+		document.addEventListener("touchend", (e) => {
+			let endX = e.changedTouches[0].clientX;  // get x coordinate of touchend
+			let diffX = startX - endX;
+
+			// if swipe distance is greater than a threshold value, say 50 pixels, then navigate
+			if (Math.abs(diffX) > 50) {
+				if (diffX > 0) {  
+					// swiped left, so go to next slide
+					manualNavigation(++slideIndex, "next");
+				} else {  
+					// swiped right, so go to previous slide
+					manualNavigation(--slideIndex, "prev");
+				}
+			}
+		}, false);
 	</script>
 	</body>
 </html>
