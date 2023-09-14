@@ -41,13 +41,13 @@
 			<div class="cover-picture">
 				<div class="slideshow-container">
 					<div class="slides-wrapper">
-						<img class="slide" src="./img/theorg.png" alt="Slide 1" style="display:block;">
-						<img class="slide" src="./img/donkey.png" alt="Slide 2" style="display:block;">
-						<img class="slide" src="./img/trackman-launcher-slide.png" alt="Slide 3" style="display:block;">
-						<img class="slide" src="./img/TV2.png" alt="Slide 5" style="display:block;">
-						<img class="slide" src="./img/theorg-vision.png" alt="Slide 4" style="display:block;">
-						<img class="slide" src="./img/OK.png" alt="Slide 7" style="display:block;">
-						<img class="slide" src="./img/Trackman.png" alt="Slide 8" style="display:block;">
+						<img class="slide" src="./img/theorg.png" alt="Slide 1">
+						<img class="slide" src="./img/donkey.png" alt="Slide 2">
+						<img class="slide" src="./img/trackman-launcher-slide.png" alt="Slide 3">
+						<img class="slide" src="./img/TV2.png" alt="Slide 5" >
+						<img class="slide" src="./img/theorg-vision.png" alt="Slide 4">
+						<img class="slide" src="./img/OK.png" alt="Slide 7">
+						<img class="slide" src="./img/Trackman.png" alt="Slide 8">
 					</div>
 					<div class="slideshow-navigation">
 						<button class="prev-slide">
@@ -187,7 +187,8 @@
 		<script>
 			let slideIndex = 0;
 			let autoSlideInterval;
-			let manualTriggered = false; // Added flag to check if manual navigation was triggered
+			let manualTriggered = false; 
+			let isFirstLoad = true;  // New flag to track the initial load
 
 			const slideTitles = [
 
@@ -221,58 +222,83 @@
 				"./img/trackman-icon.png"
 			];
 
-			function showSlide(n) {
+			function showSlide(n, direction="next") {
 				let slides = document.querySelectorAll(".slide");
 				if (n >= slides.length) slideIndex = 0;
 				if (n < 0) slideIndex = slides.length - 1;
-				
+
+				let currentSlide = slides[slideIndex];
+
 				for (let slide of slides) {
-					slide.style.display = "none";
+					if (slide !== currentSlide) {
+						slide.style.transform = "translateX(0)";
+						slide.style.display = "none"; 
+					}
 				}
 
-				slides[slideIndex].style.display = "block";
+				// Prepare the next one to be displayed based on the direction
+				currentSlide.style.display = "block";
+
+				if (isFirstLoad) {
+					currentSlide.style.transform = "translateX(0)";
+					currentSlide.style.opacity = "1";  // Ensure it's fully visible on first load
+					isFirstLoad = false;
+				} else {
+					currentSlide.style.transform = direction === "next" ? "translateX(100%)" : "translateX(-100%)";
+					currentSlide.style.opacity = "0"; // Start with opacity 0
+
+					// Force a reflow to make sure the styles have been applied
+					currentSlide.getBoundingClientRect();
+
+					// Slide in the current slide and fade in
+					currentSlide.style.transform = "translateX(0)";
+					currentSlide.style.opacity = "1";
+				}
+
+				// Update the other content
 				document.getElementById('slideTitle').textContent = slideTitles[slideIndex];
 				document.getElementById('slideIcon').src = slideIcons[slideIndex];
 				document.getElementById('slideDescription').textContent = slideDescriptions[slideIndex];
 			}
 
+
 			// Initial slide display
 			showSlide(slideIndex);
 
-			// Start the automatic slide show only if the browser width is more than 900px
-			if (window.innerWidth > 900) {
-				autoSlideInterval = setInterval(() => {
-					if(!manualTriggered) {  // Only auto navigate if manual navigation wasn't triggered
-						showSlide(++slideIndex);
-					}
-				}, 8000);  // 5 seconds
-			}
-
-			function manualNavigation(n) {
-				clearInterval(autoSlideInterval); // Stop the automatic slide show when user navigates manually
-				manualTriggered = true; // Set the flag
-				showSlide(n);
-
-				setTimeout(() => { // Reset the flag after a delay (5 seconds in this case)
-					manualTriggered = false;
-				}, 5000);
-			}
-
-			document.querySelector(".prev-slide").addEventListener("click", () => {
-				manualNavigation(--slideIndex);
-			});
-
-			document.querySelector(".next-slide").addEventListener("click", () => {
-				manualNavigation(++slideIndex);
-			});
-			document.addEventListener("keydown", function(event) {
-				if (event.key === "ArrowRight") {  // Check if the right arrow key was pressed
-					manualNavigation(++slideIndex);
-				} else if (event.key === "ArrowLeft") {  // Check if the left arrow key was pressed
-					manualNavigation(--slideIndex);
+		if (window.innerWidth > 900) {
+			autoSlideInterval = setInterval(() => {
+				if(!manualTriggered) {  
+					showSlide(++slideIndex, "next"); // Default direction for auto slide is 'next'
 				}
-			});
-		</script>
+			}, 10000);  
+		}
+
+		function manualNavigation(n, direction) {
+			clearInterval(autoSlideInterval); 
+			manualTriggered = true; 
+			showSlide(n, direction);
+
+			setTimeout(() => { 
+				manualTriggered = false;
+			}, 5000);
+		}
+
+		document.querySelector(".prev-slide").addEventListener("click", () => {
+			manualNavigation(--slideIndex, "prev");
+		});
+
+		document.querySelector(".next-slide").addEventListener("click", () => {
+			manualNavigation(++slideIndex, "next");
+		});
+
+		document.addEventListener("keydown", function(event) {
+			if (event.key === "ArrowRight") {  
+				manualNavigation(++slideIndex, "next");
+			} else if (event.key === "ArrowLeft") {  
+				manualNavigation(--slideIndex, "prev");
+			}
+		});
+	</script>
 	</body>
 </html>
 
