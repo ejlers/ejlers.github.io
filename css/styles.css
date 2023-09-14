@@ -336,13 +336,16 @@ body, html {
     justify-content: center;
     width: 100%;
     height: auto;
-    overflow: auto;
+    overflow: hidden;
+    
 }
 
 .slide {
-    display: none;  /* hide all slides by default */
-    max-height: auto; /* Subtracting the approximate height of the navigation container, adjust if needed */
+    display: none;
+    max-height: auto;
     width: auto;
+    transition: transform 0.3s, opacity 0.6s;
+    overflow: hidden;
 }
 
 .slideshow-navigation {
