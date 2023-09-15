@@ -3,14 +3,15 @@ body, html {
     padding: 0;
     font-family: 'Inter', sans-serif;
     height: 100%;
-    background-color: #F5F5F5;
+    background-color: #e3e3e6;
 }
 
 .container {
     display: flex;
     height: 100%;
-    overflow-y: hidden;
-    background-color: #ffffff;
+    overflow-y: hidden;   
+    background-color: rgba(255, 255, 255, 0.7);  /* Semi-transparent white to enhance the frosted effect */
+    backdrop-filter: blur(10px);  /* Apply the blur for the frosted effect */
 }
 
 .cover-picture {
@@ -44,7 +45,6 @@ body, html {
 .header {
     display: flex;
     align-items: center;
-    background-color: white;
 }
 
 .profile-picture {
@@ -110,7 +110,7 @@ body, html {
     border: none;
     cursor: pointer;
     border-radius: 12px;
-    background: #F6F6F6;
+    background: #eeeef0;
     display: flex;
     align-items: center;
     flex-grow: 1;
@@ -315,6 +315,9 @@ body, html {
     align-items: center;
     justify-content: center;
     overflow: hidden; 
+    background-size: cover;    /* ensure the background covers the entire div */
+    background-repeat: no-repeat;  /* ensure the image does not repeat */
+    background-position: center center; /* center the background image */
 }
 
 .slideshow-container {
@@ -325,18 +328,17 @@ body, html {
     overflow: hidden;
     height: 100%; /* Ensures it takes up the full height of its parent, .cover-picture */
     width: 100%;
-    background-color: #F5F5F5;
 }
 
 .slides-wrapper {
     flex-grow: 1; /* Allows this container to take up all available space */
-    display: flex;
-    background-color: #F5F5F5;
+    display: flex;  
     align-items: center;
     justify-content: center;
     width: 100%;
     height: auto;
     overflow: hidden;
+    background: linear-gradient(#e2e2e6, #f5f5f5);
     
 }
 
@@ -426,6 +428,12 @@ body, html {
     margin: 0;  /* Reset default margins */
 }
 
+@media (max-width: 1000px) {
+    .slideshow-container {
+        border-bottom: 1px solid rgb(224, 224, 224); /* A light border to separate the columns */
+    }
+}
+
 @media (max-width: 768px) {
     .slideshow-navigation {
         overflow: hidden; /* allows scrolling if there's overflow */
@@ -456,5 +464,3 @@ body, html {
         padding: 15px 10px 15px 10px; /* Adjusted padding */
     }
 }
-
-
