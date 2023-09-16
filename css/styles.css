@@ -29,7 +29,7 @@ body, html {
 }
 
 .content {
-    max-width: 20%;
+    max-width: 22%;
     min-width: 270px;
     border-left: 1px solid rgb(225, 226, 231); /* A light border to separate the columns */
     height: 100%;
@@ -55,6 +55,7 @@ body, html {
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1px solid rgb(216, 218, 228);
 }
 
 .profile-details {
@@ -184,7 +185,7 @@ body, html {
     }
 
     .content {
-        max-width:500px;
+        max-width:520px;
         margin: 0 auto; /* This will center the .content horizontally */
         height: auto;
         border-left: none;
