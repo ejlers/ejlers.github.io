@@ -218,15 +218,6 @@ body, html {
 
 
 @media (max-width: 463px) {
-    .buttons-container {
-        flex-direction: column;
-        align-items: stretch; /* Makes the buttons take full width of the container */
-    }
-    
-    .custom-button {
-        margin-bottom: 5px; /* This adds a space between the buttons when stacked vertically, adjust as needed */
-    }
-
     .content {
         min-width: none;
         max-width: 500px;
