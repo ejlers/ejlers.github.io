@@ -118,6 +118,12 @@ a:hover {
     flex-shrink: 0; /* Prevent the container from shrinking */
 }
 
+@media only screen and (max-width: 600px) {
+    .container {     
+        padding: 0px;
+    }
+}
+
 .list {
     display: flex;
     flex-direction: column;
@@ -139,11 +145,6 @@ a:hover {
     overflow: hidden;
     border: 1.5px rgb(223, 223, 223);
     border-style: solid none none none;
-}
-
-.logo {
-    width: 60px;
-    height: 60px;
 }
 
 .list-header:hover {
@@ -186,6 +187,12 @@ a:hover {
     gap: 30px;
 }
 
+@media only screen and (max-width: 800px) {
+    .list-container {
+        gap: 15px;
+    }
+}
+
 .list-group {
     margin-bottom: 0px;
 }
@@ -208,6 +215,7 @@ a:hover {
 @media only screen and (max-width: 800px) {
     .layout-row {
         flex-direction: column;
+        gap: 15px;
     }
 }
 
@@ -220,6 +228,7 @@ a:hover {
 @media only screen and (max-width: 800px) {
     .layout-row-2 {
         flex-direction: row;
+        gap: 15px;
     }
 }
 
@@ -255,4 +264,10 @@ img {
 .img-1 {
     width: 100%;
     height: auto;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    transform: rotate(0deg); /* Ensure no rotation */
 }
