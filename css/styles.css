@@ -23,7 +23,7 @@ body {
 
 @media only screen and (max-width: 800px) {
     body {
-        max-width: none;
+        max-width: 100%;
     }
 }
 
@@ -103,7 +103,7 @@ a:hover {
     font-weight: 400;
     color: #8b8b8b;
     line-height: 1.5;
-    max-width: 500px;
+    max-width: 600px;
 }
 
 /* DRAWER SECTION */
@@ -177,6 +177,7 @@ a:hover {
     flex-direction: column;
     padding: 30px;
     padding-bottom: 50px;
+    padding-top: 30px;
     gap: 30px;
 }
 
