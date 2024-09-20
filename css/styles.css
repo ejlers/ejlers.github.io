@@ -71,6 +71,10 @@ a:hover {
     background-color:none;
 }
 
+br {
+
+}
+
 .header-image {
     width: 100%;
     height: 400px;
@@ -276,4 +280,5 @@ img {
     width: 60px;
     height: 60px;
     transform: rotate(0deg); /* Ensure no rotation */
+    margin-bottom: 15px;
 }
