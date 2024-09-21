@@ -140,10 +140,11 @@ a:hover {
 .list-header {
     display: flex;
     justify-content: space-between;
+    align-items:center;
     background-color: rgba(255, 255, 255, 0.808);  
     backdrop-filter: blur(5px);
     color: rgb(70, 70, 70);
-    padding: 20px 30px;
+    padding: 15px 30px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -174,6 +175,12 @@ a:hover {
     font-weight: 400;
     line-height: 1.5;
     color: #8b8b8b;
+}
+
+.logo-header-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .list-content {
@@ -277,5 +284,12 @@ img {
     height: 60px;
     transform: rotate(0deg); /* Ensure no rotation */
     margin-bottom: 15px;
+    z-index: -1;
+}
+
+.logo-header {
+    width: 35px;
+    height: 35px;
+    transform: rotate(0deg); /* Ensure no rotation */
     z-index: -1;
 }
