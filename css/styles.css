@@ -27,18 +27,6 @@ body {
     }
 }
 
-.dot {
-    height: 50vw;
-    width: 50vw;
-    border-radius: 50%;
-    position: fixed;
-    top: -25vw;
-    left: 25%;
-    background-color: #FFD39E;
-    position: fixed;
-    z-index: -1;
-  }
-
 /* TEXT */
 
 p {
@@ -111,6 +99,37 @@ a:hover {
     color: #8b8b8b;
     line-height: 1.5;
     max-width: 600px;
+    min-width: 400px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .about-text {     
+        min-width: 100px;
+    }
+}
+
+.sticky-text-container {
+    height: auto;
+}
+
+.sticky {
+    position: sticky;
+    top: 0; /* Set to 0 to prevent offset on toggle */
+    z-index: -1; /* Ensure it's above the content below when scrolling */
+}
+
+.height-fix {
+    padding-top: 0px;
+}
+
+@media only screen and (min-width: 1100px) {
+    .height-fix {     
+        padding-top: 90px;
+    }
+}
+
+.hide {
+    display: none;
 }
 
 /* DRAWER SECTION */
@@ -128,7 +147,7 @@ a:hover {
 @media only screen and (max-width: 600px) {
     .container {     
         padding: 0px;
-        padding-bottom: 20px;
+        margin-bottom: 20px;
     }
 }
 
@@ -187,23 +206,36 @@ a:hover {
 
 .list-content {
     max-height: 0;
-    overflow: hidden;
     padding: 0 0;
     transition: max-height 0.3s ease-out, padding 0.5s ease-out;
 }
 
 .list-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 30px;
     padding-bottom: 50px;
     padding-top: 30px;
-    gap: 30px;
+    gap: 50px;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1100px) {
     .list-container {
         gap: 15px;
+        flex-direction: column;
+    }
+}
+
+.content-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+@media only screen and (max-width: 800px) {
+    .list-container {
+        gap: 0px;
     }
 }
 
@@ -218,31 +250,30 @@ a:hover {
     }
 }
 
-/* CONTENT LAYOUT */
+
 
 .layout-row {
     display: flex;
     flex-direction: row;
-    gap: 30px;
 }
 
 @media only screen and (max-width: 800px) {
     .layout-row {
         flex-direction: column;
-        gap: 15px;
     }
 }
 
 .layout-row-2 {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    margin-top: 30px;
 }
 
 @media only screen and (max-width: 800px) {
     .layout-row-2 {
         flex-direction: row;
-        gap: 15px;
+        gap: 0px;
+        margin-top: 15px;
     }
 }
 
@@ -252,14 +283,6 @@ a:hover {
     }
 }
 
-.flex-grow-1 {
-    flex-grow: 1;
-}
-
-.flex-grow-2 {
-    flex-grow: 2;
-}
-
 .rotate {
     transform: rotate(180deg);
     transition: transform 0.2s ease;
@@ -267,7 +290,7 @@ a:hover {
 img {
     transition: transform 0.2s ease;
 }
-.list-content {
+.list-content {  
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.6s ease;
@@ -278,6 +301,16 @@ img {
 .img-1 {
     width: 100%;
     height: auto;
+}
+
+.content-padding-top {
+    margin-top: 30px;
+}
+
+@media only screen and (max-width: 800px) {
+    .content-padding-top {
+        margin-top: 15px;
+    }
 }
 
 .logo {
