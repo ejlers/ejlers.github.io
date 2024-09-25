@@ -196,6 +196,10 @@ a:hover {
     line-height: 1.5;
 }
 
+.list-header-0-margin {
+    padding-bottom: 20px;
+}
+
 .list-header-1 {
     font-weight: 700;
     line-height: 1.5;
