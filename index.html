@@ -42,7 +42,7 @@
 	<div class="header">
 		<div class="intro-header">
 			<div>
-				<span class="list-header-1">Carl Ejlers' Portfolio</span>
+				<span class="list-header-0">Carl Ejlers' Portfolio</span>
 			</div>
 			<br>
 			<div class="about-text">
@@ -210,23 +210,53 @@
 	</div>
 	<script>
 		function toggleContent(header) {
-		const content = header.nextElementSibling;
-		const img = header.querySelector('img[alt="arrow"]');
-		
-		// Toggle the max height to show/hide content
-		if (content.style.maxHeight) {
-			content.style.maxHeight = null;
-			content.style.overflow = 'hidden'; // Set overflow to hidden when collapsed
-		} else {
-			content.style.maxHeight = content.scrollHeight + "px";
-			content.style.overflow = 'visible'; // Set overflow to visible when expanded
-		}
+			const content = header.nextElementSibling;
+			const img = header.querySelector('img[alt="arrow"]');
+			const allContents = document.querySelectorAll('.list-content');
 
-		// Toggle the rotation class for the arrow
-		if (img) {
-			img.classList.toggle('rotate');
+			// Check if any drawer is currently open
+			const anyDrawerOpen = Array.from(allContents).some(content => content.style.maxHeight && content.style.maxHeight !== '0px');
+			
+			// Remove 'slow-open' from all contents before making any changes
+			allContents.forEach(cont => cont.classList.remove('slow-open'));
+
+			if (content.style.maxHeight) {
+				// Collapse the content
+				content.style.maxHeight = null;
+				content.style.overflow = 'hidden';
+			} else {
+				if (!anyDrawerOpen) {
+					// If no drawers are open, apply a slower animation
+					content.classList.add('slow-open');
+				}
+
+				// Trigger the max-height animation with a delay to ensure smooth transition
+				requestAnimationFrame(() => {
+					content.style.maxHeight = content.scrollHeight + "px";
+					content.style.overflow = 'visible';
+				});
+
+				// Scroll if any drawer is already open
+				if (anyDrawerOpen) {
+					requestAnimationFrame(() => {
+						const headerOffset = 0; // Adjust this value based on your layout
+						const elementPosition = header.getBoundingClientRect().top;
+						const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+						setTimeout(() => {
+							window.scrollTo({
+								top: offsetPosition,
+								behavior: "smooth"
+							});
+						}, 200);
+					});
+				}
+			}
+
+			// Toggle the rotation for the arrow
+			if (img) {
+				img.classList.toggle('rotate');
+			}
 		}
-	}
 	</script>
 </body>
 
