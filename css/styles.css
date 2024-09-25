@@ -57,7 +57,6 @@ a:hover {
     align-items: center;
     flex-grow: 1;
     background-color: none;
-    transition: height 0.4s ease-in-out; /* Animation duration and easing */
 }
 
 .header-image {
@@ -168,7 +167,6 @@ a:hover {
     padding: 15px 30px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
     border-radius: 0px 0px 0px 0px;
     overflow: hidden;
     border: 1.5px rgb(223, 223, 223);
@@ -185,6 +183,11 @@ a:hover {
         background-color: rgba(255, 255, 255, 0.801);  
         backdrop-filter: blur(0px);
     }
+}
+
+.list-header-0 {
+    font-weight: 700;
+    line-height: 1.5;
 }
 
 .list-header-1 {
@@ -207,8 +210,12 @@ a:hover {
 .list-content {
     max-height: 0;
     padding: 0 0;
-    transition: max-height 0.3s ease-out, padding 0.5s ease-out;
+    transition: max-height 0.6s ease-out, padding 0.6s ease-out;
 }
+
+.list-content:last-child {
+    padding-bottom: 1px; /* This ensures the last content is forced to calculate height */
+  }
 
 .list-container {
     display: flex;
