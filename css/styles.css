@@ -114,7 +114,6 @@ a:hover {
 .sticky {
     position: sticky;
     top: 0; /* Set to 0 to prevent offset on toggle */
-    z-index: -1; /* Ensure it's above the content below when scrolling */
 }
 
 .height-fix {
@@ -140,7 +139,6 @@ a:hover {
     padding-bottom: 40px;
     margin: 0 auto;
     margin-top: auto; /* This pushes the container to the bottom */
-    flex-shrink: 0; /* Prevent the container from shrinking */
 }
 
 @media only screen and (max-width: 600px) {
@@ -194,8 +192,11 @@ a:hover {
 .list-header-0 {
     font-weight: 700;
     line-height: 1.5;
+    padding-bottom: 20px;
 }
-
+.list-header-0-margin {
+   padding-bottom: 20px;
+}
 .list-header-1 {
     font-weight: 700;
     line-height: 1.5;
