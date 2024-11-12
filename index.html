@@ -39,20 +39,18 @@
 </head>
 <body>
 	<!--<span class="dot"></span>-->
-	<div class="header">
-		<div class="intro-header">
-			<div class="list-header-0-margin">
-				<span class="list-header-0">Carl Ejlers</span>
-			</div>
-			<div class="about-text">
-				I’ve spent the past eight years designing digital products for startups, scale-ups, and larger companies. I thrive as part of great product teams that create smooth, useful, and enjoyable user experiences. On this site, you can explore a selection of projects I’ve worked on.
-				<br><br>
-				If you want to discuss a project, please feel free to reach out to me. I'm easy to get to. Shoot me an email on
-				<a href="mailto:ejlers@me.com">ejlers@me.com</a>
-			</div>
+	<div class="intro">
+		<div class="list-header-0 hide-on-mobile">		
+			<img src="./img/carl.png" alt="carl" style="height: 200PX;">
 		</div>
-		<!--<div class="header-image">-->
+		<div class="about-text">
+			<div class="list-header-0">Carl Ejlers</div><br>
+			I’ve spent the past eight years designing digital products for startups, scale-ups, and larger companies. I thrive when I'm part of great product teams that create smooth, useful, and enjoyable user experiences. On this site, you can explore a selection of projects I’ve worked on.
+			<br><br>
+			If you want to discuss a project, please feel free to reach out to me. I'm easy to get to. Shoot me an email on
+			<a href="mailto:ejlers@me.com">ejlers@me.com</a>
 		</div>
+	</div>
 	</div>
 	<div class="container">
 		<div class="list">
@@ -208,50 +206,67 @@
 	</div>
 	</div>
 	<script>
+		function customScrollTo(targetPosition, duration) {
+			const startPosition = window.pageYOffset;
+			const distance = targetPosition - startPosition;
+			let startTime = null;
+
+			function animation(currentTime) {
+				if (startTime === null) startTime = currentTime;
+				const timeElapsed = currentTime - startTime;
+				const progress = Math.min(timeElapsed / duration, 1);
+
+				const ease = progress < 0.5 
+					? 2 * progress * progress 
+					: 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+				const scrollTo = Math.round(startPosition + distance * ease);
+				window.scrollTo(0, scrollTo);
+
+				// End animation precisely at the target position
+				if (scrollTo !== targetPosition && timeElapsed < duration) {
+					requestAnimationFrame(animation);
+				} else {
+					window.scrollTo(0, targetPosition);
+				}
+			}
+
+			requestAnimationFrame(animation);
+		}
+
 		function toggleContent(header) {
 			const content = header.nextElementSibling;
 			const img = header.querySelector('img[alt="arrow"]');
 			const allContents = document.querySelectorAll('.list-content');
 
-			// Check if any drawer is currently open
-			const anyDrawerOpen = Array.from(allContents).some(content => content.style.maxHeight && content.style.maxHeight !== '0px');
-			
-			// Remove 'slow-open' from all contents before making any changes
-			allContents.forEach(cont => cont.classList.remove('slow-open'));
+			allContents.forEach(cont => {
+				cont.classList.remove('slow-open');
+				cont.style.overflow = 'hidden'; // Ensure all closed contents are non-scrollable
+			});
 
 			if (content.style.maxHeight) {
 				// Collapse the content
 				content.style.maxHeight = null;
 				content.style.overflow = 'hidden';
 			} else {
-				if (!anyDrawerOpen) {
-					// If no drawers are open, apply a slower animation
-					content.classList.add('slow-open');
-				}
-
-				// Trigger the max-height animation with a delay to ensure smooth transition
+				// Open the content with a smooth animation
+				content.classList.add('slow-open');
 				requestAnimationFrame(() => {
 					content.style.maxHeight = content.scrollHeight + "px";
-					content.style.overflow = 'visible';
-				});
+					content.style.overflow = 'auto';
 
-				// Scroll if any drawer is already open
-				if (anyDrawerOpen) {
-					requestAnimationFrame(() => {
-						const headerOffset = 0; // Adjust this value based on your layout
-						const elementPosition = header.getBoundingClientRect().top;
-						const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-						setTimeout(() => {
-							window.scrollTo({
-								top: offsetPosition,
-								behavior: "smooth"
-							});
-						}, 200);
-					});
-				}
+					// Calculate precise scroll target after content expands
+					setTimeout(() => {
+						const headerTop = header.getBoundingClientRect().top + window.pageYOffset;
+						const headerOffset = 0; // Optional adjustment to prevent overshooting
+
+						// Scroll to header position precisely
+						customScrollTo(headerTop - headerOffset, 400);
+					}, 100); 
+				});
 			}
 
-			// Toggle the rotation for the arrow
+			// Toggle the arrow rotation
 			if (img) {
 				img.classList.toggle('rotate');
 			}
