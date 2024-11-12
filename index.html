@@ -205,68 +205,51 @@
 		</div>
 	</div>
 	</div>
-	<script>
-		function customScrollTo(targetPosition, duration) {
-			const startPosition = window.pageYOffset;
-			const distance = targetPosition - startPosition;
-			let startTime = null;
-
-			function animation(currentTime) {
-				if (startTime === null) startTime = currentTime;
-				const timeElapsed = currentTime - startTime;
-				const progress = Math.min(timeElapsed / duration, 1);
-
-				const ease = progress < 0.5 
-					? 2 * progress * progress 
-					: 1 - Math.pow(-2 * progress + 2, 2) / 2;
-
-				const scrollTo = Math.round(startPosition + distance * ease);
-				window.scrollTo(0, scrollTo);
-
-				// End animation precisely at the target position
-				if (scrollTo !== targetPosition && timeElapsed < duration) {
-					requestAnimationFrame(animation);
-				} else {
-					window.scrollTo(0, targetPosition);
-				}
-			}
-
-			requestAnimationFrame(animation);
-		}
-
+<script>
 		function toggleContent(header) {
 			const content = header.nextElementSibling;
 			const img = header.querySelector('img[alt="arrow"]');
 			const allContents = document.querySelectorAll('.list-content');
 
-			allContents.forEach(cont => {
-				cont.classList.remove('slow-open');
-				cont.style.overflow = 'hidden'; // Ensure all closed contents are non-scrollable
-			});
+			// Check if any drawer is currently open
+			const anyDrawerOpen = Array.from(allContents).some(content => content.style.maxHeight && content.style.maxHeight !== '0px');
+			
+			// Remove 'slow-open' from all contents before making any changes
+			allContents.forEach(cont => cont.classList.remove('slow-open'));
 
 			if (content.style.maxHeight) {
 				// Collapse the content
 				content.style.maxHeight = null;
 				content.style.overflow = 'hidden';
 			} else {
-				// Open the content with a smooth animation
-				content.classList.add('slow-open');
+				if (!anyDrawerOpen) {
+					// If no drawers are open, apply a slower animation
+					content.classList.add('slow-open');
+				}
+
+				// Trigger the max-height animation with a delay to ensure smooth transition
 				requestAnimationFrame(() => {
 					content.style.maxHeight = content.scrollHeight + "px";
-					content.style.overflow = 'auto';
-
-					// Calculate precise scroll target after content expands
-					setTimeout(() => {
-						const headerTop = header.getBoundingClientRect().top + window.pageYOffset;
-						const headerOffset = 0; // Optional adjustment to prevent overshooting
-
-						// Scroll to header position precisely
-						customScrollTo(headerTop - headerOffset, 400);
-					}, 100); 
+					content.style.overflow = 'visible';
 				});
+
+				// Scroll if any drawer is already open
+				if (anyDrawerOpen) {
+					requestAnimationFrame(() => {
+						const headerOffset = 0; // Adjust this value based on your layout
+						const elementPosition = header.getBoundingClientRect().top;
+						const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+						setTimeout(() => {
+							window.scrollTo({
+								top: offsetPosition,
+								behavior: "smooth"
+							});
+						}, 200);
+					});
+				}
 			}
 
-			// Toggle the arrow rotation
+			// Toggle the rotation for the arrow
 			if (img) {
 				img.classList.toggle('rotate');
 			}
