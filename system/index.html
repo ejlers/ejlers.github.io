@@ -36,23 +36,25 @@
 		<symbol id="i-download" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v10M6 9l4 4 4-4M3 17h14" /></symbol>
 	</svg>
 
-	<header class="intro intro--doc">
-		<div class="intro__text">
-			<h1>Carl Ejlers</h1>
-			<p class="display">The design system.</p>
-			<p>A ledger, not a portfolio. The style is subtractive — things were taken out until only the ones doing work were left, and the removal kept going further than most designers are comfortable with.</p>
-			<p class="muted">This page is not linked from anywhere on the site and asks not to be indexed. It reads <b style="font-weight: 500">../css/styles.css</b> directly, so every value below is the value the portfolio is actually using right now.</p>
-		</div>
-	</header>
-
 	<div class="layout">
 		<nav class="toc" id="toc" aria-label="Sections"></nav>
 
 	<main class="doc">
 
-		<!-- 01 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">01</span> The style</h2>
+			<h2 class="section__heading">Introduction</h2>
+			<div class="section__body">
+				<div class="lede">
+					<h1>Carl Ejlers</h1>
+					<p class="display">The design system.</p>
+					<p>A ledger, not a portfolio. The style is subtractive — things were taken out until only the ones doing work were left, and the removal kept going further than most designers are comfortable with.</p>
+					<p class="muted">This page is not linked from anywhere on the site and asks not to be indexed. It reads <b>../css/styles.css</b> directly, so every value below is the value the portfolio is actually using right now.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<h2 class="section__heading">The style</h2>
 			<div class="section__body">
 				<div class="spec">
 					<span>One size</span>
@@ -81,14 +83,13 @@
 				</div>
 
 				<div class="lede">
-					<p><b style="font-weight: 500">Where this is easy to get wrong.</b> The same discipline fails in three predictable places, all one degree past the line rather than a different mistake each time. Grey text drifts below 4.5:1 and stops being readable in daylight. The one interactive mark gets quietened until nobody can see there is anything to press. And with no size above the body copy, nothing anchors a page. The system answers each once: Ink Muted for text, two legal greys for icons, one display line per page.</p>
+					<p><b>Where this is easy to get wrong.</b> The same discipline fails in three predictable places, all one degree past the line rather than a different mistake each time. Grey text drifts below 4.5:1 and stops being readable in daylight. The one interactive mark gets quietened until nobody can see there is anything to press. And with no size above the body copy, nothing anchors a page. The system answers each once: Ink Muted for text, two legal greys for icons, one display line per page.</p>
 				</div>
 			</div>
 		</section>
 
-		<!-- 02 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">02</span> Principles</h2>
+			<h2 class="section__heading">Principles</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>Six, each with a test you can fail. A principle that cannot be failed is decoration — "be simple" settles no argument at 4pm on a Friday.</p>
@@ -146,9 +147,8 @@
 			</div>
 		</section>
 
-		<!-- 03 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">03</span> Colour and type</h2>
+			<h2 class="section__heading">Colour and type</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>Six greys, white, and one fill. Each has exactly one job, and no value appears twice under a different name. Swatches and ratios below are read from the live stylesheet — the numbers are computed in the browser, not typed in.</p>
@@ -173,7 +173,7 @@
 					<div class="spec">
 						<span>Strong</span>
 						<span class="spec__value">16 / 1.5 / 500</span>
-						<span class="spec__note"><b style="font-weight: 500">Donkey Republic</b> — anything that anchors a row: project names, active navigation, your own name.</span>
+						<span class="spec__note"><b>Donkey Republic</b> — anything that anchors a row: project names, active navigation, your own name.</span>
 					</div>
 					<div class="spec">
 						<span>Body</span>
@@ -188,9 +188,8 @@
 			</div>
 		</section>
 
-		<!-- 04 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">04</span> Space, line and measure</h2>
+			<h2 class="section__heading">Space, line and measure</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>One base unit of 5px and eight steps off it. Every padding, margin and gap is one of these values. Widths, measures and touch targets are sized by what they hold, not by the ramp.</p>
@@ -220,9 +219,8 @@
 			</div>
 		</section>
 
-		<!-- 05 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">05</span> Components</h2>
+			<h2 class="section__heading">Components</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>The whole inventory, and it should stay close to it — a system this quiet earns its consistency by having almost nothing to be inconsistent about. Every specimen below is the site's own markup and classes.</p>
@@ -236,10 +234,10 @@
 					</div>
 				</div>
 
-				<ul class="work" style="padding-bottom: 0">
+				<ul class="work specimen">
 					<li class="item">
-						<h3 class="item__heading">
-							<span class="row" style="cursor: default">
+						<div class="item__heading">
+							<span class="row">
 								<span class="row__id">
 									<img class="row__logo" src="../img/logos/donkey.png" alt="" width="150" height="150">
 									<span class="row__name">Donkey Republic</span>
@@ -247,11 +245,11 @@
 								</span>
 								<svg class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
 							</span>
-						</h3>
+						</div>
 					</li>
 					<li class="item">
-						<h3 class="item__heading">
-							<span class="row" style="cursor: default; background: var(--veil-hover)">
+						<div class="item__heading">
+							<span class="row" data-state="hover">
 								<span class="row__id">
 									<img class="row__logo" src="../img/logos/trackman.png" alt="" width="150" height="150">
 									<span class="row__name">Hover</span>
@@ -259,19 +257,19 @@
 								</span>
 								<svg class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
 							</span>
-						</h3>
+						</div>
 					</li>
 					<li class="item">
-						<h3 class="item__heading">
-							<span class="row" style="cursor: default">
+						<div class="item__heading">
+							<span class="row">
 								<span class="row__id">
 									<img class="row__logo" src="../img/logos/theorg.png" alt="" width="150" height="150">
 									<span class="row__name">Open</span>
 									<span class="row__desc">Chevron rotates, drawer unfolds below</span>
 								</span>
-								<svg class="chevron" aria-hidden="true" focusable="false" style="transform: rotate(180deg); color: var(--ink-strong)"><use href="#i-chevron" /></svg>
+								<svg class="chevron" aria-hidden="true" focusable="false" data-state="open"><use href="#i-chevron" /></svg>
 							</span>
-						</h3>
+						</div>
 					</li>
 				</ul>
 
@@ -295,9 +293,8 @@
 			</div>
 		</section>
 
-		<!-- 06 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">06</span> Do and don't</h2>
+			<h2 class="section__heading">Do and don't</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>The ways this system breaks. Each right-hand example is a real temptation — most are what a component library hands you by default.</p>
@@ -307,7 +304,7 @@
 					<div class="pair">
 						<div class="pair__side">
 							<span class="pair__label">Do</span>
-							<span><b style="font-weight: 500">Donkey Republic</b> <span class="muted">Bike Rental Platform</span></span>
+							<span><b>Donkey Republic</b> <span class="muted">Bike Rental Platform</span></span>
 							<span class="pair__note">Separate two things with weight and grey. One size, two jobs.</span>
 						</div>
 						<div class="pair__side">
@@ -371,9 +368,8 @@
 			</div>
 		</section>
 
-		<!-- 07 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">07</span> Motion</h2>
+			<h2 class="section__heading">Motion</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>Motion is the only part of the system that can explain a change while it is happening, so it is spent entirely on describing interaction. Nothing moves for atmosphere. Nothing moves that the person did not cause.</p>
@@ -397,7 +393,7 @@
 				<div id="motion"></div>
 
 				<div class="lede">
-					<p>Two easing keywords, no custom curves. Things arriving use <b style="font-weight: 500">ease-out</b>; things leaving use <b style="font-weight: 500">ease-in</b> and run shorter, because nobody watches something go. Under <b style="font-weight: 500">prefers-reduced-motion</b> every duration above drops to 0ms — nothing is removed, it simply arrives already done.</p>
+					<p>Two easing keywords, no custom curves. Things arriving use <b>ease-out</b>; things leaving use <b>ease-in</b> and run shorter, because nobody watches something go. Under <b>prefers-reduced-motion</b> every duration above drops to 0ms — nothing is removed, it simply arrives already done.</p>
 				</div>
 
 				<div class="rules">
@@ -411,9 +407,8 @@
 			</div>
 		</section>
 
-		<!-- 08 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">08</span> Buttons</h2>
+			<h2 class="section__heading">Buttons</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>Buttons are where a system this quiet is most likely to break, because a button is the one element meant to be louder than its surroundings. So the shape is fixed and only the fill changes: one box, 1.5px border, no radius, label at 16px weight 500.</p>
@@ -453,9 +448,8 @@
 			</div>
 		</section>
 
-		<!-- 09 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">09</span> Icons</h2>
+			<h2 class="section__heading">Icons</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>Seven glyphs, all descended from the chevron: a 20px box, a 14px live area inset 3px, a 1.5px stroke, round cap and join, no fill. Line ends are round; shapes are not — no rounded rectangles anywhere.</p>
@@ -497,9 +491,8 @@
 			</div>
 		</section>
 
-		<!-- 10 ---------------------------------------------------------- -->
 		<section class="section">
-			<h2 class="section__heading"><span class="section__no">10</span> How this stays true</h2>
+			<h2 class="section__heading">How this stays true</h2>
 			<div class="section__body">
 				<div class="lede">
 					<p>A design system kept in a separate document drifts, because nothing stops it. This one is built so the parts that can drift, can't.</p>

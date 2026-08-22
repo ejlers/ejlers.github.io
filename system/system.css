@@ -12,18 +12,13 @@
 	--warn: #8b4a2b;
 }
 
-/* No portrait on this page, so the reversed row would push the text to
-   the right-hand side. */
-.intro--doc {
-	flex-direction: row;
-}
-
 /* Contents. Sticky beside the sections, and it says which one you are in.
    Built from the sections themselves, so adding one adds its entry. */
 .layout {
 	display: flex;
 	align-items: flex-start;
 	gap: var(--s8);
+	padding-top: var(--s8);
 }
 
 .layout .doc {
@@ -42,18 +37,28 @@
 
 .toc__item {
 	display: flex;
+	align-items: center;
 	gap: var(--s3);
-	padding: var(--s3) 0;
-	border-top: var(--rule-w) solid var(--rule);
+	padding: var(--s2) 0;
 	color: var(--ink-muted);
 }
 
-.toc__item:last-child {
-	border-bottom: var(--rule-w) solid var(--rule);
+/* A tick rather than a number: the section order carries no meaning, so
+   numbering it would be decoration. Grey to ink, one ramp step longer. */
+.toc__tick {
+	flex: none;
+	width: var(--s4);
+	height: var(--rule-w);
+	background: var(--grey);
+	transition: width var(--t-confirm) ease, background-color var(--t-confirm) ease;
 }
 
 .toc__item:hover {
 	color: var(--ink-strong);
+}
+
+.toc__item:hover .toc__tick {
+	background: var(--ink-strong);
 }
 
 .toc__item.is-current {
@@ -61,10 +66,9 @@
 	font-weight: 500;
 }
 
-.toc__no {
-	flex: none;
-	color: var(--ink-muted);
-	font-weight: 300;
+.toc__item.is-current .toc__tick {
+	width: var(--s5);
+	background: var(--ink);
 }
 
 @media (max-width: 1100px) {
@@ -95,7 +99,7 @@
 .section__heading {
 	position: sticky;
 	top: 0;
-	z-index: 1;
+	z-index: 2;
 	display: flex;
 	align-items: baseline;
 	gap: var(--s3);
@@ -106,11 +110,6 @@
 	font-size: inherit;
 	font-weight: 500;
 	line-height: inherit;
-}
-
-.section__no {
-	color: var(--ink-muted);
-	font-weight: 300;
 }
 
 .section__body {
@@ -249,7 +248,7 @@
 }
 
 .test { color: var(--ink-muted); }
-.test b { color: var(--ink-strong); font-weight: 500; }
+.test b { color: var(--ink-strong); }
 
 @media (max-width: 1100px) {
 	.principle {
@@ -286,6 +285,31 @@
 	height: var(--rule-w);
 	background: var(--grey);
 	transform: translateY(-0.35em);
+}
+
+/* Specimens are exhibits, not working furniture: the real components are
+   sticky and stack above the page, which would let them ride over the
+   section heading. Pin them down and take the interaction off. */
+.specimen {
+	padding-bottom: 0;
+}
+
+.specimen .item__heading {
+	position: static;
+	z-index: auto;
+}
+
+.specimen .row {
+	cursor: default;
+}
+
+.specimen .row[data-state="hover"] {
+	background: var(--veil-hover);
+}
+
+.specimen .chevron[data-state="open"] {
+	transform: rotate(180deg);
+	color: var(--ink-strong);
 }
 
 /* Specimen shelves. */

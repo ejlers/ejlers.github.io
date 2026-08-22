@@ -140,16 +140,16 @@ motion.append(scroll);
 const toc = document.getElementById('toc');
 const sections = [...document.querySelectorAll('.doc .section')];
 
+const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 for (const section of sections) {
-	const heading = section.querySelector('.section__heading');
-	const no = heading.querySelector('.section__no').textContent.trim();
-	const name = heading.textContent.replace(no, '').trim();
-	section.id = 's' + no;
+	const name = section.querySelector('.section__heading').textContent.trim();
+	section.id = slug(name);
 
 	const item = document.createElement('a');
 	item.className = 'toc__item';
-	item.href = '#s' + no;
-	item.append(Object.assign(document.createElement('span'), { className: 'toc__no', textContent: no }));
+	item.href = '#' + section.id;
+	item.append(Object.assign(document.createElement('span'), { className: 'toc__tick' }));
 	item.append(Object.assign(document.createElement('span'), { textContent: name }));
 	toc.append(item);
 }

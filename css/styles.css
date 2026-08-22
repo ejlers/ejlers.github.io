@@ -113,7 +113,9 @@ body {
 /* --- Type — one size; hierarchy is weight and grey ------------------- */
 
 h1,
-h2 {
+h2,
+b,
+strong {
 	font-size: inherit;
 	font-weight: 500;
 	line-height: inherit;
