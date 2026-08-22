@@ -18,6 +18,67 @@
 	flex-direction: row;
 }
 
+/* Contents. Sticky beside the sections, and it says which one you are in.
+   Built from the sections themselves, so adding one adds its entry. */
+.layout {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--s8);
+}
+
+.layout .doc {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.toc {
+	position: sticky;
+	top: var(--s5);
+	flex: none;
+	width: 240px;
+	display: flex;
+	flex-direction: column;
+}
+
+.toc__item {
+	display: flex;
+	gap: var(--s3);
+	padding: var(--s3) 0;
+	border-top: var(--rule-w) solid var(--rule);
+	color: var(--ink-muted);
+}
+
+.toc__item:last-child {
+	border-bottom: var(--rule-w) solid var(--rule);
+}
+
+.toc__item:hover {
+	color: var(--ink-strong);
+}
+
+.toc__item.is-current {
+	color: var(--ink);
+	font-weight: 500;
+}
+
+.toc__no {
+	flex: none;
+	color: var(--ink-muted);
+	font-weight: 300;
+}
+
+@media (max-width: 1100px) {
+	.layout {
+		flex-direction: column;
+		gap: var(--s5);
+	}
+
+	.toc {
+		position: static;
+		width: auto;
+	}
+}
+
 .doc {
 	display: flex;
 	flex-direction: column;

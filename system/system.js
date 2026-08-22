@@ -131,3 +131,41 @@ scroll.innerHTML = `
 	<span class="spec__value">scrollIntoView, block start</span>
 	<span class="spec__note">You start at the first line of what you opened, not wherever its row happened to sit. A decision about where reading begins, not a rescue for a displaced click.</span>`;
 motion.append(scroll);
+
+/* --- Contents ---------------------------------------------------------- */
+
+/* Built from the sections on the page rather than kept as a second list,
+   so a new section cannot be missing from the contents. */
+
+const toc = document.getElementById('toc');
+const sections = [...document.querySelectorAll('.doc .section')];
+
+for (const section of sections) {
+	const heading = section.querySelector('.section__heading');
+	const no = heading.querySelector('.section__no').textContent.trim();
+	const name = heading.textContent.replace(no, '').trim();
+	section.id = 's' + no;
+
+	const item = document.createElement('a');
+	item.className = 'toc__item';
+	item.href = '#s' + no;
+	item.append(Object.assign(document.createElement('span'), { className: 'toc__no', textContent: no }));
+	item.append(Object.assign(document.createElement('span'), { textContent: name }));
+	toc.append(item);
+}
+
+/* Mark the section being read: the first one still overlapping the top
+   quarter of the window. */
+const items = [...toc.children];
+const onScreen = new Set();
+
+const watcher = new IntersectionObserver((entries) => {
+	for (const entry of entries) {
+		if (entry.isIntersecting) onScreen.add(entry.target);
+		else onScreen.delete(entry.target);
+	}
+	const current = sections.find((section) => onScreen.has(section)) ?? sections[0];
+	items.forEach((item, i) => item.classList.toggle('is-current', sections[i] === current));
+}, { rootMargin: '0px 0px -75% 0px' });
+
+sections.forEach((section) => watcher.observe(section));
