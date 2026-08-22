@@ -163,40 +163,37 @@ for (const section of sections) {
 	tocList.append(item);
 }
 
-/* Mark the section being read: the first one still overlapping the top
-   quarter of the window. */
-const items = [...tocList.children];
-const onScreen = new Set();
+/* --- Where you are: one pass, one rule ---------------------------------- */
 
-const watcher = new IntersectionObserver((entries) => {
-	for (const entry of entries) {
-		if (entry.isIntersecting) onScreen.add(entry.target);
-		else onScreen.delete(entry.target);
-	}
-	const current = sections.find((section) => onScreen.has(section)) ?? sections[0];
-	items.forEach((item, i) => item.classList.toggle('is-current', sections[i] === current));
-}, { rootMargin: '0px 0px -75% 0px' });
+/* Both marks answer the same question — which section is at the top of the
+   window — so they are one loop over one measurement rather than two
+   mechanisms that can disagree. A section becomes current once its top
+   crosses --s8: the gap between sections, and the line navigating to one
+   lands on, so arriving marks it at once. Its heading shrinks a little
+   later, when the section itself passes the edge.
 
-sections.forEach((section) => watcher.observe(section));
-
-/* --- Headings shrink once they are pinned ------------------------------ */
-
-/* A plain scroll check rather than an observer: the heading holds one height
+   A plain scroll check rather than observers: the heading holds one height
    whatever size its type is, so its own state can never move the thing being
-   measured, and the section's top is the whole test. Twelve rect reads per
-   scroll on a page that never reflows is cheaper than the machinery to
-   avoid them. */
+   measured. Twelve rect reads per scroll on a page that never reflows is
+   cheaper than the machinery to avoid them. */
 
-function markPinned() {
-	for (const section of sections) {
-		section
-			.querySelector('.section__heading')
-			.classList.toggle('is-stuck', section.getBoundingClientRect().top < 0);
-	}
+const items = [...tocList.children];
+const landing = parseFloat(token('--s8'));
+
+function mark() {
+	let current = 0;
+
+	sections.forEach((section, i) => {
+		const top = section.getBoundingClientRect().top;
+		section.querySelector('.section__heading').classList.toggle('is-stuck', top < 0);
+		if (top <= landing) current = i;
+	});
+
+	items.forEach((item, i) => item.classList.toggle('is-current', i === current));
 }
 
-addEventListener('scroll', markPinned, { passive: true });
-markPinned();
+addEventListener('scroll', mark, { passive: true });
+mark();
 
 /* --- On a phone the sticky heading is the menu --------------------------- */
 
