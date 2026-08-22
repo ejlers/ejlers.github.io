@@ -223,7 +223,10 @@ for (const section of sections) {
 		if (!narrow.matches) return;
 		const opening = !document.body.classList.contains('menu-open');
 		document.body.classList.toggle('menu-open', opening);
-		if (opening) section.scrollIntoView({ block: 'start' });
+		/* Flush to the top, ignoring the scroll margin the contents links
+		   take: the panel hangs off the pinned heading, so the heading has
+		   to be against the edge for the two to meet. */
+		if (opening) scrollTo({ top: scrollY + section.getBoundingClientRect().top });
 	});
 }
 

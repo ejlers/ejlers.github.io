@@ -148,6 +148,10 @@
 .section {
 	position: relative;
 	border-top: var(--rule-w) solid var(--rule);
+	/* Landing on a section brings the gap above it along, so the heading
+	   arrives with room over it rather than jammed against the window edge.
+	   The same step the sections are spaced by — one gap, stated once. */
+	scroll-margin-top: var(--s8);
 }
 
 
