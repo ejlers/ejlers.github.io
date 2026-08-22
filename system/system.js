@@ -112,6 +112,7 @@ for (const [name, note] of METRICS) {
 const MOTION = [
 	['--t-open', 'Drawer opening', 'grid-template-rows 0fr to 1fr, ease-out', 'This content belongs to that row, and it came from there. A fade would lose the parentage — the unfold is the sentence.'],
 	['--t-close', 'Drawer closing', 'grid-template-rows 1fr to 0fr, ease-in', 'Put away, not deleted. Faster than opening, because nobody watches something leave.'],
+	['--t-open', 'Menu opening', 'opacity, ease-out', 'A different question from a drawer. Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show — it covers, and covering fades.'],
 	['--t-confirm', 'Chevron', 'transform, ease', 'I heard you, and this row is now open. It confirms rather than reveals, so it finishes long before the drawer.'],
 	['--t-confirm', 'Hover veil', 'background-color, ease', 'The whole row is the target, not just the words in it.']
 ];
@@ -142,10 +143,7 @@ motion.append(scroll);
    so a new section cannot be missing from the contents. */
 
 const toc = document.getElementById('toc');
-/* Bare wrapper, then the padded list — the same shape as a drawer, so the
-   collapsing box carries no padding of its own to hold it open. */
-const tocInner = toc.appendChild(document.createElement('div'));
-const tocList = tocInner.appendChild(Object.assign(document.createElement('div'), { className: 'toc__list' }));
+const tocList = toc.appendChild(Object.assign(document.createElement('div'), { className: 'toc__list' }));
 const sections = [...document.querySelectorAll('.doc .section')];
 
 const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -200,18 +198,32 @@ mark();
 /* --- On a phone the sticky heading is the menu --------------------------- */
 
 /* No hamburger and no second vocabulary: the heading of the section you are
-   in sits at the top of the window already, so it takes the chevron and opens
-   the contents beneath itself the way a project row opens its drawer.
-   Choosing an entry closes it and scrolls there.
+   in sits at the top of the window already, so it takes the chevron, renames
+   itself Menu and covers the page with the contents. Choosing an entry closes
+   it and scrolls there.
 
-   Only that one heading is the menu, and only ever one at a time. It is the
-   one heading guaranteed to be at the top of the window, so the panel always
-   hangs in the same place and opening it never moves the page. */
+   Only that one heading is the menu, and only ever one at a time. Opening it
+   moves nothing: the page does not scroll and the bar stays where it was. */
 
 const narrow = matchMedia('(max-width: 1100px)');
 
 for (const section of sections) {
 	const heading = section.querySelector('.section__heading');
+
+	/* Two words in one box: the section's own name, and Menu for while the
+	   menu is open. Built here rather than in the markup so a section is still
+	   written as a heading and nothing else. */
+	const title = document.createElement('span');
+	title.className = 'section__title';
+	title.append(Object.assign(document.createElement('span'), {
+		className: 'section__name',
+		textContent: heading.textContent.trim()
+	}));
+	const word = Object.assign(document.createElement('span'), { className: 'section__menu', textContent: 'Menu' });
+	word.setAttribute('aria-hidden', 'true');
+	title.append(word);
+	heading.textContent = '';
+	heading.append(title);
 
 	const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	chevron.setAttribute('class', 'chevron');
@@ -225,10 +237,13 @@ for (const section of sections) {
 	heading.addEventListener('click', () => {
 		if (!narrow.matches || !heading.classList.contains('is-current')) return;
 		const opening = !document.body.classList.contains('menu-open');
-		/* Hang the panel off this heading wherever it sits. A custom property
-		   rather than an inline top, so it cannot leak into the sticky rail
-		   when the window gets wide again. */
-		if (opening) toc.style.setProperty('--menu-top', Math.round(heading.getBoundingClientRect().bottom) + 'px');
+		/* The panel covers the screen; --menu-top only tells its list where
+		   this heading ends. A custom property rather than an inline style,
+		   so it cannot leak into the sticky rail on a wide screen. */
+		if (opening) {
+			toc.style.setProperty('--menu-top', Math.round(heading.getBoundingClientRect().bottom) + 'px');
+			toc.scrollTop = 0;
+		}
 		document.body.classList.toggle('menu-open', opening);
 	});
 }

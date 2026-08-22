@@ -43,6 +43,37 @@
 	display: none;
 }
 
+/* While the menu is open the heading is the menu's bar, so it says so. Both
+   words occupy the same box and only their opacity differs — the bar does
+   not resize, and nothing moves. */
+.section__title {
+	position: relative;
+	min-width: 0;
+}
+
+.section__name {
+	transition: opacity var(--t-open) ease-out;
+}
+
+.section__menu {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	/* It lies over the name, so without this a copied heading reads ColourMenu. */
+	user-select: none;
+	transition: opacity var(--t-close) ease-in;
+}
+
+body.menu-open .section__heading.is-current .section__name {
+	opacity: 0;
+	transition: opacity var(--t-close) ease-in;
+}
+
+body.menu-open .section__heading.is-current .section__menu {
+	opacity: 1;
+	transition: opacity var(--t-open) ease-out;
+}
+
 .toc__item {
 	display: flex;
 	align-items: center;
@@ -102,43 +133,50 @@
 		color: var(--ink-strong);
 	}
 
-	/* Hangs directly under that heading and unfolds the same way a drawer
-	   does — one height, one easing, nothing new to learn. --menu-top is set
-	   from the heading's own edge as it opens, so the panel meets it whether
-	   it is pinned at the top or still a step below. */
+	/* The menu covers the page rather than hanging off it. Half-covered, the
+	   page behind stays scrollable, and scrolling it moves the section you are
+	   about to choose from. Covering also settles the transition: nothing in
+	   the panel belongs to the heading and nothing unfolds out of it, so it
+	   fades in where the drawer on the portfolio grows.
+
+	   Its own scroll container, so a long list still reaches its end on a
+	   short screen, and contain keeps that scroll from chaining to the page. */
 	.toc {
 		position: fixed;
-		top: var(--menu-top, 0px);
-		left: 0;
-		right: 0;
+		inset: 0;
 		z-index: 3;
 		width: auto;
-		display: grid;
-		grid-template-rows: 0fr;
 		background: var(--paper);
-		transition: grid-template-rows var(--t-close) ease-in;
-	}
-
-	.toc > * {
-		overflow: clip;
-		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		opacity: 0;
 		visibility: hidden;
-		transition: visibility 0s linear var(--t-close);
+		transition:
+			opacity var(--t-close) ease-in,
+			visibility 0s linear var(--t-close);
 	}
 
 	body.menu-open .toc {
-		grid-template-rows: 1fr;
-		transition: grid-template-rows var(--t-open) ease-out;
-		border-bottom: var(--rule-w) solid var(--rule);
-	}
-
-	body.menu-open .toc > * {
+		opacity: 1;
 		visibility: visible;
-		transition-delay: 0s;
+		transition: opacity var(--t-open) ease-out;
 	}
 
+	/* And the page behind holds still. Covering it is not enough on its own:
+	   a list that happens to fit has nothing of its own to scroll, so the drag
+	   would pass straight through to the page. */
+	body.menu-open {
+		overflow: hidden;
+	}
+
+	/* The heading stays above the panel: it is the bar, not something covered. */
+	body.menu-open .section__heading.is-current {
+		z-index: 4;
+	}
+
+	/* --menu-top is the heading's own bottom edge, set as the menu opens. */
 	.toc__list {
-		padding: var(--s2) var(--page-x) var(--s3);
+		padding: calc(var(--menu-top, 0px) + var(--s2)) var(--page-x) var(--s5);
 	}
 }
 
