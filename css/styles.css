@@ -33,7 +33,10 @@
 	--t-close: 240ms;
 	--t-confirm: 160ms;
 
-	/* Page inset — the only horizontal spacing on the page */
+	/* Page — the content never exceeds --page-max, and --page-x is the only
+	   horizontal spacing until it does. Below that width the page is full
+	   bleed minus the inset; above it, the whole thing centres. */
+	--page-max: 1400px;
 	--page-x: 20px;
 
 	/* Measure */
@@ -93,6 +96,8 @@ html {
 }
 
 body {
+	max-width: calc(var(--page-max) + var(--page-x) * 2);
+	margin-inline: auto;
 	padding-inline: var(--page-x);
 	background: var(--paper);
 	color: var(--ink);
