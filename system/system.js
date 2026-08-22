@@ -82,7 +82,6 @@ const ramp = document.getElementById('ramp');
 for (const [name, use] of RAMP) {
 	const row = document.createElement('div');
 	row.className = 'spec';
-	row.style.gridTemplateColumns = '90px 150px minmax(0, 1fr)';
 	row.innerHTML = `
 		<span>${token(name)}</span>
 		<span><span class="ramp-bar" style="width: var(${name})"></span></span>
@@ -181,12 +180,15 @@ const items = [...tocList.children];
 const landing = parseFloat(token('--s8'));
 
 function mark() {
+	const tops = sections.map((section) => section.getBoundingClientRect().top);
+
 	let current = 0;
+	tops.forEach((top, i) => { if (top <= landing) current = i; });
 
 	sections.forEach((section, i) => {
-		const top = section.getBoundingClientRect().top;
-		section.querySelector('.section__heading').classList.toggle('is-stuck', top < 0);
-		if (top <= landing) current = i;
+		const heading = section.querySelector('.section__heading');
+		heading.classList.toggle('is-stuck', tops[i] < 0);
+		heading.classList.toggle('is-current', i === current);
 	});
 
 	items.forEach((item, i) => item.classList.toggle('is-current', i === current));
@@ -197,33 +199,37 @@ mark();
 
 /* --- On a phone the sticky heading is the menu --------------------------- */
 
-/* No hamburger and no second vocabulary: the heading is already pinned to
-   the top and already carries a chevron, so it opens the contents beneath
-   itself the way a project row opens its drawer. Choosing an entry scrolls
-   there and closes it. */
+/* No hamburger and no second vocabulary: the heading of the section you are
+   in sits at the top of the window already, so it takes the chevron and opens
+   the contents beneath itself the way a project row opens its drawer.
+   Choosing an entry closes it and scrolls there.
+
+   Only that one heading is the menu, and only ever one at a time. It is the
+   one heading guaranteed to be at the top of the window, so the panel always
+   hangs in the same place and opening it never moves the page. */
 
 const narrow = matchMedia('(max-width: 1100px)');
 
 for (const section of sections) {
 	const heading = section.querySelector('.section__heading');
 
-	const mark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	mark.setAttribute('class', 'chevron');
-	mark.setAttribute('aria-hidden', 'true');
-	mark.setAttribute('focusable', 'false');
+	const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	chevron.setAttribute('class', 'chevron');
+	chevron.setAttribute('aria-hidden', 'true');
+	chevron.setAttribute('focusable', 'false');
 	const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 	use.setAttribute('href', '#i-chevron');
-	mark.append(use);
-	heading.append(mark);
+	chevron.append(use);
+	heading.append(chevron);
 
 	heading.addEventListener('click', () => {
-		if (!narrow.matches) return;
+		if (!narrow.matches || !heading.classList.contains('is-current')) return;
 		const opening = !document.body.classList.contains('menu-open');
+		/* Hang the panel off this heading wherever it sits. A custom property
+		   rather than an inline top, so it cannot leak into the sticky rail
+		   when the window gets wide again. */
+		if (opening) toc.style.setProperty('--menu-top', Math.round(heading.getBoundingClientRect().bottom) + 'px');
 		document.body.classList.toggle('menu-open', opening);
-		/* Flush to the top, ignoring the scroll margin the contents links
-		   take: the panel hangs off the pinned heading, so the heading has
-		   to be against the edge for the two to meet. */
-		if (opening) scrollTo({ top: scrollY + section.getBoundingClientRect().top });
 	});
 }
 

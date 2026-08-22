@@ -61,12 +61,14 @@
 	transition: width var(--t-confirm) ease, background-color var(--t-confirm) ease;
 }
 
-.toc__item:hover {
-	color: var(--ink-strong);
-}
+@media (hover: hover) {
+	.toc__item:hover {
+		color: var(--ink-strong);
+	}
 
-.toc__item:hover .toc__tick {
-	background: var(--ink-strong);
+	.toc__item:hover .toc__tick {
+		background: var(--ink-strong);
+	}
 }
 
 .toc__item.is-current {
@@ -85,11 +87,13 @@
 		gap: 0;
 	}
 
-	.section__heading {
+	/* One heading is the menu: the one for the section you are in, which is
+	   the one at the top of the window. The others stay plain headings. */
+	.section__heading.is-current {
 		cursor: pointer;
 	}
 
-	.section__heading .chevron {
+	.section__heading.is-current .chevron {
 		display: block;
 	}
 
@@ -98,11 +102,13 @@
 		color: var(--ink-strong);
 	}
 
-	/* Hangs directly under the pinned heading and unfolds the same way a
-	   drawer does — one height, one easing, nothing new to learn. */
+	/* Hangs directly under that heading and unfolds the same way a drawer
+	   does — one height, one easing, nothing new to learn. --menu-top is set
+	   from the heading's own edge as it opens, so the panel meets it whether
+	   it is pinned at the top or still a step below. */
 	.toc {
 		position: fixed;
-		top: calc(34px * 1.25 + var(--s4));
+		top: var(--menu-top, 0px);
 		left: 0;
 		right: 0;
 		z-index: 3;
@@ -254,9 +260,22 @@
 	align-items: center;
 }
 
+/* On a phone the swatch keeps its column and everything else stacks beside
+   it. Left to wrap on its own the five cells reflow into three rows, which
+   puts the note under the swatch in a 56px column, one word per line. */
 @media (max-width: 800px) {
 	.swatches .spec {
 		grid-template-columns: 56px minmax(0, 1fr);
+		align-items: start;
+		gap: var(--s1) 0;
+	}
+
+	.swatches .spec > :first-child {
+		grid-row: 1 / span 4;
+	}
+
+	.swatches .spec > :not(:first-child) {
+		grid-column: 2;
 	}
 }
 
@@ -455,7 +474,14 @@
 .pair__label--dont { color: var(--warn); }
 .pair__note { color: var(--ink-muted); }
 
-/* The space ramp. */
+/* The space ramp. Its columns live here rather than on the element, so the
+   single-column rule above can still take over on a phone. */
+@media (min-width: 801px) {
+	.ramp .spec {
+		grid-template-columns: 90px 150px minmax(0, 1fr);
+	}
+}
+
 .ramp-bar {
 	display: block;
 	height: var(--s2);
