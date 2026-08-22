@@ -8,12 +8,21 @@ import { readFileSync } from 'node:fs';
 
 const css = readFileSync(new URL('../css/styles.css', import.meta.url), 'utf8');
 
-const rootStart = css.indexOf(':root {');
-const rootEnd = css.indexOf('}', rootStart);
-if (rootStart === -1) throw new Error('no :root token block found');
+/* Every :root block declares tokens — the base set, the dark scheme and the
+   reduced-motion durations — so all of them are exempt and everything else
+   is the body this checks. */
+const blocks = [...css.matchAll(/:root \{/g)].map((m) => [m.index, css.indexOf('}', m.index)]);
+if (blocks.length === 0) throw new Error('no :root token block found');
 
-const tokenBlock = css.slice(rootStart, rootEnd);
-const body = css.slice(0, rootStart) + css.slice(rootEnd);
+const tokenBlock = blocks.map(([a, b]) => css.slice(a, b)).join('\n');
+
+let body = '';
+let cut = 0;
+for (const [a, b] of blocks) {
+	body += css.slice(cut, a);
+	cut = b;
+}
+body += css.slice(cut);
 
 const ramp = [...tokenBlock.matchAll(/--s\d:\s*(\d+)px/g)].map((m) => Number(m[1]));
 const allowedSpace = new Set([0, ...ramp]);

@@ -66,7 +66,7 @@
 				</div>
 				<div class="spec">
 					<span>No colour</span>
-					<span class="spec__value">Six greys and white</span>
+					<span class="spec__value">Six greys, no hue</span>
 					<span class="spec__note">Not one hue in the interface. The screenshots are the only colour on the page — a frame with an opinion about colour competes with the picture.</span>
 				</div>
 				<div class="spec">
@@ -143,7 +143,7 @@
 						<span class="principle__name">Quiet is not the same as faint</span>
 						<div class="principle__body">
 							<p>Restraint is a compositional choice, not a licence to drop contrast. Reduce the amount of text before you reduce its contrast.</p>
-							<p class="test"><b>Test —</b> Every text colour clears 4.5:1 on white. Every icon that carries meaning clears 3:1. No exceptions for elegance.</p>
+							<p class="test"><b>Test —</b> Every text colour clears 4.5:1 on the paper behind it. Every icon that carries meaning clears 3:1. No exceptions for elegance.</p>
 						</div>
 					</div>
 				</div>
@@ -154,7 +154,8 @@
 				<h2 class="section__heading">Colour</h2>
 			<div class="section__body">
 				<div class="lede">
-					<p>Six greys, white, and one fill. Each has exactly one job, and no value appears twice under a different name. Swatches and ratios are read from the live stylesheet — the numbers are computed in the browser, not typed in.</p>
+					<p>Six greys and a paper. Each has exactly one job, and no value appears twice under a different name. Swatches and ratios are read from the live stylesheet — the numbers are computed in the browser against whichever paper is current, not typed in.</p>
+					<p>There are two papers, and the device chooses. Dark is the same design the other way up: Paper and Ink swap ends and every other grey is the value that holds its light-mode ratio against the new paper, so the ladder below reads 9.4, 5.6 and 3.4 either way. Ink is the one deliberate difference — it eases off pure white, because 300-weight type on near-black blooms.</p>
 					<p class="muted">The threshold depends on the job. Text clears 4.5:1, an interface mark clears 3:1, and a surface is not measured against itself.</p>
 				</div>
 
@@ -163,7 +164,7 @@
 						<span></span>
 						<span>Token</span>
 						<span class="muted">Value</span>
-						<span class="muted">On white</span>
+						<span class="muted">On paper</span>
 						<span class="muted">Job</span>
 					</div>
 				</div>
@@ -450,9 +451,9 @@
 						<span class="spec__note">A filled block carries more weight than a hairline, so this sits above Bordered even though it is paler. For repeated or low-stakes actions.</span>
 					</div>
 					<div class="spec">
-						<span><button type="button" class="btn btn--black">Get in touch</button></span>
-						<span class="spec__value">Black</span>
-						<span class="spec__note">The loudest thing the system can produce. One per view, never two side by side.</span>
+						<span><button type="button" class="btn btn--solid">Get in touch</button></span>
+						<span class="spec__value">Solid</span>
+						<span class="spec__note">The loudest thing the system can produce — Ink on Paper, which means black in daylight and near-white after dark. One per view, never two side by side.</span>
 					</div>
 					<div class="spec">
 						<span><button type="button" class="btn" disabled>Unavailable</button></span>
@@ -462,7 +463,7 @@
 				</div>
 
 				<div class="rules">
-					<span class="rule-item">One black button per view. If a second action feels equally important, one of them is not.</span>
+					<span class="rule-item">One solid button per view. If a second action feels equally important, one of them is not.</span>
 					<span class="rule-item">There is no small button. If it needs to be smaller, it is a link.</span>
 					<span class="rule-item">No icons in buttons. The chevron means one thing, and that is a row opening.</span>
 					<span class="rule-item">Sentence case, verb first, one to three words.</span>

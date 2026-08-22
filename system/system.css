@@ -6,10 +6,22 @@
    the site it documents.
    ========================================================================== */
 
-/* One value here is documentation rather than design: the colour that marks
-   a "do not". It never appears on the site, so it is not a system token. */
+/* Three values here are documentation rather than design: the colour that
+   marks a "do not", and the two that build the card in the don't column.
+   None of them appears on the site, so none is a system token. Each has a
+   dark counterpart holding the same contrast against its paper. */
 :root {
-	--warn: #8b4a2b;
+	--warn: #8b4a2b;        /* 6.8:1 */
+	--demo-card: #fafafa;
+	--demo-shadow: rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--warn: #d38f6a;    /* 6.7:1 */
+		--demo-card: #1f1f1f;
+		--demo-shadow: rgba(0, 0, 0, 0.5);
+	}
 }
 
 /* Contents. Sticky beside the sections, and it says which one you are in.
@@ -548,10 +560,10 @@ body.menu-open .section__heading.is-current .section__menu {
 /* Deliberately wrong specimens, for the don't column only. */
 .demo-card {
 	padding: var(--s3) var(--s4);
-	background: #fafafa;
+	background: var(--demo-card);
 	border: var(--rule-w) solid var(--fill);
 	border-radius: 8px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+	box-shadow: 0 1px 3px var(--demo-shadow);
 }
 
 .demo-faint { color: var(--grey); }

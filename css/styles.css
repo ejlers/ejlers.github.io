@@ -5,7 +5,10 @@
    ========================================================================== */
 
 :root {
-	/* Colour — six greys, white, no hue */
+	/* The two schemes are the same design; the device picks which way up. */
+	color-scheme: light dark;
+
+	/* Colour — six greys, one paper, no hue */
 	--paper: #ffffff;
 	--ink: #181818;        /* 17.8:1 — primary text                          */
 	--ink-strong: #464646; /*  9.4:1 — open states, secondary emphasis       */
@@ -43,6 +46,27 @@
 	/* Measure */
 	--measure: 600px;
 	--drawer-text: 320px;
+}
+
+/* Dark is the same design the other way up, not a second one. Paper and Ink
+   swap ends, and every remaining grey is the value that holds its light-mode
+   contrast ratio against the new paper — the ladder is 9.4, 5.6 and 3.4 in
+   both schemes, so no rule about which grey may carry text changes here.
+
+   Ink is the one deliberate difference. It eases off pure white, because
+   300-weight type on near-black blooms; 15.2:1 is still far past any floor. */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--paper: #181818;
+		--ink: #ededed;        /* 15.2:1 — primary text                          */
+		--ink-strong: #bdbdbd; /*  9.5:1 — open states, secondary emphasis       */
+		--ink-muted: #909090;  /*  5.6:1 — secondary copy and links              */
+		--grey: #6d6d6d;       /*  3.4:1 — interface marks only, never text      */
+		--rule: #2f2f2f;       /* hairlines                                      */
+		--fill: #272727;       /* the one fill, for the grey button              */
+		--veil: rgba(24, 24, 24, 0.81);
+		--veil-hover: #202020;
+	}
 }
 
 /* State still changes; it simply arrives already done. */
@@ -451,13 +475,15 @@ a:hover {
 	background: var(--rule);
 }
 
-.btn--black {
+/* Named for its weight rather than its colour: in dark mode the loudest
+   button is the palest thing on the page. */
+.btn--solid {
 	border-color: var(--ink);
 	background: var(--ink);
 	color: var(--paper);
 }
 
-.btn--black:hover {
+.btn--solid:hover {
 	border-color: var(--ink-strong);
 	background: var(--ink-strong);
 }

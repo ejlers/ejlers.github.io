@@ -19,8 +19,11 @@ function luminance(hex) {
 	return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 }
 
-function contrastOnWhite(hex) {
-	return 1.05 / (luminance(hex) + 0.05);
+/* Against the paper in use, not against white: in dark mode the same tokens
+   are measured on #181818, and the ladder has to come out the same. */
+function contrastOnPaper(hex) {
+	const [a, b] = [luminance(hex), luminance(token('--paper'))].sort((x, y) => y - x);
+	return (a + 0.05) / (b + 0.05);
 }
 
 /* --- Colour table ----------------------------------------------------- */
@@ -28,7 +31,7 @@ function contrastOnWhite(hex) {
 /* The threshold depends on the job: text needs 4.5:1, an interface mark
    needs 3:1, and a surface is not measured against itself at all. */
 const COLOURS = [
-	['--paper', 'Paper', 'surface', 'Every background. There is no second background.'],
+	['--paper', 'Paper', 'surface', 'Every background. There is no second background — the device picks which of the two it is.'],
 	['--ink', 'Ink', 'text', 'Primary text — names, body copy, anything read closely.'],
 	['--ink-strong', 'Ink Strong', 'text', 'Row headers, open-state chevrons, secondary emphasis.'],
 	['--ink-muted', 'Ink Muted', 'text', 'Secondary copy and links. Anything at 16px takes this or darker.'],
@@ -45,7 +48,7 @@ const colours = document.getElementById('colours');
 for (const [name, label, role, job] of COLOURS) {
 	const value = token(name);
 	const floor = FLOOR[role];
-	const measured = floor && value.startsWith('#') ? contrastOnWhite(value) : null;
+	const measured = floor && value.startsWith('#') ? contrastOnPaper(value) : null;
 	const fails = measured !== null && measured < floor;
 
 	const row = document.createElement('div');
