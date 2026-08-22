@@ -143,6 +143,10 @@ motion.append(scroll);
    so a new section cannot be missing from the contents. */
 
 const toc = document.getElementById('toc');
+/* Bare wrapper, then the padded list — the same shape as a drawer, so the
+   collapsing box carries no padding of its own to hold it open. */
+const tocInner = toc.appendChild(document.createElement('div'));
+const tocList = tocInner.appendChild(Object.assign(document.createElement('div'), { className: 'toc__list' }));
 const sections = [...document.querySelectorAll('.doc .section')];
 
 const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -156,12 +160,12 @@ for (const section of sections) {
 	item.href = '#' + section.id;
 	item.append(Object.assign(document.createElement('span'), { className: 'toc__tick' }));
 	item.append(Object.assign(document.createElement('span'), { textContent: name }));
-	toc.append(item);
+	tocList.append(item);
 }
 
 /* Mark the section being read: the first one still overlapping the top
    quarter of the window. */
-const items = [...toc.children];
+const items = [...tocList.children];
 const onScreen = new Set();
 
 const watcher = new IntersectionObserver((entries) => {
@@ -177,16 +181,54 @@ sections.forEach((section) => watcher.observe(section));
 
 /* --- Headings shrink once they are pinned ------------------------------ */
 
-for (const section of sections) {
-	section.prepend(Object.assign(document.createElement('span'), { className: 'sentinel' }));
+/* A plain scroll check rather than an observer: the heading holds one height
+   whatever size its type is, so its own state can never move the thing being
+   measured, and the section's top is the whole test. Twelve rect reads per
+   scroll on a page that never reflows is cheaper than the machinery to
+   avoid them. */
+
+function markPinned() {
+	for (const section of sections) {
+		section
+			.querySelector('.section__heading')
+			.classList.toggle('is-stuck', section.getBoundingClientRect().top < 0);
+	}
 }
 
-const pinned = new IntersectionObserver((entries) => {
-	for (const entry of entries) {
-		const heading = entry.target.parentElement.querySelector('.section__heading');
-		const above = entry.boundingClientRect.top < 0;
-		heading.classList.toggle('is-stuck', !entry.isIntersecting && above);
-	}
+addEventListener('scroll', markPinned, { passive: true });
+markPinned();
+
+/* --- On a phone the sticky heading is the menu --------------------------- */
+
+/* No hamburger and no second vocabulary: the heading is already pinned to
+   the top and already carries a chevron, so it opens the contents beneath
+   itself the way a project row opens its drawer. Choosing an entry scrolls
+   there and closes it. */
+
+const narrow = matchMedia('(max-width: 1100px)');
+
+for (const section of sections) {
+	const heading = section.querySelector('.section__heading');
+
+	const mark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	mark.setAttribute('class', 'chevron');
+	mark.setAttribute('aria-hidden', 'true');
+	mark.setAttribute('focusable', 'false');
+	const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+	use.setAttribute('href', '#i-chevron');
+	mark.append(use);
+	heading.append(mark);
+
+	heading.addEventListener('click', () => {
+		if (!narrow.matches) return;
+		const opening = !document.body.classList.contains('menu-open');
+		document.body.classList.toggle('menu-open', opening);
+		if (opening) section.scrollIntoView({ block: 'start' });
+	});
+}
+
+tocList.addEventListener('click', (event) => {
+	if (event.target.closest('.toc__item')) document.body.classList.remove('menu-open');
 });
 
-document.querySelectorAll('.sentinel').forEach((mark) => pinned.observe(mark));
+narrow.addEventListener('change', () => document.body.classList.remove('menu-open'));
