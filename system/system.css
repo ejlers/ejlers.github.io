@@ -235,6 +235,25 @@ body.menu-open .section__heading.is-current .section__menu {
 	letter-spacing: 0;
 }
 
+/* Narrow enough and a long name wraps, so there the bar takes its height from
+   its own name instead of holding one height for every section — a fixed
+   height would drop the second line onto the section beneath it.
+
+   Which means it cannot shrink as it pins either: the box would collapse
+   under the text and pull the page up. So on a phone the heading stays at
+   display size, and little is lost — the shrink made room beside a contents
+   rail that a phone does not have. */
+@media (max-width: 1100px) {
+	.section__heading,
+	.section__heading.is-stuck {
+		height: auto;
+		padding: var(--s2) 0;
+		font-size: 34px;
+		font-weight: 300;
+		letter-spacing: -0.01em;
+	}
+}
+
 .section__body {
 	display: flex;
 	flex-direction: column;
