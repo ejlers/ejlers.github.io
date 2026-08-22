@@ -59,6 +59,11 @@ for (const [name, label, role, job] of COLOURS) {
 	colours.append(row);
 }
 
+/* --- Typeface, read rather than restated ------------------------------ */
+
+document.getElementById('typeface').textContent =
+	getComputedStyle(document.body).fontFamily.replaceAll('"', '');
+
 /* --- The space ramp --------------------------------------------------- */
 
 const RAMP = [
@@ -169,3 +174,19 @@ const watcher = new IntersectionObserver((entries) => {
 }, { rootMargin: '0px 0px -75% 0px' });
 
 sections.forEach((section) => watcher.observe(section));
+
+/* --- Headings shrink once they are pinned ------------------------------ */
+
+for (const section of sections) {
+	section.prepend(Object.assign(document.createElement('span'), { className: 'sentinel' }));
+}
+
+const pinned = new IntersectionObserver((entries) => {
+	for (const entry of entries) {
+		const heading = entry.target.parentElement.querySelector('.section__heading');
+		const above = entry.boundingClientRect.top < 0;
+		heading.classList.toggle('is-stuck', !entry.isIntersecting && above);
+	}
+});
+
+document.querySelectorAll('.sentinel').forEach((mark) => pinned.observe(mark));
