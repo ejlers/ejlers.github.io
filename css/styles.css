@@ -81,6 +81,14 @@ html {
 	-webkit-text-size-adjust: 100%;
 }
 
+/* Opening a project brings it to the top of the window. Stated in the
+   positive so the default stays an instant jump. */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
 body {
 	max-width: 90vw;
 	margin-inline: auto;
