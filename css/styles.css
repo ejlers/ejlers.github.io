@@ -12,6 +12,7 @@
 	--ink-muted: #686868;  /*  5.6:1 — secondary copy and links             */
 	--grey: #8b8b8b;       /*  3.4:1 — interface marks only, never text     */
 	--rule: #dfdfdf;       /* hairlines                                      */
+	--fill: #ececec;       /* the one fill, for the grey button              */
 	--veil: rgba(255, 255, 255, 0.81);
 	--veil-hover: #f5f5f5;
 
@@ -409,6 +410,61 @@ a:hover {
 	.hide-sm {
 		display: none;
 	}
+}
+
+/* --- Buttons -------------------------------------------------------- */
+
+/* One box, three fills. Nothing on this page uses one yet — they live here
+   rather than in the docs so the design system can render the real thing. */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--s2) var(--s4);
+	border: var(--rule-w) solid var(--ink-muted);
+	border-radius: 0;
+	appearance: none;
+	background: transparent;
+	color: var(--ink);
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.5;
+	cursor: pointer;
+	transition: background-color var(--t-confirm) ease, border-color var(--t-confirm) ease;
+}
+
+.btn:hover {
+	background: var(--veil-hover);
+}
+
+.btn--grey {
+	border-color: var(--fill);
+	background: var(--fill);
+}
+
+.btn--grey:hover {
+	border-color: var(--rule);
+	background: var(--rule);
+}
+
+.btn--black {
+	border-color: var(--ink);
+	background: var(--ink);
+	color: var(--paper);
+}
+
+.btn--black:hover {
+	border-color: var(--ink-strong);
+	background: var(--ink-strong);
+}
+
+.btn[disabled] {
+	border-color: var(--rule);
+	background: transparent;
+	color: var(--ink-muted);
+	cursor: not-allowed;
 }
 
 /* --- No JavaScript: every drawer is simply open ---------------------- */

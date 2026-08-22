@@ -1,0 +1,7 @@
+{
+	"name": "carlejlers-dk",
+	"private": true,
+	"scripts": {
+		"check": "node tools/check-tokens.mjs"
+	}
+}

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light">
+	<meta name="robots" content="noindex, nofollow">
+
+	<title>Design system — Carl Ejlers</title>
+	<meta name="description" content="The design system behind carlejlers.dk.">
+
+	<link rel="icon" href="../img/favicon.ico" sizes="any">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
+
+	<!-- The site's own stylesheet, not a copy of it. Every swatch, measurement
+	     and component below is rendered by the same rules the portfolio uses,
+	     so this page cannot describe something the site no longer does. -->
+	<link rel="stylesheet" href="../css/styles.css">
+	<link rel="stylesheet" href="./system.css">
+
+	<script>document.documentElement.classList.remove('no-js');</script>
+</head>
+
+<body>
+	<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5" /></symbol>
+		<symbol id="i-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h14M12 5l5 5-5 5" /></symbol>
+		<symbol id="i-close" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l10 10M15 5L5 15" /></symbol>
+		<symbol id="i-menu" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h14M3 10h14M3 15h14" /></symbol>
+		<symbol id="i-search" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="5" /><path d="M12.5 12.5L17 17" /></symbol>
+		<symbol id="i-play" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l10 6-10 6z" /></symbol>
+		<symbol id="i-download" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v10M6 9l4 4 4-4M3 17h14" /></symbol>
+	</svg>
+
+	<header class="intro intro--doc">
+		<div class="intro__text">
+			<h1>Carl Ejlers</h1>
+			<p class="display">The design system.</p>
+			<p>A ledger, not a portfolio. The style is subtractive — things were taken out until only the ones doing work were left, and the removal kept going further than most designers are comfortable with.</p>
+			<p class="muted">This page is not linked from anywhere on the site and asks not to be indexed. It reads <b style="font-weight: 500">../css/styles.css</b> directly, so every value below is the value the portfolio is actually using right now.</p>
+		</div>
+	</header>
+
+	<main class="doc">
+
+		<!-- 01 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">01</span> The style</h2>
+			<div class="section__body">
+				<div class="spec">
+					<span>One size</span>
+					<span class="spec__value">16px, everywhere</span>
+					<span class="spec__note">The stylesheet declares one reading size. Hierarchy is carried by weight and grey value, never by scale. Almost nobody does this, and it is the most characteristic thing about the site.</span>
+				</div>
+				<div class="spec">
+					<span>No colour</span>
+					<span class="spec__value">Six greys and white</span>
+					<span class="spec__note">Not one hue in the interface. The screenshots are the only colour on the page — a frame with an opinion about colour competes with the picture.</span>
+				</div>
+				<div class="spec">
+					<span>Lines, not containers</span>
+					<span class="spec__value">1.5px, top edge only</span>
+					<span class="spec__note">Zero corner radius, zero shadows. Nothing is on a card, nothing floats, nothing is elevated. Structure is a rule and some space.</span>
+				</div>
+				<div class="spec">
+					<span>The list is the layout</span>
+					<span class="spec__value">Five rows</span>
+					<span class="spec__note">No thumbnail grid, no hero, no scroll narrative. A table of contents that happens to contain the contents.</span>
+				</div>
+				<div class="spec">
+					<span>One gesture</span>
+					<span class="spec__value">A row opens</span>
+					<span class="spec__note">The entire interaction vocabulary. No tabs, no modals, no page loads. Even the cursor stays default, so the site refuses to look interactive anywhere it isn't.</span>
+				</div>
+
+				<div class="lede">
+					<p><b style="font-weight: 500">Where this is easy to get wrong.</b> The same discipline fails in three predictable places, all one degree past the line rather than a different mistake each time. Grey text drifts below 4.5:1 and stops being readable in daylight. The one interactive mark gets quietened until nobody can see there is anything to press. And with no size above the body copy, nothing anchors a page. The system answers each once: Ink Muted for text, two legal greys for icons, one display line per page.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- 02 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">02</span> Principles</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>Six, each with a test you can fail. A principle that cannot be failed is decoration — "be simple" settles no argument at 4pm on a Friday.</p>
+				</div>
+				<div>
+					<div class="principle">
+						<span class="principle__no">01</span>
+						<span class="principle__name">One size, many weights</span>
+						<div class="principle__body">
+							<p>Hierarchy is carried by weight and colour, never by scale. This is the hardest rule to keep — every new page will try to introduce a second size.</p>
+							<p class="test"><b>Test —</b> Reaching for a new font size means you have not decided what matters. Change the weight or the colour instead.</p>
+						</div>
+					</div>
+					<div class="principle">
+						<span class="principle__no">02</span>
+						<span class="principle__name">Rules, not boxes</span>
+						<div class="principle__body">
+							<p>Structure comes from hairlines and space. No cards, no radii, no shadows, no filled panels. A list reads as a ledger, not a stack of objects.</p>
+							<p class="test"><b>Test —</b> If a group only holds together inside a container, the spacing is wrong. Fix the spacing; delete the container.</p>
+						</div>
+					</div>
+					<div class="principle">
+						<span class="principle__no">03</span>
+						<span class="principle__name">The work is the only ornament</span>
+						<div class="principle__body">
+							<p>The interface is greyscale so the screenshots can be the only colour. Project images run the full width of their column, unframed and uncropped.</p>
+							<p class="test"><b>Test —</b> Squint at the page. If anything other than the work catches your eye first, remove it.</p>
+						</div>
+					</div>
+					<div class="principle">
+						<span class="principle__no">04</span>
+						<span class="principle__name">Say it once</span>
+						<div class="principle__body">
+							<p>No element repeats what is already on screen. No decorative icon beside a label that already says the word. No count restating a list you can see.</p>
+							<p class="test"><b>Test —</b> Delete it. If nothing is lost, it stays deleted.</p>
+						</div>
+					</div>
+					<div class="principle">
+						<span class="principle__no">05</span>
+						<span class="principle__name">One gesture, always signalled</span>
+						<div class="principle__body">
+							<p>A single interaction: a row opens. Marked the same way every time — a chevron, right-aligned, rotating on open. Anything that does not open does not get a chevron.</p>
+							<p class="test"><b>Test —</b> Without hovering anything, can a stranger tell what is clickable? If the mark is below 3:1, they cannot.</p>
+						</div>
+					</div>
+					<div class="principle">
+						<span class="principle__no">06</span>
+						<span class="principle__name">Quiet is not the same as faint</span>
+						<div class="principle__body">
+							<p>Restraint is a compositional choice, not a licence to drop contrast. Reduce the amount of text before you reduce its contrast.</p>
+							<p class="test"><b>Test —</b> Every text colour clears 4.5:1 on white. Every icon that carries meaning clears 3:1. No exceptions for elegance.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- 03 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">03</span> Colour and type</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>Six greys, white, and one fill. Each has exactly one job, and no value appears twice under a different name. Swatches and ratios below are read from the live stylesheet — the numbers are computed in the browser, not typed in.</p>
+				</div>
+
+				<div class="swatches" id="colours">
+					<div class="spec">
+						<span></span>
+						<span>Token</span>
+						<span class="muted">Value</span>
+						<span class="muted">On white</span>
+						<span class="muted">Job</span>
+					</div>
+				</div>
+
+				<div>
+					<div class="spec">
+						<span>Display</span>
+						<span class="spec__value">34 / 1.25 / 300</span>
+						<span class="spec__note"><span class="display">One statement per page</span> The only addition to one-size. Used once per page, never for a section heading.</span>
+					</div>
+					<div class="spec">
+						<span>Strong</span>
+						<span class="spec__value">16 / 1.5 / 500</span>
+						<span class="spec__note"><b style="font-weight: 500">Donkey Republic</b> — anything that anchors a row: project names, active navigation, your own name.</span>
+					</div>
+					<div class="spec">
+						<span>Body</span>
+						<span class="spec__value">16 / 1.5 / 300</span>
+						<span class="spec__note">Everything anyone actually reads, capped at a 600px measure regardless of how wide the viewport gets.</span>
+					</div>
+				</div>
+
+				<div class="lede">
+					<p>Three roles at one size, plus the display line. Weight and grey carry every distinction — nothing is set in capitals, nothing is letter-spaced, and meta that needs to recede goes to Ink Muted rather than to a smaller size. Weight 700 is not used.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- 04 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">04</span> Space, line and measure</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>One base unit of 5px and eight steps off it. Every padding, margin and gap is one of these values. Widths, measures and touch targets are sized by what they hold, not by the ramp.</p>
+				</div>
+
+				<div id="ramp"></div>
+
+				<div>
+					<div class="spec">
+						<span>Rule</span>
+						<span class="spec__value">1.5px solid, top edge</span>
+						<span class="spec__note">A group is closed by one final bottom rule, so rules never double up.</span>
+					</div>
+					<div class="spec">
+						<span>Radius</span>
+						<span class="spec__value">0</span>
+						<span class="spec__note">Everywhere, including images and avatars. The one exception is a pill filter, which is fully round — never partially.</span>
+					</div>
+					<div class="spec">
+						<span>Shadow</span>
+						<span class="spec__value">none</span>
+						<span class="spec__note">There is not one box-shadow in the stylesheet. Depth is the veil plus a 5px blur on a sticky header, and nothing else.</span>
+					</div>
+				</div>
+
+				<div class="grid-4" id="page-metrics"></div>
+			</div>
+		</section>
+
+		<!-- 05 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">05</span> Components</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>The whole inventory, and it should stay close to it — a system this quiet earns its consistency by having almost nothing to be inconsistent about. Every specimen below is the site's own markup and classes.</p>
+				</div>
+
+				<div>
+					<div class="spec">
+						<span>List row</span>
+						<span class="spec__value">15px vertical, sticky</span>
+						<span class="spec__note">The full row is the target, not the words in it. Hover changes the veil; nothing lifts, grows or shifts.</span>
+					</div>
+				</div>
+
+				<ul class="work" style="padding-bottom: 0">
+					<li class="item">
+						<h3 class="item__heading">
+							<span class="row" style="cursor: default">
+								<span class="row__id">
+									<img class="row__logo" src="../img/logos/donkey.png" alt="" width="150" height="150">
+									<span class="row__name">Donkey Republic</span>
+									<span class="row__desc">Bike Rental Platform</span>
+								</span>
+								<svg class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+							</span>
+						</h3>
+					</li>
+					<li class="item">
+						<h3 class="item__heading">
+							<span class="row" style="cursor: default; background: var(--veil-hover)">
+								<span class="row__id">
+									<img class="row__logo" src="../img/logos/trackman.png" alt="" width="150" height="150">
+									<span class="row__name">Hover</span>
+									<span class="row__desc">The veil darkens, nothing moves</span>
+								</span>
+								<svg class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+							</span>
+						</h3>
+					</li>
+					<li class="item">
+						<h3 class="item__heading">
+							<span class="row" style="cursor: default">
+								<span class="row__id">
+									<img class="row__logo" src="../img/logos/theorg.png" alt="" width="150" height="150">
+									<span class="row__name">Open</span>
+									<span class="row__desc">Chevron rotates, drawer unfolds below</span>
+								</span>
+								<svg class="chevron" aria-hidden="true" focusable="false" style="transform: rotate(180deg); color: var(--ink-strong)"><use href="#i-chevron" /></svg>
+							</span>
+						</h3>
+					</li>
+				</ul>
+
+				<div>
+					<div class="spec">
+						<span>Section heading</span>
+						<span class="spec__value">Strong, normal case</span>
+						<span class="spec__note">A rule above and space below. Never capitals, never bordered, never boxed.</span>
+					</div>
+					<div class="spec">
+						<span>Meta and link</span>
+						<span class="spec__value">Ink Muted</span>
+						<span class="spec__note">Meta is never a filled chip. Links are underline-free — <a href="mailto:ejlers@me.com">ejlers@me.com</a> — and darken to Ink Strong on hover.</span>
+					</div>
+					<div class="spec">
+						<span>Media</span>
+						<span class="spec__value">100% wide, no radius</span>
+						<span class="spec__note">No border, no caption. Images in a set sit flush; a new set is separated by one step of the ramp.</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- 06 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">06</span> Do and don't</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>The ways this system breaks. Each right-hand example is a real temptation — most are what a component library hands you by default.</p>
+				</div>
+
+				<div>
+					<div class="pair">
+						<div class="pair__side">
+							<span class="pair__label">Do</span>
+							<span><b style="font-weight: 500">Donkey Republic</b> <span class="muted">Bike Rental Platform</span></span>
+							<span class="pair__note">Separate two things with weight and grey. One size, two jobs.</span>
+						</div>
+						<div class="pair__side">
+							<span class="pair__label pair__label--dont">Don't</span>
+							<span><b style="font-weight: 500; font-size: 22px">Donkey Republic</b> <span class="muted" style="font-size: 14px">Bike Rental Platform</span></span>
+							<span class="pair__note">Introduce a size for the same distinction. Now there are three scales to maintain and no rule for the next one.</span>
+						</div>
+					</div>
+
+					<div class="pair">
+						<div class="pair__side">
+							<span class="pair__label">Do</span>
+							<div>
+								<div style="padding: var(--s3) 0; border-top: var(--rule-w) solid var(--rule)">Integrations</div>
+								<div style="padding: var(--s3) 0; border-top: var(--rule-w) solid var(--rule); border-bottom: var(--rule-w) solid var(--rule)">Dashboard</div>
+							</div>
+							<span class="pair__note">Group with a rule and space.</span>
+						</div>
+						<div class="pair__side">
+							<span class="pair__label pair__label--dont">Don't</span>
+							<div style="display: flex; flex-direction: column; gap: var(--s2)">
+								<span class="demo-card">Integrations</span>
+								<span class="demo-card">Dashboard</span>
+							</div>
+							<span class="pair__note">Reach for a card. Radius, fill and shadow arrive together and the page stops being yours.</span>
+						</div>
+					</div>
+
+					<div class="pair">
+						<div class="pair__side">
+							<span class="pair__label">Do</span>
+							<span class="muted" style="max-width: 400px">At Donkey Republic I was part of the team creating a global bike-rental platform.</span>
+							<span class="pair__note">Ink Muted. Reads as quiet, passes AA.</span>
+						</div>
+						<div class="pair__side">
+							<span class="pair__label pair__label--dont">Don't</span>
+							<span class="demo-faint" style="max-width: 400px">At Donkey Republic I was part of the team creating a global bike-rental platform.</span>
+							<span class="pair__note">Grey at 3.4:1. Quiet enough to look tasteful in a mockup, unreadable in daylight.</span>
+						</div>
+					</div>
+
+					<div class="pair">
+						<div class="pair__side">
+							<span class="pair__label">Do</span>
+							<span style="display: flex; align-items: center; gap: var(--s3)">
+								<svg class="icon" aria-hidden="true" style="color: var(--grey)"><use href="#i-chevron" /></svg>
+								<span class="muted">Visible before anyone hovers</span>
+							</span>
+							<span class="pair__note">The one gesture is signalled at a legible contrast.</span>
+						</div>
+						<div class="pair__side">
+							<span class="pair__label pair__label--dont">Don't</span>
+							<span style="display: flex; align-items: center; gap: var(--s3)">
+								<svg class="icon" aria-hidden="true" style="color: #e4e4e4"><use href="#i-chevron" /></svg>
+								<span class="muted">Invisible until hover</span>
+							</span>
+							<span class="pair__note">Restraint applied to the one thing that must never be quiet.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- 07 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">07</span> Motion</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>Motion is the only part of the system that can explain a change while it is happening, so it is spent entirely on describing interaction. Nothing moves for atmosphere. Nothing moves that the person did not cause.</p>
+				</div>
+
+				<div class="grid-3">
+					<div class="block">
+						<span class="block__title">Did they cause it?</span>
+						<span class="block__body">Every animation traces back to one click. Nothing animates on arrival, on scroll, or on a timer.</span>
+					</div>
+					<div class="block">
+						<span class="block__title">Does removing it lose information?</span>
+						<span class="block__body">Cut it and jump to the end state. If nothing is harder to understand, it was decoration.</span>
+					</div>
+					<div class="block">
+						<span class="block__title">Does it end where they are looking?</span>
+						<span class="block__body">Movement is a promise about where to look next. Finishing off screen misleads rather than guides.</span>
+					</div>
+				</div>
+
+				<div id="motion"></div>
+
+				<div class="lede">
+					<p>Two easing keywords, no custom curves. Things arriving use <b style="font-weight: 500">ease-out</b>; things leaving use <b style="font-weight: 500">ease-in</b> and run shorter, because nobody watches something go. Under <b style="font-weight: 500">prefers-reduced-motion</b> every duration above drops to 0ms — nothing is removed, it simply arrives already done.</p>
+				</div>
+
+				<div class="rules">
+					<span class="rule-item">Entrance animations. Nothing fades or slides in on load — the content was always there.</span>
+					<span class="rule-item">Scroll-triggered reveals. Reading is not an interaction.</span>
+					<span class="rule-item">Anything that loops. A permanent animation is a permanent interruption.</span>
+					<span class="rule-item">Images. They are the content, so they never scale, fade or zoom on hover.</span>
+					<span class="rule-item">Layout under the cursor. Rows never lift or grow — only the veil changes.</span>
+					<span class="rule-item">Motion in the periphery while something else is being read.</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- 08 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">08</span> Buttons</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>Buttons are where a system this quiet is most likely to break, because a button is the one element meant to be louder than its surroundings. So the shape is fixed and only the fill changes: one box, 1.5px border, no radius, label at 16px weight 500.</p>
+				</div>
+
+				<div>
+					<div class="spec">
+						<span><button type="button" class="btn">Read the case</button></span>
+						<span class="spec__value">Bordered</span>
+						<span class="spec__note">The default, and the most at home here — a rule bent into a rectangle. The border is Ink Muted, not the rule grey: a divider may be decorative, a control may not.</span>
+					</div>
+					<div class="spec">
+						<span><button type="button" class="btn btn--grey">Show all work</button></span>
+						<span class="spec__value">Grey</span>
+						<span class="spec__note">A filled block carries more weight than a hairline, so this sits above Bordered even though it is paler. For repeated or low-stakes actions.</span>
+					</div>
+					<div class="spec">
+						<span><button type="button" class="btn btn--black">Get in touch</button></span>
+						<span class="spec__value">Black</span>
+						<span class="spec__note">The loudest thing the system can produce. One per view, never two side by side.</span>
+					</div>
+					<div class="spec">
+						<span><button type="button" class="btn" disabled>Unavailable</button></span>
+						<span class="spec__value">Disabled</span>
+						<span class="spec__note">One flat treatment for all three — a disabled button has no hierarchy left to express. The label stays readable.</span>
+					</div>
+				</div>
+
+				<div class="rules">
+					<span class="rule-item">One black button per view. If a second action feels equally important, one of them is not.</span>
+					<span class="rule-item">There is no small button. If it needs to be smaller, it is a link.</span>
+					<span class="rule-item">No icons in buttons. The chevron means one thing, and that is a row opening.</span>
+					<span class="rule-item">Sentence case, verb first, one to three words.</span>
+					<span class="rule-item">Never inside a list row header — the row is already the control.</span>
+					<span class="rule-item">A button changes something, a link goes somewhere. An email address stays a link.</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- 09 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">09</span> Icons</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>Seven glyphs, all descended from the chevron: a 20px box, a 14px live area inset 3px, a 1.5px stroke, round cap and join, no fill. Line ends are round; shapes are not — no rounded rectangles anywhere.</p>
+				</div>
+
+				<div class="icon-set">
+					<span class="icon-cell"><svg class="icon"><use href="#i-chevron" /></svg><span>Chevron</span></span>
+					<span class="icon-cell"><svg class="icon"><use href="#i-arrow" /></svg><span>Arrow</span></span>
+					<span class="icon-cell"><svg class="icon"><use href="#i-close" /></svg><span>Close</span></span>
+					<span class="icon-cell"><svg class="icon"><use href="#i-menu" /></svg><span>Menu</span></span>
+					<span class="icon-cell"><svg class="icon"><use href="#i-search" /></svg><span>Search</span></span>
+					<span class="icon-cell"><svg class="icon"><use href="#i-play" /></svg><span>Play</span></span>
+					<span class="icon-cell"><svg class="icon"><use href="#i-download" /></svg><span>Download</span></span>
+				</div>
+
+				<div class="grid-3">
+					<div class="block">
+						<span class="block__title">Rotation does the work</span>
+						<span class="block__body">Chevron and arrow cover eleven jobs between them at four angles each, including external link as the arrow at −45°. That is why the set is seven and not fourteen.</span>
+					</div>
+					<div class="block">
+						<span class="block__title">Two greys, no more</span>
+						<span class="block__body">Grey at rest, Ink Strong when active or when the icon is the only control in reach. Grey clears 3:1 for an interface mark — it is text it fails.</span>
+					</div>
+					<div class="block">
+						<span class="block__title">20px mark, 44px target</span>
+						<span class="block__body">The glyph stays 20px; what you press is the whole row, or a 44px box around it. An icon that is also the entire hit area fails on a phone.</span>
+					</div>
+				</div>
+
+				<div class="rules">
+					<span class="rule-item">No loading spinner. It loops, which section 07 rules out. Say "Loading" in words.</span>
+					<span class="rule-item">No tick. Selection is already shown by the control filling in.</span>
+					<span class="rule-item">No plus or minus. The chevron owns expansion.</span>
+					<span class="rule-item">No info, warning or error marks. A sentence is clearer and never ambiguous.</span>
+					<span class="rule-item">No social logos. They are other companies' brands and drag colour onto a greyscale page.</span>
+					<span class="rule-item">No icon drawn to decorate a heading. Rewrite the heading instead.</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- 10 ---------------------------------------------------------- -->
+		<section class="section">
+			<h2 class="section__heading"><span class="section__no">10</span> How this stays true</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>A design system kept in a separate document drifts, because nothing stops it. This one is built so the parts that can drift, can't.</p>
+				</div>
+
+				<div>
+					<div class="spec">
+						<span>It loads the site's CSS</span>
+						<span class="spec__value">../css/styles.css</span>
+						<span class="spec__note">Not a copy. Every swatch, ramp bar, row, button and icon above is drawn by the same rules the portfolio uses. Change a token and this page changes with it — there is no second place to update.</span>
+					</div>
+					<div class="spec">
+						<span>Numbers are computed</span>
+						<span class="spec__value">system.js</span>
+						<span class="spec__note">Contrast ratios, hex values, the space ramp, the page metrics and the motion durations are all read from the live stylesheet at load. None of them are typed into this page, so none of them can quietly go stale.</span>
+					</div>
+					<div class="spec">
+						<span>The prose is deliberate</span>
+						<span class="spec__value">by hand</span>
+						<span class="spec__note">Principles, rationale and tradeoffs are judgement, not data. They should only change when you decide they do — so those are the words to revisit when the design moves, and the only ones.</span>
+					</div>
+					<div class="spec">
+						<span>A check that fails</span>
+						<span class="spec__value">npm run check</span>
+						<span class="spec__note">tools/check-tokens.mjs reads styles.css and reports any colour or spacing value used outside the token block. Run it before a commit and drift shows up as an error rather than as something you notice months later.</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<script src="./system.js"></script>
+</body>
+
+</html>

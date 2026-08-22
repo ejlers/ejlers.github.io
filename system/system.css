@@ -1,0 +1,329 @@
+/* ==========================================================================
+   Design system — document layout only.
+
+   This file adds no colours, sizes or spacing of its own. Every value here
+   is a token from ../css/styles.css, so this page cannot drift away from
+   the site it documents.
+   ========================================================================== */
+
+/* One value here is documentation rather than design: the colour that marks
+   a "do not". It never appears on the site, so it is not a system token. */
+:root {
+	--warn: #8b4a2b;
+}
+
+/* No portrait on this page, so the reversed row would push the text to
+   the right-hand side. */
+.intro--doc {
+	flex-direction: row;
+}
+
+.doc {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s8);
+	padding-bottom: var(--s8);
+}
+
+/* Sections reuse the site's sticky-row idiom, so scrolling the reference
+   feels the same as scrolling the portfolio. */
+.section {
+	border-top: var(--rule-w) solid var(--rule);
+}
+
+.section__heading {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	display: flex;
+	align-items: baseline;
+	gap: var(--s3);
+	padding: var(--s3) 0;
+	background: var(--veil);
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	font-size: inherit;
+	font-weight: 500;
+	line-height: inherit;
+}
+
+.section__no {
+	color: var(--ink-muted);
+	font-weight: 300;
+}
+
+.section__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s7);
+	padding: var(--s5) 0 var(--s8);
+}
+
+.lede {
+	max-width: var(--measure);
+	display: flex;
+	flex-direction: column;
+	gap: var(--s4);
+}
+
+/* A row of specification: label, value, explanation. */
+.spec {
+	display: grid;
+	grid-template-columns: 200px 220px minmax(0, 1fr);
+	gap: var(--s5);
+	align-items: baseline;
+	padding: var(--s4) 0;
+	border-top: var(--rule-w) solid var(--rule);
+}
+
+.spec:last-child {
+	border-bottom: var(--rule-w) solid var(--rule);
+}
+
+.spec > :first-child {
+	font-weight: 500;
+}
+
+.spec__value {
+	color: var(--ink-strong);
+	font-variant-numeric: tabular-nums;
+}
+
+.spec__note {
+	color: var(--ink);
+}
+
+@media (max-width: 800px) {
+	.spec {
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--s1);
+	}
+}
+
+/* Colour table gets a swatch column in front. */
+.swatches .spec {
+	grid-template-columns: 56px 170px 200px 90px minmax(0, 1fr);
+}
+
+@media (max-width: 800px) {
+	.swatches .spec {
+		grid-template-columns: 56px minmax(0, 1fr);
+	}
+}
+
+.swatch {
+	display: block;
+	width: 40px;
+	height: 24px;
+	border: var(--rule-w) solid var(--rule);
+}
+
+.ratio {
+	font-variant-numeric: tabular-nums;
+	color: var(--ink-strong);
+}
+
+.ratio[data-fails] {
+	color: var(--warn);
+}
+
+/* Two- and three-up blocks for principles, rules and states. */
+.grid-2,
+.grid-3,
+.grid-4 {
+	display: grid;
+	gap: var(--s5) var(--s7);
+}
+
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (max-width: 1100px) {
+	.grid-3,
+	.grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 800px) {
+	.grid-2,
+	.grid-3,
+	.grid-4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+.block {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s2);
+}
+
+.block__title {
+	font-weight: 500;
+}
+
+.block__body {
+	color: var(--ink);
+}
+
+/* A numbered principle, with the test that lets you fail it. */
+.principle {
+	display: grid;
+	grid-template-columns: 50px 260px minmax(0, 1fr);
+	gap: var(--s6);
+	padding: var(--s5) 0;
+	border-top: var(--rule-w) solid var(--rule);
+}
+
+.principle:last-child {
+	border-bottom: var(--rule-w) solid var(--rule);
+}
+
+.principle__no { color: var(--ink-muted); }
+.principle__name { font-weight: 500; }
+
+.principle__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s2);
+	max-width: var(--measure);
+}
+
+.test { color: var(--ink-muted); }
+.test b { color: var(--ink-strong); font-weight: 500; }
+
+@media (max-width: 1100px) {
+	.principle {
+		grid-template-columns: 50px minmax(0, 1fr);
+		gap: var(--s4);
+	}
+	.principle__body { grid-column: 2; }
+}
+
+/* Bulleted rule lists, using a rule-coloured dash rather than a bullet. */
+.rules {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--s4) var(--s7);
+	padding: var(--s4) 0;
+	border-top: var(--rule-w) solid var(--rule);
+	border-bottom: var(--rule-w) solid var(--rule);
+}
+
+@media (max-width: 800px) {
+	.rules { grid-template-columns: minmax(0, 1fr); }
+}
+
+.rule-item {
+	display: flex;
+	gap: var(--s3);
+	align-items: baseline;
+}
+
+.rule-item::before {
+	content: "";
+	flex: none;
+	width: var(--s2);
+	height: var(--rule-w);
+	background: var(--grey);
+	transform: translateY(-0.35em);
+}
+
+/* Specimen shelves. */
+.shelf {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--s5);
+	align-items: center;
+}
+
+.icon-set {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--s7);
+}
+
+.icon-cell {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--s2);
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+	color: var(--ink-strong);
+}
+
+.icon-cell span { color: var(--ink-muted); }
+
+/* Do / don't pairs. */
+.pair {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--s7);
+	padding: var(--s5) 0;
+	border-top: var(--rule-w) solid var(--rule);
+}
+
+.pair:last-child { border-bottom: var(--rule-w) solid var(--rule); }
+
+@media (max-width: 800px) {
+	.pair { grid-template-columns: minmax(0, 1fr); gap: var(--s5); }
+}
+
+.pair__side {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s3);
+}
+
+.pair__label { font-weight: 500; }
+.pair__label--dont { color: var(--warn); }
+.pair__note { color: var(--ink-muted); }
+
+/* The space ramp. */
+.ramp-bar {
+	display: block;
+	height: var(--s2);
+	background: var(--ink-strong);
+}
+
+/* Deliberately wrong specimens, for the don't column only. */
+.demo-card {
+	padding: var(--s3) var(--s4);
+	background: #fafafa;
+	border: var(--rule-w) solid var(--fill);
+	border-radius: 8px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.demo-faint { color: var(--grey); }
+
+.storyboard {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--s6);
+}
+
+@media (max-width: 1100px) {
+	.storyboard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.frame {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s3);
+}
+
+.frame__box {
+	height: 150px;
+	overflow: clip;
+	border-top: var(--rule-w) solid var(--rule);
+	border-bottom: var(--rule-w) solid var(--rule);
+	padding: var(--s3) 0;
+}
+
+.frame__fill {
+	width: 100%;
+	background: var(--fill);
+}
