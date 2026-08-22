@@ -33,6 +33,9 @@
 	--t-close: 240ms;
 	--t-confirm: 160ms;
 
+	/* Page inset — the only horizontal spacing on the page */
+	--page-x: 20px;
+
 	/* Measure */
 	--measure: 600px;
 	--drawer-text: 320px;
@@ -90,8 +93,7 @@ html {
 }
 
 body {
-	max-width: 90vw;
-	margin-inline: auto;
+	padding-inline: var(--page-x);
 	background: var(--paper);
 	color: var(--ink);
 	font-family: "Inter", system-ui, sans-serif;
@@ -100,12 +102,6 @@ body {
 	font-weight: 300;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
-}
-
-@media (max-width: 800px) {
-	body {
-		max-width: 100%;
-	}
 }
 
 /* --- Type — one size; hierarchy is weight and grey ------------------- */
@@ -152,7 +148,7 @@ a:hover {
 .skip:focus {
 	position: static;
 	display: inline-block;
-	padding: var(--s2) var(--s7);
+	padding: var(--s2) 0;
 	color: var(--ink);
 }
 
@@ -164,7 +160,7 @@ a:hover {
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: var(--s7);
-	padding: var(--s8) var(--s7) var(--s7);
+	padding: var(--s8) 0 var(--s7);
 }
 
 .intro__text {
@@ -186,19 +182,19 @@ a:hover {
 		flex-direction: column;
 		align-items: stretch;
 		gap: var(--s5);
-		padding: var(--s5);
+		padding: var(--s5) 0;
 	}
 }
 
 /* --- Work list ------------------------------------------------------ */
 
 .work {
-	padding: 0 var(--s7) var(--s7);
+	padding: 0 0 var(--s7);
 }
 
 @media (max-width: 800px) {
 	.work {
-		padding: 0 var(--s5) var(--s5);
+		padding: 0 0 var(--s5);
 	}
 }
 
@@ -222,7 +218,7 @@ a:hover {
 	justify-content: space-between;
 	gap: var(--s4);
 	width: 100%;
-	padding: var(--s3) var(--s5);
+	padding: var(--s3) 0;
 	border: 0;
 	border-radius: 0;
 	appearance: none;
@@ -328,7 +324,7 @@ a:hover {
 .drawer__inner {
 	display: flex;
 	gap: var(--s7);
-	padding: var(--s5) var(--s5) var(--s7);
+	padding: var(--s5) 0 var(--s7);
 }
 
 @media (max-width: 1100px) {
