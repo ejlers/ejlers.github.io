@@ -1,332 +1,400 @@
-* {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* ==========================================================================
+   Carl Ejlers — design system
+   Every value below is a token from the system. Nothing is set in capitals,
+   nothing is letter-spaced, and there is one type size plus one display line.
+   ========================================================================== */
+
+:root {
+	/* Colour — six greys, white, no hue */
+	--paper: #ffffff;
+	--ink: #181818;        /* 17.8:1 — primary text                          */
+	--ink-strong: #464646; /*  9.4:1 — open states, secondary emphasis       */
+	--ink-muted: #686868;  /*  5.6:1 — secondary copy and links             */
+	--grey: #8b8b8b;       /*  3.4:1 — interface marks only, never text     */
+	--rule: #dfdfdf;       /* hairlines                                      */
+	--veil: rgba(255, 255, 255, 0.81);
+	--veil-hover: #f5f5f5;
+
+	/* Space — base 5 */
+	--s1: 5px;
+	--s2: 10px;
+	--s3: 15px;
+	--s4: 20px;
+	--s5: 30px;
+	--s6: 40px;
+	--s7: 50px;
+	--s8: 80px;
+
+	/* Line */
+	--rule-w: 1.5px;
+
+	/* Motion — arriving decelerates, leaving accelerates and runs shorter */
+	--t-open: 320ms;
+	--t-close: 240ms;
+	--t-confirm: 160ms;
+
+	/* Measure */
+	--measure: 600px;
+	--drawer-text: 320px;
 }
 
-html, body {
-    height: 100%; /* Ensures full height for flexbox layout */
+/* State still changes; it simply arrives already done. */
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--t-open: 0ms;
+		--t-close: 0ms;
+		--t-confirm: 0ms;
+	}
+}
+
+/* --- Reset ---------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+p,
+ul,
+figure {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* --- Page ----------------------------------------------------------- */
+
+html {
+	-webkit-text-size-adjust: 100%;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* This ensures the content is spread evenly, pushing the .container to the bottom */
-    background-color: #fff;
-    max-width: 90vw;
-    margin-left: auto;
-    margin-right: auto;
-    cursor:default;
+	max-width: 90vw;
+	margin-inline: auto;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: "Inter", system-ui, sans-serif;
+	font-optical-sizing: auto;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
 }
 
-@media only screen and (max-width: 800px) {
-    body {
-        max-width: 100%;
-    }
+@media (max-width: 800px) {
+	body {
+		max-width: 100%;
+	}
 }
 
-/* TEXT */
+/* --- Type — one size; hierarchy is weight and grey ------------------- */
 
-p {
-    line-height: 1.5;
-    font-weight: 400;
-    color: #8b8b8b;
+h1,
+h2 {
+	font-size: inherit;
+	font-weight: 500;
+	line-height: inherit;
+}
+
+.display {
+	font-size: 34px;
+	font-weight: 300;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+	text-wrap: pretty;
+}
+
+.muted {
+	color: var(--ink-muted);
 }
 
 a {
-    line-height: 1.5;
-    font-weight: 400;
-    color: #8b8b8b;
+	color: var(--ink-muted);
+	text-decoration: none;
+	transition: color var(--t-confirm) ease;
 }
 
 a:hover {
-    line-height: 1.5;
-    font-weight: 400;
-    color: #686868;
+	color: var(--ink-strong);
 }
 
-/* INTRO HEADER */
+:focus-visible {
+	outline: var(--rule-w) solid var(--ink);
+	outline-offset: var(--s1);
+}
+
+.skip {
+	position: absolute;
+	left: -9999px;
+}
+
+.skip:focus {
+	position: static;
+	display: inline-block;
+	padding: var(--s2) var(--s7);
+	color: var(--ink);
+}
+
+/* --- Intro ---------------------------------------------------------- */
 
 .intro {
-    display: flex;
-    height: auto;
-    align-items:flex-start;
-    justify-content:space-between;
-    flex-direction: row-reverse;
-    gap: 50px;
-    flex-grow: 1;
-    width: 100%;
-    padding: 50px;
-    padding-top: 80px;
-    padding-bottom: 50px;
-}   
-
-@media only screen and (max-width: 800px) {
-    .intro {
-        padding: 30px;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 0px;
-        padding-top: 30px;
-        padding-bottom:50px;
-    }
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--s7);
+	padding: var(--s8) var(--s7) var(--s7);
 }
 
-.logo-text {
-    font-size: 16px;
-    margin-bottom: 10px;
-    font-weight: 700;
-    color: #5a5a5a;
+.intro__text {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s4);
+	max-width: var(--measure);
 }
 
-.about-text {
-    font-size: 16px;
-    font-weight: 300;
-    color: #181818;
-    line-height: 1.5;
-    max-width: 600px;
+.portrait {
+	flex: none;
+	width: 142px;
 }
 
-@media only screen and (max-width: 1100px) {
-    .about-text {     
-        min-width: 100px;
-    }
+/* Stretch, not flex-start: with flex-start the text block takes its
+   max-content width and overflows the viewport on a phone. */
+@media (max-width: 800px) {
+	.intro {
+		flex-direction: column;
+		align-items: stretch;
+		gap: var(--s5);
+		padding: var(--s5);
+	}
 }
 
-.sticky-text-container {
-    height: auto;
+/* --- Work list ------------------------------------------------------ */
+
+.work {
+	padding: 0 var(--s7) var(--s7);
 }
 
-.sticky {
-    position: sticky;
-    top: 0; /* Set to 0 to prevent offset on toggle */
-    z-index: -1; /* Ensure it's above the content below when scrolling */
+@media (max-width: 800px) {
+	.work {
+		padding: 0 var(--s5) var(--s5);
+	}
 }
 
-.height-fix {
-    padding-top: 0px;
+.item {
+	border-top: var(--rule-w) solid var(--rule);
 }
 
-@media only screen and (min-width: 1100px) {
-    .height-fix {     
-        padding-top: 90px;
-    }
+.item:last-child {
+	border-bottom: var(--rule-w) solid var(--rule);
 }
 
-.hide {
-    display: none;
+.item__heading {
+	position: sticky;
+	top: 0;
+	z-index: 1;
 }
 
-/* DRAWER SECTION */
-
-.container {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    padding-bottom: 40px;
-    margin: 0 auto;
-    margin-top: auto; /* This pushes the container to the bottom */
-    flex-shrink: 0; /* Prevent the container from shrinking */
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--s4);
+	width: 100%;
+	padding: var(--s3) var(--s5);
+	border: 0;
+	border-radius: 0;
+	appearance: none;
+	background: var(--veil);
+	-webkit-backdrop-filter: blur(5px);
+	backdrop-filter: blur(5px);
+	color: var(--ink);
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+	transition: background-color var(--t-confirm) ease;
 }
 
-@media only screen and (max-width: 600px) {
-    .container {     
-        padding: 0px;
-        margin-bottom: 20px;
-    }
+.row:hover {
+	background: var(--veil-hover);
 }
 
-.list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 0 auto;
+.row:focus-visible {
+	outline-offset: calc(var(--s1) * -1);
 }
 
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items:center;
-    background-color: rgba(255, 255, 255, 0.808);  
-    backdrop-filter: blur(5px);
-    color: rgb(70, 70, 70);
-    padding: 15px 30px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 0px 0px 0px 0px;
-    overflow: hidden;
-    border: 1.5px rgb(223, 223, 223);
-    border-style: solid none none none;
+@media (max-width: 600px) {
+	.row {
+		background: var(--paper);
+		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
+	}
 }
 
-@media only screen and (max-width: 600px) {
-    .list-header {
-        background-color: rgba(255, 255, 255, 0.911);
-        backdrop-filter: none;
-    }
+.row__id {
+	display: flex;
+	align-items: center;
+	gap: var(--s3);
+	min-width: 0;
 }
 
-.list-header:hover {
-    background-color: rgba(245, 245, 245, 0.801);  
-    backdrop-filter: blur(5px);
+.row__logo {
+	flex: none;
+	width: 35px;
+	height: 35px;
 }
 
-@media only screen and (max-width: 600px) {
-    .list-header:hover {
-        background-color: rgba(255, 255, 255, 0.911);
-    }
+.row__name {
+	font-weight: 500;
 }
 
-.list-header-0 {
-    font-weight: 500;
-    line-height: 1.5;
+.row__desc {
+	color: var(--ink-muted);
 }
 
-.list-header-1 {
-    font-weight: 500;
-    line-height: 1.5;
+@media (max-width: 800px) {
+	.row__desc {
+		display: none;
+	}
 }
 
-.list-header-2 {
-    font-weight: 300;
-    line-height: 1.5;
-    color: #8b8b8b;
+/* One gesture, always signalled. */
+.chevron {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	color: var(--grey);
+	transition: transform var(--t-confirm) ease, color var(--t-confirm) ease;
 }
 
-.logo-header-section {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.row[aria-expanded="true"] .chevron {
+	transform: rotate(180deg);
+	color: var(--ink-strong);
 }
 
-.list-content {
-    max-height: 0;
-    padding: 0 0;
-    transition: max-height 0s ease-out, padding 0.6s ease-out;
+/* --- Drawer --------------------------------------------------------- */
+
+/* Animates to the true height of its content: no measuring, no reflow race,
+   and a late-loading image cannot leave the drawer clipped. */
+.drawer {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows var(--t-close) ease-in;
 }
 
-.list-content:last-child {
-    padding-bottom: 1px; /* This ensures the last content is forced to calculate height */
-  }
-
-.list-container {
-    display: flex;
-    flex-direction: row;
-    padding: 30px;
-    padding-bottom: 50px;
-    padding-top: 30px;
-    gap: 50px;
+.item.is-open .drawer {
+	grid-template-rows: 1fr;
+	transition: grid-template-rows var(--t-open) ease-out;
 }
 
-@media only screen and (max-width: 1100px) {
-    .list-container {
-        gap: 15px;
-        flex-direction: column;
-    }
+.drawer > * {
+	overflow: hidden;
+	visibility: hidden;
+	transition: visibility 0s linear var(--t-close);
 }
 
-.content-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-}
-@media only screen and (max-width: 800px) {
-    .list-container {
-        gap: 0px;
-    }
+.item.is-open .drawer > * {
+	visibility: visible;
+	transition-delay: 0s;
 }
 
-.list-group {
-    margin-bottom: 0px;
+.drawer__inner {
+	display: flex;
+	gap: var(--s7);
+	padding: var(--s5) var(--s5) var(--s7);
 }
 
-@supports (position: sticky) {
-    .list-header {
-        position: sticky;
-        top: 0;
-    }
+@media (max-width: 1100px) {
+	.drawer__inner {
+		flex-direction: column;
+		gap: var(--s4);
+	}
 }
 
-
-
-.layout-row {
-    display: flex;
-    flex-direction: row;
+.drawer__text {
+	flex: none;
+	width: var(--drawer-text);
+	display: flex;
+	flex-direction: column;
+	gap: var(--s4);
 }
 
-@media only screen and (max-width: 800px) {
-    .layout-row {
-        flex-direction: column;
-    }
+@media (max-width: 1100px) {
+	.drawer__text {
+		width: auto;
+		max-width: var(--measure);
+	}
 }
 
-.layout-row-2 {
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
+.drawer__media {
+	flex: 1 1 auto;
+	min-width: 0;
 }
 
-@media only screen and (max-width: 800px) {
-    .layout-row-2 {
-        flex-direction: row;
-        gap: 0px;
-        margin-top: 15px;
-    }
+/* --- Media ---------------------------------------------------------- */
+
+/* Images in a set sit flush; a new set is separated by one step. */
+.spaced {
+	margin-top: var(--s5);
 }
 
-@media only screen and (max-width: 800px) {
-    .hide-on-mobile {
-        display: none;
-    }
+.set {
+	display: flex;
+	margin-top: var(--s5);
 }
 
-.rotate {
-    transform: rotate(180deg);
-    transition: transform 0.2s ease;
-}
-img {
-    transition: transform 0.2s ease;
-}
-.list-content {  
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.5s ease;
+.set > * {
+	flex: 1 1 0;
+	min-width: 0;
 }
 
-/* IMAGES */
-
-.img-1 {
-    width: 100%;
-    height: auto;
+@media (max-width: 800px) {
+	.spaced,
+	.set {
+		margin-top: var(--s3);
+	}
 }
 
-.content-padding-top {
-    margin-top: 30px;
+.video {
+	aspect-ratio: 2.341;
 }
 
-@media only screen and (max-width: 800px) {
-    .content-padding-top {
-        margin-top: 15px;
-    }
+.video iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
 }
 
-.logo {
-    width: 60px;
-    height: 60px;
-    transform: rotate(0deg); /* Ensure no rotation */
-    margin-bottom: 15px;
-    z-index: -1;
+@media (max-width: 800px) {
+	.hide-sm {
+		display: none;
+	}
 }
 
-.logo-header {
-    width: 35px;
-    height: 35px;
-    transform: rotate(0deg); /* Ensure no rotation */
-    z-index: -1;
+/* --- No JavaScript: every drawer is simply open ---------------------- */
+
+.no-js .drawer {
+	grid-template-rows: 1fr;
+}
+
+.no-js .drawer > * {
+	visibility: visible;
+}
+
+.no-js .chevron {
+	display: none;
 }

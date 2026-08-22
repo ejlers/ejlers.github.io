@@ -1,0 +1,27 @@
+<!-- Carl Ejlers — icon set.
+     20px box, 14px live area, 1.5px stroke, round cap and join, no fill.
+     Use with <svg class="chevron"><use href="./svg/icons.svg#i-chevron"/></svg>
+     or paste a symbol inline. Chevron and arrow rotate; nothing else does. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+	<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M5 8l5 5 5-5"/>
+	</symbol>
+	<symbol id="i-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M3 10h14M12 5l5 5-5 5"/>
+	</symbol>
+	<symbol id="i-close" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M5 5l10 10M15 5L5 15"/>
+	</symbol>
+	<symbol id="i-menu" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M3 5h14M3 10h14M3 15h14"/>
+	</symbol>
+	<symbol id="i-search" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<circle cx="9" cy="9" r="5"/><path d="M12.5 12.5L17 17"/>
+	</symbol>
+	<symbol id="i-play" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M6 4l10 6-10 6z"/>
+	</symbol>
+	<symbol id="i-download" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+		<path d="M10 3v10M6 9l4 4 4-4M3 17h14"/>
+	</symbol>
+</svg>
