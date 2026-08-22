@@ -300,8 +300,14 @@ a:hover {
 	transition: grid-template-rows var(--t-open) ease-out;
 }
 
+/* clip, not hidden: both crop the drawer while it animates, but `hidden`
+   makes this a scroll container and kills position: sticky inside it.
+   `clip` does not, so the text column below can stick to the viewport. */
 .drawer > * {
-	overflow: hidden;
+	overflow: clip;
+	/* `hidden` zeroes a grid item's automatic minimum size; `clip` does not,
+	   so without this the closed drawer stays at its full content height. */
+	min-height: 0;
 	visibility: hidden;
 	transition: visibility 0s linear var(--t-close);
 }
@@ -336,6 +342,17 @@ a:hover {
 	.drawer__text {
 		width: auto;
 		max-width: var(--measure);
+	}
+}
+
+/* Two columns: the text holds still while its images scroll past.
+   align-self keeps the column its own height — stretched to full height
+   it would have no room to move. The offset clears the sticky row. */
+@media (min-width: 1101px) {
+	.drawer__text {
+		position: sticky;
+		top: var(--s8);
+		align-self: start;
 	}
 }
 
