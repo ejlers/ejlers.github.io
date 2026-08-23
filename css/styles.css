@@ -506,13 +506,20 @@ a {
 /* --- Breadcrumb ------------------------------------------------------ */
 
 /* Where you are, and the way back. Sits at the top of a page above its first
-   band, on the page inset, so it lines up with whatever starts the page. */
+   band, on the page inset, so it lines up with whatever starts the page.
+
+   Same offset on every page, front page included: there the trail is one step
+   long and the h1 carries it, so the name holds still and the steps grow to
+   the right of it as you go deeper. Weight is stated here rather than
+   inherited, because an h1 would otherwise arrive at 500 and the word would
+   change shape between the front page and the ones below it. */
 .crumb {
 	display: flex;
 	align-items: center;
 	gap: var(--s2);
 	padding-top: var(--s6);
 	color: var(--ink-muted);
+	font-weight: 300;
 }
 
 /* The site's one chevron, turned a quarter to point the way it is read. Grey,
