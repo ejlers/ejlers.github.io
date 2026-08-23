@@ -473,6 +473,13 @@ a {
 	}
 }
 
+/* A column that sits on the bottom of its band instead of hanging from the
+   top. For the short thing beside the long one — a contact block next to a
+   page opener — where starting at the top strands it against nothing. */
+.bottom {
+	align-self: end;
+}
+
 /* Stacked blocks inside one column — a heading and its paragraphs, a label
    and its value. The only vertical rhythm inside a band. */
 .stack {
