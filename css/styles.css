@@ -437,6 +437,13 @@ a {
 	padding-block: var(--s7);
 }
 
+/* A grid item's automatic minimum size is its content, so one long unbreakable
+   string — a URL, a file path — widens the page instead of its own column. The
+   tracks already say minmax(0, 1fr); this says the same thing to the items. */
+.band > * {
+	min-width: 0;
+}
+
 /* A rule between bands, never above the first — the same way the work list
    divides its rows. */
 .band + .band {
