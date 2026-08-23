@@ -503,6 +503,34 @@ a {
 	margin-bottom: var(--s2);
 }
 
+/* --- Breadcrumb ------------------------------------------------------ */
+
+/* Where you are, and the way back. Sits at the top of a page above its first
+   band, on the page inset, so it lines up with whatever starts the page. */
+.crumb {
+	display: flex;
+	align-items: center;
+	gap: var(--s2);
+	padding-top: var(--s6);
+	color: var(--ink-muted);
+}
+
+/* The site's one chevron, turned a quarter to point the way it is read. Grey,
+   because it is an interface mark and not a word. */
+.crumb__sep {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	color: var(--grey);
+	transform: rotate(-90deg);
+}
+
+/* Where you are now, in full ink; the steps behind it stay muted. That is the
+   whole hierarchy — no weight change, no underline, no box. */
+.crumb__here {
+	color: var(--ink);
+}
+
 /* --- Media ---------------------------------------------------------- */
 
 /* Images in a set sit flush; a new set is separated by one step. */

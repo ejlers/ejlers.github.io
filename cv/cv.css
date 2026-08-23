@@ -6,18 +6,6 @@
    bands: one Aside band per section, a sticky label beside the entries.
    ========================================================================== */
 
-/* The way back, at the top of the page rather than inside the header: it is
-   navigation, not part of the heading. It sits on the page inset, so it lines
-   up with the portrait under it. */
-.crumb {
-	padding-top: var(--s5);
-	color: var(--ink-muted);
-}
-
-.crumb__sep {
-	color: var(--rule);
-}
-
 /* An entry is the ledger row one step down: who, then the roles held there,
    then what the work was. A hairline divides them, as it divides everything
    else on this site. */
