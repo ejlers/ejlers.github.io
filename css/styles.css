@@ -636,12 +636,19 @@ a {
 }
 
 /* One change at phone width, and it is inside the row: the term and its note
-   cannot share a line at 350px, so the note goes under the term. Everything
-   else, the inset, the floor, the arrow, is already the same at every width. */
+   cannot share a line at 350px, so the note goes under the term. The note sits
+   one small step under its term, the same tight pair the work rows make of a
+   name and its kicker, not a gutter apart: the gutter is for columns, and a
+   term and its own note are one thing, not two.
+
+   A short phone cannot hold the whole card, so the floor concept degrades the
+   way every band does: source order, top down, and the page scrolls. The claim
+   keeps one step of air before the first hairline for exactly that case,
+   because the middle spacer is the first thing to give. */
 @media (max-width: 600px) {
 	.index__row {
 		align-items: flex-start;
-		gap: var(--s4);
+		gap: var(--s1) var(--s4);
 		flex-wrap: wrap;
 	}
 
@@ -656,6 +663,7 @@ a {
 
 	.lede-gap {
 		padding-top: var(--s5);
+		margin-bottom: var(--s5);
 	}
 
 	.index {
