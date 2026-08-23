@@ -1,0 +1,61 @@
+/* ==========================================================================
+   CV — page layout only.
+
+   This file adds no colours, sizes or spacing of its own. Every value here is
+   a token from ../css/styles.css, and the page structure is the system's
+   bands: one Aside band per section, a sticky label beside the entries.
+   ========================================================================== */
+
+/* An entry is the ledger row one step down: who, then the roles held there,
+   then what the work was. A hairline divides them, as it divides everything
+   else on this site. */
+.entry {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s2);
+	padding: var(--s5) 0;
+	border-top: var(--rule-w) solid var(--rule);
+}
+
+/* The first entry sits directly under the section label, so it needs no rule
+   above it — the band already carries one. */
+.entry--first {
+	padding-top: 0;
+	border-top: 0;
+}
+
+.entry:last-child {
+	padding-bottom: 0;
+}
+
+.entry__org {
+	font-weight: 500;
+}
+
+/* Title on the left, dates on the right, as far apart as the column allows.
+   Flex rather than a nested grid: bands lay out the page, flex lays out a
+   component. */
+.entry__role {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--s4);
+	color: var(--ink-muted);
+}
+
+/* Nothing on this page is unfinished except the entry that says so. */
+.entry--todo {
+	color: var(--ink-muted);
+}
+
+/* A separator that is a mark, not a word. */
+.rule-mark {
+	color: var(--rule);
+}
+
+@media (max-width: 800px) {
+	.entry__role {
+		flex-direction: column;
+		gap: 0;
+	}
+}
