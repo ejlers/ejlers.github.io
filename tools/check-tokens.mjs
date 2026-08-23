@@ -133,7 +133,7 @@ const stripJs = (src) =>
 	src.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '))
 	   .replace(/(^|[^:])\/\/[^\n]*/g, (m, p) => p + ' '.repeat(m.length - p.length));
 
-const PAGES = ['../index.html', '../cv/index.html', '../system/index.html'];
+const PAGES = ['../index.html', '../work/index.html', '../cv/index.html', '../system/index.html'];
 const dashes = /[\u2014\u2013]|&#821[12];|&[mn]dash;/g;
 
 for (const rel of [...PAGES, '../system/system.js']) {
