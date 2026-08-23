@@ -70,11 +70,6 @@
 	color: var(--ink-muted);
 }
 
-/* A separator that is a mark, not a word. */
-.rule-mark {
-	color: var(--rule);
-}
-
 @media (max-width: 800px) {
 	.entry__role {
 		flex-direction: column;
