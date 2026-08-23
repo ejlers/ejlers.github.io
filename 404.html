@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Not on the map &middot; Carl Ejlers</title>
+	<meta name="robots" content="noindex">
+
+	<!-- This page is served at whatever address failed, so every path on it
+	     is absolute. -->
+	<link rel="icon" href="/img/favicon.ico">
+
+	<!-- The browser chrome takes the paper it is sitting on. -->
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
+
+	<link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="floor">
+
+	<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5" /></symbol>
+		<symbol id="i-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h14M12 5l5 5-5 5" /></symbol>
+	</svg>
+
+	<div class="opener">
+		<p class="crumb">
+			<a href="/">Carl Ejlers</a>
+		</p>
+	</div>
+
+	<main style="display: contents">
+		<div class="stack lede-gap">
+			<h1 class="display measure">This page is not on the map.</h1>
+			<p class="muted measure">The site has three pages and this address is not one of them. Whatever stood here is gone or never was.</p>
+		</div>
+
+		<nav class="index" aria-label="Pages">
+			<a class="index__row" href="/">
+				<span class="index__term">Home</span>
+				<span class="index__note">The card</span>
+				<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+			</a>
+			<a class="index__row" href="/work/">
+				<span class="index__term">Work</span>
+				<span class="index__note">Selected projects, 2015 to now</span>
+				<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+			</a>
+			<a class="index__row" href="/cv/">
+				<span class="index__term">CV</span>
+				<span class="index__note">Where I have worked and what I did there</span>
+				<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+			</a>
+		</nav>
+	</main>
+
+</body>
+
+</html>
