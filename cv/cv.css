@@ -48,6 +48,21 @@
 	color: var(--ink-muted);
 }
 
+/* The front page's portrait, in a column of its own, pushed to the far edge
+   so it sits on the page's right margin rather than floating inside its
+   column. It keeps that page's width — filling three columns turns a
+   headshot into a poster and leaves the band with a hole in the middle.
+   Once the columns collapse there is no far edge to sit on. */
+.portrait-cv {
+	margin-left: auto;
+}
+
+@media (max-width: 1100px) {
+	.portrait-cv {
+		margin-left: 0;
+	}
+}
+
 /* A separator that is a mark, not a word. */
 .rule-mark {
 	color: var(--rule);
