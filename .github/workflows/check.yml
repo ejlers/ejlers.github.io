@@ -1,0 +1,15 @@
+# The design system defends itself: every push runs the same check a
+# contributor runs locally, and a value outside the system fails the build.
+name: check
+on:
+  push:
+  pull_request:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run check
