@@ -28,6 +28,28 @@
 	padding-bottom: 0;
 }
 
+/* A brand mark and the name it belongs to. The mark carries its own light
+   ground, baked into the file rather than set here — its colours were chosen
+   against one, and that is what lets a single file read in both schemes. The
+   same licence a screenshot has, and the same reason. */
+.entry__head {
+	display: flex;
+	align-items: center;
+	gap: var(--s3);
+}
+
+.entry__mark {
+	flex: none;
+	width: 35px;
+	height: 35px;
+}
+
+/* No mark yet. An empty slot follows the scheme, because a gap is interface
+   rather than content. */
+.entry__mark--none {
+	background: var(--fill);
+}
+
 .entry__org {
 	font-weight: 500;
 }
