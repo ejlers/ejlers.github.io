@@ -468,6 +468,23 @@ a {
 	}
 }
 
+/* A band's label, composed with stick. On a desk stick already holds it still
+   beside its content. In a pocket the columns are gone and there is nothing to
+   hold still beside, so the label rides the top of the window as a veiled row
+   while its band scrolls past, the same move the work list's headings make,
+   and the next band's label relieves it at the hairline. */
+@media (max-width: 1100px) {
+	.label {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		padding-block: var(--s2);
+		background: var(--veil);
+		-webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
+	}
+}
+
 /* A column that sits on the bottom of its band instead of hanging from the
    top. For the short thing beside the long one — a contact block next to a
    page opener — where starting at the top strands it against nothing. */
@@ -601,8 +618,17 @@ a {
 	padding-bottom: var(--s7);
 }
 
+/* One band step under the opener, the same step a page's first band takes,
+   so the display line holds its position when you move between pages: the
+   card's claim and the CV's headline start on the same line at every width. */
 .lede-gap {
-	padding-top: var(--s8);
+	padding-top: var(--s7);
+}
+
+@media (min-width: 1101px) {
+	.lede-gap {
+		padding-top: var(--s8);
+	}
 }
 
 .index__row {
@@ -672,7 +698,6 @@ a {
 	}
 
 	.lede-gap {
-		padding-top: var(--s5);
 		margin-bottom: var(--s5);
 	}
 
