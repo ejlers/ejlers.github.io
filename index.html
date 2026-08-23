@@ -1,33 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="color-scheme" content="light">
-
 	<title>Carl Ejlers</title>
-	<meta name="description" content="Experienced Digital Product Designer">
-	<meta name="keywords" content="prototype, design, product design, concept, advertising, mother new york, copenhagen, københavn">
-	<meta name="author" content="Carl Ejlers">
+	<meta name="description" content="Carl Ejlers, product designer. Ten years designing digital products for startups, scale-ups and larger companies.">
 	<link rel="canonical" href="https://www.carlejlers.dk">
-	<link rel="alternate" hreflang="en-DK" href="https://www.carlejlers.dk">
 
 	<link rel="icon" href="./img/favicon.ico" sizes="any">
 	<link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
-
-	<meta property="og:title" content="Carl Ejlers' Portfolio">
-	<meta property="og:description" content="Experienced Digital Product Designer">
-	<meta property="og:image" content="https://www.carlejlers.dk/img/shareimg.png">
-	<meta property="og:url" content="https://www.carlejlers.dk">
-	<meta property="og:type" content="website">
-	<meta property="og:site_name" content="Carl Ejlers' Portfolio">
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:site" content="@carlejlers">
-	<meta name="twitter:title" content="Carl Ejlers' Portfolio">
-	<meta name="twitter:description" content="Experienced Digital Product Designer">
-	<meta name="twitter:image" content="https://www.carlejlers.dk/img/shareimg.png">
 
 	<!-- The browser chrome takes the paper it is sitting on. -->
 	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
@@ -36,194 +19,48 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
-	<link rel="stylesheet" href="./css/styles.css">
 
-	<script>document.documentElement.classList.remove('no-js');</script>
+	<link rel="stylesheet" href="./css/styles.css">
 </head>
 
-<body>
-	<a class="skip" href="#work">Skip to work</a>
+<body class="floor">
 
-	<!-- The one icon this page uses. The rest of the set lives in svg/icons.svg -->
 	<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
-		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-			<path d="M5 8l5 5 5-5" />
-		</symbol>
+		<symbol id="i-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h14M12 5l5 5-5 5" /></symbol>
 	</svg>
 
-	<h1 class="crumb">
-		<span class="crumb__here">Carl Ejlers</span>
-	</h1>
+	<div class="opener">
+		<h1 class="crumb">
+			<span class="crumb__here">Carl Ejlers</span>
+		</h1>
+		<img class="portrait-mark" src="./img/carl.png" alt="" width="292" height="433">
+	</div>
 
-	<header class="intro">
-		<img class="portrait" src="./img/carl.png" alt="Carl Ejlers" width="292" height="433">
-		<div class="intro__text">
-			<p class="display">Ten years designing digital products.</p>
-			<p>For startups, scale-ups and larger companies. I thrive when I'm part of great product teams that create smooth, useful and enjoyable user experiences. On this site you can explore a selection of projects I've worked on.</p>
-			<p class="muted">If you want to discuss a project, please feel free to reach out. I'm easy to get to. Shoot me an email on <a href="mailto:ejlers@me.com">ejlers@me.com</a>.</p>
-		</div>
-	</header>
+	<p class="display measure lede-gap">Ten years designing digital products.</p>
 
-	<main>
-		<ul class="work" id="work">
+	<nav class="index" aria-label="Pages">
+		<a class="index__row" href="./work/">
+			<span class="index__term">Work</span>
+			<span class="index__note">Selected projects, 2015 to now</span>
+			<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+		</a>
+		<a class="index__row" href="./cv/">
+			<span class="index__term">CV</span>
+			<span class="index__note">Where I have worked and what I did there</span>
+			<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+		</a>
+		<a class="index__row" href="mailto:ejlers@me.com">
+			<span class="index__term">Mail</span>
+			<span class="index__note">ejlers@me.com</span>
+			<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+		</a>
+		<a class="index__row" href="https://www.linkedin.com/in/ejlers">
+			<span class="index__term">LinkedIn</span>
+			<span class="index__note">/in/ejlers</span>
+			<svg width="20" height="20" class="index__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow" /></svg>
+		</a>
+	</nav>
 
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-theorg" aria-expanded="false" aria-controls="d-theorg">
-						<span class="row__id">
-							<img class="row__logo" src="./img/logos/theorg.png" alt="" width="150" height="150">
-							<span class="row__name">The Org</span>
-							<span class="row__desc">Employee Engagement Platform</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-theorg" role="region" aria-labelledby="r-theorg">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>The Org is an online employee engagement platform with the world's largest network of org charts. It is a Series B company backed by some of the world's leading venture funds, including Sequoia, Tiger Global, and Founders Fund.</p>
-								<p>At The Org we were challenged with building a new and more user-friendly customer facing dashboard for companies to manage their account. I was the lead designer on the dashboard, and features I designed include integrations to ATS and HRIS platforms.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="./img/work/theorg/org1.png" alt="" width="1718" height="1120" loading="lazy" decoding="async">
-								<img src="./img/work/theorg/org2.png" alt="" width="1718" height="1120" loading="lazy" decoding="async">
-								<img src="./img/work/theorg/org3.png" alt="" width="1718" height="2288" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-trackman" aria-expanded="false" aria-controls="d-trackman">
-						<span class="row__id">
-							<img class="row__logo" src="./img/logos/trackman.png" alt="" width="150" height="150">
-							<span class="row__name">TrackMan</span>
-							<span class="row__desc">Virtual Golf Interface</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-trackman" role="region" aria-labelledby="r-trackman">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>At the virtual golf company TrackMan, I designed user experiences and user interfaces in close collaboration with POs on golf products such as Virtual Indoor Golf, Golf Range Games, and the Consumer App.</p>
-								<p>One of the biggest projects I was part of launching was the new interface design for the indoor golf simulator that is the first point of contact people have with the product before playing.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="./img/work/trackman/trackman5.jpg" alt="" width="1760" height="1076" loading="lazy" decoding="async">
-								<img class="spaced" src="./img/work/trackman/track1.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-								<img src="./img/work/trackman/track2.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-								<img src="./img/work/trackman/track3.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-								<img src="./img/work/trackman/track4.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-donkey" aria-expanded="false" aria-controls="d-donkey">
-						<span class="row__id">
-							<img class="row__logo" src="./img/logos/donkey.png" alt="" width="150" height="150">
-							<span class="row__name">Donkey Republic</span>
-							<span class="row__desc">Bike Rental Platform</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-donkey" role="region" aria-labelledby="r-donkey">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>At Donkey Republic I was part of the team creating a global bike-rental platform. As Head of Design I worked closely with management and developers to research, plan, design, and build the core product while introducing new features to the users.</p>
-								<p>During my time at Donkey Republic I redesigned the whole user experience from start to finish. I was also part of launching the pay-as-you-go payment model that price differentiates between short rides and when you need a bike for your everyday.</p>
-							</div>
-							<div class="drawer__media">
-								<div class="video">
-									<iframe src="https://player.vimeo.com/video/287242825?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Donkey Republic, the world on two wheels" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-								</div>
-								<img class="spaced" src="./img/work/donkey/d8.png" alt="" width="1413" height="796" loading="lazy" decoding="async">
-								<div class="set">
-									<img src="./img/work/donkey/d1.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img src="./img/work/donkey/d2.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img class="hide-sm" src="./img/work/donkey/d6.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-								</div>
-								<img class="spaced" src="./img/work/donkey/d7.png" alt="" width="1413" height="727" loading="lazy" decoding="async">
-								<div class="set">
-									<img src="./img/work/donkey/d3.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img src="./img/work/donkey/d5.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img class="hide-sm" src="./img/work/donkey/d4.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-tv2" aria-expanded="false" aria-controls="d-tv2">
-						<span class="row__id">
-							<img class="row__logo" src="./img/logos/lorry.png" alt="" width="150" height="150">
-							<span class="row__name">TV2 Regionerne</span>
-							<span class="row__desc">White-label News App</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-tv2" role="region" aria-labelledby="r-tv2">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>During my time at the product design agency Shape I was the leading UX designer in pitching and laying out the UX for the white-label app that all the TV 2 regions use today.</p>
-								<p>The app is designed with accessibility in mind and adapts to the user's preferences with native dark mode, and takes into account every region's visual identity including fonts, colors, etc.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="./img/work/tv2/tv2-1.jpg" alt="" width="2454" height="5841" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-ok" aria-expanded="false" aria-controls="d-ok">
-						<span class="row__id">
-							<img class="row__logo" src="./img/logos/ok.png" alt="" width="152" height="152">
-							<span class="row__name">OK</span>
-							<span class="row__desc">Charging and Parking Features</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-ok" role="region" aria-labelledby="r-ok">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>At the product design agency Shape I was designing for the OK app that many Danes use in their everyday lives. I was presenting new concepts to the client as well as planning new features for the app.</p>
-								<p>During my time at the agency I mainly designed for the parking feature as well as the electrical charging functionality that lets users charge their car from the app.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="./img/work/ok/OK-2.png" alt="" width="1230" height="950" loading="lazy" decoding="async">
-								<img src="./img/work/ok/OK-1.png" alt="" width="1526" height="756" loading="lazy" decoding="async">
-								<img class="spaced" src="./img/work/ok/OK-4.png" alt="" width="1230" height="950" loading="lazy" decoding="async">
-								<img src="./img/work/ok/OK-3.png" alt="" width="1526" height="684" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-		</ul>
-	</main>
-
-	<script src="./js/site.js"></script>
 </body>
 
 </html>

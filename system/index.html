@@ -40,11 +40,13 @@
 		<symbol id="i-download" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v10M6 9l4 4 4-4M3 17h14" /></symbol>
 	</svg>
 
-	<p class="crumb">
-		<a href="../">Carl Ejlers</a>
-		<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-		<span class="crumb__here">Design system</span>
-	</p>
+	<div class="opener">
+		<p class="crumb">
+			<a href="../">Carl Ejlers</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<span class="crumb__here">Design system</span>
+		</p>
+	</div>
 
 	<div class="layout">
 		<nav class="toc" id="toc" aria-label="Sections"></nav>
@@ -405,19 +407,25 @@
 						<span class="spec__note">After the trail a page is bands until it stops. No masthead, no footer, no menu, no shell the pages share. What makes them one site is the tokens, the grid and the trail, not a frame around them.</span>
 					</div>
 					<div class="spec">
+						<span>The portrait</span>
+						<span class="spec__value">142px, top right</span>
+						<span class="spec__note">One size and one corner, beside the trail in the page opener rather than in a band of its own, so no page decides again. Beside and not inside: the trail is a line of text, the portrait is 211px, and nesting them would give the trail two different shapes depending on the page. It appears where a page introduces the person, which is the front page and the CV, and nowhere else. It is the only photograph the interface carries; everything else is a screenshot of work.</span>
+					</div>
+					<div class="spec">
 						<span>Title</span>
 						<span class="spec__value">Page &middot; Carl Ejlers</span>
 						<span class="spec__note">The browser tab reads the trail backwards: the page, a middot, the name. Home is the name alone.</span>
 					</div>
 					<div class="spec">
 						<span>The map</span>
-						<span class="spec__value">/ &middot; /cv &middot; /system</span>
-						<span class="spec__note">The work list is the front page today, /cv sits one step below it, and this page is unlisted: linked from nowhere and asking not to be indexed, because it documents the site rather than belonging to it. This row is the sitemap; a page that is not on it does not exist.</span>
+						<span class="spec__value">/ &middot; /work &middot; /cv</span>
+						<span class="spec__note">The front page is an index and nothing else: it introduces the person and points at the two pages that hold the substance. /work is the project list and /cv is the history, both one step below. /system is unlisted: linked from nowhere and asking not to be indexed, because it documents the site rather than belonging to it. This row is the sitemap; a page that is not on it does not exist.</span>
 					</div>
 				</div>
 
 				<div class="rules">
 					<span class="rule-item">Every page starts with the trail. A page without one has no address.</span>
+					<span class="rule-item">The portrait sits beside the trail, one size and one corner, and only where a page introduces the person. Work shows work.</span>
 					<span class="rule-item">The name never moves and never restyles between pages. It is the one thing a visitor can hold onto.</span>
 					<span class="rule-item">Depth is one level. The trail never needs a third step before the site needs a second section.</span>
 					<span class="rule-item">A page is either on the map or unlisted. Unlisted means linked from nowhere and noindex, not merely forgotten.</span>
@@ -441,7 +449,7 @@
 				</div>
 
 				<div class="specimen">
-					<p class="crumb" style="padding-top: 0">
+					<p class="crumb">
 						<a href="#">Carl Ejlers</a>
 						<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
 						<span class="crumb__here">CV</span>
@@ -492,6 +500,11 @@
 						<span>Breadcrumb</span>
 						<span class="spec__value">Muted, ink at the end</span>
 						<span class="spec__note">Where you are and the way back, at the top of a page above its first band. The separator is the chevron turned a quarter. The site has one icon and this is it, pointing the way it is read. Every page starts its trail in the same place, 40px down and on the page inset, the front page included: there it is one step long, the h1 carries it, and the name holds still while the steps grow to the right of it.</span>
+					</div>
+					<div class="spec">
+						<span>Index</span>
+						<span class="spec__value">A row per page</span>
+						<span class="spec__note">The site pointing at itself. The same row the work list uses, at reading size and never the display size, so the page keeps exactly one display line. Its rows sit on the floor of the window, which is what turns the empty middle into intent. The front page is this component and a headline, and nothing else.</span>
 					</div>
 					<div class="spec">
 						<span>Section heading</span>

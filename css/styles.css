@@ -214,12 +214,10 @@ a {
 
 /* --- Intro ---------------------------------------------------------- */
 
+/* A page's opening words. It used to be a reversed flex row because the
+   portrait sat beside it; the portrait now rides in the opener, so this is a
+   block again and the text starts where every other line on the page does. */
 .intro {
-	display: flex;
-	flex-direction: row-reverse;
-	align-items: flex-start;
-	justify-content: space-between;
-	gap: var(--s7);
 	padding: var(--s8) 0 var(--s7);
 }
 
@@ -230,18 +228,8 @@ a {
 	max-width: var(--measure);
 }
 
-.portrait {
-	flex: none;
-	width: 142px;
-}
-
-/* Stretch, not flex-start: with flex-start the text block takes its
-   max-content width and overflows the viewport on a phone. */
 @media (max-width: 800px) {
 	.intro {
-		flex-direction: column;
-		align-items: stretch;
-		gap: var(--s5);
 		padding: var(--s5) 0;
 	}
 }
@@ -505,8 +493,9 @@ a {
 
 /* --- Breadcrumb ------------------------------------------------------ */
 
-/* Where you are, and the way back. Sits at the top of a page above its first
-   band, on the page inset, so it lines up with whatever starts the page.
+/* Where you are, and the way back. A line of text and nothing else: the opener
+   above places it and owns the space over it, which is why this is 24px tall
+   on every page whether or not a portrait sits beside it.
 
    Same offset on every page, front page included: there the trail is one step
    long and the h1 carries it, so the name holds still and the steps grow to
@@ -517,9 +506,9 @@ a {
 	display: flex;
 	align-items: center;
 	gap: var(--s2);
-	padding-top: var(--s6);
 	color: var(--ink-muted);
 	font-weight: 300;
+	white-space: nowrap;
 }
 
 /* The site's one chevron, turned a quarter to point the way it is read. Grey,
@@ -536,6 +525,142 @@ a {
    whole hierarchy — no weight change, no underline, no box. */
 .crumb__here {
 	color: var(--ink);
+}
+
+/* --- Opener --------------------------------------------------------- */
+
+/* What a page starts with: the trail on the left, and on the pages that carry
+   one, the portrait on the right. They are siblings, not nested, because the
+   trail is a line of text and the portrait is 211px tall. Putting the picture
+   inside the trail would make the trail itself 211px on two pages and 24px on
+   the third, and a component whose box changes shape by the child it happens
+   to hold is not a component.
+
+   The opener owns the space above it, so the trail inside adds none of its
+   own and still begins on exactly the same line it begins on everywhere. */
+.opener {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--s4);
+	padding-top: var(--s6);
+}
+
+/* --- Portrait ------------------------------------------------------- */
+
+/* One size, one corner: 142px, top right, on the trail's line. It appears
+   where a page introduces the person, which is the front page and the CV, and
+   never inside content. Work shows work.
+
+   Its alt is empty on purpose. The name is already beside it in text, so a
+   described portrait would have the page announce him twice. */
+/* Basis rather than a fixed width, so on a 320px screen, where the longest
+   trail and a full-size portrait want 300px of a 280px line, the picture gives
+   up the difference instead of breaking the trail onto two lines. The trail is
+   one line on every page at every width; that is the promise, and the portrait
+   is the thing that can afford to yield. */
+.portrait-mark {
+	flex: 0 1 142px;
+	width: 142px;
+	/* A flex item will not shrink past its own automatic minimum size, and for
+	   a picture that is its intrinsic width. Same note as the band's children. */
+	min-width: 0;
+}
+
+/* --- Index ---------------------------------------------------------- */
+
+/* The site's own table of contents: one row per page, the same row the work
+   list uses, at the same size. Reading size and weight, never the display
+   size, so the page has exactly one display line and the headline stays the
+   headline.
+
+   The floor is the point. The rows sit on the bottom of the window and the
+   emptiness collects in the middle, where it reads as intent rather than as
+   something unfinished. */
+.floor {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100svh;
+}
+
+.index {
+	display: flex;
+	flex-direction: column;
+	margin-top: auto;
+	padding-bottom: var(--s7);
+}
+
+.lede-gap {
+	padding-top: var(--s8);
+}
+
+.index__row {
+	display: flex;
+	align-items: center;
+	gap: var(--gutter);
+	padding: var(--s3) 0;
+	border-top: var(--rule-w) solid var(--rule);
+	color: var(--ink);
+	transition: background-color var(--t-confirm) ease;
+}
+
+.index__row:last-child {
+	border-bottom: var(--rule-w) solid var(--rule);
+}
+
+.index__term {
+	flex: none;
+	width: 300px;
+	font-weight: 500;
+}
+
+.index__note {
+	color: var(--ink-muted);
+}
+
+/* Pinned right whatever the note's length, the way the work list's chevron
+   sits at the end of its row. */
+.index__arrow {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin-left: auto;
+	color: var(--grey);
+}
+
+@media (hover: hover) {
+	.index__row:hover {
+		background: var(--veil-hover);
+	}
+}
+
+/* One change at phone width, and it is inside the row: the term and its note
+   cannot share a line at 350px, so the note goes under the term. Everything
+   else, the inset, the floor, the arrow, is already the same at every width. */
+@media (max-width: 600px) {
+	.index__row {
+		align-items: flex-start;
+		gap: var(--s4);
+		flex-wrap: wrap;
+	}
+
+	.index__term {
+		width: auto;
+	}
+
+	.index__note {
+		order: 1;
+		flex-basis: 100%;
+	}
+
+	.lede-gap {
+		padding-top: var(--s5);
+	}
+
+	.index {
+		padding-bottom: var(--s5);
+	}
 }
 
 /* --- Media ---------------------------------------------------------- */
