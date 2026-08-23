@@ -548,7 +548,10 @@ a {
 
 /* --- Portrait ------------------------------------------------------- */
 
-/* One size, one corner: 142px, top right, on the trail's line. It appears
+/* One size per pocket, one corner: 142px on a desk, 100px below 600px, always
+   top right, on the trail's line. The phone size exists because at 390px the
+   full portrait is a third of the screen and 210px tall, which makes it the
+   loudest thing on a page whose loudest thing should be the claim. It appears
    where a page introduces the person, which is the front page and the CV, and
    never inside content. Work shows work.
 
@@ -565,6 +568,13 @@ a {
 	/* A flex item will not shrink past its own automatic minimum size, and for
 	   a picture that is its intrinsic width. Same note as the band's children. */
 	min-width: 0;
+}
+
+@media (max-width: 600px) {
+	.portrait-mark {
+		flex-basis: 100px;
+		width: 100px;
+	}
 }
 
 /* --- Index ---------------------------------------------------------- */
