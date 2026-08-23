@@ -35,6 +35,15 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
 
 	<link rel="stylesheet" href="./css/styles.css">
+
+	<!-- The portfolio lived here until August 2026, and links into its
+	     drawers are still out in the world. A hash that belongs to the work
+	     list gets carried to it rather than dying quietly on the card. -->
+	<script>
+		if (/^#([dr]-|work$)/.test(location.hash)) {
+			location.replace('./work/' + (location.hash === '#work' ? '' : location.hash));
+		}
+	</script>
 </head>
 
 <body class="floor">
