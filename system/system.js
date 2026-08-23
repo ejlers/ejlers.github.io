@@ -5,6 +5,39 @@
 const root = getComputedStyle(document.documentElement);
 const token = (name) => root.getPropertyValue(name).trim();
 
+/* --- Both palettes, read out of the stylesheet ------------------------ */
+
+/* getComputedStyle only ever knows the scheme in use, and this page has to
+   show the one you are not looking at as well. So the values come from the
+   sheet itself: the :root block, and the :root inside the dark media query.
+   Still read live — nothing here is typed in, and neither is which of the two
+   you are currently in. */
+
+const SCHEMES = { light: {}, dark: {} };
+
+function collect(rule, into) {
+	if (rule.media) {
+		if (/prefers-color-scheme:\s*dark/.test(rule.conditionText)) {
+			for (const inner of rule.cssRules) collect(inner, SCHEMES.dark);
+		}
+		return;
+	}
+	if (rule.selectorText !== ':root') return;
+	for (const name of rule.style) into[name] = rule.style.getPropertyValue(name).trim();
+}
+
+for (const sheet of document.styleSheets) {
+	let rules;
+	try {
+		rules = sheet.cssRules;
+	} catch {
+		continue; /* a sheet from another origin */
+	}
+	for (const rule of rules) collect(rule, SCHEMES.light);
+}
+
+const CURRENT = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
 /* --- Contrast, computed rather than remembered ----------------------- */
 
 function channel(c) {
@@ -19,10 +52,10 @@ function luminance(hex) {
 	return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
 }
 
-/* Against the paper in use, not against white: in dark mode the same tokens
-   are measured on #181818, and the ladder has to come out the same. */
-function contrastOnPaper(hex) {
-	const [a, b] = [luminance(hex), luminance(token('--paper'))].sort((x, y) => y - x);
+/* Against the paper of its own scheme, never against white: the dark column
+   is measured on dark paper, and the ladder has to come out the same. */
+function contrastOnPaper(hex, paper) {
+	const [a, b] = [luminance(hex), luminance(paper)].sort((x, y) => y - x);
 	return (a + 0.05) / (b + 0.05);
 }
 
@@ -45,21 +78,41 @@ const FLOOR = { text: 4.5, mark: 3 };
 
 const colours = document.getElementById('colours');
 
-for (const [name, label, role, job] of COLOURS) {
-	const value = token(name);
+/* One cell per scheme: the value, and what it measures on that scheme's own
+   paper. The scheme you are in is inked, the other one recedes to muted. */
+function cell(scheme, name, role) {
+	const value = SCHEMES[scheme][name];
+	if (!value) return '<span class="scheme">—</span>';
+
 	const floor = FLOOR[role];
-	const measured = floor && value.startsWith('#') ? contrastOnPaper(value) : null;
+	const measured = floor && value.startsWith('#')
+		? contrastOnPaper(value, SCHEMES[scheme]['--paper'])
+		: null;
 	const fails = measured !== null && measured < floor;
 
+	return `<span class="scheme"${scheme === CURRENT ? ' data-current' : ''}${fails ? ' data-fails' : ''}>`
+		+ value + (measured === null ? '' : ' · ' + measured.toFixed(1) + ':1')
+		+ '</span>';
+}
+
+for (const [name, label, role, job] of COLOURS) {
 	const row = document.createElement('div');
 	row.className = 'spec';
 	row.innerHTML = `
-		<span><span class="swatch" style="background: var(${name})"></span></span>
+		<span class="swatch-pair">
+			<span class="swatch" style="background: ${SCHEMES.light[name]}"></span>
+			<span class="swatch" style="background: ${SCHEMES.dark[name]}"></span>
+		</span>
 		<span>${label}</span>
-		<span class="spec__value">${value}</span>
-		<span class="ratio"${fails ? ' data-fails' : ''}>${measured === null ? '—' : measured.toFixed(1) + ':1'}</span>
+		${cell('light', name, role)}
+		${cell('dark', name, role)}
 		<span class="spec__note">${job}</span>`;
 	colours.append(row);
+}
+
+/* The head says which of the two you are reading in. */
+for (const head of document.querySelectorAll('#colours [data-scheme]')) {
+	head.toggleAttribute('data-current', head.dataset.scheme === CURRENT);
 }
 
 /* --- Typeface, read rather than restated ------------------------------ */

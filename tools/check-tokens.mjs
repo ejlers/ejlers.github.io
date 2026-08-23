@@ -1,8 +1,9 @@
 /* Fails when the stylesheet uses a colour or a spacing value that is not a
-   token. This is the half of "keeping the design system true" that a
-   document cannot do for you: the system page reflects whatever styles.css
-   says, so it stays honest either way — this is what stops styles.css
-   itself from quietly growing a seventh grey or a 13px padding. */
+   token, and when the two colour schemes come apart. This is the half of
+   "keeping the design system true" that a document cannot do for you: the
+   system page reflects whatever styles.css says, so it stays honest either
+   way — this is what stops styles.css itself from quietly growing a seventh
+   grey, a 13px padding, or a colour that only exists in daylight. */
 
 import { readFileSync } from 'node:fs';
 
@@ -56,12 +57,55 @@ for (const m of body.matchAll(/\b(padding|margin|gap|row-gap|column-gap)(-top|-r
 	}
 }
 
+// The two schemes are one palette. Every colour token exists in both, and a
+// scheme may not introduce a name the other does not have.
+const declarations = (block) =>
+	Object.fromEntries([...block.matchAll(/(--[\w-]+):\s*([^;]+);/g)].map((m) => [m[1], m[2].trim()]));
+
+const lineOf = (index) => css.slice(0, index).split('\n').length;
+
+const darkAt = css.indexOf('@media (prefers-color-scheme: dark)');
+const darkPair = darkAt === -1 ? null : blocks.find(([a]) => a > darkAt);
+
+if (!darkPair) {
+	problems.push({
+		kind: 'scheme',
+		value: 'no dark scheme',
+		line: 1,
+		fix: 'colour is defined in two schemes; :root inside @media (prefers-color-scheme: dark) is missing'
+	});
+} else {
+	const light = declarations(css.slice(...blocks[0]));
+	const dark = declarations(css.slice(...darkPair));
+	const isColour = (value) => /^(#|rgba?\()/.test(value);
+
+	for (const [name, value] of Object.entries(light)) {
+		if (!isColour(value) || name in dark) continue;
+		problems.push({
+			kind: 'scheme',
+			value: name,
+			line: lineOf(blocks[0][0] + css.slice(...blocks[0]).indexOf(name)),
+			fix: 'a colour token needs a value in both schemes'
+		});
+	}
+
+	for (const name of Object.keys(dark)) {
+		if (name in light) continue;
+		problems.push({
+			kind: 'scheme',
+			value: name,
+			line: lineOf(darkPair[0] + css.slice(...darkPair).indexOf(name)),
+			fix: 'a scheme may not introduce a token the other one does not have'
+		});
+	}
+}
+
 if (problems.length === 0) {
-	console.log(`ok — every colour and spacing value in styles.css is a token (ramp: ${ramp.join(', ')}px)`);
+	console.log(`ok — every colour and spacing value in styles.css is a token, and both schemes carry every colour (ramp: ${ramp.join(', ')}px)`);
 	process.exit(0);
 }
 
 console.error(`${problems.length} value${problems.length === 1 ? '' : 's'} outside the system:\n`);
 for (const p of problems) console.error(`  styles.css:${p.line}  ${p.kind}  ${p.value}  — ${p.fix}`);
-console.error('\nEither use a token, or add the value to :root and say so on the system page.');
+console.error('\nEither use a token, or add the value to both schemes in :root and say so on the system page.');
 process.exit(1);

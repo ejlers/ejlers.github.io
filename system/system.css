@@ -322,11 +322,34 @@ body.menu-open .section__heading.is-current .section__menu {
 	}
 }
 
-/* Colour table gets a swatch column in front. */
+/* The colour table carries both schemes at once: a swatch each in front, then
+   a column per scheme. Nothing here is a second palette — it is one row per
+   token, read across. */
 .swatches .spec {
-	grid-template-columns: 56px 170px 200px 90px minmax(0, 1fr);
+	grid-template-columns: 60px 130px 170px 170px minmax(0, 1fr);
+	gap: var(--s4);
 	/* a swatch is a block, not a line of text — centre it against the row */
 	align-items: center;
+}
+
+.swatch-pair {
+	display: flex;
+	gap: var(--s1);
+}
+
+/* The scheme you are in is inked; the one you are not recedes. Weight and
+   grey, as everywhere else — there is no marker and no second colour. */
+.scheme {
+	color: var(--ink-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.scheme[data-current] {
+	color: var(--ink);
+}
+
+.scheme[data-fails] {
+	color: var(--warn);
 }
 
 /* On a phone the swatch keeps its column and everything else stacks beside
@@ -334,7 +357,7 @@ body.menu-open .section__heading.is-current .section__menu {
    puts the note under the swatch in a 56px column, one word per line. */
 @media (max-width: 800px) {
 	.swatches .spec {
-		grid-template-columns: 56px minmax(0, 1fr);
+		grid-template-columns: 60px minmax(0, 1fr);
 		align-items: start;
 		gap: var(--s1) 0;
 	}
@@ -350,18 +373,14 @@ body.menu-open .section__heading.is-current .section__menu {
 
 .swatch {
 	display: block;
-	width: 40px;
-	height: 24px;
+	width: 25px;
+	height: 25px;
 	border: var(--rule-w) solid var(--rule);
 }
 
-.ratio {
-	font-variant-numeric: tabular-nums;
-	color: var(--ink-strong);
-}
-
-.ratio[data-fails] {
-	color: var(--warn);
+[data-scheme][data-current] {
+	color: var(--ink);
+	font-weight: 500;
 }
 
 /* Two- and three-up blocks for principles, rules and states. */

@@ -12,6 +12,10 @@
 
 	<link rel="icon" href="../img/favicon.ico" sizes="any">
 
+	<!-- The browser chrome takes the paper it is sitting on. -->
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818">
+
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
@@ -154,8 +158,9 @@
 				<h2 class="section__heading">Colour</h2>
 			<div class="section__body">
 				<div class="lede">
-					<p>Six greys and a paper. Each has exactly one job, and no value appears twice under a different name. Swatches and ratios are read from the live stylesheet — the numbers are computed in the browser against whichever paper is current, not typed in.</p>
-					<p>There are two papers, and the device chooses. Dark is the same design the other way up: Paper and Ink swap ends and every other grey is the value that holds its light-mode ratio against the new paper, so the ladder below reads 9.4, 5.6 and 3.4 either way. Ink is the one deliberate difference — it eases off pure white, because 300-weight type on near-black blooms.</p>
+					<p>Six greys and a paper, in two schemes. Each token has exactly one job, written once — the job is the same in both schemes and only the value moves, so nothing below is a second palette. No value appears twice under a different name.</p>
+					<p>Dark is the same design the other way up. Paper and Ink swap ends and every other grey is the value that holds its light ratio against the new paper, so the ladder reads 9.4, 5.6 and 3.4 either way and no rule about which grey may carry text changes between them. Ink is the one deliberate difference — it eases off pure white, because 300-weight type on near-black blooms.</p>
+					<p>Both columns are read out of the stylesheet itself, each ratio measured against its own scheme's paper. The device picks which scheme you are in; that one is inked below and the other recedes.</p>
 					<p class="muted">The threshold depends on the job. Text clears 4.5:1, an interface mark clears 3:1, and a surface is not measured against itself.</p>
 				</div>
 
@@ -163,8 +168,8 @@
 					<div class="spec">
 						<span></span>
 						<span>Token</span>
-						<span class="muted">Value</span>
-						<span class="muted">On paper</span>
+						<span class="muted" data-scheme="light">Light</span>
+						<span class="muted" data-scheme="dark">Dark</span>
 						<span class="muted">Job</span>
 					</div>
 				</div>
@@ -525,6 +530,11 @@
 
 				<div>
 					<div class="spec">
+						<span>The rule</span>
+						<span class="spec__value">Never stray</span>
+						<span class="spec__note">Never stray from the design system unless deliberately asked to. Not "usually follow it" — a new value, a new size, a new colour or a new gesture is a decision to take out loud, not one to arrive at while solving something else. Everything below exists to make breaking this rule visible rather than to prevent it.</span>
+					</div>
+					<div class="spec">
 						<span>It loads the site's CSS</span>
 						<span class="spec__value">../css/styles.css</span>
 						<span class="spec__note">Not a copy. Every swatch, ramp bar, row, button and icon above is drawn by the same rules the portfolio uses. Change a token and this page changes with it — there is no second place to update.</span>
@@ -542,7 +552,7 @@
 					<div class="spec">
 						<span>A check that fails</span>
 						<span class="spec__value">npm run check</span>
-						<span class="spec__note">tools/check-tokens.mjs reads styles.css and reports any colour or spacing value used outside the token block. Run it before a commit and drift shows up as an error rather than as something you notice months later.</span>
+						<span class="spec__note">tools/check-tokens.mjs reads styles.css and reports any colour or spacing value used outside the token block. It also holds the two schemes together: a colour that exists in one and not the other, or a scheme that invents a name of its own, is an error. Run it before a commit and drift shows up as an error rather than as something you notice months later.</span>
 					</div>
 				</div>
 			</div>
