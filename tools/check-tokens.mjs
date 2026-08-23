@@ -125,12 +125,45 @@ if (!darkPair) {
 	}
 }
 
+// No long dashes in anything a reader sees. An em dash is a sentence that has
+// not decided where it ends; the rule is to rewrite it, not to swap it for a
+// shorter dash. Comments are exempt: they are notes to whoever is reading the
+// file, not text on a page.
+const stripJs = (src) =>
+	src.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '))
+	   .replace(/(^|[^:])\/\/[^\n]*/g, (m, p) => p + ' '.repeat(m.length - p.length));
+
+const PAGES = ['../index.html', '../cv/index.html', '../system/index.html'];
+const dashes = /[\u2014\u2013]|&#821[12];|&[mn]dash;/g;
+
+for (const rel of [...PAGES, '../system/system.js']) {
+	let text;
+	try {
+		text = readFileSync(new URL(rel, import.meta.url), 'utf8');
+	} catch {
+		continue;
+	}
+	if (rel.endsWith('.js')) text = stripJs(text);
+
+	for (const m of text.matchAll(dashes)) {
+		const line = text.slice(0, m.index).split('\n').length;
+		const from = text.lastIndexOf('\n', m.index) + 1;
+		problems.push({
+			kind: 'dash',
+			value: text.slice(Math.max(from, m.index - 34), m.index + 34).replace(/\s+/g, ' ').trim(),
+			line,
+			file: rel.replace('../', ''),
+			fix: 'rewrite the sentence, a dash is not a decision'
+		});
+	}
+}
+
 if (problems.length === 0) {
-	console.log(`ok — every colour and spacing value in styles.css is a token, both schemes carry every colour, and every hover is guarded (ramp: ${ramp.join(', ')}px)`);
+	console.log(`ok: every colour and spacing value in styles.css is a token, both schemes carry every colour, every hover is guarded, and no page uses a long dash (ramp: ${ramp.join(', ')}px)`);
 	process.exit(0);
 }
 
 console.error(`${problems.length} value${problems.length === 1 ? '' : 's'} outside the system:\n`);
-for (const p of problems) console.error(`  styles.css:${p.line}  ${p.kind}  ${p.value}  — ${p.fix}`);
+for (const p of problems) console.error(`  ${p.file ?? 'styles.css'}:${p.line}  ${p.kind}  ${p.value}  ${p.fix}`);
 console.error('\nEither use a token, or add the value to both schemes in :root and say so on the system page.');
 process.exit(1);

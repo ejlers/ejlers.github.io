@@ -64,11 +64,11 @@ function contrastOnPaper(hex, paper) {
 /* The threshold depends on the job: text needs 4.5:1, an interface mark
    needs 3:1, and a surface is not measured against itself at all. */
 const COLOURS = [
-	['--paper', 'Paper', 'surface', 'Every background. There is no second background — the device picks which of the two it is.'],
-	['--ink', 'Ink', 'text', 'Primary text — names, body copy, anything read closely.'],
+	['--paper', 'Paper', 'surface', 'Every background. There is no second background. The device picks which of the two it is.'],
+	['--ink', 'Ink', 'text', 'Primary text: names, body copy, anything read closely.'],
 	['--ink-strong', 'Ink Strong', 'text', 'Row headers, open-state chevrons, secondary emphasis.'],
 	['--ink-muted', 'Ink Muted', 'text', 'Secondary copy and links. Anything at 16px takes this or darker.'],
-	['--grey', 'Grey', 'mark', 'Icons and interface marks only. Never text — it does not reach 4.5:1.'],
+	['--grey', 'Grey', 'mark', 'Icons and interface marks only. Never text, because it does not reach 4.5:1.'],
 	['--rule', 'Rule', 'surface', 'Hairlines. Never text, never an icon that means something.'],
 	['--fill', 'Fill', 'surface', 'The one fill, for the grey button.'],
 	['--veil', 'Veil', 'surface', 'Sticky headers over scrolling content, with a 5px blur. The only depth cue.']
@@ -82,7 +82,7 @@ const colours = document.getElementById('colours');
    paper. The scheme you are in is inked, the other one recedes to muted. */
 function cell(scheme, name, role) {
 	const value = SCHEMES[scheme][name];
-	if (!value) return '<span class="scheme">—</span>';
+	if (!value) return '<span class="scheme"></span>';
 
 	const floor = FLOOR[role];
 	const measured = floor && value.startsWith('#')
@@ -124,7 +124,7 @@ document.getElementById('typeface').textContent =
 
 const RAMP = [
 	['--s1', 'Hairline offsets and optical nudges. Rare; not a layout value.'],
-	['--s2', 'Gap inside a single element — icon to label, dot to text.'],
+	['--s2', 'Gap inside a single element: icon to label, dot to text.'],
 	['--s3', 'Row padding, vertical. The list rhythm.'],
 	['--s4', 'Paragraph spacing, and the page inset.'],
 	['--s5', 'Drawer inset, gap between grouped blocks.'],
@@ -191,11 +191,11 @@ for (let i = 0; i < columns; i++) ruler.append(document.createElement('span'));
 /* --- Motion ----------------------------------------------------------- */
 
 const MOTION = [
-	['--t-open', 'Drawer opening', 'grid-template-rows 0fr to 1fr, ease-out', 'This content belongs to that row, and it came from there. A fade would lose the parentage — the unfold is the sentence.'],
+	['--t-open', 'Drawer opening', 'grid-template-rows 0fr to 1fr, ease-out', 'This content belongs to that row, and it came from there. A fade would lose the parentage; the unfold is the sentence.'],
 	['--t-close', 'Drawer closing', 'grid-template-rows 1fr to 0fr, ease-in', 'Put away, not deleted. Faster than opening, because nobody watches something leave.'],
-	['--t-open', 'Menu opening', 'opacity, ease-out', 'A different question from a drawer. Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show — it covers, and covering fades.'],
+	['--t-open', 'Menu opening', 'opacity, ease-out', 'A different question from a drawer. Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show. It covers, and covering fades.'],
 	['--t-confirm', 'Chevron', 'transform, ease', 'I heard you, and this row is now open. It confirms rather than reveals, so it finishes long before the drawer.'],
-	['--t-confirm', 'Hover veil', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here — a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.']
+	['--t-confirm', 'Hover veil', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.']
 ];
 
 const motion = document.getElementById('motion');
