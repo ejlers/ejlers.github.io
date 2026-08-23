@@ -89,7 +89,7 @@ const declarations = (block) =>
 
 const lineOf = (index) => css.slice(0, index).split('\n').length;
 
-const darkAt = css.indexOf('@media (prefers-color-scheme: dark)');
+const darkAt = css.search(/@media (?:screen and )?\(prefers-color-scheme: dark\)/);
 const darkPair = darkAt === -1 ? null : blocks.find(([a]) => a > darkAt);
 
 if (!darkPair) {

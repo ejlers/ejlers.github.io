@@ -72,7 +72,9 @@
 
    Same names in the same order as above, and nothing else — a scheme that
    introduced a colour of its own would be a second design. */
-@media (prefers-color-scheme: dark) {
+/* Screen and not print: paper is always the light palette, because paper is
+   literal there. One word keeps the whole print story out of the tokens. */
+@media screen and (prefers-color-scheme: dark) {
 	:root {
 		--paper: #181818;
 		--ink: #ededed;        /* 15.2:1 — primary text                          */
@@ -438,7 +440,9 @@ a {
 	border-top: var(--rule-w) solid var(--rule);
 }
 
-@media (min-width: 1101px) {
+/* And on paper: a printed page is as wide as a desk's column, so the sheet
+   gets the real grid rather than the phone's stack. */
+@media (min-width: 1101px), print {
 	.band {
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		padding-block: var(--s8);

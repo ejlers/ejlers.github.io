@@ -76,3 +76,30 @@
 		gap: 0;
 	}
 }
+
+/* --- Print ----------------------------------------------------------- */
+
+/* Command-P is the download button: the page already is the document, so
+   paper gets the same CV with the web taken out. Ink on white whatever the
+   screen preferred, no bars riding the top of anything, no entry split
+   across a sheet, and the trail's link reads as the letterhead it is. */
+/* Colour needs no attention here: the dark palette is screen-only in the
+   system itself, so print always draws from the light tokens. */
+@media print {
+	.stick,
+	.label {
+		position: static;
+		padding-block: 0;
+		background: none;
+		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
+	}
+
+	.entry {
+		break-inside: avoid;
+	}
+
+	.band {
+		break-inside: auto;
+	}
+}
