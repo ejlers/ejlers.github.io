@@ -170,8 +170,15 @@ a {
 	transition: color var(--t-confirm) ease;
 }
 
-a:hover {
-	color: var(--ink-strong);
+/* Hover is a pointer idea. A touch screen has no pointer, so the browser
+   leaves :hover applied to whatever was tapped last — the row you opened
+   stays lit as though the finger were still on it. Every hover state in this
+   file is behind the same guard, and there is no touch equivalent: the
+   chevron already says what happened. */
+@media (hover: hover) {
+	a:hover {
+		color: var(--ink-strong);
+	}
 }
 
 :focus-visible {
@@ -271,8 +278,10 @@ a:hover {
 	transition: background-color var(--t-confirm) ease;
 }
 
-.row:hover {
-	background: var(--veil-hover);
+@media (hover: hover) {
+	.row:hover {
+		background: var(--veil-hover);
+	}
 }
 
 .row:focus-visible {
@@ -468,8 +477,10 @@ a:hover {
 	transition: background-color var(--t-confirm) ease, border-color var(--t-confirm) ease;
 }
 
-.btn:hover {
-	background: var(--veil-hover);
+@media (hover: hover) {
+	.btn:hover {
+		background: var(--veil-hover);
+	}
 }
 
 .btn--grey {
@@ -477,9 +488,11 @@ a:hover {
 	background: var(--fill);
 }
 
-.btn--grey:hover {
-	border-color: var(--rule);
-	background: var(--rule);
+@media (hover: hover) {
+	.btn--grey:hover {
+		border-color: var(--rule);
+		background: var(--rule);
+	}
 }
 
 /* Named for its weight rather than its colour: in dark mode the loudest
@@ -490,9 +503,11 @@ a:hover {
 	color: var(--paper);
 }
 
-.btn--solid:hover {
-	border-color: var(--ink-strong);
-	background: var(--ink-strong);
+@media (hover: hover) {
+	.btn--solid:hover {
+		border-color: var(--ink-strong);
+		background: var(--ink-strong);
+	}
 }
 
 .btn[disabled] {

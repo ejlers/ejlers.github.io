@@ -7,7 +7,12 @@
 
 import { readFileSync } from 'node:fs';
 
-const css = readFileSync(new URL('../css/styles.css', import.meta.url), 'utf8');
+/* Comments are prose about the rules, not the rules — a sentence explaining
+   why :hover is guarded is not an unguarded hover. Blank them rather than
+   remove them, so every offset and line number below still points at the
+   real file. */
+const css = readFileSync(new URL('../css/styles.css', import.meta.url), 'utf8')
+	.replace(/\/\*[\s\S]*?\*\//g, (comment) => comment.replace(/[^\n]/g, ' '));
 
 /* Every :root block declares tokens — the base set, the dark scheme and the
    reduced-motion durations — so all of them are exempt and everything else
@@ -57,6 +62,26 @@ for (const m of body.matchAll(/\b(padding|margin|gap|row-gap|column-gap)(-top|-r
 	}
 }
 
+// Hover is a pointer idea. Unguarded, a touch browser leaves :hover applied to
+// whatever was tapped last, so the row you opened stays lit.
+const guarded = [];
+for (const m of css.matchAll(/@media \(hover: hover\)\s*\{/g)) {
+	let depth = 1;
+	let i = m.index + m[0].length;
+	while (depth > 0) depth += css[i++] === '{' ? 1 : css[i - 1] === '}' ? -1 : 0;
+	guarded.push([m.index, i]);
+}
+
+for (const m of css.matchAll(/:hover\b/g)) {
+	if (guarded.some(([a, b]) => m.index > a && m.index < b)) continue;
+	problems.push({
+		kind: 'hover',
+		value: css.slice(css.lastIndexOf('\n', m.index) + 1, css.indexOf('{', m.index)).trim(),
+		line: css.slice(0, m.index).split('\n').length,
+		fix: 'put it behind @media (hover: hover) — a touch screen has no pointer to leave'
+	});
+}
+
 // The two schemes are one palette. Every colour token exists in both, and a
 // scheme may not introduce a name the other does not have.
 const declarations = (block) =>
@@ -101,7 +126,7 @@ if (!darkPair) {
 }
 
 if (problems.length === 0) {
-	console.log(`ok — every colour and spacing value in styles.css is a token, and both schemes carry every colour (ramp: ${ramp.join(', ')}px)`);
+	console.log(`ok — every colour and spacing value in styles.css is a token, both schemes carry every colour, and every hover is guarded (ramp: ${ramp.join(', ')}px)`);
 	process.exit(0);
 }
 
