@@ -508,6 +508,60 @@ body.menu-open .section__heading.is-current .section__menu {
 	color: var(--ink-strong);
 }
 
+/* Layout specimens. The bands below are real bands — only their page rhythm
+   is suppressed, so seven shapes fit on one screen instead of seven. */
+.shapes .band {
+	padding-block: 0;
+	border-top: 0;
+}
+
+.slot {
+	padding: var(--s5) var(--s3);
+	background: var(--fill);
+	color: var(--ink-muted);
+	text-align: center;
+}
+
+.case {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s3);
+	padding: var(--s5) 0;
+	border-top: var(--rule-w) solid var(--rule);
+}
+
+.case:last-child {
+	border-bottom: var(--rule-w) solid var(--rule);
+}
+
+.case__head {
+	display: flex;
+	gap: var(--s3);
+}
+
+.case__note {
+	max-width: var(--measure);
+}
+
+/* The grid drawn as itself. Its columns are set from a real band at load, so
+   there is no second twelve to keep in step. Below the collapse there is one
+   column and nothing to draw. */
+.ruler {
+	display: grid;
+	gap: var(--gutter);
+}
+
+.ruler > * {
+	height: var(--s5);
+	background: var(--fill);
+}
+
+@media (max-width: 1100px) {
+	.ruler {
+		display: none;
+	}
+}
+
 /* Specimen shelves. */
 .shelf {
 	display: flex;

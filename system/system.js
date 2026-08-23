@@ -163,6 +163,31 @@ for (const [name, note] of METRICS) {
 	metrics.append(block);
 }
 
+/* --- The grid, measured off a real band -------------------------------- */
+
+/* A band built and thrown away rather than a twelve typed in here. The ruler
+   under the table is drawn from the same reading, so the page cannot show a
+   grid the stylesheet is not using. */
+
+const probe = document.body.appendChild(Object.assign(document.createElement('div'), { className: 'band' }));
+probe.style.cssText = 'position: absolute; left: -9999px; width: 600px; visibility: hidden';
+
+const bandStyle = getComputedStyle(probe);
+const columns = bandStyle.gridTemplateColumns.split(' ').length;
+const rhythm = bandStyle.paddingTop;
+
+probe.remove();
+
+/* On a phone the band really is one column, and saying twelve there would
+   be the page describing a grid it is not currently using. */
+document.getElementById('grid-cols').textContent = columns === 1 ? '1 · collapsed' : columns;
+document.getElementById('grid-gutter').textContent = token('--gutter');
+document.getElementById('grid-rhythm').textContent = rhythm;
+
+const ruler = document.getElementById('ruler');
+ruler.style.gridTemplateColumns = `repeat(${columns}, minmax(0, 1fr))`;
+for (let i = 0; i < columns; i++) ruler.append(document.createElement('span'));
+
 /* --- Motion ----------------------------------------------------------- */
 
 const MOTION = [

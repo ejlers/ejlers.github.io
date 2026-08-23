@@ -50,6 +50,16 @@
 	/* Measure */
 	--measure: 600px;
 	--drawer-text: 320px;
+
+	/* Grid — one gutter for the whole site. A second would be a decision to
+	   make again on every page. */
+	--gutter: var(--s7);
+}
+
+@media (max-width: 1100px) {
+	:root {
+		--gutter: var(--s5);
+	}
 }
 
 /* Colour, dark — the same design the other way up. Paper and Ink swap ends,
@@ -397,20 +407,74 @@ a {
 	}
 }
 
-/* Two columns: the text holds still while its images scroll past.
-   align-self keeps the column its own height — stretched to full height
-   it would have no room to move. The offset clears the sticky row. */
+.drawer__media {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* --- Layout ---------------------------------------------------------- */
+
+/* A page is a stack of bands. A band is one idea, laid out on twelve columns
+   with one gutter — twelve because it divides by two, three, four and six,
+   which is every split this site has needed.
+
+   Five spans are legal and no others: 12, 8, 6, 4 and 3. A column is then
+   always a share of the page rather than a width somebody picked, and two
+   pages built a year apart still line up.
+
+   Below 1100px the columns collapse and the band's children stack in source
+   order — the same width the drawer changes shape at. Write the source in
+   reading order and the phone is already handled. */
+
+.band {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: var(--gutter);
+	padding-block: var(--s7);
+}
+
+/* A rule between bands, never above the first — the same way the work list
+   divides its rows. */
+.band + .band {
+	border-top: var(--rule-w) solid var(--rule);
+}
+
 @media (min-width: 1101px) {
-	.drawer__text {
+	.band {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		padding-block: var(--s8);
+	}
+
+	.col-12 { grid-column: span 12; }
+	.col-8  { grid-column: span 8;  }
+	.col-6  { grid-column: span 6;  }
+	.col-4  { grid-column: span 4;  }
+	.col-3  { grid-column: span 3;  }
+}
+
+/* Reading width, whatever column it is sitting in. Text that fills twelve
+   columns is not a layout, it is a wall. */
+.measure {
+	max-width: var(--measure);
+}
+
+/* A column that holds still while the one beside it scrolls past. Only worth
+   it where there are two columns to begin with, so it starts at the same
+   width the grid does. The offset clears a sticky row above it. */
+@media (min-width: 1101px) {
+	.stick {
 		position: sticky;
 		top: var(--s8);
 		align-self: start;
 	}
 }
 
-.drawer__media {
-	flex: 1 1 auto;
-	min-width: 0;
+/* Stacked blocks inside one column — a heading and its paragraphs, a label
+   and its value. The only vertical rhythm inside a band. */
+.stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s4);
 }
 
 /* --- Media ---------------------------------------------------------- */

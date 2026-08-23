@@ -250,6 +250,132 @@
 		</section>
 
 		<section class="section">
+				<h2 class="section__heading">Layout</h2>
+			<div class="section__body">
+				<div class="lede">
+					<p>A page is a stack of bands, and a band is one idea. Nothing else decides page structure — there is no template, no hero, no sidebar that some pages have and others don't.</p>
+					<p>A band lays out on twelve columns with one gutter. Twelve because it divides by two, three, four and six, which is every split this site has needed. Five spans are legal and no others, so a column is always a share of the page rather than a width somebody picked, and two pages built a year apart still line up.</p>
+					<p class="muted">Below 1100px the columns collapse and a band's children stack in source order — the same width the drawer changes shape at. Write the source in reading order and the phone is already handled.</p>
+				</div>
+
+				<div>
+					<div class="spec">
+						<span>Columns</span>
+						<span class="spec__value" id="grid-cols"></span>
+						<span class="spec__note">Measured from a real band at load rather than stated here, and the ruler below is drawn from the same reading — this page cannot show a grid the stylesheet is not using.</span>
+					</div>
+					<div class="spec">
+						<span>Gutter</span>
+						<span class="spec__value" id="grid-gutter"></span>
+						<span class="spec__note">One value, never overridden. A band that needs a different gap is two bands.</span>
+					</div>
+					<div class="spec">
+						<span>Legal spans</span>
+						<span class="spec__value">12 · 8 · 6 · 4 · 3</span>
+						<span class="spec__note">Nine, ten and five are not on this list. If a shape needs one of them, the shape is wrong or the content belongs in two bands.</span>
+					</div>
+					<div class="spec">
+						<span>Band rhythm</span>
+						<span class="spec__value" id="grid-rhythm"></span>
+						<span class="spec__note">Above and below, with a hairline between bands and never above the first. The same way the work list divides its rows.</span>
+					</div>
+				</div>
+
+				<div class="ruler" id="ruler" aria-hidden="true"></div>
+
+				<div class="shapes">
+					<div class="case">
+						<span class="case__head"><b>Full</b> <span class="muted">12</span></span>
+						<div class="band">
+							<div class="col-12 slot">Anything full width</div>
+						</div>
+						<span class="case__note">Media, an index of rows, a table. The default when the content has no second thing to sit beside.</span>
+					</div>
+
+					<div class="case">
+						<span class="case__head"><b>Statement</b> <span class="muted">8</span></span>
+						<div class="band">
+							<div class="col-8 slot">A sentence worth the room</div>
+						</div>
+						<span class="case__note">A section opener in the display line. Eight columns so it is plainly not body copy — a heading is short enough that the measure rarely bites, and if it is not, it is not a heading.</span>
+					</div>
+
+					<div class="case">
+						<span class="case__head"><b>Reading</b> <span class="muted">6</span></span>
+						<div class="band">
+							<div class="col-6 slot">Body copy</div>
+						</div>
+						<span class="case__note">Prose anyone has to read in order. Six columns lands near the measure on its own, which is the point of choosing it.</span>
+					</div>
+
+					<div class="case">
+						<span class="case__head"><b>Label and body</b> <span class="muted">4 · 8</span></span>
+						<div class="band">
+							<div class="col-4 slot">Label</div>
+							<div class="col-8 slot">What it is</div>
+						</div>
+						<span class="case__note">The ledger row, at page scale. A short left-hand term and the thing it names. Every specification on this page is this shape.</span>
+					</div>
+
+					<div class="case">
+						<span class="case__head"><b>Aside</b> <span class="muted">4 sticky · 8</span></span>
+						<div class="band">
+							<div class="col-4 slot">Holds still</div>
+							<div class="col-8 slot">Scrolls past</div>
+						</div>
+						<span class="case__note">Notes beside something long. The left column takes <b>stick</b> and holds while the right one scrolls — the shape an open project already uses.</span>
+					</div>
+
+					<div class="case">
+						<span class="case__head"><b>Split</b> <span class="muted">6 · 6</span></span>
+						<div class="band">
+							<div class="col-6 slot">One</div>
+							<div class="col-6 slot">The other</div>
+						</div>
+						<span class="case__note">Two things of equal weight, and only then. An uneven pair dressed as a split tells the reader they matter the same when they don't.</span>
+					</div>
+
+					<div class="case">
+						<span class="case__head"><b>Gallery</b> <span class="muted">4 · 4 · 4 or 3 · 3 · 3 · 3</span></span>
+						<div class="band">
+							<div class="col-4 slot">One</div>
+							<div class="col-4 slot">Two</div>
+							<div class="col-4 slot">Three</div>
+						</div>
+						<span class="case__note">Short blocks of the same kind — principles, roles, numbers. Three or four across; beyond four they stop being read and start being counted.</span>
+					</div>
+				</div>
+
+				<div>
+					<div class="spec">
+						<span>measure</span>
+						<span class="spec__value">max-width</span>
+						<span class="spec__note">Caps a block at the reading measure inside whatever span holds it. Put it on the text, not on the column — the column is a share of the page, the measure is a property of prose.</span>
+					</div>
+					<div class="spec">
+						<span>stick</span>
+						<span class="spec__value">position: sticky</span>
+						<span class="spec__note">Makes a column hold still while the one beside it scrolls. Only above 1100px, because below that there is no column beside it. An open project's text column is this.</span>
+					</div>
+					<div class="spec">
+						<span>stack</span>
+						<span class="spec__value">flex column, 20px</span>
+						<span class="spec__note">Stacked blocks inside one column — a heading and its paragraphs, a label and its value. The only vertical rhythm inside a band; anything larger is a second band.</span>
+					</div>
+				</div>
+
+				<div class="rules">
+					<span class="rule-item">One band, one idea. If a band needs a subheading to explain its second half, it is two bands.</span>
+					<span class="rule-item">Never nest a band in a band. A column holds content, not another grid.</span>
+					<span class="rule-item">Text is capped at the measure whatever span holds it. Twelve columns of prose is a wall, not a layout.</span>
+					<span class="rule-item">The gutter is never overridden. A band that wants a different gap is two bands.</span>
+					<span class="rule-item">A hairline goes between bands, never above the first and never around one.</span>
+					<span class="rule-item">Source order is reading order, because below 1100px that is the whole layout.</span>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
 				<h2 class="section__heading">Components</h2>
 			<div class="section__body">
 				<div class="lede">
