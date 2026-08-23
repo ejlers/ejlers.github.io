@@ -308,6 +308,10 @@ for (const section of sections) {
 
 	const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 	chevron.setAttribute('class', 'chevron');
+	/* Its own size, not the stylesheet's: an SVG with neither renders at the
+	   width of its container, so a late or stale sheet turns it into a poster. */
+	chevron.setAttribute('width', '20');
+	chevron.setAttribute('height', '20');
 	chevron.setAttribute('aria-hidden', 'true');
 	chevron.setAttribute('focusable', 'false');
 	const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
