@@ -481,6 +481,14 @@ a {
 	gap: var(--s4);
 }
 
+/* Except under a display line, which needs more room than a paragraph does:
+   the gap that separates two lines of 16px reads tight beneath 34px, because
+   the line above it is nearly three times as tall. One step more, stated once
+   here rather than decided again on every page. */
+.stack > .display {
+	margin-bottom: var(--s2);
+}
+
 /* --- Media ---------------------------------------------------------- */
 
 /* Images in a set sit flush; a new set is separated by one step. */
