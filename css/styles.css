@@ -726,13 +726,17 @@ a {
 
 /* Case media on a canvas: the page paints the ground and the subjects sit
    on it in a grid, so the canvas showing between cells is the spacing. The
-   ground is painted here rather than baked into every video frame, because
-   video cannot hold an exact colour through its encoding the way a PNG can,
-   and a ground that shifts against its neighbours stops being one ground. */
+   token holds the intended value, but a video cannot promise a colour the
+   way a PNG can: the value survives the trip through an encoder differently
+   in every browser. So the page asks the moving picture what it actually
+   rendered and repaints the token to match (site.js), and the still images
+   carry their subjects on transparency so they sit on whatever the answer
+   is. One ground, by measurement rather than agreement. */
 .drawer__media--canvas {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: var(--s4);
+	padding: var(--s5);
 	align-items: center;
 	background: var(--canvas);
 }

@@ -30,3 +30,33 @@ document.addEventListener('click', (event) => {
 		toTop();
 	});
 });
+
+/* The media canvas takes its ground from the pictures that move on it. The
+   token says 217, but a video cannot promise a colour the way a PNG can:
+   the value survives the trip through an encoder differently in every
+   browser. So once the first loop has a frame, the page reads the corner
+   of what was actually rendered and repaints the token to match. The still
+   images sit on transparency, so everything shares whatever the answer is. */
+const groundVideo = document.querySelector('.drawer__media--canvas video');
+
+const takeGround = () => {
+	try {
+		const probe = document.createElement('canvas');
+		probe.width = probe.height = 8;
+		const ctx = probe.getContext('2d', { willReadFrequently: true });
+		ctx.drawImage(groundVideo, 0, 0);
+		const px = ctx.getImageData(2, 2, 1, 1).data;
+		if (px[3] === 255) {
+			document.documentElement.style.setProperty('--canvas', 'rgb(' + px[0] + ', ' + px[1] + ', ' + px[2] + ')');
+		}
+	} catch (err) {
+		/* a browser that refuses the readback keeps the token's value */
+	}
+};
+
+if (groundVideo) {
+	/* the data may already be in by the time this runs, so ask first and
+	   listen only if the answer is not there yet */
+	if (groundVideo.readyState >= 2) takeGround();
+	else groundVideo.addEventListener('loadeddata', takeGround, { once: true });
+}
