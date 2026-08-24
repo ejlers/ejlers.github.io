@@ -225,9 +225,7 @@ body.menu-open .section__heading.is-current .section__menu {
 	justify-content: space-between;
 	gap: var(--s4);
 	height: calc(34px * 1.25 + var(--s4));
-	background: var(--veil);
-	-webkit-backdrop-filter: blur(5px);
-	backdrop-filter: blur(5px);
+	background: var(--paper);
 	font-size: 34px;
 	font-weight: 300;
 	line-height: 1.25;
@@ -500,7 +498,7 @@ body.menu-open .section__heading.is-current .section__menu {
 }
 
 .specimen .row[data-state="hover"] {
-	background: var(--veil-hover);
+	background: var(--hover);
 }
 
 .specimen .chevron[data-state="open"] {

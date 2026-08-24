@@ -71,7 +71,7 @@ const COLOURS = [
 	['--grey', 'Grey', 'mark', 'Icons and interface marks only. Never text, because it does not reach 4.5:1.'],
 	['--rule', 'Rule', 'surface', 'Hairlines. Never text, never an icon that means something.'],
 	['--fill', 'Fill', 'surface', 'The one fill, for the grey button.'],
-	['--veil', 'Veil', 'surface', 'Sticky headers over scrolling content, with a 5px blur. The only depth cue.']
+	['--hover', 'Hover', 'surface', 'The row under a pointer. Solid, like every surface here: nothing on the site is translucent.']
 ];
 
 const FLOOR = { text: 4.5, mark: 3 };
@@ -195,7 +195,7 @@ const MOTION = [
 	['--t-close', 'Drawer closing', 'grid-template-rows 1fr to 0fr, ease-in', 'Put away, not deleted. Faster than opening, because nobody watches something leave.'],
 	['--t-open', 'Menu opening', 'opacity, ease-out', 'A different question from a drawer. Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show. It covers, and covering fades.'],
 	['--t-confirm', 'Chevron', 'transform, ease', 'I heard you, and this row is now open. It confirms rather than reveals, so it finishes long before the drawer.'],
-	['--t-confirm', 'Hover veil', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.']
+	['--t-confirm', 'Hover fill', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.']
 ];
 
 const motion = document.getElementById('motion');

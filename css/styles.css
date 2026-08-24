@@ -20,8 +20,7 @@
 	--grey: #8b8b8b;       /*  3.4:1 — interface marks only, never text     */
 	--rule: #dfdfdf;       /* hairlines                                      */
 	--fill: #ececec;       /* the one fill, for the grey button              */
-	--veil: rgba(255, 255, 255, 0.81);
-	--veil-hover: #f5f5f5;
+	--hover: #f5f5f5;    /* the row under a pointer, solid            */
 
 	/* Space — base 5 */
 	--s1: 5px;
@@ -83,8 +82,7 @@
 		--grey: #6d6d6d;       /*  3.4:1 — interface marks only, never text      */
 		--rule: #2f2f2f;       /* hairlines                                      */
 		--fill: #272727;       /* the one fill, for the grey button              */
-		--veil: rgba(24, 24, 24, 0.81);
-		--veil-hover: #202020;
+		--hover: #202020;      /* the row under a pointer, solid                 */
 	}
 }
 
@@ -272,9 +270,7 @@ a {
 	border: 0;
 	border-radius: 0;
 	appearance: none;
-	background: var(--veil);
-	-webkit-backdrop-filter: blur(5px);
-	backdrop-filter: blur(5px);
+	background: var(--paper);
 	color: var(--ink);
 	font: inherit;
 	text-align: left;
@@ -284,7 +280,7 @@ a {
 
 @media (hover: hover) {
 	.row:hover {
-		background: var(--veil-hover);
+		background: var(--hover);
 	}
 }
 
@@ -292,13 +288,6 @@ a {
 	outline-offset: calc(var(--s1) * -1);
 }
 
-@media (max-width: 600px) {
-	.row {
-		background: var(--paper);
-		-webkit-backdrop-filter: none;
-		backdrop-filter: none;
-	}
-}
 
 .row__id {
 	display: flex;
@@ -474,7 +463,7 @@ a {
 
 /* A band's label, composed with stick. On a desk stick already holds it still
    beside its content. In a pocket the columns are gone and there is nothing to
-   hold still beside, so the label rides the top of the window as a veiled row
+   hold still beside, so the label rides the top of the window on solid paper
    while its band scrolls past, the same move the work list's headings make,
    and the next band's label relieves it at the hairline. */
 @media (max-width: 1100px) {
@@ -483,9 +472,7 @@ a {
 		top: 0;
 		z-index: 1;
 		padding-block: var(--s2);
-		background: var(--veil);
-		-webkit-backdrop-filter: blur(5px);
-		backdrop-filter: blur(5px);
+		background: var(--paper);
 	}
 }
 
@@ -671,7 +658,7 @@ a {
 
 @media (hover: hover) {
 	.index__row:hover {
-		background: var(--veil-hover);
+		background: var(--hover);
 	}
 }
 
@@ -776,7 +763,7 @@ a {
 
 @media (hover: hover) {
 	.btn:hover {
-		background: var(--veil-hover);
+		background: var(--hover);
 	}
 }
 
