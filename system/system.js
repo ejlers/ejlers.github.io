@@ -71,7 +71,8 @@ const COLOURS = [
 	['--grey', 'Grey', 'mark', 'Icons and interface marks only. Never text, because it does not reach 4.5:1.'],
 	['--rule', 'Rule', 'surface', 'Hairlines. Never text, never an icon that means something.'],
 	['--fill', 'Fill', 'surface', 'The one fill, for the grey button.'],
-	['--hover', 'Hover', 'surface', 'The row under a pointer. Solid, like every surface here: nothing on the site is translucent.']
+	['--hover', 'Hover', 'surface', 'The row under a pointer. Solid, like every surface here: nothing on the site is translucent.'],
+	['--canvas', 'Canvas', 'surface', 'The ground case imagery sits on. The same value in both schemes, because a screenshot keeps its own light whatever the page does.']
 ];
 
 const FLOOR = { text: 4.5, mark: 3 };

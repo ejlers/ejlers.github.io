@@ -21,6 +21,7 @@
 	--rule: #dfdfdf;       /* hairlines                                      */
 	--fill: #ececec;       /* the one fill, for the grey button              */
 	--hover: #f5f5f5;    /* the row under a pointer, solid            */
+	--canvas: #d9d9d9;     /* the ground case imagery sits on               */
 
 	/* Space — base 5 */
 	--s1: 5px;
@@ -83,6 +84,7 @@
 		--rule: #2f2f2f;       /* hairlines                                      */
 		--fill: #272727;       /* the one fill, for the grey button              */
 		--hover: #202020;      /* the row under a pointer, solid                 */
+		--canvas: #d9d9d9;     /* imagery keeps its own light, so this holds     */
 	}
 }
 
@@ -722,13 +724,27 @@ a {
 	}
 }
 
-/* Media that carries its own canvas needs no gap: every image brings the
-   same grey ground with margins baked in, so a flush stack reads as one
-   field with the subjects floating in it, and any added space would be a
-   second, whiter kind of space between the first kind. */
-.drawer__media--flush .set,
-.drawer__media--flush .spaced {
-	margin-top: 0;
+/* Case media on a canvas: the page paints the ground and the subjects sit
+   on it in a grid, so the canvas showing between cells is the spacing. The
+   ground is painted here rather than baked into every video frame, because
+   video cannot hold an exact colour through its encoding the way a PNG can,
+   and a ground that shifts against its neighbours stops being one ground. */
+.drawer__media--canvas {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--s4);
+	align-items: center;
+	background: var(--canvas);
+}
+
+.drawer__media--canvas .wide {
+	grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+	.drawer__media--canvas {
+		grid-template-columns: minmax(0, 1fr);
+	}
 }
 
 .video {
