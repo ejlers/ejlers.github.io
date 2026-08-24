@@ -117,7 +117,8 @@ ul {
 	list-style: none;
 }
 
-img {
+img,
+video {
 	display: block;
 	max-width: 100%;
 	height: auto;
@@ -719,6 +720,15 @@ a {
 	.set {
 		margin-top: var(--s3);
 	}
+}
+
+/* Media that carries its own canvas needs no gap: every image brings the
+   same grey ground with margins baked in, so a flush stack reads as one
+   field with the subjects floating in it, and any added space would be a
+   second, whiter kind of space between the first kind. */
+.drawer__media--flush .set,
+.drawer__media--flush .spaced {
+	margin-top: 0;
 }
 
 .video {
