@@ -66,31 +66,43 @@ if (groundVideo) {
    up — all of it CSS, all of it behind prefers-reduced-motion. Pieces
    below the window (bands, entries, work rows) wait for first sight and
    are marked .arrived as the reader reaches them; scrolling back replays
-   nothing, and a return to the page skips the whole thing. */
+   nothing, and a return to the page skips the whole thing.
+
+   A prerendered page waits: the speculation rules let the browser build
+   the next page before it is asked for, and a develop that played in
+   that hidden window would be spent on nobody. First sight means seen. */
 (() => {
 	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-	try {
-		const key = 'developed:' + location.pathname;
-		if (sessionStorage.getItem(key)) return;
-		sessionStorage.setItem(key, '1');
-	} catch (err) {
-		/* storage refused: develop anyway, at worst it plays again */
-	}
-
-	document.body.classList.add('develop');
-
-	const waiting = document.querySelectorAll('.band + .band, .entry, .item');
-	if (!('IntersectionObserver' in window)) {
-		waiting.forEach((el) => el.classList.add('arrived'));
-		return;
-	}
-	const seen = new IntersectionObserver((entries) => {
-		for (const entry of entries) {
-			if (!entry.isIntersecting) continue;
-			entry.target.classList.add('arrived');
-			seen.unobserve(entry.target);
+	const develop = () => {
+		try {
+			const key = 'developed:' + location.pathname;
+			if (sessionStorage.getItem(key)) return;
+			sessionStorage.setItem(key, '1');
+		} catch (err) {
+			/* storage refused: develop anyway, at worst it plays again */
 		}
-	}, { rootMargin: '0px 0px -10% 0px' });
-	waiting.forEach((el) => seen.observe(el));
+
+		document.body.classList.add('develop');
+
+		const waiting = document.querySelectorAll('.band + .band, .entry, .item');
+		if (!('IntersectionObserver' in window)) {
+			waiting.forEach((el) => el.classList.add('arrived'));
+			return;
+		}
+		const seen = new IntersectionObserver((entries) => {
+			for (const entry of entries) {
+				if (!entry.isIntersecting) continue;
+				entry.target.classList.add('arrived');
+				seen.unobserve(entry.target);
+			}
+		}, { rootMargin: '0px 0px -10% 0px' });
+		waiting.forEach((el) => seen.observe(el));
+	};
+
+	if (document.prerendering) {
+		document.addEventListener('prerenderingchange', develop, { once: true });
+	} else {
+		develop();
+	}
 })();

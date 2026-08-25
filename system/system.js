@@ -198,7 +198,8 @@ const MOTION = [
 	['--t-confirm', 'Chevron', 'transform, ease', 'I heard you, and this row is now open. It confirms rather than reveals, so it finishes long before the drawer.'],
 	['--t-confirm', 'Hover fill', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.'],
 	['--t-develop', 'The develop', 'color, hairlines and grey, ease', 'The one arrival. The address settles, the claim follows, rules draw left to right, terms take their weight with their ink and the marks come up from grey: once per visit, on first sight, and the page never moves while it happens.'],
-	['--t-confirm', 'The arrow reaches', 'stroke-dashoffset, ease', 'On a pointer, an index row\'s arrow leans into its direction. The head holds the row\'s very edge, because nothing crosses an edge; the shaft grows one small step back toward the words.']
+	['--t-confirm', 'The arrow reaches', 'stroke-dashoffset, ease', 'On a pointer, an index row\'s arrow leans into its direction. The head holds the row\'s very edge, because nothing crosses an edge; the shaft grows one small step back toward the words.'],
+	['--t-open', 'Crossing pages', 'view-transition, browsers that can', 'Navigation is a soft crossing, not a reload. The name and the portrait hold still while the rest fades, because they exist on both sides; the next page is often prerendered on hover, so the crossing starts the instant it is asked for.']
 ];
 
 const motion = document.getElementById('motion');

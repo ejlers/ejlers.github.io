@@ -132,6 +132,17 @@ video {
 
 html {
 	-webkit-text-size-adjust: 100%;
+	/* Rows carry their own pressed states; the platform's grey flash on tap
+	   would be a second, foreign kind of feedback on top of them. */
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Selection is ink's job: paper text on ink ground, the palette turned
+   over. Without this the only hue the site can ever show is the browser's
+   selection blue. */
+::selection {
+	background: var(--ink);
+	color: var(--paper);
 }
 
 /* Opening a project brings it to the top of the window. Stated in the
@@ -995,4 +1006,32 @@ a {
 @media (hover: hover) {
 	.arrow__shaft { transition: stroke-dashoffset var(--t-confirm) ease; }
 	.index__row:hover .arrow__shaft { stroke-dashoffset: 0; }
+}
+
+/* --- Crossing pages --------------------------------------------------- */
+
+/* Navigation is a soft crossing, not a reload: the browsers that know
+   view transitions fade the old page into the new at the arrive speed,
+   and the two named things that exist on both sides hold still while it
+   happens. The name is the first of them, because the trail grows from
+   it and it never moves; the portrait is the second, one size and one
+   corner on the pages that carry it. Browsers without the at-rule, and
+   readers who prefer reduced motion, keep the plain jump. */
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: var(--t-open);
+	}
+}
+
+.crumb > :first-child {
+	view-transition-name: name;
+}
+
+.portrait-mark {
+	view-transition-name: portrait;
 }

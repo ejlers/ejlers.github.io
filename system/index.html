@@ -29,6 +29,14 @@
 	<link rel="stylesheet" href="./system.css">
 
 	<script>document.documentElement.classList.remove('no-js');</script>
+
+	<!-- The next page is built when a link is hovered or pressed, so the
+	     crossing is instant and the develop starts the moment it is seen. -->
+	<script type="speculationrules">
+	{
+		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+	}
+	</script>
 </head>
 
 <body>
@@ -172,6 +180,7 @@
 					<p>Dark is the same design the other way up. Paper and Ink swap ends and every other grey is the value that holds its light ratio against the new paper, so the ladder reads 9.4, 5.6 and 3.4 either way and no rule about which grey may carry text changes between them. Ink is the one deliberate difference. It eases off pure white, because 300-weight type on near-black blooms.</p>
 					<p>Both columns are read out of the stylesheet itself, each ratio measured against its own scheme's paper. The device picks which scheme you are in; that one is inked below and the other recedes.</p>
 					<p class="muted">The threshold depends on the job. Text clears 4.5:1, an interface mark clears 3:1, and a surface is not measured against itself.</p>
+					<p class="muted">Selected text is the palette turned over: paper type on ink ground. Without saying so, the one hue the site could ever show would be the browser's selection blue.</p>
 				</div>
 
 				<div class="swatches" id="colours">
@@ -433,7 +442,7 @@
 				<div class="rules">
 					<span class="rule-item">Every page starts with the trail. A page without one has no address.</span>
 					<span class="rule-item">The portrait sits beside the trail, one size and one corner, and only where a page introduces the person. Work shows work.</span>
-					<span class="rule-item">The name never moves and never restyles between pages. It is the one thing a visitor can hold onto.</span>
+					<span class="rule-item">The name never moves and never restyles between pages. It is the one thing a visitor can hold onto, and in the browsers that can cross pages softly, it literally holds still while everything else fades.</span>
 					<span class="rule-item">A trail longer than its line loses the tail of its current step to an ellipsis, never a link. The way back never shrinks, and where you are is written on the page below anyway.</span>
 					<span class="rule-item">Depth is one level until a section carries pages of its own. /notes is the first that does, and its trail takes the third step.</span>
 					<span class="rule-item">A page is either on the map or unlisted. Unlisted means linked from nowhere and noindex, not merely forgotten.</span>

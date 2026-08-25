@@ -22,6 +22,14 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
 
 	<link rel="stylesheet" href="/css/styles.css">
+
+	<!-- The next page is built when a link is hovered or pressed, so the
+	     crossing is instant and the develop starts the moment it is seen. -->
+	<script type="speculationrules">
+	{
+		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+	}
+	</script>
 </head>
 
 <body class="floor">

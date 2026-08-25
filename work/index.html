@@ -40,6 +40,14 @@
 	<link rel="stylesheet" href="../css/styles.css">
 
 	<script>document.documentElement.classList.remove('no-js');</script>
+
+	<!-- The next page is built when a link is hovered or pressed, so the
+	     crossing is instant and the develop starts the moment it is seen. -->
+	<script type="speculationrules">
+	{
+		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+	}
+	</script>
 </head>
 
 <body>
