@@ -40,6 +40,7 @@
 	--t-open: 320ms;
 	--t-close: 240ms;
 	--t-confirm: 160ms;
+	--t-develop: 700ms; /* the arrival: ink settling, a rule drawing */
 
 	/* Page — the content never exceeds --page-max, and --page-x is the only
 	   horizontal spacing until it does. Below that width the page is full
@@ -94,6 +95,7 @@
 		--t-open: 0ms;
 		--t-close: 0ms;
 		--t-confirm: 0ms;
+		--t-develop: 0ms;
 	}
 }
 
@@ -614,9 +616,13 @@ a {
 
 /* One band step under the opener, the same step a page's first band takes,
    so the display line holds its position when you move between pages: the
-   card's claim and the CV's headline start on the same line at every width. */
+   card's claim and the CV's headline start on the same line at every width.
+   The margin below is the floor's guarantee: the emptiness between claim
+   and rows is an auto margin, which collapses to nothing in a short window,
+   so this is the breathing room the claim keeps before the page scrolls. */
 .lede-gap {
 	padding-top: var(--s7);
+	margin-bottom: var(--s5);
 }
 
 @media (min-width: 1101px) {
@@ -689,10 +695,6 @@ a {
 	.index__note {
 		order: 1;
 		flex-basis: 100%;
-	}
-
-	.lede-gap {
-		margin-bottom: var(--s5);
 	}
 
 	.index {
@@ -843,4 +845,133 @@ a {
 
 .no-js .chevron {
 	display: none;
+}
+
+/* --- Arrival: the page develops -------------------------------------- */
+
+/* The one deliberate amendment to "nothing animates on arrival". The page
+   never moves: layout is set from the first frame, and what arrives is the
+   ink and the lines. Type settles from the muted grey into its own colour,
+   hairlines draw left to right, and the only photographs — the portrait,
+   the marks — come up from grey, like a print developing.
+
+   A page performs once per visit, on its first sight: site.js keeps the
+   score per path in sessionStorage and gives the body .develop only on
+   that first view. What sits below the window develops when the reader
+   first reaches it (.arrived, an IntersectionObserver), and scrolling
+   back replays nothing. Without the script, on a return, or under reduced
+   motion, the page is simply already there — which is why every rule
+   below lives behind both the body class and the motion preference. */
+
+@media (prefers-reduced-motion: no-preference) {
+
+	/* The address settles first, the claim follows, the portrait develops. */
+	.develop .crumb__here { animation: settle var(--t-develop) ease both; }
+	.develop .display { animation: settle var(--t-develop) ease 120ms both; }
+	.develop .portrait-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
+
+	/* The index draws itself: each row's rule, then its term, then the
+	   note and the arrow. The delays are one choreography, stated here
+	   and nowhere else: rules from 200ms in steps of 80, the row's words
+	   trailing their rule. */
+	.develop .index__row { border-top-color: transparent; position: relative; }
+	.develop .index__row:last-child { border-bottom-color: transparent; }
+	.develop .index__row::before,
+	.develop .index__row:last-child::after {
+		content: "";
+		position: absolute;
+		top: calc(-1 * var(--rule-w));
+		left: 0;
+		right: 0;
+		height: var(--rule-w);
+		background: var(--rule);
+		transform-origin: left;
+		transform: scaleX(0);
+		animation: draw var(--t-develop) ease-out forwards;
+	}
+	.develop .index__row:last-child::after { top: auto; bottom: calc(-1 * var(--rule-w)); animation-delay: 600ms; }
+	.develop .index__row:nth-child(1)::before { animation-delay: 200ms; }
+	.develop .index__row:nth-child(2)::before { animation-delay: 280ms; }
+	.develop .index__row:nth-child(3)::before { animation-delay: 360ms; }
+	.develop .index__row:nth-child(4)::before { animation-delay: 440ms; }
+	.develop .index__row:nth-child(5)::before { animation-delay: 520ms; }
+
+	.develop .index__term { animation: settle var(--t-develop) ease both; }
+	.develop .index__row:nth-child(1) .index__term { animation-delay: 320ms; }
+	.develop .index__row:nth-child(2) .index__term { animation-delay: 400ms; }
+	.develop .index__row:nth-child(3) .index__term { animation-delay: 480ms; }
+	.develop .index__row:nth-child(4) .index__term { animation-delay: 560ms; }
+	.develop .index__row:nth-child(5) .index__term { animation-delay: 640ms; }
+
+	.develop .index__note,
+	.develop .index__arrow { opacity: 0; animation: turn-up var(--t-develop) ease forwards; }
+	.develop .index__row:nth-child(1) .index__note, .develop .index__row:nth-child(1) .index__arrow { animation-delay: 440ms; }
+	.develop .index__row:nth-child(2) .index__note, .develop .index__row:nth-child(2) .index__arrow { animation-delay: 520ms; }
+	.develop .index__row:nth-child(3) .index__note, .develop .index__row:nth-child(3) .index__arrow { animation-delay: 600ms; }
+	.develop .index__row:nth-child(4) .index__note, .develop .index__row:nth-child(4) .index__arrow { animation-delay: 680ms; }
+	.develop .index__row:nth-child(5) .index__note, .develop .index__row:nth-child(5) .index__arrow { animation-delay: 760ms; }
+
+	/* A first band's side column — the CV's contact, a note's date —
+	   comes up while the claim settles. */
+	.develop .band:first-of-type .col-4 > * { opacity: 0; animation: turn-up var(--t-develop) ease forwards; }
+	.develop .band:first-of-type .col-4 > :nth-child(1) { animation-delay: 300ms; }
+	.develop .band:first-of-type .col-4 > :nth-child(2) { animation-delay: 380ms; }
+	.develop .band:first-of-type .col-4 > :nth-child(3) { animation-delay: 460ms; }
+
+	/* Below the window, on first sight: a band draws its rule and its
+	   label settles beside it. */
+	.develop .band + .band { border-top-color: transparent; position: relative; }
+	.develop .band + .band::before {
+		content: "";
+		position: absolute;
+		top: calc(-1 * var(--rule-w));
+		left: 0;
+		right: 0;
+		height: var(--rule-w);
+		background: var(--rule);
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+	.develop .band.arrived::before { animation: draw calc(var(--t-develop) + 100ms) ease-out forwards; }
+	.develop .band + .band .label { color: var(--ink-muted); }
+	.develop .band.arrived .label { animation: settle var(--t-develop) ease 200ms both; color: var(--ink); }
+
+	/* And an entry or a work row comes up, its mark developing from grey. */
+	.develop .entry,
+	.develop .item { opacity: 0.15; transition: opacity var(--t-develop) ease; }
+	.develop .entry.arrived,
+	.develop .item.arrived { opacity: 1; }
+	.develop .item { border-top-color: transparent; }
+	.develop .item:last-child { border-bottom-color: transparent; }
+	.develop .item.arrived { border-top-color: var(--rule); transition: opacity var(--t-develop) ease, border-color var(--t-develop) ease; }
+	.develop .item.arrived:last-child { border-bottom-color: var(--rule); }
+	.develop .entry__mark,
+	.develop .row__logo { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease 200ms; }
+	.develop .arrived .entry__mark,
+	.develop .arrived .row__logo { filter: none; }
+
+	@keyframes settle { from { color: var(--ink-muted); } }
+	@keyframes come-up { from { filter: grayscale(1); } }
+	@keyframes draw { to { transform: scaleX(1); } }
+	@keyframes turn-up { to { opacity: 1; } }
+}
+
+/* --- The arrow reaches ------------------------------------------------ */
+
+/* On a pointer, an index row's arrow leans into the direction it points:
+   the head holds the row's very edge — the edge is the design, nothing
+   crosses it — and the shaft grows one small step back toward the words.
+   The shaft is drawn long in the markup and dashed short here; hover pays
+   out the rest, at the confirm speed. The dash numbers are the shaft's
+   own geometry: 19 drawn, 5 held back. */
+.index__arrow { overflow: visible; }
+
+.arrow__shaft {
+	stroke-dasharray: 19;
+	stroke-dashoffset: 5;
+}
+
+@media (hover: hover) {
+	.arrow__shaft { transition: stroke-dashoffset var(--t-confirm) ease; }
+	.index__row:hover .arrow__shaft { stroke-dashoffset: 0; }
 }

@@ -60,3 +60,37 @@ if (groundVideo) {
 	if (groundVideo.readyState >= 2) takeGround();
 	else groundVideo.addEventListener('loadeddata', takeGround, { once: true });
 }
+
+/* The page develops, once. On a path's first view this visit, the body
+   gets .develop and the arrival plays: ink settles, rules draw, marks come
+   up — all of it CSS, all of it behind prefers-reduced-motion. Pieces
+   below the window (bands, entries, work rows) wait for first sight and
+   are marked .arrived as the reader reaches them; scrolling back replays
+   nothing, and a return to the page skips the whole thing. */
+(() => {
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+	try {
+		const key = 'developed:' + location.pathname;
+		if (sessionStorage.getItem(key)) return;
+		sessionStorage.setItem(key, '1');
+	} catch (err) {
+		/* storage refused: develop anyway, at worst it plays again */
+	}
+
+	document.body.classList.add('develop');
+
+	const waiting = document.querySelectorAll('.band + .band, .entry, .item');
+	if (!('IntersectionObserver' in window)) {
+		waiting.forEach((el) => el.classList.add('arrived'));
+		return;
+	}
+	const seen = new IntersectionObserver((entries) => {
+		for (const entry of entries) {
+			if (!entry.isIntersecting) continue;
+			entry.target.classList.add('arrived');
+			seen.unobserve(entry.target);
+		}
+	}, { rootMargin: '0px 0px -10% 0px' });
+	waiting.forEach((el) => seen.observe(el));
+})();

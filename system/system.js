@@ -196,7 +196,9 @@ const MOTION = [
 	['--t-close', 'Drawer closing', 'grid-template-rows 1fr to 0fr, ease-in', 'Put away, not deleted. Faster than opening, because nobody watches something leave.'],
 	['--t-open', 'Menu opening', 'opacity, ease-out', 'A different question from a drawer. Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show. It covers, and covering fades.'],
 	['--t-confirm', 'Chevron', 'transform, ease', 'I heard you, and this row is now open. It confirms rather than reveals, so it finishes long before the drawer.'],
-	['--t-confirm', 'Hover fill', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.']
+	['--t-confirm', 'Hover fill', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.'],
+	['--t-develop', 'The develop', 'color, hairlines and grey, ease', 'The one arrival. The address settles, the claim follows, rules draw left to right and the marks come up from grey: once per visit, on first sight, and the page never moves while it happens.'],
+	['--t-confirm', 'The arrow reaches', 'stroke-dashoffset, ease', 'On a pointer, an index row\'s arrow leans into its direction. The head holds the row\'s very edge, because nothing crosses an edge; the shaft grows one small step back toward the words.']
 ];
 
 const motion = document.getElementById('motion');
