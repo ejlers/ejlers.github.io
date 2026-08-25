@@ -20,8 +20,14 @@ document.addEventListener('click', (event) => {
 	   near the bottom. It is still the one that matters when there is no
 	   animation to wait for. The second call, once the unfold has finished,
 	   finishes the journey for the rest. Whether it glides or jumps is
-	   scroll-behavior's call, in CSS with the other motion rules. */
-	const toTop = () => item.scrollIntoView({ block: 'start' });
+	   scroll-behavior's call, in CSS with the other motion rules.
+
+	   The heading, not the item: the item's top includes its hairline, and
+	   the sticky heading rests one hairline higher. Scrolling to the heading
+	   lands exactly on its stuck position, so the first nudge of scroll
+	   changes nothing. */
+	const heading = item.querySelector('.item__heading');
+	const toTop = () => heading.scrollIntoView({ block: 'start' });
 
 	toTop();
 	drawer.addEventListener('transitionend', function done(e) {
