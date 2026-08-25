@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Building to learn &middot; Carl Ejlers</title>
+	<meta name="description" content="AI has made it cheap to figure out the right thing to build. Notes from a year inside Denmark's largest accounting platform.">
+	<link rel="canonical" href="https://www.carlejlers.dk/notes/building-to-learn/">
+
+	<!-- The share card is the front page itself, at card size. -->
+	<meta property="og:title" content="Building to learn &middot; Carl Ejlers">
+	<meta property="og:description" content="AI has made it cheap to figure out the right thing to build. Notes from a year inside Denmark's largest accounting platform.">
+	<meta property="og:image" content="https://www.carlejlers.dk/img/card.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:url" content="https://www.carlejlers.dk/notes/building-to-learn/">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Carl Ejlers">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Building to learn &middot; Carl Ejlers">
+	<meta name="twitter:description" content="AI has made it cheap to figure out the right thing to build. Notes from a year inside Denmark's largest accounting platform.">
+	<meta name="twitter:image" content="https://www.carlejlers.dk/img/card.png">
+
+	<link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png">
+	<link rel="icon" href="../../img/favicon.ico" sizes="any">
+
+	<!-- The browser chrome takes the paper it is sitting on. -->
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
+
+	<link rel="stylesheet" href="../../css/styles.css">
+	<link rel="stylesheet" href="../notes.css">
+</head>
+
+<body>
+
+	<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5" /></symbol>
+	</svg>
+
+	<div class="opener">
+		<p class="crumb">
+			<a href="../../">Carl Ejlers</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<a href="../">Notes</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<span class="crumb__here">Building to learn</span>
+		</p>
+	</div>
+
+	<main>
+
+		<div class="band">
+			<div class="col-8 stack">
+				<h1 class="display">Building to learn.</h1>
+				<p class="muted measure">AI has made it cheap to figure out the right thing to build. Notes from a year inside Denmark's largest accounting platform.</p>
+			</div>
+			<div class="col-4 stack bottom">
+				<p class="muted">August 2026</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The distinction</h2>
+			<div class="col-8 stack measure">
+				<p>There is a distinction the Silicon Valley Product Group has given the industry: <a href="https://www.svpg.com/build-to-learn-vs-build-to-earn/">building to learn and building to earn</a>. What you ship to customers is built to earn. Everything before it, the prototypes, the experiments, the things made to be thrown away, is built to learn: to figure out what is worth shipping in the first place.</p>
+				<p>Figuring out what to build has always been expensive from both ends. A testable prototype cost days, so teams rationed the experiments, and what an experiment would have answered got settled by opinion instead. And a wrong opinion is the most expensive thing in product work: the wrong feature gets built, shipped, maintained and carried. That is what AI actually changed. Not how fast a screen gets drawn: how cheaply you can find out whether it should exist and what form it should take.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">AI enablement</h2>
+			<div class="col-8 stack measure">
+				<p>At e-conomic this work is called AI enablement, and my part of it has been the prototyping side. Not making prototypes: making the harness that lets the organisation learn faster, with prototypes built on the design system and the principles the system is built with.</p>
+				<p>The harness is wired to the design system on GitHub, and it explains the design system and its principles and patterns to any model before it draws. It is for PMs, UXers and product teams in general: you can get AI to create a prototype from an idea, a feature request or a PRD. A prototype built this way is an experiment wearing the product's own clothes: real enough to learn from, cheap enough to throw away when it has answered. That is the whole point of building to learn. The throwing away has to be painless, or you start defending the prototype instead of the user.</p>
+				<p>The page you are reading runs on the same architecture. One <a href="../../css/styles.css">stylesheet</a> as the truth, a <a href="../../system/">system page</a> that documents it, a check that fails anything outside it, and an AI building within those constraints. Teaching a machine your system turns out to be the same discipline as keeping one.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The cycle</h2>
+			<div class="col-8 stack measure">
+				<p>Most of my work with AI happens at stations of one ongoing cycle. Insight comes in, from the feedback that arrives continuously and from interviews. All of it lands in an <a href="https://www.producttalk.org/opportunity-solution-trees/">opportunity solution tree</a>, Teresa Torres's way of holding discovery together: one desired outcome at the top, the opportunities that could move it beneath, and the solutions and experiments under those. The tree is what I figure out from: what to build, which experiments to run. Prototypes then test the answer with customers, and what comes back starts the next round.</p>
+
+				<div class="cycle" role="img" aria-label="The cycle as a line: insight flows into the opportunity solution tree, the tree decides what to build, a prototype tests it with customers, and the line runs back to insight.">
+					<div class="cycle__station" aria-hidden="true"><span>Insight</span><span class="cycle__wire cycle__wire--arrow"></span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>Opportunity solution tree</span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>What to build</span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>Prototype</span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>Customers</span><span class="cycle__wire"></span></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">A couple of ways I work with AI</h2>
+			<div class="col-8 stack">
+				<div class="ledger">
+					<div class="ledger__row">
+						<span class="ledger__term">Interview synthesis</span>
+						<span>What interviews surface is synthesised with AI, then fed into the tree.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">User feedback</span>
+						<span>The stream that never stops. AI routines keep track of it as it comes in.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Behavioural data</span>
+						<span>Decisions get informed by the data that is already there. When it isn't, I stitch it together from what is.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Opportunity solution trees</span>
+						<span>Where all of it lands. The tree is what I decide from: what to build, which experiments to run.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Prototyping tools</span>
+						<span>The harness above: built once, so every prototype after it starts on the system.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Prototyping</span>
+						<span>Built to test with customers. The last step of the cycle, and the start of the next one.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Exploring design directions</span>
+						<span>Different solution ideas, refined until they are ready for testing.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Stakeholder decks</span>
+						<span>Communication inside the organisation. Sharing ideas, directions and decisions, getting feedback.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Product documentation</span>
+						<span>AI helps me build it out. It is how the work stays aligned with other teams, and how it gets delivered to implementation.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Keeping organised</span>
+						<span>Everything gets documented as I work, in a form AI can read.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">What I would tell a peer</h2>
+			<div class="col-8 stack measure">
+				<p>AI didn't lower the bar for shipping. It lowered the price of finding out what to ship, and teams that spend the savings on more questions will beat teams that spend it on more features.</p>
+			</div>
+		</div>
+
+	</main>
+
+</body>
+
+</html>

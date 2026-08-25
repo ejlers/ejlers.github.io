@@ -1,0 +1,125 @@
+/* ==========================================================================
+   Notes. Page-local layout only; everything visual is the system's.
+   ========================================================================== */
+
+/* A note's sections are bands with stick labels, the CV's grammar, so the
+   page needs no heading styles of its own: the system's label carries them. */
+
+/* The list of notes: the index component off the floor, sitting under the
+   lede at the band step instead of the bottom of the window. */
+.notes-list {
+	padding-top: var(--s7);
+}
+
+/* A note's ledger: terms and what they mean, two columns of them. Each entry
+   is a hairline-topped cell with the term over its meaning, filled row by row,
+   so an odd count simply leaves the last row half empty. One column when the
+   window cannot hold two. */
+.ledger {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 var(--gutter);
+}
+
+.ledger__row {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s1);
+	border-top: var(--rule-w) solid var(--rule);
+	padding: var(--s3) 0;
+}
+
+.ledger__term {
+	font-weight: 500;
+}
+
+/* The term carries the weight, the meaning carries the grey: the same
+   hierarchy every list on the site uses, so the terms scan in one pass. */
+.ledger__row > :not(.ledger__term) {
+	color: var(--ink-muted);
+}
+
+@media (max-width: 600px) {
+	.ledger {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+/* An open slot in a draft: visibly not yet written. */
+.slot {
+	color: var(--ink-muted);
+}
+
+/* --- The cycle -------------------------------------------------------- */
+
+/* The note's cycle drawn with what the system already has: hairlines and
+   chevron marks, one type size. Stations run down the left; the return edge
+   leaves the last station, climbs the right side and arrives back at the
+   first, which is where the chevron points. The wires are --rule like every
+   other hairline; the chevrons are --grey, the mark colour, because they are
+   marks. */
+.cycle {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: var(--s1);
+	margin: var(--s5) 0;
+}
+
+.cycle__station {
+	display: flex;
+	align-items: center;
+	gap: var(--s3);
+}
+
+.cycle__wire {
+	flex: 1;
+	height: var(--rule-w);
+	background: var(--rule);
+	position: relative;
+}
+
+.cycle__wire--arrow::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: calc(50% - 3px - var(--rule-w) / 2);
+	width: 6px;
+	height: 6px;
+	border-left: var(--rule-w) solid var(--grey);
+	border-bottom: var(--rule-w) solid var(--grey);
+	transform: rotate(45deg);
+}
+
+/* The step between stations, indented off the text edge like a list finding
+   its next line. */
+.cycle__down {
+	width: var(--rule-w);
+	height: var(--s4);
+	margin-left: var(--s2);
+	background: var(--rule);
+	position: relative;
+}
+
+.cycle__down::after {
+	content: "";
+	position: absolute;
+	left: calc(var(--rule-w) / 2 - 3px);
+	bottom: 0;
+	width: 6px;
+	height: 6px;
+	border-right: var(--rule-w) solid var(--grey);
+	border-bottom: var(--rule-w) solid var(--grey);
+	transform: rotate(45deg);
+}
+
+/* The climb back up, pinned between the first and last station's centres. */
+.cycle::after {
+	content: "";
+	position: absolute;
+	top: 0.75em;
+	bottom: 0.75em;
+	right: 0;
+	width: var(--rule-w);
+	background: var(--rule);
+}
