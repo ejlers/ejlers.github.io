@@ -17,6 +17,34 @@
 	border-top: var(--rule-w) solid var(--rule);
 }
 
+/* Where there is room, the entry keeps the lists' grid: who in the first
+   column, the role beside it at the second, dates at the right edge, the
+   way a work row holds its name and byline. Extra roles queue in the
+   second column, and the paragraphs run under both. */
+@media (min-width: 801px) {
+	.entry {
+		display: grid;
+		grid-template-columns: var(--term-col) minmax(0, 1fr);
+		column-gap: var(--gutter);
+		row-gap: var(--s2);
+	}
+
+	/* Scoped to the entry: the contact block borrows .entry__role's row
+	   shape without living in a grid. */
+	.entry > .entry__head {
+		grid-column: 1;
+	}
+
+	.entry > .entry__role {
+		grid-column: 2;
+		align-self: center;
+	}
+
+	.entry > p {
+		grid-column: 1 / -1;
+	}
+}
+
 /* The first entry sits directly under the section label, so it needs no rule
    above it — the band already carries one. */
 .entry--first {
