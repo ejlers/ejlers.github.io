@@ -522,6 +522,14 @@ a {
 	color: var(--ink-muted);
 	font-weight: 300;
 	white-space: nowrap;
+	/* The trail may need to give way inside its opener; without this, its
+	   nowrap text is its minimum size and the page scrolls sideways instead. */
+	min-width: 0;
+}
+
+/* The steps behind you are the way back, so they never shrink. */
+.crumb a {
+	flex: none;
 }
 
 /* The site's one chevron, turned a quarter to point the way it is read. Grey,
@@ -535,9 +543,17 @@ a {
 }
 
 /* Where you are now, in full ink; the steps behind it stay muted. That is the
-   whole hierarchy — no weight change, no underline, no box. */
+   whole hierarchy — no weight change, no underline, no box.
+
+   And the step that gives way when the line runs out, against the window or
+   the portrait: where you are is the one thing the trail says twice, because
+   the page below announces itself in display size, so the current step can
+   afford an ellipsis and a link cannot. */
 .crumb__here {
 	color: var(--ink);
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 /* --- Opener --------------------------------------------------------- */
