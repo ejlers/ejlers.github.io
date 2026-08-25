@@ -896,7 +896,11 @@ a {
 	.develop .index__row:nth-child(4)::before { animation-delay: 440ms; }
 	.develop .index__row:nth-child(5)::before { animation-delay: 520ms; }
 
-	.develop .index__term { animation: settle var(--t-develop) ease both; }
+	/* A term takes its weight with its ink: 300 to its 500, in place, on
+	   the variable axis the font already carries. More ink, literally. The
+	   term column is fixed, so the words gain body without moving a
+	   neighbour. */
+	.develop .index__term { animation: settle-weight var(--t-develop) ease both; }
 	.develop .index__row:nth-child(1) .index__term { animation-delay: 320ms; }
 	.develop .index__row:nth-child(2) .index__term { animation-delay: 400ms; }
 	.develop .index__row:nth-child(3) .index__term { animation-delay: 480ms; }
@@ -951,6 +955,7 @@ a {
 	.develop .arrived .row__logo { filter: none; }
 
 	@keyframes settle { from { color: var(--ink-muted); } }
+	@keyframes settle-weight { from { color: var(--ink-muted); font-weight: 300; } }
 	@keyframes come-up { from { filter: grayscale(1); } }
 	@keyframes draw { to { transform: scaleX(1); } }
 	@keyframes turn-up { to { opacity: 1; } }
