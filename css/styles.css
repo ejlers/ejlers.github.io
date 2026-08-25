@@ -331,6 +331,9 @@ a {
 
 .row__desc {
 	color: var(--ink-muted);
+	/* The row is a button inside its h2, and font: inherit hands it the
+	   heading's 500. The byline is reading text like the card's notes. */
+	font-weight: 300;
 }
 
 @media (max-width: 800px) {
