@@ -1,5 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="#181818" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-	<!-- The site's one icon is its mark. Ink flips with the scheme. -->
-	<style>@media (prefers-color-scheme: dark) { svg { stroke: #ededed; } }</style>
-	<path d="M4 6.5l6 6 6-6" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+	<!-- CE, set in Inter 500, drawn as paths because a favicon loads no font.
+	     The tile is Ink on light chrome and eased-white on dark, the same two
+	     values the site's schemes give the page. -->
+	<style>
+		.tile { fill: #181818; }
+		.mono { fill: #ffffff; }
+		@media (prefers-color-scheme: dark) {
+			.tile { fill: #ededed; }
+			.mono { fill: #181818; }
+		}
+	</style>
+	<rect class="tile" width="32" height="32" rx="7" />
+	<path class="mono" d="M11.93 22.67Q10.24 22.67 8.92 21.88Q7.59 21.08 6.83 19.58Q6.07 18.09 6.07 16.01Q6.07 13.92 6.83 12.43Q7.59 10.93 8.92 10.13Q10.24 9.33 11.93 9.33Q12.96 9.33 13.86 9.62Q14.76 9.92 15.47 10.49Q16.18 11.05 16.65 11.86Q17.12 12.68 17.28 13.71L15.29 13.71Q15.16 13.09 14.85 12.61Q14.54 12.13 14.10 11.80Q13.65 11.47 13.10 11.31Q12.55 11.14 11.94 11.14Q10.83 11.14 9.94 11.70Q9.06 12.27 8.55 13.35Q8.04 14.44 8.04 16.01Q8.04 17.58 8.56 18.67Q9.07 19.75 9.95 20.31Q10.84 20.86 11.94 20.86Q12.55 20.86 13.10 20.69Q13.64 20.52 14.09 20.19Q14.54 19.87 14.85 19.39Q15.16 18.91 15.29 18.29L17.29 18.29Q17.14 19.25 16.69 20.05Q16.24 20.85 15.53 21.44Q14.82 22.04 13.91 22.36Q13.00 22.67 11.93 22.67ZM17.69 22.50L17.69 9.50L25.88 9.50L25.88 11.21L19.68 11.21L19.68 15.08L25.43 15.08L25.43 16.79L19.68 16.79L19.68 20.79L25.93 20.79L25.93 22.50Z" />
 </svg>
