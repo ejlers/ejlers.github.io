@@ -123,3 +123,49 @@
 	width: var(--rule-w);
 	background: var(--rule);
 }
+
+/* --- The cycle draws itself ------------------------------------------- */
+
+/* The diagram is hairlines and chevrons, the develop's own materials, so
+   on its first sight it develops in reading order: Insight settles, the
+   step drops, station by station down to Customers, then the return edge
+   draws along the bottom, climbs the right, runs back along the top, and
+   the arrowhead arrives last, pointing home. site.js marks the diagram
+   .arrived when the reader first reaches it; without the script, on a
+   return, in print, or under reduced motion, the drawing is simply done. */
+@media screen and (prefers-reduced-motion: no-preference) {
+	.develop .cycle .cycle__station > span:first-child { color: var(--ink-muted); }
+	.develop .cycle .cycle__wire { transform: scaleX(0); }
+	.develop .cycle .cycle__wire:not(.cycle__wire--arrow) { transform-origin: left; }
+	.develop .cycle .cycle__wire--arrow { transform-origin: right; }
+	.develop .cycle .cycle__down { transform: scaleY(0); transform-origin: top; }
+	.develop .cycle::after { transform: scaleY(0); transform-origin: bottom; }
+	.develop .cycle .cycle__down::after,
+	.develop .cycle .cycle__wire--arrow::before { opacity: 0; }
+
+	.develop .cycle.arrived .cycle__station > span:first-child { animation: settle var(--t-develop) ease both; }
+	.develop .cycle.arrived .cycle__down { animation: draw-down 300ms ease-out forwards; }
+	.develop .cycle.arrived .cycle__down::after { animation: turn-up 300ms ease forwards; }
+
+	.develop .cycle.arrived > :nth-child(1) > span:first-child { animation-delay: 0ms; }
+	.develop .cycle.arrived > :nth-child(2) { animation-delay: 120ms; }
+	.develop .cycle.arrived > :nth-child(2)::after { animation-delay: 270ms; }
+	.develop .cycle.arrived > :nth-child(3) > span:first-child { animation-delay: 240ms; }
+	.develop .cycle.arrived > :nth-child(4) { animation-delay: 360ms; }
+	.develop .cycle.arrived > :nth-child(4)::after { animation-delay: 510ms; }
+	.develop .cycle.arrived > :nth-child(5) > span:first-child { animation-delay: 480ms; }
+	.develop .cycle.arrived > :nth-child(6) { animation-delay: 600ms; }
+	.develop .cycle.arrived > :nth-child(6)::after { animation-delay: 750ms; }
+	.develop .cycle.arrived > :nth-child(7) > span:first-child { animation-delay: 720ms; }
+	.develop .cycle.arrived > :nth-child(8) { animation-delay: 840ms; }
+	.develop .cycle.arrived > :nth-child(8)::after { animation-delay: 990ms; }
+	.develop .cycle.arrived > :nth-child(9) > span:first-child { animation-delay: 960ms; }
+
+	/* The return: along the bottom, up the right, back along the top. */
+	.develop .cycle.arrived .cycle__station:last-child .cycle__wire { animation: draw var(--t-develop) ease-out 1080ms forwards; }
+	.develop .cycle.arrived::after { animation: draw-down var(--t-develop) ease-out 1250ms forwards; }
+	.develop .cycle.arrived .cycle__wire--arrow { animation: draw var(--t-develop) ease-out 1500ms forwards; }
+	.develop .cycle.arrived .cycle__wire--arrow::before { animation: turn-up 300ms ease 2100ms forwards; }
+
+	@keyframes draw-down { to { transform: scaleY(1); } }
+}

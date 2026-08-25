@@ -85,7 +85,7 @@ if (groundVideo) {
 
 		document.body.classList.add('develop');
 
-		const waiting = document.querySelectorAll('.band + .band, .entry, .item');
+		const waiting = document.querySelectorAll('.band + .band, .entry, .item, .cycle');
 		if (!('IntersectionObserver' in window)) {
 			waiting.forEach((el) => el.classList.add('arrived'));
 			return;
