@@ -17,31 +17,23 @@
 	border-top: var(--rule-w) solid var(--rule);
 }
 
-/* Where there is room, the entry keeps the lists' grid: who in the first
-   column, the role beside it at the second, dates at the right edge, the
-   way a work row holds its name and byline. Extra roles queue in the
-   second column, and the paragraphs run under both. */
+/* Each role is a full line of its own between the head and the paragraph:
+   title at the left edge, dates at the right, the shape of a list row one
+   step down. A role beside the company read fine alone and fell apart at
+   two, when the stack of grey lines looked like entries of their own.
+   Scoped to the entry, because the contact block borrows .entry__role's
+   row shape without living in one. */
 @media (min-width: 801px) {
 	.entry {
-		display: grid;
-		grid-template-columns: var(--term-col) minmax(0, 1fr);
-		column-gap: var(--gutter);
-		row-gap: var(--s2);
+		gap: var(--s1);
 	}
 
-	/* Scoped to the entry: the contact block borrows .entry__role's row
-	   shape without living in a grid. */
 	.entry > .entry__head {
-		grid-column: 1;
-	}
-
-	.entry > .entry__role {
-		grid-column: 2;
-		align-self: center;
+		margin-bottom: var(--s1);
 	}
 
 	.entry > p {
-		grid-column: 1 / -1;
+		margin-top: var(--s2);
 	}
 }
 
