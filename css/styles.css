@@ -157,6 +157,15 @@ html {
 	}
 }
 
+/* The ground sits on the root as well as the body. Browsers hand the
+   body's background to the canvas on their own, but embedded webviews
+   (a search app's in-page browser) have been seen painting their own
+   canvas instead: dark ink on the wrong ground. Saying it twice costs
+   nothing and leaves them nothing to infer. */
+html {
+	background: var(--paper);
+}
+
 body {
 	max-width: calc(var(--page-max) + var(--page-x) * 2);
 	margin-inline: auto;
