@@ -91,8 +91,11 @@ if (groundVideo) {
 			return;
 		}
 		const seen = new IntersectionObserver((entries) => {
+			/* everything sighted together develops top to bottom, one step apart */
+			let step = 0;
 			for (const entry of entries) {
 				if (!entry.isIntersecting) continue;
+				entry.target.style.setProperty('--arrive', (step++) * 80 + 'ms');
 				entry.target.classList.add('arrived');
 				seen.unobserve(entry.target);
 			}

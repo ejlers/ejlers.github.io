@@ -963,23 +963,54 @@ a {
 		transform-origin: left;
 		transform: scaleX(0);
 	}
-	.develop .band.arrived::before { animation: draw calc(var(--t-develop) + 100ms) ease-out forwards; }
+	.develop .band.arrived::before { animation: draw calc(var(--t-develop) + 100ms) ease-out var(--arrive, 0ms) forwards; }
 	.develop .band + .band .label { color: var(--ink-muted); }
-	.develop .band.arrived .label { animation: settle var(--t-develop) ease 200ms both; color: var(--ink); }
+	.develop .band.arrived .label { animation: settle var(--t-develop) ease calc(var(--arrive, 0ms) + 200ms) both; color: var(--ink); }
 
-	/* And an entry or a work row comes up, its mark developing from grey. */
-	.develop .entry,
-	.develop .item { opacity: 0.15; transition: opacity var(--t-develop) ease; }
-	.develop .entry.arrived,
-	.develop .item.arrived { opacity: 1; }
-	.develop .item { border-top-color: transparent; }
+	/* Things arriving in the same sight are staggered: site.js hands each
+	   one an --arrive step, so a window of rows develops top to bottom
+	   instead of as one block. A thing arriving alone gets no delay. */
+
+	/* An entry comes up, its mark developing from grey. */
+	.develop .entry { opacity: 0.15; transition: opacity var(--t-develop) ease var(--arrive, 0ms); }
+	.develop .entry.arrived { opacity: 1; }
+	.develop .entry__mark { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 200ms); }
+	.develop .entry.arrived .entry__mark { filter: none; }
+
+	/* A work row develops the way the index rows do: its rule draws, then
+	   its words turn up and its mark comes up from grey. */
+	.develop .item { border-top-color: transparent; position: relative; }
 	.develop .item:last-child { border-bottom-color: transparent; }
-	.develop .item.arrived { border-top-color: var(--rule); transition: opacity var(--t-develop) ease, border-color var(--t-develop) ease; }
-	.develop .item.arrived:last-child { border-bottom-color: var(--rule); }
-	.develop .entry__mark,
-	.develop .row__logo { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease 200ms; }
-	.develop .arrived .entry__mark,
-	.develop .arrived .row__logo { filter: none; }
+	.develop .item::before,
+	.develop .item:last-child::after {
+		content: "";
+		position: absolute;
+		top: calc(-1 * var(--rule-w));
+		left: 0;
+		right: 0;
+		height: var(--rule-w);
+		background: var(--rule);
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+	.develop .item:last-child::after { top: auto; bottom: calc(-1 * var(--rule-w)); }
+	.develop .item.arrived::before { animation: draw var(--t-develop) ease-out var(--arrive, 0ms) forwards; }
+	.develop .item.arrived:last-child::after { animation: draw var(--t-develop) ease-out calc(var(--arrive, 0ms) + 150ms) forwards; }
+
+	.develop .item .row__id > *,
+	.develop .item .chevron { opacity: 0; }
+	.develop .item.arrived .row__id > *,
+	.develop .item.arrived .chevron { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) forwards; }
+	.develop .item.arrived .row__name {
+		animation:
+			turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) forwards,
+			settle-weight var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) both;
+	}
+	/* The mark's grey lifts by transition, not by come-up: a keyframe with no
+	   end state animates toward the computed value, and here that value is
+	   the grey itself. */
+	.develop .row__logo { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 300ms); }
+	.develop .item.arrived .row__logo { filter: none; }
 
 	@keyframes settle { from { color: var(--ink-muted); } }
 	@keyframes settle-weight { from { color: var(--ink-muted); font-weight: 300; } }
