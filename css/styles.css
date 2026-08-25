@@ -991,9 +991,26 @@ a {
 	   instead of as one block. A thing arriving alone gets no delay. */
 
 	/* An entry comes up, its mark developing from grey. */
-	.develop .entry { opacity: 0.15; transition: opacity var(--t-develop) ease var(--arrive, 0ms); }
-	.develop .entry.arrived { opacity: 1; }
-	.develop .entry__mark { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 200ms); }
+	/* An entry develops like a work row: its rule draws, its words turn up
+	   and its mark comes up from grey. The first entry has no rule to draw,
+	   because the band already carries one. */
+	.develop .entry { position: relative; }
+	.develop .entry:not(.entry--first) { border-top-color: transparent; }
+	.develop .entry:not(.entry--first)::before {
+		content: "";
+		position: absolute;
+		top: calc(-1 * var(--rule-w));
+		left: 0;
+		right: 0;
+		height: var(--rule-w);
+		background: var(--rule);
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+	.develop .entry.arrived:not(.entry--first)::before { animation: draw var(--t-develop) ease-out var(--arrive, 0ms) forwards; }
+	.develop .entry > * { opacity: 0; }
+	.develop .entry.arrived > * { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) forwards; }
+	.develop .entry__mark { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 300ms); }
 	.develop .entry.arrived .entry__mark { filter: none; }
 
 	/* A work row develops the way the index rows do: its rule draws, then
