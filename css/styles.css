@@ -51,6 +51,8 @@
 	/* Measure */
 	--measure: 600px;
 	--drawer-text: 320px;
+	--term-col: 300px; /* the lists' first column: index terms, and the work
+	                      list's names reach the same line before the byline */
 
 	/* Grid — one gutter for the whole site. A second would be a decision to
 	   make again on every page. */
@@ -318,8 +320,13 @@ a {
 	height: 35px;
 }
 
+/* The name runs to the same line the index's terms do, so the bylines sit
+   in one column down the list the way the notes do on the card: the term
+   column plus the gutter, minus the mark and the row's own gaps. */
 .row__name {
 	font-weight: 500;
+	flex: none;
+	width: calc(var(--term-col) + var(--gutter) - 35px - 2 * var(--s3));
 }
 
 .row__desc {
@@ -329,6 +336,11 @@ a {
 @media (max-width: 800px) {
 	.row__desc {
 		display: none;
+	}
+
+	/* No byline below 800px, so there is no column to hold. */
+	.row__name {
+		width: auto;
 	}
 }
 
@@ -674,7 +686,7 @@ a {
 
 .index__term {
 	flex: none;
-	width: 300px;
+	width: var(--term-col);
 	font-weight: 500;
 }
 
