@@ -50,9 +50,11 @@
 
 	/* Measure */
 	--measure: 600px;
-	--drawer-text: 320px;
-	--term-col: 300px; /* the lists' first column: index terms, and the work
-	                      list's names reach the same line before the byline */
+	--term-col: 300px; /* the first column, everywhere it appears: index terms,
+	                      the work list's names before the byline, and the
+	                      drawer's text column, so the byline and the media
+	                      start on the same line */
+	--drawer-text: var(--term-col);
 
 	/* Grid — one gutter for the whole site. A second would be a decision to
 	   make again on every page. */
@@ -395,7 +397,9 @@ a {
 
 .drawer__inner {
 	display: flex;
-	gap: var(--s7);
+	/* The site's one gutter, so the media column starts exactly where the
+	   row's byline does: first column plus gutter, the same line. */
+	gap: var(--gutter);
 	padding: var(--s5) 0 var(--s7);
 }
 
