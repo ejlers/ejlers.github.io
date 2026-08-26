@@ -50,11 +50,9 @@
 
 	/* Measure */
 	--measure: 600px;
-	--term-col: 300px; /* the first column, everywhere it appears: index terms,
-	                      the work list's names before the byline, and the
-	                      drawer's text column, so the byline and the media
-	                      start on the same line */
-	--drawer-text: var(--term-col);
+	--term-col: 300px; /* the first column, everywhere it appears: index terms
+	                      and the labels' column, so bylines and media start
+	                      on the same line down a page */
 
 	/* Grid — one gutter for the whole site. A second would be a decision to
 	   make again on every page. */
@@ -217,7 +215,7 @@ a {
    leaves :hover applied to whatever was tapped last — the row you opened
    stays lit as though the finger were still on it. Every hover state in this
    file is behind the same guard, and there is no touch equivalent: the
-   chevron already says what happened. */
+   arrival of the next page already says what happened. */
 @media (hover: hover) {
 	a:hover {
 		color: var(--ink-strong);
@@ -243,9 +241,8 @@ a {
 
 /* --- Intro ---------------------------------------------------------- */
 
-/* A page's opening words. It used to be a reversed flex row because the
-   portrait sat beside it; the portrait now rides in the opener, so this is a
-   block again and the text starts where every other line on the page does. */
+/* A page's opening words: a block, so the text starts where every other
+   line on the page does. */
 .intro {
 	padding: var(--s8) 0 var(--s7);
 }
@@ -263,180 +260,170 @@ a {
 	}
 }
 
-/* --- Work list ------------------------------------------------------ */
+/* --- Work wall ------------------------------------------------------- */
 
-.work {
-	padding: 0 0 var(--s7);
+/* The work page is a wall of plates: one per case, two to a row, each a
+   hairline-topped row with a cover hanging under it. The row is the list
+   row the site already reads in, and the arrow means departure — opening
+   a case is leaving for its page, so the whole plate is one link. */
+.plates {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 var(--gutter);
+	padding-top: var(--s5);
 }
 
-@media (max-width: 800px) {
-	.work {
-		padding: 0 0 var(--s5);
+@media (max-width: 900px) {
+	.plates {
+		grid-template-columns: minmax(0, 1fr);
 	}
 }
 
-.item {
-	border-top: var(--rule-w) solid var(--rule);
-}
-
-.item:last-child {
-	border-bottom: var(--rule-w) solid var(--rule);
-}
-
-.item__heading {
-	position: sticky;
-	top: 0;
-	z-index: 1;
-}
-
-.row {
+.case {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--s4);
-	width: 100%;
-	padding: var(--s3) 0;
-	border: 0;
-	border-radius: 0;
-	appearance: none;
-	background: var(--paper);
+	flex-direction: column;
+	padding: 0 0 var(--s6);
+	border-top: var(--rule-w) solid var(--rule);
 	color: var(--ink);
-	font: inherit;
-	text-align: left;
-	cursor: pointer;
-	transition: background-color var(--t-confirm) ease;
 }
 
-@media (hover: hover) {
-	.row:hover {
-		background: var(--hover);
-	}
-}
-
-.row:focus-visible {
-	outline-offset: calc(var(--s1) * -1);
-}
-
-
-.row__id {
+/* The line carries the row's own padding, so the pointer's ground has a
+   row to paint and stops there: the plate keeps its gap to the cover. */
+.case__line {
 	display: flex;
 	align-items: center;
 	gap: var(--s3);
-	min-width: 0;
+	padding: var(--s3) 0;
+	transition: background-color var(--t-confirm) ease;
 }
 
-.row__logo {
+.case__mark {
 	flex: none;
 	width: 35px;
 	height: 35px;
 }
 
-/* The name runs to the same line the index's terms do, so the bylines sit
-   in one column down the list the way the notes do on the card: the term
-   column plus the gutter, minus the mark and the row's own gaps. */
-.row__name {
+.case__name {
 	font-weight: 500;
-	flex: none;
-	width: calc(var(--term-col) + var(--gutter) - 35px - 2 * var(--s3));
 }
 
-.row__desc {
+.case__desc {
 	color: var(--ink-muted);
-	/* The row is a button inside its h2, and font: inherit hands it the
-	   heading's 500. The byline is reading text like the card's notes. */
-	font-weight: 300;
 }
 
-@media (max-width: 800px) {
-	.row__desc {
-		display: none;
-	}
-
-	/* No byline below 800px, so there is no column to hold. */
-	.row__name {
-		width: auto;
-	}
-}
-
-/* One gesture, always signalled. */
-.chevron {
+.case__arrow {
 	flex: none;
 	width: 20px;
 	height: 20px;
+	margin-left: auto;
+	overflow: visible;
 	color: var(--grey);
-	transition: transform var(--t-confirm) ease, color var(--t-confirm) ease;
 }
 
-.row[aria-expanded="true"] .chevron {
-	transform: rotate(180deg);
-	color: var(--ink-strong);
-}
+@media (hover: hover) {
+	.case:hover .case__line {
+		background: var(--hover);
+	}
 
-/* --- Drawer --------------------------------------------------------- */
-
-/* Animates to the true height of its content: no measuring, no reflow race,
-   and a late-loading image cannot leave the drawer clipped. */
-.drawer {
-	display: grid;
-	grid-template-rows: 0fr;
-	transition: grid-template-rows var(--t-close) ease-in;
-}
-
-.item.is-open .drawer {
-	grid-template-rows: 1fr;
-	transition: grid-template-rows var(--t-open) ease-out;
-}
-
-/* clip, not hidden: both crop the drawer while it animates, but `hidden`
-   makes this a scroll container and kills position: sticky inside it.
-   `clip` does not, so the text column below can stick to the viewport. */
-.drawer > * {
-	overflow: clip;
-	/* `hidden` zeroes a grid item's automatic minimum size; `clip` does not,
-	   so without this the closed drawer stays at its full content height. */
-	min-height: 0;
-	visibility: hidden;
-	transition: visibility 0s linear var(--t-close);
-}
-
-.item.is-open .drawer > * {
-	visibility: visible;
-	transition-delay: 0s;
-}
-
-.drawer__inner {
-	display: flex;
-	/* The site's one gutter, so the media column starts exactly where the
-	   row's byline does: first column plus gutter, the same line. */
-	gap: var(--gutter);
-	padding: var(--s5) 0 var(--s7);
-}
-
-@media (max-width: 1100px) {
-	.drawer__inner {
-		flex-direction: column;
-		gap: var(--s4);
+	.case:hover .arrow__shaft {
+		stroke-dashoffset: 0;
 	}
 }
 
-.drawer__text {
+/* Covers on the canvas ground, one shared ratio. A cover that holds an
+   object rather than a surface keeps air, contained instead of cropped;
+   a cover that is a surface fills the frame, and the two object-position
+   steps aim a crop that would otherwise cut its subject. */
+.case__cover {
+	display: block;
+	aspect-ratio: 3 / 2;
+	background: var(--canvas);
+	overflow: hidden;
+}
+
+.case__cover img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.case__cover.cover--inset {
+	padding: var(--s5);
+}
+
+.cover--inset img {
+	object-fit: contain;
+}
+
+.cover--top img {
+	object-position: top;
+}
+
+.cover--low img {
+	object-position: 50% 72%;
+}
+
+/* A phone holds the mark and the name; the byline waits for the article. */
+@media (max-width: 900px) {
+	.case__desc {
+		display: none;
+	}
+}
+
+/* --- Case article ----------------------------------------------------- */
+
+/* A case page is the band grammar telling one story: a header band that
+   says who and what, one band per idea with its media on a canvas plate,
+   and the other cases as an index at the end.
+
+   The header is a single stack in the text's own column: the case's mark
+   at the label size, the name in display, the byline and standfirst
+   muted, and the kicker — role and period — closing the header the way
+   a byline closes a masthead. */
+.article-mark {
+	display: block;
+	width: var(--s7);
+	height: var(--s7);
+}
+
+.article-byline,
+.article-kicker {
+	color: var(--ink-muted);
+}
+
+/* The film keeps the site's one video frame; the step above it is the
+   same step the plates take. */
+.case-film {
+	margin-top: var(--s7);
+}
+
+/* More work: the front page's index rows, each with the case's mark at
+   the row size. The band above already spaces the list, so it brings no
+   floor geometry of its own. */
+.morework {
+	margin-top: 0;
+	padding-bottom: 0;
+}
+
+.mini__mark {
 	flex: none;
-	width: var(--drawer-text);
-	display: flex;
-	flex-direction: column;
-	gap: var(--s4);
+	width: 35px;
+	height: 35px;
 }
 
-@media (max-width: 1100px) {
-	.drawer__text {
-		width: auto;
-		max-width: var(--measure);
+@media (max-width: 900px) {
+	.morework .index__note {
+		display: none;
 	}
-}
 
-.drawer__media {
-	flex: 1 1 auto;
-	min-width: 0;
+	/* With no byline, a row is one line again: the mark and the name
+	   centre on it. The front page's index keeps the site's own mobile
+	   shape. */
+	.morework .index__row {
+		align-items: center;
+		flex-wrap: nowrap;
+	}
 }
 
 /* --- Layout ---------------------------------------------------------- */
@@ -450,8 +437,8 @@ a {
    pages built a year apart still line up.
 
    Below 1100px the columns collapse and the band's children stack in source
-   order — the same width the drawer changes shape at. Write the source in
-   reading order and the phone is already handled. */
+   order. Write the source in reading order and the phone is already
+   handled. */
 
 .band {
 	display: grid;
@@ -597,21 +584,27 @@ a {
 
 /* --- Opener --------------------------------------------------------- */
 
-/* What a page starts with: the trail on the left, and on the pages that carry
-   one, the portrait on the right. They are siblings, not nested, because the
-   trail is a line of text and the portrait is 211px tall. Putting the picture
-   inside the trail would make the trail itself 211px on two pages and 24px on
-   the third, and a component whose box changes shape by the child it happens
-   to hold is not a component.
+/* What a page starts with: the trail, resting exactly where it sticks.
+   The trail is the page's address and it keeps saying it — the opener
+   holds the top of the window all the way down, on its own paper, one
+   small step from the edge. Resting where it sticks means neither a
+   scroll nor a crossing ever moves it: the trail is in the same place
+   on every page at every depth, which is what lets the name hold still.
 
-   The opener owns the space above it, so the trail inside adds none of its
-   own and still begins on exactly the same line it begins on everywhere. */
+   The portrait is not inside it: a picture riding a sticky bar would
+   either stick with it or tear away from it, so it floats to the same
+   corner as a block of its own below, and the trail slides over it. */
 .opener {
+	position: sticky;
+	top: 0;
+	z-index: 3;
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: var(--s4);
-	padding-top: var(--s6);
+	padding-top: var(--s3);
+	padding-bottom: var(--s3);
+	background: var(--paper);
 }
 
 /* --- Portrait ------------------------------------------------------- */
@@ -643,6 +636,17 @@ a {
 		flex-basis: 100px;
 		width: 100px;
 	}
+}
+
+/* The block the portrait floats in now that the opener is a bar: under
+   the trail, against the right edge, with the page's text starting under
+   it. On the front page the floor is a column, so the picture takes the
+   column's end; everywhere else the auto margin does the same job. */
+.portrait-float {
+	display: block;
+	margin-left: auto;
+	margin-top: var(--s2);
+	align-self: flex-end;
 }
 
 /* --- Index ---------------------------------------------------------- */
@@ -710,8 +714,8 @@ a {
 	color: var(--ink-muted);
 }
 
-/* Pinned right whatever the note's length, the way the work list's chevron
-   sits at the end of its row. */
+/* Pinned right whatever the note's length, the way the wall's arrow sits
+   at the end of its row. */
 .index__arrow {
 	flex: none;
 	width: 20px;
@@ -788,22 +792,51 @@ a {
    in every browser. So the page asks the moving picture what it actually
    rendered and repaints the token to match (site.js), and the still images
    carry their subjects on transparency so they sit on whatever the answer
-   is. One ground, by measurement rather than agreement. */
-.drawer__media--canvas {
+   is. One ground, by measurement rather than agreement (site.js). */
+.case-media {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: var(--s4);
 	padding: var(--s5);
 	align-items: center;
 	background: var(--canvas);
+	margin-top: var(--s7);
 }
 
-.drawer__media--canvas .wide {
+.case-media .wide {
 	grid-column: 1 / -1;
 }
 
+.case-media img,
+.case-media video {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Shots that stand on the canvas's own grey need no frame: the plate
+   drops its padding and gaps, the images tile edge to edge and their
+   grounds fuse into one. The plates are cut so that a screen leaving an
+   image's edge always leaves at a plate's edge, where running off reads
+   as intended; inside a plate, nothing is cut. */
+.case-media.media--fused {
+	padding: 0;
+	gap: 0;
+}
+
+.case-media.media--fused + .case-media {
+	margin-top: var(--s4);
+}
+
+/* The same rule held through padding: a screen cut at its image's bottom
+   edge must leave at the plate's edge, so the plate opens its floor and
+   the cut runs off instead of hovering over ground. */
+.case-media.media--open-floor {
+	padding-bottom: 0;
+}
+
 @media (max-width: 600px) {
-	.drawer__media--canvas {
+	.case-media {
 		grid-template-columns: minmax(0, 1fr);
 	}
 }
@@ -888,20 +921,6 @@ a {
 	cursor: not-allowed;
 }
 
-/* --- No JavaScript: every drawer is simply open ---------------------- */
-
-.no-js .drawer {
-	grid-template-rows: 1fr;
-}
-
-.no-js .drawer > * {
-	visibility: visible;
-}
-
-.no-js .chevron {
-	display: none;
-}
-
 /* --- Arrival: the page develops -------------------------------------- */
 
 /* The one deliberate amendment to "nothing animates on arrival". The page
@@ -924,6 +943,7 @@ a {
 	.develop .crumb__here { animation: settle var(--t-develop) ease both; }
 	.develop .display { animation: settle var(--t-develop) ease 120ms both; }
 	.develop .portrait-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
+	.develop .article-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
 
 	/* The index draws itself: each row's rule, then its term, then the
 	   note and the arrow. The delays are one choreography, stated here
@@ -951,11 +971,11 @@ a {
 	.develop .index__row:nth-child(4)::before { animation-delay: 440ms; }
 	.develop .index__row:nth-child(5)::before { animation-delay: 520ms; }
 
-	/* A term takes its weight with its ink: 300 to its 500, in place, on
-	   the variable axis the font already carries. More ink, literally. The
-	   term column is fixed, so the words gain body without moving a
-	   neighbour. */
-	.develop .index__term { animation: settle-weight var(--t-develop) ease both; }
+	/* A term comes up as it takes its weight, the way a work row's name
+	   always has: settling type never stands on the page before its row
+	   arrives. The term column is fixed, so the words gain body without
+	   moving a neighbour. */
+	.develop .index__term { opacity: 0; animation: turn-up var(--t-develop) ease forwards, settle-weight var(--t-develop) ease both; }
 	.develop .index__row:nth-child(1) .index__term { animation-delay: 320ms; }
 	.develop .index__row:nth-child(2) .index__term { animation-delay: 400ms; }
 	.develop .index__row:nth-child(3) .index__term { animation-delay: 480ms; }
@@ -1022,12 +1042,11 @@ a {
 	.develop .entry__mark { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 300ms); }
 	.develop .entry.arrived .entry__mark { filter: none; }
 
-	/* A work row develops the way the index rows do: its rule draws, then
-	   its words turn up and its mark comes up from grey. */
-	.develop .item { border-top-color: transparent; position: relative; }
-	.develop .item:last-child { border-bottom-color: transparent; }
-	.develop .item::before,
-	.develop .item:last-child::after {
+	/* A case plate develops the way the rows do: its rule draws, its name
+	   comes up as it takes its weight, and the cover, the byline, the mark
+	   and the arrow turn up after it. */
+	.develop .case { border-top-color: transparent; position: relative; }
+	.develop .case::before {
 		content: "";
 		position: absolute;
 		top: calc(-1 * var(--rule-w));
@@ -1038,24 +1057,33 @@ a {
 		transform-origin: left;
 		transform: scaleX(0);
 	}
-	.develop .item:last-child::after { top: auto; bottom: calc(-1 * var(--rule-w)); }
-	.develop .item.arrived::before { animation: draw var(--t-develop) ease-out var(--arrive, 0ms) forwards; }
-	.develop .item.arrived:last-child::after { animation: draw var(--t-develop) ease-out calc(var(--arrive, 0ms) + 150ms) forwards; }
-
-	.develop .item .row__id > *,
-	.develop .item .chevron { opacity: 0; }
-	.develop .item.arrived .row__id > *,
-	.develop .item.arrived .chevron { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) forwards; }
-	.develop .item.arrived .row__name {
+	.develop .case.arrived::before { animation: draw var(--t-develop) ease-out var(--arrive, 0ms) forwards; }
+	.develop .case .case__name { opacity: 0; }
+	.develop .case.arrived .case__name {
 		animation:
-			turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) forwards,
-			settle-weight var(--t-develop) ease calc(var(--arrive, 0ms) + 150ms) both;
+			turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) forwards,
+			settle-weight var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) both;
 	}
-	/* The mark's grey lifts by transition, not by come-up: a keyframe with no
-	   end state animates toward the computed value, and here that value is
-	   the grey itself. */
-	.develop .row__logo { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 300ms); }
-	.develop .item.arrived .row__logo { filter: none; }
+	.develop .case > .case__cover,
+	.develop .case .case__desc,
+	.develop .case .case__arrow,
+	.develop .case .case__mark { opacity: 0; }
+	.develop .case.arrived > .case__cover,
+	.develop .case.arrived .case__desc,
+	.develop .case.arrived .case__arrow,
+	.develop .case.arrived .case__mark { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
+
+	/* A case's More work list rides its band: the band's rule draws and
+	   its label settles on first sight, and the rows stand ready like the
+	   rest of the band's content. The index's own draw-in belongs to the
+	   front page, where the rows are the first sight. */
+	.develop .morework .index__row { border-top-color: var(--rule); }
+	.develop .morework .index__row:last-child { border-bottom-color: var(--rule); }
+	.develop .morework .index__row::before,
+	.develop .morework .index__row:last-child::after { display: none; }
+	.develop .morework .index__term { animation: none; opacity: 1; }
+	.develop .morework .index__note,
+	.develop .morework .index__arrow { animation: none; opacity: 1; }
 
 	@keyframes settle { from { color: var(--ink-muted); } }
 	@keyframes settle-weight { from { color: var(--ink-muted); font-weight: 300; } }

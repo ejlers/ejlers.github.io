@@ -1,41 +1,6 @@
-/* The site has one interaction: a row opens.
-   Opening a row never closes another, so nothing above it ever changes
-   height. Everything else — the unfold, the chevron, the timing — is CSS. */
-
-document.addEventListener('click', (event) => {
-	const row = event.target.closest('.row');
-	if (!row) return;
-
-	const item = row.closest('.item');
-	const drawer = item.querySelector('.drawer');
-	const open = row.getAttribute('aria-expanded') !== 'true';
-
-	row.setAttribute('aria-expanded', open);
-	item.classList.toggle('is-open', open);
-	if (!open) return;
-
-	/* Bring the project you opened to the top of the window. Its header sits
-	   above the drawer, so it never moves as the drawer grows — but the page
-	   has not grown yet, so this first call is clamped short for the projects
-	   near the bottom. It is still the one that matters when there is no
-	   animation to wait for. The second call, once the unfold has finished,
-	   finishes the journey for the rest. Whether it glides or jumps is
-	   scroll-behavior's call, in CSS with the other motion rules.
-
-	   The heading, not the item: the item's top includes its hairline, and
-	   the sticky heading rests one hairline higher. Scrolling to the heading
-	   lands exactly on its stuck position, so the first nudge of scroll
-	   changes nothing. */
-	const heading = item.querySelector('.item__heading');
-	const toTop = () => heading.scrollIntoView({ block: 'start' });
-
-	toTop();
-	drawer.addEventListener('transitionend', function done(e) {
-		if (e.target !== drawer || e.propertyName !== 'grid-template-rows') return;
-		drawer.removeEventListener('transitionend', done);
-		toTop();
-	});
-});
+/* The site has no interaction of its own left: a row is a link and a page
+   is a page. What this file does is measure and observe — the canvas ground
+   below, and the arrival at the bottom. */
 
 /* The media canvas takes its ground from the pictures that move on it. The
    token says 217, but a video cannot promise a colour the way a PNG can:
@@ -43,7 +8,7 @@ document.addEventListener('click', (event) => {
    browser. So once the first loop has a frame, the page reads the corner
    of what was actually rendered and repaints the token to match. The still
    images sit on transparency, so everything shares whatever the answer is. */
-const groundVideo = document.querySelector('.drawer__media--canvas video');
+const groundVideo = document.querySelector('.case-media video');
 
 const takeGround = () => {
 	try {
@@ -91,7 +56,7 @@ if (groundVideo) {
 
 		document.body.classList.add('develop');
 
-		const waiting = document.querySelectorAll('.band + .band, .entry, .item, .cycle, .ledger__row');
+		const waiting = document.querySelectorAll('.band + .band, .entry, .case, .cycle, .ledger__row');
 		if (!('IntersectionObserver' in window)) {
 			waiting.forEach((el) => el.classList.add('arrived'));
 			return;

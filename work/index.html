@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
@@ -39,8 +39,6 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..500&display=swap">
 	<link rel="stylesheet" href="../css/styles.css">
 
-	<script>document.documentElement.classList.remove('no-js');</script>
-
 	<!-- The next page is built when a link is hovered or pressed, so the
 	     crossing is instant and the develop starts the moment it is seen. -->
 	<script type="speculationrules">
@@ -60,6 +58,15 @@
 		</symbol>
 	</svg>
 
+	<!-- The drawers lived here until August 2026, and links into them are
+	     still out in the world. A hash that names a case is carried to its
+	     page rather than dying quietly on the wall. -->
+	<script>
+		if (/^#[dr]-(economic|theorg|trackman|donkey|tv2|ok)$/.test(location.hash)) {
+			location.replace('./' + location.hash.slice(3) + '/');
+		}
+	</script>
+
 	<div class="opener">
 		<p class="crumb">
 			<a href="../">Carl Ejlers</a>
@@ -71,200 +78,70 @@
 	<header class="intro">
 		<div class="intro__text">
 			<h1 class="display">Selected work.</h1>
-			<p class="muted">Ten years of product design for startups, scale-ups and larger companies. Open a row to see the work.</p>
+			<p class="muted">Ten years of product design for startups, scale-ups and larger companies. Open a case to read the story.</p>
 		</div>
 	</header>
 
-	<main>
-		<ul class="work" id="work">
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-economic" aria-expanded="false" aria-controls="d-economic">
-						<span class="row__id">
-							<img class="row__logo" src="../img/logos/economic.png" alt="" width="150" height="150">
-							<span class="row__name">Visma e-conomic</span>
-							<span class="row__desc">Accounting Platform</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-economic" role="region" aria-labelledby="r-economic">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>e-conomic is Denmark's largest accounting platform, part of Visma. I joined as Senior UX Designer in December 2024 and among other areas of responsibility I've been working on the daily ledger, where accountants and bookkeepers spend their day. Here are a couple of shipped features I've been part of building:</p>
-								<p>Inline editing brought editing into the table itself, speeding up accountants' daily workflows considerably. Entries are edited where they stand, keyboard shortcuts move between fields, users can create lines and copy values, and multi-legged entries are split in the same flow. <a href="https://www.e-conomic.dk/direkte-redigering-i-kassekladden">Read about it on e-conomic.dk</a>.</p>
-								<p>Editing booked entries used to mean reversing them by hand. Now a correction is typed where the entry stands, and the system books the reversal in the background and keeps it out of the reports. <a href="https://www.e-conomic.dk/support/artikler/rediger-bogfoerte-posteringer">The support article</a> shows the flow.</p>
-							</div>
-							<div class="drawer__media drawer__media--canvas">
-								<img class="wide" src="../img/work/economic/e1.png" alt="" width="1155" height="662" loading="lazy" decoding="async">
-								<video autoplay muted loop playsinline preload="metadata" width="590" height="520"><source src="../img/work/economic/genveje-piletaster.webm" type="video/webm"></video>
-								<video autoplay muted loop playsinline preload="metadata" width="590" height="520"><source src="../img/work/economic/genveje-ctrlenter.webm" type="video/webm"></video>
-								<video autoplay muted loop playsinline preload="metadata" width="590" height="520"><source src="../img/work/economic/genveje-copypaste.webm" type="video/webm"></video>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-theorg" aria-expanded="false" aria-controls="d-theorg">
-						<span class="row__id">
-							<img class="row__logo" src="../img/logos/theorg.png" alt="" width="150" height="150">
-							<span class="row__name">The Org</span>
-							<span class="row__desc">Employee Engagement Platform</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-theorg" role="region" aria-labelledby="r-theorg">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>The Org is an online employee engagement platform with the world's largest network of org charts. It is a Series B company backed by some of the world's leading venture funds, including Sequoia, Tiger Global, and Founders Fund.</p>
-								<p>At The Org we were challenged with building a new and more user-friendly customer facing dashboard for companies to manage their account. I was the lead designer on the dashboard, and features I designed include integrations to ATS and HRIS platforms.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="../img/work/theorg/org1.png" alt="" width="1718" height="1120" loading="lazy" decoding="async">
-								<img src="../img/work/theorg/org2.png" alt="" width="1718" height="1120" loading="lazy" decoding="async">
-								<img src="../img/work/theorg/org3.png" alt="" width="1718" height="2288" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-trackman" aria-expanded="false" aria-controls="d-trackman">
-						<span class="row__id">
-							<img class="row__logo" src="../img/logos/trackman.png" alt="" width="150" height="150">
-							<span class="row__name">TrackMan</span>
-							<span class="row__desc">Virtual Golf Interface</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-trackman" role="region" aria-labelledby="r-trackman">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>At the virtual golf company TrackMan, I designed user experiences and user interfaces in close collaboration with POs on golf products such as Virtual Indoor Golf, Golf Range Games, and the Consumer App.</p>
-								<p>One of the biggest projects I was part of launching was the new interface design for the indoor golf simulator that is the first point of contact people have with the product before playing.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="../img/work/trackman/trackman5.jpg" alt="" width="1760" height="1076" loading="lazy" decoding="async">
-								<img class="spaced" src="../img/work/trackman/track1.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-								<img src="../img/work/trackman/track2.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-								<img src="../img/work/trackman/track3.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-								<img src="../img/work/trackman/track4.jpg" alt="" width="1760" height="1036" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-donkey" aria-expanded="false" aria-controls="d-donkey">
-						<span class="row__id">
-							<img class="row__logo" src="../img/logos/donkey.png" alt="" width="150" height="150">
-							<span class="row__name">Donkey Republic</span>
-							<span class="row__desc">Bike Rental Platform</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-donkey" role="region" aria-labelledby="r-donkey">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>At Donkey Republic I was part of the team creating a global bike-rental platform. As Head of Design I worked closely with management and developers to research, plan, design, and build the core product while introducing new features to the users.</p>
-								<p>During my time at Donkey Republic I redesigned the whole user experience from start to finish. I was also part of launching the pay-as-you-go payment model that price differentiates between short rides and when you need a bike for your everyday.</p>
-							</div>
-							<div class="drawer__media">
-								<div class="video">
-									<iframe src="https://player.vimeo.com/video/287242825?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Donkey Republic, the world on two wheels" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-								</div>
-								<img class="spaced" src="../img/work/donkey/d8.png" alt="" width="1413" height="796" loading="lazy" decoding="async">
-								<div class="set">
-									<img src="../img/work/donkey/d1.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img src="../img/work/donkey/d2.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img class="hide-sm" src="../img/work/donkey/d6.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-								</div>
-								<img class="spaced" src="../img/work/donkey/d7.png" alt="" width="1413" height="727" loading="lazy" decoding="async">
-								<div class="set">
-									<img src="../img/work/donkey/d3.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img src="../img/work/donkey/d5.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-									<img class="hide-sm" src="../img/work/donkey/d4.jpg" alt="" width="1340" height="2414" loading="lazy" decoding="async">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-tv2" aria-expanded="false" aria-controls="d-tv2">
-						<span class="row__id">
-							<img class="row__logo" src="../img/logos/lorry.png" alt="" width="150" height="150">
-							<span class="row__name">TV2 Regionerne</span>
-							<span class="row__desc">White-label News App</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-tv2" role="region" aria-labelledby="r-tv2">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>During my time at the product design agency Shape I was the leading UX designer in pitching and laying out the UX for the white-label app that all the TV 2 regions use today.</p>
-								<p>The app is designed with accessibility in mind and adapts to the user's preferences with native dark mode, and takes into account every region's visual identity including fonts, colors, etc.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="../img/work/tv2/tv2-1.jpg" alt="" width="2454" height="5841" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-			<li class="item">
-				<h2 class="item__heading">
-					<button class="row" type="button" id="r-ok" aria-expanded="false" aria-controls="d-ok">
-						<span class="row__id">
-							<img class="row__logo" src="../img/logos/ok.png" alt="" width="152" height="152">
-							<span class="row__name">OK</span>
-							<span class="row__desc">Charging and Parking Features</span>
-						</span>
-						<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-					</button>
-				</h2>
-				<div class="drawer" id="d-ok" role="region" aria-labelledby="r-ok">
-					<div>
-						<div class="drawer__inner">
-							<div class="drawer__text stick">
-								<p>At the product design agency Shape I was designing for the OK app that many Danes use in their everyday lives. I was presenting new concepts to the client as well as planning new features for the app.</p>
-								<p>During my time at the agency I mainly designed for the parking feature as well as the electrical charging functionality that lets users charge their car from the app.</p>
-							</div>
-							<div class="drawer__media">
-								<img src="../img/work/ok/OK-2.png" alt="" width="1230" height="950" loading="lazy" decoding="async">
-								<img src="../img/work/ok/OK-1.png" alt="" width="1526" height="756" loading="lazy" decoding="async">
-								<img class="spaced" src="../img/work/ok/OK-4.png" alt="" width="1230" height="950" loading="lazy" decoding="async">
-								<img src="../img/work/ok/OK-3.png" alt="" width="1526" height="684" loading="lazy" decoding="async">
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
-
-		</ul>
+	<main id="work">
+		<nav class="plates" aria-label="Cases">
+			<a class="case case--economic" href="./economic/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/economic-canvas.png" alt="" width="35" height="35">
+					<span class="case__name">Visma e-conomic</span>
+					<span class="case__desc">Accounting Platform</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover cover--inset cover--low"><img loading="lazy" decoding="async" src="../img/work/economic/e1.png" alt=""></span>
+			</a>
+			<a class="case case--theorg" href="./theorg/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/theorg-canvas.png" alt="" width="35" height="35">
+					<span class="case__name">The Org</span>
+					<span class="case__desc">Employee Engagement Platform</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover"><img loading="lazy" decoding="async" src="../img/theorg/cover.jpg" alt=""></span>
+			</a>
+			<a class="case case--trackman" href="./trackman/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/trackman.png" alt="" width="35" height="35">
+					<span class="case__name">TrackMan</span>
+					<span class="case__desc">Virtual Golf Interface</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover cover--inset"><img loading="lazy" decoding="async" src="../img/work/trackman/track1.jpg" alt=""></span>
+			</a>
+			<a class="case case--donkey" href="./donkey/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/donkey.png" alt="" width="35" height="35">
+					<span class="case__name">Donkey Republic</span>
+					<span class="case__desc">Bike Rental Platform</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover"><img loading="lazy" decoding="async" src="../img/work/donkey/cover.jpg" alt=""></span>
+			</a>
+			<a class="case case--tv2" href="./tv2/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/lorry.png" alt="" width="35" height="35">
+					<span class="case__name">TV2 Regionerne</span>
+					<span class="case__desc">White-label News App</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover"><img loading="lazy" decoding="async" src="../img/work/tv2/cover.jpg" alt=""></span>
+			</a>
+			<a class="case case--ok" href="./ok/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/ok.png" alt="" width="35" height="35">
+					<span class="case__name">OK</span>
+					<span class="case__desc">Charging and Parking Features</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover"><img loading="lazy" decoding="async" src="../img/work/ok/OK-2.png" alt=""></span>
+			</a></nav>
 	</main>
 
 	<script src="../js/site.js"></script>
+
 </body>
 
 </html>

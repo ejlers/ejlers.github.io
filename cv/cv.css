@@ -107,7 +107,8 @@
    system itself, so print always draws from the light tokens. */
 @media print {
 	.stick,
-	.label {
+	.label,
+	.opener {
 		position: static;
 		padding-block: 0;
 		background: none;
