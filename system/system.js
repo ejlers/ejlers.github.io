@@ -152,7 +152,7 @@ const METRICS = [
 	['--page-x', 'The page inset, and the only horizontal spacing there is. Held once, at the page level.'],
 	['--page-max', 'The widest the content ever gets. Beyond it the page centres.'],
 	['--measure', 'Reading measure. Never wider, whatever the viewport.'],
-	['--drawer-text', 'The drawer text column. Fixed, with the media taking the rest.']
+	['--term-col', 'The first column, everywhere it appears: index terms and the labels\' column, so bylines and media start on the same line down a page.']
 ];
 
 const metrics = document.getElementById('page-metrics');
@@ -192,12 +192,10 @@ for (let i = 0; i < columns; i++) ruler.append(document.createElement('span'));
 /* --- Motion ----------------------------------------------------------- */
 
 const MOTION = [
-	['--t-open', 'Drawer opening', 'grid-template-rows 0fr to 1fr, ease-out', 'This content belongs to that row, and it came from there. A fade would lose the parentage; the unfold is the sentence.'],
-	['--t-close', 'Drawer closing', 'grid-template-rows 1fr to 0fr, ease-in', 'Put away, not deleted. Faster than opening, because nobody watches something leave.'],
-	['--t-open', 'Menu opening', 'opacity, ease-out', 'A different question from a drawer. Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show. It covers, and covering fades.'],
-	['--t-confirm', 'Chevron', 'transform, ease', 'I heard you, and this row is now open. It confirms rather than reveals, so it finishes long before the drawer.'],
+	['--t-open', 'Menu opening', 'opacity, ease-out', 'Nothing in the menu came out of the heading and nothing is left behind it, so there is no parentage to show. It covers, and covering fades.'],
+	['--t-close', 'Menu closing', 'opacity, ease-in', 'Put away, not deleted. Faster than opening, because nobody watches something leave.'],
 	['--t-confirm', 'Hover fill', 'background-color, ease', 'The whole row is the target, not just the words in it. Behind (hover: hover), like every hover here: a touch screen has no pointer to leave, so an unguarded one stays lit on whatever was tapped last.'],
-	['--t-develop', 'The develop', 'color, hairlines and grey, ease', 'The one arrival. The address settles, the claim follows, rules draw left to right, terms take their weight with their ink and the marks come up from grey: once per visit, on first sight, and the page never moves while it happens.'],
+	['--t-develop', 'The develop', 'color, hairlines and grey, ease', 'The one arrival. The address settles, the claim follows, rules draw left to right, settling type comes up as it takes its weight and the marks come up from grey: once per visit, on first sight, and the page never moves while it happens.'],
 	['--t-confirm', 'The arrow reaches', 'stroke-dashoffset, ease', 'On a pointer, an index row\'s arrow leans into its direction. The head holds the row\'s very edge, because nothing crosses an edge; the shaft grows one small step back toward the words.'],
 	['--t-open', 'Crossing pages', 'view-transition, browsers that can', 'Navigation is a soft crossing, not a reload. The name and the portrait hold still while the rest fades, because they exist on both sides; the next page is often prerendered on hover, so the crossing starts the instant it is asked for.']
 ];

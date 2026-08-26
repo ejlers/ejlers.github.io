@@ -149,7 +149,7 @@ body.menu-open .section__heading.is-current .section__menu {
 	   page behind stays scrollable, and scrolling it moves the section you are
 	   about to choose from. Covering also settles the transition: nothing in
 	   the panel belongs to the heading and nothing unfolds out of it, so it
-	   fades in where the drawer on the portfolio grows.
+	   simply fades in.
 
 	   Its own scroll container, so a long list still reaches its end on a
 	   short screen, and contain keeps that scroll from chaining to the page. */
@@ -488,22 +488,12 @@ body.menu-open .section__heading.is-current .section__menu {
 	padding-bottom: 0;
 }
 
-.specimen .item__heading {
-	position: static;
-	z-index: auto;
+.specimen .case {
+	padding-bottom: 0;
 }
 
-.specimen .row {
-	cursor: default;
-}
-
-.specimen .row[data-state="hover"] {
+.specimen .case__line[data-state="hover"] {
 	background: var(--hover);
-}
-
-.specimen .chevron[data-state="open"] {
-	transform: rotate(180deg);
-	color: var(--ink-strong);
 }
 
 /* Layout specimens. The bands below are real bands — only their page rhythm

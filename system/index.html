@@ -274,7 +274,7 @@
 				<div class="lede">
 					<p>A page is a stack of bands, and a band is one idea. Nothing else decides page structure. There is no template, no hero, no sidebar that some pages have and others don't.</p>
 					<p>A band lays out on twelve columns with one gutter. Twelve because it divides by two, three, four and six, which is every split this site has needed. Five spans are legal and no others, so a column is always a share of the page rather than a width somebody picked, and two pages built a year apart still line up.</p>
-					<p class="muted">Below 1100px the columns collapse and a band's children stack in source order, the same width the drawer changes shape at. Write the source in reading order and the phone is already handled.</p>
+					<p class="muted">Below 1100px the columns collapse and a band's children stack in source order. Write the source in reading order and the phone is already handled.</p>
 				</div>
 
 				<div>
@@ -460,8 +460,8 @@
 				<div>
 					<div class="spec">
 						<span>List row</span>
-						<span class="spec__value">15px vertical, sticky</span>
-						<span class="spec__note">The full row is the target, not the words in it. Hover changes the fill; nothing lifts, grows or shifts.</span>
+						<span class="spec__value">15px vertical</span>
+						<span class="spec__note">The full row is the target, not the words in it. Hover changes the fill and the arrow leans; nothing lifts, grows or shifts. Opening is leaving: a row departs for the page it names.</span>
 					</div>
 				</div>
 
@@ -473,50 +473,30 @@
 					</p>
 				</div>
 
-				<ul class="work specimen">
-					<li class="item">
-						<div class="item__heading">
-							<span class="row">
-								<span class="row__id">
-									<img class="row__logo" src="../img/logos/donkey.png" alt="" width="150" height="150">
-									<span class="row__name">Donkey Republic</span>
-									<span class="row__desc">Bike Rental Platform</span>
-								</span>
-								<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-							</span>
-						</div>
-					</li>
-					<li class="item">
-						<div class="item__heading">
-							<span class="row" data-state="hover">
-								<span class="row__id">
-									<img class="row__logo" src="../img/logos/trackman.png" alt="" width="150" height="150">
-									<span class="row__name">Hover</span>
-									<span class="row__desc">The fill changes, nothing moves</span>
-								</span>
-								<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
-							</span>
-						</div>
-					</li>
-					<li class="item">
-						<div class="item__heading">
-							<span class="row">
-								<span class="row__id">
-									<img class="row__logo" src="../img/logos/theorg.png" alt="" width="150" height="150">
-									<span class="row__name">Open</span>
-									<span class="row__desc">Chevron rotates, drawer unfolds below</span>
-								</span>
-								<svg width="20" height="20" class="chevron" aria-hidden="true" focusable="false" data-state="open"><use href="#i-chevron" /></svg>
-							</span>
-						</div>
-					</li>
-				</ul>
+				<div class="specimen">
+					<span class="case">
+						<span class="case__line">
+							<img class="case__mark" src="../img/logos/donkey.png" alt="" width="150" height="150">
+							<span class="case__name">Donkey Republic</span>
+							<span class="case__desc">Bike Rental Platform</span>
+							<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+						</span>
+					</span>
+					<span class="case">
+						<span class="case__line" data-state="hover">
+							<img class="case__mark" src="../img/logos/trackman.png" alt="" width="150" height="150">
+							<span class="case__name">Hover</span>
+							<span class="case__desc">The fill changes, the arrow leans</span>
+							<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" style="stroke-dashoffset: 0" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+						</span>
+					</span>
+				</div>
 
 				<div>
 					<div class="spec">
 						<span>Breadcrumb</span>
 						<span class="spec__value">Muted, ink at the end</span>
-						<span class="spec__note">Where you are and the way back, at the top of a page above its first band. The separator is the chevron turned a quarter. The site has one icon and this is it, pointing the way it is read. Every page starts its trail in the same place, 40px down and on the page inset, the front page included: there it is one step long, the h1 carries it, and the name holds still while the steps grow to the right of it.</span>
+						<span class="spec__note">Where you are and the way back, at the top of a page above its first band. The separator is the chevron turned a quarter. The site has one icon and this is it, pointing the way it is read. Every page starts its trail in the same place, one small step down and on the page inset, and it holds the top of the window all the way down the page, resting exactly where it sticks. The front page included: there it is one step long, the h1 carries it, and the name holds still while the steps grow to the right of it.</span>
 					</div>
 					<div class="spec">
 						<span>Index</span>
@@ -537,6 +517,21 @@
 						<span>Media</span>
 						<span class="spec__value">100% wide, no radius</span>
 						<span class="spec__note">No border, no caption. Images in a set sit flush; a new set is separated by one step of the ramp.</span>
+					</div>
+					<div class="spec">
+						<span>Canvas plate</span>
+						<span class="spec__value">Grey ground, one rule</span>
+						<span class="spec__note">Case media stands on the canvas ground in a grid, the ground showing between cells as the spacing. Shots that carry the canvas's own grey drop the frame entirely and fuse into one surface, and then one rule holds: a screen leaving an image's edge always leaves at the plate's edge, where running off reads as intended. Inside a plate, nothing is cut.</span>
+					</div>
+					<div class="spec">
+						<span>Wall plate</span>
+						<span class="spec__value">List row plus cover, 3:2</span>
+						<span class="spec__note">The work page hangs one plate per case: the list row on top, a cover on the canvas ground under it, the whole plate one link. A cover that holds an object keeps air, contained; a cover that is a surface fills the frame. At most one diagonal on the wall: a single tilted composition reads as an accent, two read as noise.</span>
+					</div>
+					<div class="spec">
+						<span>Case header</span>
+						<span class="spec__value">Mark, name, kicker</span>
+						<span class="spec__note">A case page opens with its mark at the label size, the name in display, byline and standfirst muted, and the kicker, role and period, closing the header. One band per idea follows, and the other cases end the page as an index.</span>
 					</div>
 				</div>
 			</div>
@@ -621,7 +616,7 @@
 				<h2 class="section__heading">Motion</h2>
 			<div class="section__body">
 				<div class="lede">
-					<p>Motion is the only part of the system that can explain a change while it is happening, so it is spent on two things. Interaction, where it describes the change the person caused. And the arrival: once per visit, a page develops. The ink settles from the muted grey, the index's terms take their weight with it on the font's variable axis, the hairlines draw left to right, and the portrait and the marks come up from grey. The page never moves while it happens: layout is set from the first frame, and what arrives is ink and line.</p>
+					<p>Motion is the only part of the system that can explain a change while it is happening, so it is spent on two things. Interaction, where it describes the change the person caused. And the arrival: once per visit, a page develops. The ink settles from the muted grey, the hairlines draw left to right, and the portrait and the marks come up from grey. Type that takes its weight, the index's terms and the wall's names, comes up as it settles: settling type never stands on the page before its row arrives. The page never moves while it happens: layout is set from the first frame, and what arrives is ink and line.</p>
 				</div>
 
 				<div class="grid-3">
