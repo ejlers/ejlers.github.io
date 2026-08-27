@@ -1017,12 +1017,13 @@ a {
 	.develop .index__row:nth-child(5) .index__term { animation-delay: 640ms; }
 
 	.develop .index__note,
-	.develop .index__arrow { opacity: 0; animation: turn-up var(--t-develop) ease forwards; }
-	.develop .index__row:nth-child(1) .index__note, .develop .index__row:nth-child(1) .index__arrow { animation-delay: 440ms; }
-	.develop .index__row:nth-child(2) .index__note, .develop .index__row:nth-child(2) .index__arrow { animation-delay: 520ms; }
-	.develop .index__row:nth-child(3) .index__note, .develop .index__row:nth-child(3) .index__arrow { animation-delay: 600ms; }
-	.develop .index__row:nth-child(4) .index__note, .develop .index__row:nth-child(4) .index__arrow { animation-delay: 680ms; }
-	.develop .index__row:nth-child(5) .index__note, .develop .index__row:nth-child(5) .index__arrow { animation-delay: 760ms; }
+	.develop .index__arrow,
+	.develop .mini__mark { opacity: 0; animation: turn-up var(--t-develop) ease forwards; }
+	.develop .index__row:nth-child(1) .index__note, .develop .index__row:nth-child(1) .index__arrow, .develop .index__row:nth-child(1) .mini__mark { animation-delay: 440ms; }
+	.develop .index__row:nth-child(2) .index__note, .develop .index__row:nth-child(2) .index__arrow, .develop .index__row:nth-child(2) .mini__mark { animation-delay: 520ms; }
+	.develop .index__row:nth-child(3) .index__note, .develop .index__row:nth-child(3) .index__arrow, .develop .index__row:nth-child(3) .mini__mark { animation-delay: 600ms; }
+	.develop .index__row:nth-child(4) .index__note, .develop .index__row:nth-child(4) .index__arrow, .develop .index__row:nth-child(4) .mini__mark { animation-delay: 680ms; }
+	.develop .index__row:nth-child(5) .index__note, .develop .index__row:nth-child(5) .index__arrow, .develop .index__row:nth-child(5) .mini__mark { animation-delay: 760ms; }
 
 	/* A first band's side column — the CV's contact, a note's date —
 	   comes up while the claim settles. */
@@ -1107,17 +1108,28 @@ a {
 	.develop .case.arrived .case__arrow,
 	.develop .case.arrived .case__mark { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
 
-	/* A case's More work list rides its band: the band's rule draws and
-	   its label settles on first sight, and the rows stand ready like the
-	   rest of the band's content. The index's own draw-in belongs to the
-	   front page, where the rows are the first sight. */
-	.develop .morework .index__row { border-top-color: var(--rule); }
-	.develop .morework .index__row:last-child { border-bottom-color: var(--rule); }
+	/* A case's More work list develops the way the front page's index
+	   does, at first sight rather than at the page's own arrival far
+	   above it: every animation the index grammar carries holds, paused
+	   through its delay, until the band arrives, then plays with its own
+	   stagger. An index nested in any future band animates the same way,
+	   with nothing more to declare. The marks come up from grey besides,
+	   the way every mark on the site does. */
 	.develop .morework .index__row::before,
-	.develop .morework .index__row:last-child::after { display: none; }
-	.develop .morework .index__term { animation: none; opacity: 1; }
+	.develop .morework .index__row:last-child::after,
+	.develop .morework .index__term,
 	.develop .morework .index__note,
-	.develop .morework .index__arrow { animation: none; opacity: 1; }
+	.develop .morework .index__arrow,
+	.develop .morework .mini__mark { animation-play-state: paused; }
+	.develop .band.arrived .morework .index__row::before,
+	.develop .band.arrived .morework .index__row:last-child::after,
+	.develop .band.arrived .morework .index__term,
+	.develop .band.arrived .morework .index__note,
+	.develop .band.arrived .morework .index__arrow,
+	.develop .band.arrived .morework .mini__mark { animation-play-state: running; }
+
+	.develop .morework .mini__mark { filter: grayscale(1); }
+	.develop .band.arrived .morework .mini__mark { filter: none; transition: filter calc(var(--t-develop) * 2) ease 300ms; }
 
 	@keyframes settle { from { color: var(--ink-muted); } }
 	@keyframes settle-weight { from { color: var(--ink-muted); font-weight: 300; } }
