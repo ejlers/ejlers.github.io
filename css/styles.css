@@ -794,13 +794,14 @@ a {
 }
 
 /* Case media on a canvas: the page paints the ground and the subjects sit
-   on it in a grid, so the canvas showing between cells is the spacing. The
-   token holds the intended value, but a video cannot promise a colour the
-   way a PNG can: the value survives the trip through an encoder differently
-   in every browser. So the page asks the moving picture what it actually
-   rendered and repaints the token to match (site.js), and the still images
-   carry their subjects on transparency so they sit on whatever the answer
-   is. One ground, by measurement rather than agreement (site.js). */
+   on it in a grid, so the canvas showing between cells is the spacing.
+
+   Moving pictures are the one thing the canvas never stands beside. A
+   video cannot promise a colour the way a PNG can: the value survives the
+   trip through an encoder differently in every browser, and a display
+   that manages video and paint separately defeats any measurement. So
+   clips fuse instead — they tile edge to edge, and their encoded grey is
+   the only grey in sight. */
 .case-media {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
