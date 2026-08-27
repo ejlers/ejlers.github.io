@@ -835,10 +835,33 @@ a {
 	padding-bottom: 0;
 }
 
+/* A photograph is not a screen on the canvas: it is its own surface, and
+   a plate's grey frame around it would read as a border. It fills the
+   column at the plates' own step. */
+.case-photo {
+	display: block;
+	width: 100%;
+	margin-top: var(--s7);
+}
+
 @media (max-width: 600px) {
 	.case-media {
 		grid-template-columns: minmax(0, 1fr);
 	}
+
+	/* A fused plate narrows to two columns instead of one: its shots are
+	   composed together, and a column of full-width phones would shout.
+	   The cut annotations keep the rule when the grid reflows — a top cut
+	   goes first, a right cut holds the right column, a bottom cut goes
+	   last — so every cut still leaves at the plate's edge, and a cell
+	   left empty is the plate's own ground. */
+	.case-media.media--fused {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.media--fused .cut-top { order: -1; }
+	.media--fused .cut-right { grid-column: 2; }
+	.media--fused .cut-bottom { order: 1; }
 }
 
 .video {
