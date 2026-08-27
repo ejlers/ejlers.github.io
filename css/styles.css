@@ -101,6 +101,30 @@
 	}
 }
 
+/* --- Face ------------------------------------------------------------ */
+
+/* Switzer, self-hosted in the two weights the system uses; its licence
+   names self-hosting for the licensee's own website as a permitted use.
+   These are static instances, so weight is a choice here, not an axis:
+   the develop settles ink, and the words arrive at the weight they keep.
+   Dropping the family's variable file in beside these would give the
+   weight back its axis. */
+@font-face {
+	font-family: "Switzer";
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: url("../fonts/switzer-300.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Switzer";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/switzer-500.woff2") format("woff2");
+}
+
 /* --- Reset ---------------------------------------------------------- */
 
 *,
@@ -175,8 +199,7 @@ body {
 	padding-inline: var(--page-x);
 	background: var(--paper);
 	color: var(--ink);
-	font-family: "Inter", system-ui, sans-serif;
-	font-optical-sizing: auto;
+	font-family: "Switzer", system-ui, sans-serif;
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 1.5;
@@ -1010,11 +1033,11 @@ a {
 	.develop .index__row:nth-child(4)::before { animation-delay: 440ms; }
 	.develop .index__row:nth-child(5)::before { animation-delay: 520ms; }
 
-	/* A term comes up as it takes its weight, the way a work row's name
-	   always has: settling type never stands on the page before its row
-	   arrives. The term column is fixed, so the words gain body without
-	   moving a neighbour. */
-	.develop .index__term { opacity: 0; animation: turn-up var(--t-develop) ease forwards, settle-weight var(--t-develop) ease both; }
+	/* A term comes up with its ink settling, and never stands on the page
+	   before its row arrives. The face's weights are instances rather than
+	   an axis, so the words arrive at the weight they keep and the grey
+	   does the settling. */
+	.develop .index__term { opacity: 0; animation: turn-up var(--t-develop) ease forwards, settle var(--t-develop) ease both; }
 	.develop .index__row:nth-child(1) .index__term { animation-delay: 320ms; }
 	.develop .index__row:nth-child(2) .index__term { animation-delay: 400ms; }
 	.develop .index__row:nth-child(3) .index__term { animation-delay: 480ms; }
@@ -1083,7 +1106,7 @@ a {
 	.develop .entry.arrived .entry__mark { filter: none; }
 
 	/* A case plate develops the way the rows do: its rule draws, its name
-	   comes up as it takes its weight, and the cover, the byline, the mark
+	   comes up with its ink settling, and the cover, the byline, the mark
 	   and the arrow turn up after it. */
 	.develop .case { border-top-color: transparent; position: relative; }
 	.develop .case::before {
@@ -1102,7 +1125,7 @@ a {
 	.develop .case.arrived .case__name {
 		animation:
 			turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) forwards,
-			settle-weight var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) both;
+			settle var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) both;
 	}
 	.develop .case > .case__cover,
 	.develop .case .case__desc,
@@ -1137,7 +1160,6 @@ a {
 	.develop .band.arrived .morework .mini__mark { filter: none; transition: filter calc(var(--t-develop) * 2) ease 300ms; }
 
 	@keyframes settle { from { color: var(--ink-muted); } }
-	@keyframes settle-weight { from { color: var(--ink-muted); font-weight: 300; } }
 	@keyframes come-up { from { filter: grayscale(1); } }
 	@keyframes draw { to { transform: scaleX(1); } }
 	@keyframes turn-up { to { opacity: 1; } }
