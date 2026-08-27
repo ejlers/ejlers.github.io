@@ -820,6 +820,11 @@ a {
 	display: block;
 }
 
+/* A clip can be pressed to hold it (site.js); the pointer says so. */
+.case-media video {
+	cursor: pointer;
+}
+
 /* Shots that stand on the canvas's own grey need no frame: the plate
    drops its padding and gaps, the images tile edge to edge and their
    grounds fuse into one. The plates are cut so that a screen leaving an

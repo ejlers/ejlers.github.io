@@ -1,5 +1,30 @@
-/* The site has no interaction of its own left: a row is a link and a page
-   is a page. All this file does is observe the arrival below. */
+/* The site has almost no interaction of its own left: a row is a link and
+   a page is a page. What remains here is one courtesy and one observer. */
+
+/* The clips are the only motion on the site that runs without being asked.
+   A reader who asked for reduced motion gets them still, standing on their
+   first frame; any reader can press one to hold it and press again to let
+   it run: the clip itself is the control, no chrome added. */
+(() => {
+	const clips = document.querySelectorAll('.case-media video');
+	if (!clips.length) return;
+
+	const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	clips.forEach((clip) => {
+		if (still) {
+			clip.removeAttribute('autoplay');
+			clip.pause();
+		}
+		clip.setAttribute('tabindex', '0');
+		clip.setAttribute('role', 'button');
+		clip.setAttribute('aria-label', 'Pause or resume the clip');
+		const toggle = () => { if (clip.paused) clip.play(); else clip.pause(); };
+		clip.addEventListener('click', toggle);
+		clip.addEventListener('keydown', (e) => {
+			if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
+		});
+	});
+})();
 
 /* The page develops, once. On a path's first view this visit, the body
    gets .develop and the arrival plays: ink settles, rules draw, marks come

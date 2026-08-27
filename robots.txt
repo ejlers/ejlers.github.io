@@ -1,0 +1,5 @@
+# The map is the sitemap; a page that is not on it is unlisted on purpose.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.carlejlers.dk/sitemap.xml
