@@ -859,17 +859,20 @@ a {
 
 	/* A fused plate narrows to two columns instead of one: its shots are
 	   composed together, and a column of full-width phones would shout.
-	   The cut annotations keep the rule when the grid reflows — a top cut
-	   goes first, a right cut holds the right column, a bottom cut goes
-	   last — so every cut still leaves at the plate's edge, and a cell
-	   left empty is the plate's own ground. */
+	   The cut annotations arrange the reflow: a shot cut at the top leads
+	   its plate, and a shot cut at the bottom or on two edges takes the
+	   full width and closes it, its cuts landing on the plate's own
+	   edges. */
 	.case-media.media--fused {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.media--fused .cut-top { order: -1; }
-	.media--fused .cut-right { grid-column: 2; }
-	.media--fused .cut-bottom { order: 1; }
+	.media--fused .cut-top.cut-right,
+	.media--fused .cut-bottom {
+		grid-column: 1 / -1;
+		order: 1;
+	}
 }
 
 .video {
