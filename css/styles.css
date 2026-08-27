@@ -155,13 +155,10 @@ html {
 	}
 }
 
-/* The page ends where it ends. Safari's rubber band translates the whole
-   page during an overscroll, the stuck trail with it: the one thing that
-   promised never to move, moving, and sometimes left astray until the
-   next scroll. No bounce, no broken promise. */
-html {
-	overscroll-behavior-y: none;
-}
+/* The platform's rubber band stays. It translates the whole page during
+   an overscroll, the stuck trail riding along for the moment of the
+   bounce, and that is the price of a scroll that feels native: the
+   trail's promise holds everywhere except inside the bounce itself. */
 
 /* The ground sits on the root as well as the body. Browsers hand the
    body's background to the canvas on their own, but embedded webviews
