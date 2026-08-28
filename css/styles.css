@@ -509,9 +509,13 @@ a {
 	max-width: var(--measure);
 }
 
-/* A column that holds still while the one beside it scrolls past. Only worth
-   it where there are two columns to begin with, so it starts at the same
-   width the grid does. The offset clears a sticky row above it. */
+/* Where things stick: the site has two resting heights and no more. The
+   very top belongs to the trail alone, at 0 on solid paper on every page;
+   everything else that holds still rests at s8, one offset below it,
+   clearing the trail with room to spare. A column that holds still while
+   the one beside it scrolls past is only worth it where there are two
+   columns to begin with, so it starts at the same width the grid does.
+   A third height would be a decision to make again on every page. */
 @media (min-width: 1101px) {
 	.stick {
 		position: sticky;
