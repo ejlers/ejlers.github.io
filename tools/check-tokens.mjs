@@ -133,7 +133,7 @@ const stripJs = (src) =>
 	src.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '))
 	   .replace(/(^|[^:])\/\/[^\n]*/g, (m, p) => p + ' '.repeat(m.length - p.length));
 
-const PAGES = ['../index.html', '../work/index.html', '../work/economic/index.html', '../work/theorg/index.html', '../work/trackman/index.html', '../work/donkey/index.html', '../work/tv2/index.html', '../work/ok/index.html', '../cv/index.html', '../system/index.html', '../404.html', '../notes/index.html', '../notes/building-to-learn/index.html', '../notes/nothing-is-written-twice/index.html'];
+const PAGES = ['../index.html', '../work/index.html', '../work/economic/index.html', '../work/theorg/index.html', '../work/trackman/index.html', '../work/donkey/index.html', '../work/tv2/index.html', '../work/ok/index.html', '../cv/index.html', '../system/index.html', '../404.html', '../notes/index.html', '../notes/building-to-learn/index.html', '../notes/a-system-that-keeps-itself/index.html'];
 const dashes = /[\u2014\u2013]|&#821[12];|&[mn]dash;/g;
 
 for (const rel of [...PAGES, '../system/system.js']) {
