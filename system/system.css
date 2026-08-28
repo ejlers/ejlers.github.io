@@ -40,7 +40,7 @@
 
 .toc {
 	position: sticky;
-	top: var(--s5);
+	top: var(--s8);
 	flex: none;
 	width: 240px;
 }
@@ -218,7 +218,7 @@ body.menu-open .section__heading.is-current .section__menu {
 
 .section__heading {
 	position: sticky;
-	top: 0;
+	top: var(--trail-floor);
 	z-index: 2;
 	display: flex;
 	align-items: center;

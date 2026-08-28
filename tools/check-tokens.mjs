@@ -196,6 +196,34 @@ for (const rel of PAGES) {
 	}
 }
 
+// Where things stick is a stated vocabulary: the trail at 0, s8 beside
+// content, the trail's floor for what rides the top of the window. Any
+// other height is a new decision, so any other height fails.
+const STICK_RESTS = new Set(['0', 'var(--s8)', 'var(--trail-floor)']);
+const CSS_FILES = ['../css/styles.css', '../cv/cv.css', '../notes/notes.css', '../system/system.css'];
+
+for (const rel of CSS_FILES) {
+	let sheet;
+	try {
+		sheet = readFileSync(new URL(rel, import.meta.url), 'utf8');
+	} catch {
+		continue;
+	}
+	sheet = sheet.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+
+	for (const m of sheet.matchAll(/\{[^{}]*position:\s*sticky[^{}]*\}/g)) {
+		const top = (m[0].match(/\btop:\s*([^;]+);/) || [])[1]?.trim();
+		if (top !== undefined && STICK_RESTS.has(top)) continue;
+		problems.push({
+			kind: 'stick',
+			value: top === undefined ? 'sticky without a stated top' : `top: ${top}`,
+			line: sheet.slice(0, m.index).split('\n').length,
+			file: rel.replace('../', ''),
+			fix: 'a sticky thing rests at 0 (the trail), var(--s8), or var(--trail-floor)'
+		});
+	}
+}
+
 if (problems.length === 0) {
 	console.log(`ok: every colour and spacing value in styles.css is a token, both schemes carry every colour, every hover is guarded, no page uses a long dash, and prose keeps the measure (ramp: ${ramp.join(', ')}px)`);
 	process.exit(0);
