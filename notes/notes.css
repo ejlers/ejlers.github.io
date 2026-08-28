@@ -21,6 +21,15 @@
 	gap: 0 var(--gutter);
 }
 
+/* A ledger that follows prose steps back before it begins. The stack's gap
+   reads as line spacing, not as a seam, so the cells take s5 of their own:
+   with the stack's s4 that lands on the band's full step, the same room the
+   cycle keeps around itself. A ledger standing alone in its column adds
+   nothing and stays level with its label. */
+.stack > * + .ledger {
+	margin-top: var(--s5);
+}
+
 .ledger__row {
 	display: flex;
 	flex-direction: column;
