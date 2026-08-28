@@ -6,12 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="light dark">
 	<title>The site that documents itself &middot; Carl Ejlers</title>
-	<meta name="description" content="This site was built by an AI agent under a designer's direction. Notes on the setup that keeps a product and the principles it is built on in sync.">
+	<meta name="description" content="This site was built by an AI agent under a designer's direction. Notes on building a design system that maintains itself.">
 	<link rel="canonical" href="https://www.carlejlers.dk/notes/the-site-that-documents-itself/">
 
 	<!-- The share card is the front page itself, at card size. -->
 	<meta property="og:title" content="The site that documents itself &middot; Carl Ejlers">
-	<meta property="og:description" content="This site was built by an AI agent under a designer's direction. Notes on the setup that keeps a product and the principles it is built on in sync.">
+	<meta property="og:description" content="This site was built by an AI agent under a designer's direction. Notes on building a design system that maintains itself.">
 	<meta property="og:image" content="https://www.carlejlers.dk/img/card.png">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
 	<meta property="og:site_name" content="Carl Ejlers">
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="The site that documents itself &middot; Carl Ejlers">
-	<meta name="twitter:description" content="This site was built by an AI agent under a designer's direction. Notes on the setup that keeps a product and the principles it is built on in sync.">
+	<meta name="twitter:description" content="This site was built by an AI agent under a designer's direction. Notes on building a design system that maintains itself.">
 	<meta name="twitter:image" content="https://www.carlejlers.dk/img/card.png">
 
 	<link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
@@ -67,7 +67,7 @@
 		<div class="band">
 			<div class="col-8 stack">
 				<h1 class="display">The site that documents itself.</h1>
-				<p class="muted measure">This site was built by an AI agent under a designer's direction. Notes on the setup that keeps a product and the principles it is built on in sync.</p>
+				<p class="muted measure">This site was built by an AI agent under a designer's direction. Notes on building a design system that maintains itself.</p>
 			</div>
 			<div class="col-4 stack bottom">
 				<p class="muted">August 2026</p>
@@ -75,10 +75,10 @@
 		</div>
 
 		<div class="band">
-			<h2 class="col-4 stick label">The drift</h2>
+			<h2 class="col-4 stick label">The idea</h2>
 			<div class="col-8 stack measure">
-				<p>Documentation has one chronic disease: it drifts. A document describes the thing as it stood on the day of writing, the thing keeps moving, and every day after that the document is a little more fiction. Design systems die exactly this way. The library says one thing, production does another, and the moment a team notices the gap it stops trusting the library, which was the only job the library had.</p>
-				<p>The move this site makes against drift is architectural rather than disciplinary. No layer describes another layer from memory; each layer reads from the one below it. The rest of this note is just showing what that means.</p>
+				<p>This site runs on a design system that maintains itself. The principles live in one place, the documentation reads them instead of describing them, a check enforces them on every page, and the builder consults all three before anything is drawn. Keeping it consistent is nobody's chore, because consistency is not held by memory. It is built in.</p>
+				<p>The reason to build it this way is what happens otherwise. A system held together by discipline has to be re-described every time the product moves, and the day someone forgets, the description starts becoming fiction: the library says one thing, production does another, and the team stops trusting the library. Making that impossible turns out to be one architectural decision: no layer describes another layer from memory; each layer reads from the one below it. The rest of this note is showing what that means.</p>
 			</div>
 		</div>
 
@@ -183,7 +183,7 @@
 		<div class="band">
 			<h2 class="col-4 stick label">In short</h2>
 			<div class="col-8 stack measure">
-				<p>Documentation that describes a thing will drift from it. Documentation that reads the thing cannot. The same holds for principles: written as decisions in the one place the product reads from, with a check standing behind them, they stop being intentions and become the material the product is built out of.</p>
+				<p>A design system does not have to be kept; it can keep itself. Give the principles one home the product actually reads from, let the documentation read instead of describe, put a check behind the rules, and let the builder read before it draws. What is left for the designer is the part that was always the job: deciding what the principles are.</p>
 			</div>
 		</div>
 
