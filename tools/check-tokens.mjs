@@ -158,8 +158,46 @@ for (const rel of [...PAGES, '../system/system.js']) {
 	}
 }
 
+// Prose keeps the measure. Text that fills a wide column is not a layout,
+// it is a wall, so every paragraph carries the measure itself or stands
+// inside something that is already narrow: a measured block, a label
+// column, a ledger cell, the system page's own capped containers.
+const NARROW = /(^|[\s"])(measure|crumb|article-\w+|lede|principle|spec\w*|pair|test|col-4|col-3|entry|ledger|cycle|intro|opener)([\s"]|__|$)/;
+
+for (const rel of PAGES) {
+	let text;
+	try {
+		text = readFileSync(new URL(rel, import.meta.url), 'utf8');
+	} catch {
+		continue;
+	}
+
+	const VOID = new Set(['img', 'br', 'meta', 'link', 'input', 'use', 'path', 'symbol', 'hr', 'source', 'circle', 'rect', 'line']);
+	const stack = [];
+	for (const m of text.matchAll(/<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:[^>"]|"[^"]*")*)>/g)) {
+		const [whole, close, name, attrs] = m;
+		if (close) {
+			for (let i = stack.length - 1; i >= 0; i--) {
+				if (stack[i].name === name) { stack.length = i; break; }
+			}
+			continue;
+		}
+		const cls = ' ' + ((attrs.match(/class="([^"]*)"/) || [])[1] || '') + ' ';
+		if (name === 'p' && !NARROW.test(cls) && !stack.some((s) => NARROW.test(s.cls))) {
+			problems.push({
+				kind: 'measure',
+				value: whole.replace(/\s+/g, ' ').slice(0, 60),
+				line: text.slice(0, m.index).split('\n').length,
+				file: rel.replace('../', ''),
+				fix: 'a paragraph keeps the measure, on itself or an ancestor'
+			});
+		}
+		if (!VOID.has(name) && !/\/\s*$/.test(attrs)) stack.push({ name, cls });
+	}
+}
+
 if (problems.length === 0) {
-	console.log(`ok: every colour and spacing value in styles.css is a token, both schemes carry every colour, every hover is guarded, and no page uses a long dash (ramp: ${ramp.join(', ')}px)`);
+	console.log(`ok: every colour and spacing value in styles.css is a token, both schemes carry every colour, every hover is guarded, and no page uses a long dash, and prose keeps the measure (ramp: ${ramp.join(', ')}px)`);
 	process.exit(0);
 }
 
