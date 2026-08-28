@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<title>The site that documents itself &middot; Carl Ejlers</title>
+	<meta name="description" content="This site was built by an AI agent under a designer's direction, inside a design system that explains itself. Notes on the architecture that keeps that honest.">
+	<link rel="canonical" href="https://www.carlejlers.dk/notes/the-site-that-documents-itself/">
+
+	<!-- The share card is the front page itself, at card size. -->
+	<meta property="og:title" content="The site that documents itself &middot; Carl Ejlers">
+	<meta property="og:description" content="This site was built by an AI agent under a designer's direction, inside a design system that explains itself. Notes on the architecture that keeps that honest.">
+	<meta property="og:image" content="https://www.carlejlers.dk/img/card.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:url" content="https://www.carlejlers.dk/notes/the-site-that-documents-itself/">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Carl Ejlers">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="The site that documents itself &middot; Carl Ejlers">
+	<meta name="twitter:description" content="This site was built by an AI agent under a designer's direction, inside a design system that explains itself. Notes on the architecture that keeps that honest.">
+	<meta name="twitter:image" content="https://www.carlejlers.dk/img/card.png">
+
+	<link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png">
+	<link rel="icon" href="../../img/favicon.ico" sizes="any">
+
+	<!-- The browser chrome takes the paper it is sitting on. -->
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818">
+
+	<link rel="preload" href="../../fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
+
+	<link rel="stylesheet" href="../../css/styles.css">
+	<link rel="stylesheet" href="../notes.css">
+
+	<!-- The next page is built when a link is hovered or pressed, so the
+	     crossing is instant and the develop starts the moment it is seen. -->
+	<script type="speculationrules">
+	{
+		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+	}
+	</script>
+</head>
+
+<body>
+
+	<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5" /></symbol>
+	</svg>
+
+	<div class="opener">
+		<p class="crumb">
+			<a href="../../">Carl Ejlers</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<a href="../">Notes</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<span class="crumb__here">The site that documents itself</span>
+		</p>
+	</div>
+
+	<main>
+
+		<div class="band">
+			<div class="col-8 stack">
+				<h1 class="display">The site that documents itself.</h1>
+				<p class="muted measure">This site was built by an AI agent under a designer's direction, inside a design system that explains itself. Notes on the architecture that keeps that honest.</p>
+			</div>
+			<div class="col-4 stack bottom">
+				<p class="muted">August 2026</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The drift</h2>
+			<div class="col-8 stack measure">
+				<p>Documentation has one chronic disease: it drifts. A document describes the thing as it stood on the day of writing, the thing keeps moving, and every day after that the document is a little more fiction. Design systems die exactly this way. The library says one thing, production does another, and the moment a team notices the gap it stops trusting the library, which was the only job the library had.</p>
+				<p>The move this site makes against drift is architectural rather than disciplinary. No layer describes another layer from memory; each layer reads from the one below it. The rest of this note is just showing what that means.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The architecture</h2>
+			<div class="col-8 stack measure">
+				<p>One <a href="../../css/styles.css">stylesheet</a> is the truth. Every colour and every space on the site is a token in it, and the reasoning sits next to the values as comments: not what a rule does, but why it is allowed to exist.</p>
+				<p>The <a href="../../system/">system page</a> documents the stylesheet, but it does not quote it. It reads it: the palette, the metrics and the motion tables are filled at load from the live values, so when a token changes, the documentation changes in the same second. It cannot go stale, because it stores nothing.</p>
+				<p>A checker holds the law. One script walks every page and fails the build if a colour or a space appears outside the tokens, if a colour misses one of the two schemes, if a hover goes unguarded, or if a long dash slips into the text. What the stylesheet permits, the checker enforces.</p>
+				<p>And the agent reads all three before it draws. Every page here was built by an AI agent working in this repository under my direction: it reads the stylesheet's reasoning, the system page's rules and the checker's verdicts, and what it builds lands back in the stylesheet, where the next round starts from.</p>
+
+				<div class="cycle" role="img" aria-label="The architecture as a cycle: the stylesheet holds the truth, the system page reads it live, the checker enforces it on every page, the agent reads all three before it builds, and what it builds lands back in the stylesheet.">
+					<div class="cycle__station" aria-hidden="true"><span>The stylesheet</span><span class="cycle__wire cycle__wire--arrow"></span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>The system page</span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>The checker</span></div>
+					<span class="cycle__down" aria-hidden="true"></span>
+					<div class="cycle__station" aria-hidden="true"><span>The agent</span><span class="cycle__wire"></span></div>
+				</div>
+
+				<p>If the diagram looks familiar, it is the same component that draws the discovery cycle in <a href="../building-to-learn/">Building to learn</a>. The rhyme is deliberate. Both loops exist to make learning land somewhere it cannot drift from.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The refusals</h2>
+			<div class="col-8 stack">
+				<p class="measure">The system's principles are not written as aspirations. They are written as refusals, and that is what makes them teachable: an AI cannot hold taste, but it can hold a no. A few of the standing ones:</p>
+				<div class="ledger">
+					<div class="ledger__row">
+						<span class="ledger__term">One size of type</span>
+						<span>One text size and one display size. Hierarchy is carried by weight and grey, never by scale.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Eight spaces</span>
+						<span>Every gap on the site is one of eight steps, 5 to 80 pixels. A ninth does not get invented for a special case.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Nothing is a card</span>
+						<span>Zero corner radius, zero shadows, nothing floats. Structure is a hairline and some space.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Hover is a pointer idea</span>
+						<span>Every hover rule sits behind a guard, so a touch screen never meets half of one.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">A cut leaves at the edge</span>
+						<span>A screen leaving an image's edge always leaves at a plate's edge. Inside a plate, nothing is cut.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">No long dashes</span>
+						<span>Not one, in any page's text. The checker fails the build that tries.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Claims from my mouth only</span>
+						<span>The site states nothing about the work I have not said myself. A missing fact gets a visible slot, not a guess.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">The page never moves</span>
+						<span>Layout is set from the first frame. What arrives on a first view is the ink and the lines; nothing slides, nothing scales.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">Where a rule comes from</h2>
+			<div class="col-8 stack measure">
+				<p>The refusals are not designed up front. They get caught. The plate rule above started on a phone: the Donkey Republic case had screens cropped by their images' edges, standing in fields of slightly mismatched grey, and it read as broken rather than intended. The first idea was to mark every cut with a line where the screen goes under. What shipped instead was an arrangement: the plates dropped their padding so the greys fuse into one surface, and the images took places where every cut lands on a plate's edge, where running off reads as deliberate.</p>
+				<p>Then the decision was written down, in the stylesheet, at the spot where it is enforced. That is the working relationship in one story: I bring the taste call, the agent brings the build, and the rule outlives the conversation because it lives where the machine reads.</p>
+				<p>The <a href="https://github.com/ejlers/ejlers.github.io">repository</a> keeps the same voice all the way down. The log reads as the site's own logbook; every commit says what the site did, not what a developer did:</p>
+				<div class="ledger">
+					<div class="ledger__row">
+						<span class="ledger__term">The work opens: one page per case</span>
+						<span>The wall replaced the drawers, and every case got an address of its own.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">The clips fuse, and the measurement retires</span>
+						<span>iOS renders video colour its own way, so instead of measuring the grey, the plates fused and the clips' own grey became the ground.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">The rubber band comes back</span>
+						<span>A scroll fix took away the bounce a phone needs to feel like a phone. The commit that returns it says why.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">The face becomes Switzer</span>
+						<span>The whole face swap in one commit, so one command can take it back.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">Building with it</h2>
+			<div class="col-8 stack measure">
+				<p>Extending the site is now mostly asking. The agent already knows the bands, the tokens and the refusals; the checker referees every change; and anything new that earns a rule gets the rule written where the next build will read it.</p>
+				<p>This is the same architecture as the prototyping harness at e-conomic: a design system on GitHub, explained to a model before it draws, so that what gets built wears the product's own clothes from the first pass. That work is the subject of <a href="../building-to-learn/">the first note</a>. This site is where I keep the discipline in practice.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">In short</h2>
+			<div class="col-8 stack measure">
+				<p>Documentation that describes a thing will drift from it. Documentation that reads the thing cannot. And a system turns out to be the set of sentences that say no: write those down where a machine can read them, and the machine can keep them too.</p>
+			</div>
+		</div>
+
+	</main>
+
+	<script src="../../js/site.js"></script>
+
+</body>
+
+</html>
