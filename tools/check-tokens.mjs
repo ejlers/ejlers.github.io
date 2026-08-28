@@ -197,7 +197,7 @@ for (const rel of PAGES) {
 }
 
 if (problems.length === 0) {
-	console.log(`ok: every colour and spacing value in styles.css is a token, both schemes carry every colour, every hover is guarded, and no page uses a long dash, and prose keeps the measure (ramp: ${ramp.join(', ')}px)`);
+	console.log(`ok: every colour and spacing value in styles.css is a token, both schemes carry every colour, every hover is guarded, no page uses a long dash, and prose keeps the measure (ramp: ${ramp.join(', ')}px)`);
 	process.exit(0);
 }
 
