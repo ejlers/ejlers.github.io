@@ -192,8 +192,14 @@
 	}
 	.develop .ledger__row.arrived::before { animation: draw var(--t-develop) ease-out var(--arrive, 0ms) forwards; }
 
-	.develop .ledger__row:not(.arrived) .ledger__term { color: var(--ink-muted); font-weight: 300; }
-	.develop .ledger__row.arrived .ledger__term { animation: settle-weight var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) both; }
+	/* Static instances hold no weight axis, so a term arrives at the weight
+	   it keeps: it turns up while its ink settles, like every term on the site. */
+	.develop .ledger__row .ledger__term { opacity: 0; }
+	.develop .ledger__row.arrived .ledger__term {
+		animation:
+			turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) forwards,
+			settle var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) both;
+	}
 
 	.develop .ledger__row > :not(.ledger__term) { opacity: 0; }
 	.develop .ledger__row.arrived > :not(.ledger__term) { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
