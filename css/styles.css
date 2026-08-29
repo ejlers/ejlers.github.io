@@ -244,6 +244,30 @@ a {
 	transition: color var(--t-confirm) ease;
 }
 
+/* A link in running text is a word with a hairline under it: ink for the
+   word, the mark grey for the line, the same 3:1 the chevrons clear, so a
+   stranger can tell what opens without hovering. Rows and the trail are
+   links too, but their chevrons and their place do the signalling, so the
+   underline belongs to prose alone; the crumb is a paragraph and is
+   excepted by name. */
+p:not(.crumb) a,
+.entry__role a {
+	color: var(--ink);
+	text-decoration: underline;
+	text-decoration-color: var(--grey);
+	text-decoration-thickness: var(--rule-w);
+	text-underline-offset: 3px;
+	transition: color var(--t-confirm) ease, text-decoration-color var(--t-confirm) ease;
+}
+
+@media (hover: hover) {
+	p:not(.crumb) a:hover,
+	.entry__role a:hover {
+		color: var(--ink);
+		text-decoration-color: var(--ink);
+	}
+}
+
 /* Hover is a pointer idea. A touch screen has no pointer, so the browser
    leaves :hover applied to whatever was tapped last — the row you opened
    stays lit as though the finger were still on it. Every hover state in this
