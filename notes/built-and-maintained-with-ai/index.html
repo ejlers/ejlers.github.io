@@ -6,12 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="light dark">
 	<title>Built and maintained with AI &middot; Carl Ejlers</title>
-	<meta name="description" content="I direct, an AI agent builds, and a design system that keeps itself holds the reasons we both work from. Notes on how this site is made.">
+	<meta name="description" content="I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.">
 	<link rel="canonical" href="https://www.carlejlers.dk/notes/built-and-maintained-with-ai/">
 
 	<!-- The share card is the front page itself, at card size. -->
 	<meta property="og:title" content="Built and maintained with AI &middot; Carl Ejlers">
-	<meta property="og:description" content="I direct, an AI agent builds, and a design system that keeps itself holds the reasons we both work from. Notes on how this site is made.">
+	<meta property="og:description" content="I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.">
 	<meta property="og:image" content="https://www.carlejlers.dk/img/card.png">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
 	<meta property="og:site_name" content="Carl Ejlers">
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Built and maintained with AI &middot; Carl Ejlers">
-	<meta name="twitter:description" content="I direct, an AI agent builds, and a design system that keeps itself holds the reasons we both work from. Notes on how this site is made.">
+	<meta name="twitter:description" content="I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.">
 	<meta name="twitter:image" content="https://www.carlejlers.dk/img/card.png">
 
 	<link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
@@ -67,7 +67,7 @@
 		<div class="band">
 			<div class="col-8 stack">
 				<h1 class="display">Built and maintained with AI.</h1>
-				<p class="muted measure">I direct, an AI agent builds, and a design system that keeps itself holds the reasons we both work from. Notes on how this site is made.</p>
+				<p class="muted measure">I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.</p>
 			</div>
 			<div class="col-4 stack bottom">
 				<p class="muted">August 2026</p>
@@ -77,21 +77,20 @@
 		<div class="band">
 			<h2 class="col-4 stick label">The idea</h2>
 			<div class="col-8 stack measure">
-				<p>This site is built and maintained with AI: I decide what it should be, an AI agent builds it. What makes that work is not the AI but the system around it. Every value of the design lives in one file, the stylesheet. The design system's documentation, itself a page on this site, looks its numbers up there each time it is opened. A checker stops any page that breaks a rule it can check, and the agent reads all of it before it builds. Nobody keeps the site consistent by memory; the site does it itself.</p>
-				<p>Most design systems are kept in order by people, and the day someone forgets to update the documentation, it starts drifting from the product and stops being trusted. Here the values cannot drift: each one is written once, in the stylesheet, and everything else reads it from there. The softer rules, the judgments no script can measure, are written down too, next to the code they govern and in the documentation, and keeping those words true is the agent's part of every change. The rest of this note shows what that means.</p>
+				<p>This site is built and maintained with AI. I decide what it should be; an AI agent builds it. The interesting part is not the AI. It is the setup that keeps the site in order while nobody is holding it.</p>
+				<p>Documentation usually drifts. The product changes, someone forgets to update the description, and soon the description is wrong and nobody trusts it. This site avoids that with one move: nothing is written down twice. Every rule of the design is written in one place, and everything else reads it from there. Four parts make that work.</p>
 			</div>
 		</div>
 
 		<div class="band">
 			<h2 class="col-4 stick label">The architecture</h2>
 			<div class="col-8 stack measure">
-				<p>One <a href="../../css/styles.css">stylesheet</a> is the truth. Every colour and every space on the site is a token in it, and the reasoning sits next to the values as comments: not what a rule does, but why it is allowed to exist.</p>
-				<p>The <a href="../../system/">documentation</a> is a page of the site like any other, and it does not copy the stylesheet's values. It reads them: the palette, the metrics and the motion tables are filled at load from the live stylesheet, so when a token changes, the tables change in the same second. The page is also where the softer rules stand, the judgments no script can measure: at most one diagonal on the work wall, a band that needs a different gap is two bands. Those are written by hand, and keeping them true is the agent's job in every change that touches them.</p>
-				<p>A checker holds the law. One script walks every page and fails the build if a colour or a space appears outside the tokens, if a colour misses one of the two schemes, or if a page breaks one of the writing rules. What the stylesheet permits, the checker enforces.</p>
-				<p>And the agent reads all three before it draws. Every page here was built by an AI agent working in this repository under my direction: it reads the stylesheet's reasoning, the documentation's rules and the checker's verdicts, and what it builds lands back in the stylesheet, where the next round starts from.</p>
-				<p>This is where the words in a design system earn their place. Guidelines were always more than notes on how things look: they hold why something exists, how it works, what it should communicate, what the person using it should feel. Designing with an agent makes those words more important than ever, because they are what the agent decides with. When it chooses what to build and how, the written reasons are doing the steering; a reason that never got written down is a reason the agent cannot build from.</p>
+				<p>The <a href="../../css/styles.css">stylesheet</a> holds every value of the design: the colours, the sizes, the spaces, the timing of the motion. Next to each value, a comment says why it is what it is.</p>
+				<p>The <a href="../../system/">documentation</a> is a page on the site. It stores no values of its own; when you open it, it reads the current ones out of the stylesheet and shows them. It cannot be out of date, the same way a mirror cannot show last week.</p>
+				<p>The checker is a small program that reads every page and stops any change that breaks a rule it can measure: a colour outside the palette, a space off the scale, a line of text wider than comfortable reading.</p>
+				<p>And the agent reads all of it before it builds. This is why the written words matter more than ever. Guidelines used to be reference material for people. When an AI does the building, they become what it decides with: why something exists, how it should work, what it should communicate, what a person should feel. A reason that never got written down is a reason the agent cannot build from.</p>
 
-				<div class="cycle" role="img" aria-label="The architecture as a cycle: the stylesheet holds the truth, the documentation reads it live, the checker enforces it on every page, the agent reads all three before it builds, and what it builds lands back in the stylesheet.">
+				<div class="cycle" role="img" aria-label="The architecture as a cycle: the stylesheet holds the values, the documentation reads them live, the checker enforces them on every page, the agent reads all three before it builds, and what it builds lands back in the stylesheet.">
 					<div class="cycle__station" aria-hidden="true"><span>The stylesheet</span><span class="cycle__wire cycle__wire--arrow"></span></div>
 					<span class="cycle__down" aria-hidden="true"></span>
 					<div class="cycle__station" aria-hidden="true"><span>The documentation</span></div>
@@ -100,14 +99,13 @@
 					<span class="cycle__down" aria-hidden="true"></span>
 					<div class="cycle__station" aria-hidden="true"><span>The agent</span><span class="cycle__wire"></span></div>
 				</div>
-
 			</div>
 		</div>
 
 		<div class="band">
 			<h2 class="col-4 stick label">What it is built out of</h2>
 			<div class="col-8 stack">
-				<p class="measure">The setup only matters because of what it holds. Every page is an arrangement of these principles and nothing else, written as decisions rather than moods, often as a plain no. What a machine can check, a machine can keep.</p>
+				<p class="measure">The setup only matters because of what it holds. These are the rules every page here is built from. The checker keeps the ones a machine can measure; the agent keeps the rest.</p>
 				<div class="ledger">
 					<div class="ledger__row">
 						<span class="ledger__term">One size of type</span>
@@ -148,10 +146,9 @@
 		<div class="band">
 			<h2 class="col-4 stick label">Where a rule comes from</h2>
 			<div class="col-8 stack">
-				<p class="measure">Not every rule is designed up front. Some get caught. This one started as a bug: scrolling past the end of a page dragged the menu out of place, and the fix was one line that turns off the rubber band, the bounce a page gives when it is pulled past its edge. The bug was gone. So was the bounce, and that was worse: on a phone the bounce is part of how scrolling feels, and a page that refuses to bounce stops feeling native. The fix came out again.</p>
-				<p class="measure">The bounce won because of the value underneath this whole system: things earn their place by doing something. The site keeps taking away, no shadows, no cards, no motion for its own sake, until what remains is function. The bounce looks like decoration, but it is function: it is how a page tells your hand it has ended. The fix mistook one for the other, and the system sides with function every time.</p>
-				<p class="measure">Then the part that matters. The decision went into the stylesheet as a sentence, sitting exactly where the next well-meaning fix would be typed: the rubber band stays, and why, because a scroll that feels native is worth a menu that rides along for the moment of the bounce. An agent that meets the same bug next year will find that sentence standing in its way. That is the working relationship in one story: I bring the design call, the agent brings the build, and the decision outlives the conversation because it lives where the machine reads.</p>
-				<p class="measure">The <a href="https://github.com/ejlers/ejlers.github.io">repository</a> keeps the same voice all the way down. The log reads as the site's own logbook; every commit says what the site did, not what a developer did:</p>
+				<p class="measure">Not every rule is designed up front. One came from a bug: scrolling past the end of a page made the menu jump, and the fix was one line that turns off the rubber band, the bounce a page gives when you pull past its edge. The bug was gone. So was the bounce, and that was worse. Underneath this design lies one value: everything must do a job, and what does no job is taken away. The bounce does a job. It tells your hand the page has ended. The fix mistook function for decoration, so it came out again.</p>
+				<p class="measure">Then the step that matters: the decision was written into the stylesheet, at the exact spot where the next fix would be typed. The bounce stays, and why. An agent that meets the same bug next year will read that sentence and leave the bounce alone.</p>
+				<p class="measure">The whole history works like this. The <a href="https://github.com/ejlers/ejlers.github.io">repository</a> is public, and the log reads as the site's logbook; every commit says what the site did:</p>
 				<div class="ledger">
 					<div class="ledger__row">
 						<span class="ledger__term">The work opens: one page per case</span>
@@ -176,15 +173,15 @@
 		<div class="band">
 			<h2 class="col-4 stick label">Building with it</h2>
 			<div class="col-8 stack measure">
-				<p>Extending the site is now mostly asking. The agent already knows the bands, the tokens and the principles; the checker referees every change; and anything new that earns a rule gets the rule written where the next build will read it.</p>
-				<p>This is the same architecture as the prototyping harness at e-conomic: a design system on GitHub, explained to a model before it draws, so that what gets built wears the product's own clothes from the first pass. That work is the subject of <a href="../building-to-learn/">the first note</a>. This site is where I keep the discipline in practice.</p>
+				<p>Changing the site is now mostly a conversation. The agent knows the rules, the checker checks every change, and when a change produces a new rule, the rule is written down where the next change will read it.</p>
+				<p>It is the same setup as the prototyping harness at e-conomic: a design system on GitHub, explained to a model before it draws. That work is the subject of <a href="../building-to-learn/">the first note</a>. This site is where I keep it in practice.</p>
 			</div>
 		</div>
 
 		<div class="band">
 			<h2 class="col-4 stick label">In short</h2>
 			<div class="col-8 stack measure">
-				<p>A design system does not have to be kept; it can keep itself. Write every value once, where everything else reads it. Put a check behind the rules. And write down the reasons, because the reasons are what the agent decides with. What is left for the designer is the part that was always the job: deciding why things exist and how they should work.</p>
+				<p>A design system does not have to be kept in order by memory. Write every value once, where everything else reads it. Put a check behind the rules. And write down the reasons, because the reasons are what an AI builds from. What is left for the designer is the oldest part of the job: deciding what the reasons are.</p>
 			</div>
 		</div>
 
