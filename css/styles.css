@@ -245,16 +245,18 @@ a {
 }
 
 /* A link in running text is a word with a hairline under it: ink for the
-   word, the mark grey for the line, the same 3:1 the chevrons clear, so a
-   stranger can tell what opens without hovering. Rows and the trail are
-   links too, but their chevrons and their place do the signalling, so the
-   underline belongs to prose alone; the crumb is a paragraph and is
-   excepted by name. */
+   word, the muted ink for the line, so a stranger can tell what opens
+   without hovering. The line takes ink-muted rather than the mark grey
+   because a thin light line on dark paper reads weaker than its ratio
+   says: the muted ink holds 5.6:1 in both schemes and stays visible in
+   each. Rows and the trail are links too, but their chevrons and their
+   place do the signalling, so the underline belongs to prose alone; the
+   crumb is a paragraph and is excepted by name. */
 p:not(.crumb) a,
 .entry__role a {
 	color: var(--ink);
 	text-decoration: underline;
-	text-decoration-color: var(--grey);
+	text-decoration-color: var(--ink-muted);
 	text-decoration-thickness: var(--rule-w);
 	text-underline-offset: 3px;
 	transition: color var(--t-confirm) ease, text-decoration-color var(--t-confirm) ease;
