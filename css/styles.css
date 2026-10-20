@@ -967,8 +967,16 @@ p:not(.crumb) a,
 }
 
 .mark-plate .eva {
-	width: 260px;
-	height: 260px;
+	width: min(260px, 100%);
+	aspect-ratio: 1;
+	height: auto;
+}
+
+/* On a phone the plate keeps the plates' own inset, so the mark has room. */
+@media (max-width: 600px) {
+	.mark-plate {
+		padding: var(--s5);
+	}
 }
 
 .mark-plate + .figures {
