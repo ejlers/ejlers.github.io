@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="light dark">
 	<title>Visma e-conomic &middot; Carl Ejlers</title>
-	<meta name="description" content="e-conomic is Denmark's largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, and with the AI enablement team on how the organisation finds out what to build.">
+	<meta name="description" content="e-conomic is Denmark's largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, on the identity of EVA, its assistant, and with the AI enablement team on how the organisation finds out what to build.">
 	<meta name="author" content="Carl Ejlers">
 	<link rel="canonical" href="https://www.carlejlers.dk/work/economic/">
 
@@ -16,7 +16,7 @@
 
 	<!-- The share card is the case's own cover, at card size. -->
 	<meta property="og:title" content="Visma e-conomic &middot; Carl Ejlers">
-	<meta property="og:description" content="e-conomic is Denmark's largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, and with the AI enablement team on how the organisation finds out what to build.">
+	<meta property="og:description" content="e-conomic is Denmark's largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, on the identity of EVA, its assistant, and with the AI enablement team on how the organisation finds out what to build.">
 	<meta property="og:image" content="https://www.carlejlers.dk/img/work/economic/card.jpg">
 	<meta property="og:image:width" content="1200">
 	<meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 	<meta property="og:site_name" content="Carl Ejlers">
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Visma e-conomic &middot; Carl Ejlers">
-	<meta name="twitter:description" content="e-conomic is Denmark's largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, and with the AI enablement team on how the organisation finds out what to build.">
+	<meta name="twitter:description" content="e-conomic is Denmark's largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, on the identity of EVA, its assistant, and with the AI enablement team on how the organisation finds out what to build.">
 	<meta name="twitter:image" content="https://www.carlejlers.dk/img/work/economic/card.jpg">
 
 	<!-- The browser chrome takes the paper it is sitting on. -->
@@ -53,6 +53,13 @@
 		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 			<path d="M5 8l5 5 5-5" />
 		</symbol>
+		<!-- The fusion that makes EVA's circles one shape where they meet: a
+		     blur and a threshold, the same filter for every mark on the page. -->
+		<filter id="goo" x="-20%" y="-20%" width="140%" height="140%">
+			<feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+			<feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 29 -11" result="goo" />
+			<feBlend in="SourceGraphic" in2="goo" />
+		</filter>
 	</svg>
 
 	<div class="opener">
@@ -71,10 +78,196 @@
 			<img class="article-mark" width="40" height="40" src="../../img/logos/economic-canvas.png" alt="">
 			<h1 class="display article-head">Visma e-conomic.</h1>
 			<p class="article-byline">Accounting Platform.</p>
-			<p class="muted measure">e-conomic is Denmark&#8217;s largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, and with the AI enablement team on how the organisation finds out what to build.</p>
+			<p class="muted measure">e-conomic is Denmark&#8217;s largest accounting platform, part of Visma. I joined in December 2024, working on the daily ledger, where accountants and bookkeepers spend their day, on the identity of EVA, its assistant, and with the AI enablement team on how the organisation finds out what to build.</p>
 			<p class="article-kicker">Senior UX Designer, December 2024 to now.</p>
 		</div>
 	</div>
+	<section class="band">
+		<h2 class="col-4 stick label">EVA</h2>
+		<div class="col-8">
+			<div class="stack">
+				<p class="measure">e-conomic was giving its customers an assistant, EVA, and she needed a presence of her own: something that could sit in a toolbar, show that she is working, and still be unmistakably e-conomic. Rather than invent a new symbol, her identity grows out of the one the company already has. The e-conomic mark is five orange circles fused into one shape. EVA is that mark set in motion.</p>
+				<p class="measure">The same five circles, the same orange, the same fusion, now able to move. At rest they settle into a calm pentagon, present and holding the whole picture. When a question comes in they gather, then regroup into a constellation drawn for that question, and settle back once the answer is there. The result respects the mark it came from and adds the one thing an assistant needs: a way to show that she is thinking.</p>
+			</div>
+			<div class="mark-plate">
+				<svg class="eva" data-eva="hero" viewBox="0 0 100 100" role="img" aria-label="EVA's mark: at rest a slowly turning pentagon, and every few seconds a thought">
+					<g filter="url(#goo)">
+						<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
+						<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
+						<circle r="1" transform="translate(71 79) scale(11)" fill="#e89539" />
+						<circle r="1" transform="translate(29 79) scale(11)" fill="#e89539" />
+						<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
+					</g>
+				</svg>
+			</div>
+			<div class="figures">
+				<div class="figure">
+					<div class="figure__tile">
+						<svg class="eva" viewBox="0 0 28 28" role="img" aria-label="The e-conomic mark">
+							<g fill="#e89539">
+								<path d="M3.2496172 16.0366c-1.44938-.2893-2.857854.6517-3.1442248 2.1011-.2863702 1.4493.6516388 2.8578 2.1010248 3.1442 1.44938.2893 2.85786-.6517 3.14423-2.101.28929-1.4465-.65164-2.855-2.10103-3.1443z" />
+								<path d="M18.9911672 19.1692c-2.4137-.4792-4.7602 1.0871-5.2423 3.5037-.4793 2.4137 1.087 4.7602 3.5036 5.2423 2.4137.4793 4.7602-1.087 5.2424-3.5036.4792-2.4166-1.0871-4.7631-3.5037-5.2424z" />
+								<path d="M23.6958672.105135c-2.8988-.578585-5.7157 1.303275-6.2943 4.199125l-.5172 2.62116c-.3828 1.93446-2.2647 3.19098-4.1992 2.80819l-1.7474-.35651c-1.92569-.3828-3.18221-2.25589-2.79941-4.19035l.08766-.43832c.33021-1.68608-.7656-3.33417-2.45168-3.66438-1.69776-.336043-3.33709.75976-3.67606 2.45461-.33897 1.68607.76561 3.3254 2.45168 3.66437l.43833.09058c1.93446.3828 3.19098 2.26467 2.79941 4.19039l-.16948.8737c-.3828 1.9345.87372 3.8163 2.79945 4.1991 1.9344.3828 3.8163-.8737 4.1991-2.8082l.1695-.8737c.3828-1.9257 2.2646-3.1822 4.1903-2.7994l2.63.526c2.8987.5698 5.7157-1.31206 6.2855-4.20791.5844-2.90169-1.2974-5.718636-4.1962-6.288455z" />
+							</g>
+						</svg>
+					</div>
+					<div class="figure__words"><span class="figure__term">The e-conomic mark</span><span class="figure__text">The e-conomic logo. Five circles, fused into one shape. This is the vocabulary EVA is drawn in.</span></div>
+				</div>
+				<div class="figure">
+					<div class="figure__tile">
+						<svg class="eva" data-eva="rest" viewBox="0 0 100 100" role="img" aria-label="EVA at rest: a slowly turning pentagon">
+							<g filter="url(#goo)">
+								<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
+								<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
+								<circle r="1" transform="translate(71 79) scale(11)" fill="#e89539" />
+								<circle r="1" transform="translate(29 79) scale(11)" fill="#e89539" />
+								<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
+							</g>
+						</svg>
+					</div>
+					<div class="figure__words"><span class="figure__term">At rest</span><span class="figure__text">Five equal circles in a calm pentagon, turning slowly. Present, and holding the whole picture.</span></div>
+				</div>
+				<div class="figure">
+					<div class="figure__tile">
+						<svg class="eva" data-eva="think" viewBox="0 0 100 100" role="img" aria-label="EVA thinking: the circles regroup, constellation after constellation">
+							<g filter="url(#goo)">
+								<circle r="1" transform="translate(65 22) scale(16)" fill="#e89539" />
+								<circle r="1" transform="translate(50 36) scale(10)" fill="#e89539" />
+								<circle r="1" transform="translate(40 54) scale(8)" fill="#e89539" />
+								<circle r="1" transform="translate(50 72) scale(6)" fill="#e89539" />
+								<circle r="1" transform="translate(80 80) scale(6)" fill="#e89539" />
+							</g>
+						</svg>
+					</div>
+					<div class="figure__words"><span class="figure__term">Thinking</span><span class="figure__text">The circles gather, then regroup. Each constellation is a reading of your data in e-conomic.</span></div>
+				</div>
+			</div>
+			<div class="case-media">
+				<div class="pool" role="img" aria-label="The twelve arrangements: the pentagon and the eleven constellations">
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(71 79) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(29 79) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(30 30) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(45 48) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(60 66) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(75 22) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(14 80) scale(8)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(58 32) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(42 22) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(28 58) scale(9)" fill="#e89539" />
+							<circle r="1" transform="translate(78 55) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(55 82) scale(11)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(35 22) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(55 28) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(52 68) scale(9)" fill="#e89539" />
+							<circle r="1" transform="translate(18 55) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(80 75) scale(11)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(62 22) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(58 44) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(50 66) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(82 82) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(18 76) scale(8)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(45 22) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(52 42) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(60 60) scale(9)" fill="#e89539" />
+							<circle r="1" transform="translate(22 72) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(78 30) scale(9)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(65 22) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(50 36) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(40 54) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(50 72) scale(6)" fill="#e89539" />
+							<circle r="1" transform="translate(80 80) scale(6)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(30 70) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(50 80) scale(12)" fill="#e89539" />
+							<circle r="1" transform="translate(65 65) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(75 25) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(30 20) scale(8)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(60 25) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(70 45) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(55 55) scale(9)" fill="#e89539" />
+							<circle r="1" transform="translate(20 30) scale(7)" fill="#e89539" />
+							<circle r="1" transform="translate(25 80) scale(7)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(35 25) scale(16)" fill="#e89539" />
+							<circle r="1" transform="translate(55 22) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(45 42) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(75 65) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(22 75) scale(8)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(18 28) scale(9)" fill="#e89539" />
+							<circle r="1" transform="translate(55 18) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(60 50) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(78 60) scale(14)" fill="#e89539" />
+							<circle r="1" transform="translate(28 80) scale(7)" fill="#e89539" />
+						</g>
+					</svg>
+					<svg class="eva" viewBox="0 0 100 100" aria-hidden="true">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(40 22) scale(14)" fill="#e89539" />
+							<circle r="1" transform="translate(25 40) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(40 58) scale(10)" fill="#e89539" />
+							<circle r="1" transform="translate(70 50) scale(8)" fill="#e89539" />
+							<circle r="1" transform="translate(85 75) scale(8)" fill="#e89539" />
+						</g>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="band">
+		<h2 class="col-4 stick label">EVA in the product</h2>
+		<div class="col-8">
+			<p class="measure">The mark is the way in, in the top bar, and it is what you watch while she works, in the panel&#8217;s header. On the dark chrome and on the page&#8217;s white it is the same orange and the same rhythm; everything around it adapts to the surface.</p>
+			<div class="case-media">
+				<img class="wide" loading="lazy" decoding="async" src="../../img/work/economic/eva-bar.png" alt="The e-conomic top bar, with the button that opens EVA" width="1290" height="85">
+				<img loading="lazy" decoding="async" src="../../img/work/economic/eva-panel-empty.png" alt="The EVA panel, empty, offering three questions" width="555" height="1051">
+				<img loading="lazy" decoding="async" src="../../img/work/economic/eva-panel-thinking.png" alt="The EVA panel fetching closed VAT reports" width="555" height="1050">
+				<img loading="lazy" decoding="async" src="../../img/work/economic/eva-panel-answer.png" alt="The EVA panel answering a VAT question" width="555" height="1051">
+			</div>
+		</div>
+	</section>
 	<section class="band">
 		<h2 class="col-4 stick label">Inline editing</h2>
 		<div class="col-8">
@@ -116,17 +309,18 @@
 		<h2 class="col-4 stick label">More work</h2>
 		<div class="col-8">
 			<div class="index morework">
-				<a class="index__row" href="../theorg/"><img class="mini__mark" src="../../img/logos/theorg-canvas.png" alt="" width="35" height="35"><span class="index__term">The Org</span><span class="index__note">Employee Engagement Platform</span><svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg></a>
 				<a class="index__row" href="../trackman/"><img class="mini__mark" src="../../img/logos/trackman.png" alt="" width="35" height="35"><span class="index__term">TrackMan</span><span class="index__note">Virtual Golf Interface</span><svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg></a>
 				<a class="index__row" href="../donkey/"><img class="mini__mark" src="../../img/logos/donkey.png" alt="" width="35" height="35"><span class="index__term">Donkey Republic</span><span class="index__note">Bike Rental Platform</span><svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg></a>
 				<a class="index__row" href="../tv2/"><img class="mini__mark" src="../../img/logos/lorry.png" alt="" width="35" height="35"><span class="index__term">TV2 Regionerne</span><span class="index__note">White-label News App</span><svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg></a>
 				<a class="index__row" href="../ok/"><img class="mini__mark" src="../../img/logos/ok.png" alt="" width="35" height="35"><span class="index__term">OK</span><span class="index__note">Charging and Parking Features</span><svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg></a>
+				<a class="index__row" href="../theorg/"><img class="mini__mark" src="../../img/logos/theorg-canvas.png" alt="" width="35" height="35"><span class="index__term">The Org</span><span class="index__note">Employee Engagement Platform</span><svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg></a>
 			</div>
 		</div>
 	</section>
 	</main>
 
 	<script src="../../js/site.js"></script>
+	<script src="../../js/eva.js"></script>
 
 </body>
 

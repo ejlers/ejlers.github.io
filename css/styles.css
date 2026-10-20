@@ -940,6 +940,119 @@ p:not(.crumb) a,
 	}
 }
 
+/* --- EVA, drawn live --------------------------------------------------- */
+
+/* e-conomic's assistant is five circles the page draws itself (js/eva.js),
+   so her mark is sharp at any size and takes the scheme like everything
+   else. The orange is hers, set in the markup as an image's colour would
+   be, never a token: the stylesheet stays six greys and a paper. With the
+   clips she is the one thing that moves unasked, and like them, a press
+   holds her. */
+.eva {
+	display: block;
+	overflow: visible;
+}
+
+.eva[role="button"] {
+	cursor: pointer;
+}
+
+/* The big one, alone on a plate at the plates' own step. */
+.mark-plate {
+	display: grid;
+	place-items: center;
+	padding: var(--s8);
+	background: var(--canvas);
+	margin-top: var(--s7);
+}
+
+.mark-plate .eva {
+	width: 260px;
+	height: 260px;
+}
+
+.mark-plate + .figures {
+	margin-top: var(--s4);
+}
+
+/* Three figures: a mark on its own square of canvas, its term and one
+   line beneath it on the paper, the same hierarchy every list uses. */
+.figures {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: var(--s4);
+	margin-top: var(--s7);
+}
+
+.figure {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s3);
+	min-width: 0;
+}
+
+.figure__tile {
+	aspect-ratio: 1;
+	display: grid;
+	place-items: center;
+	background: var(--canvas);
+}
+
+.figure__tile .eva {
+	width: 58%;
+	height: 58%;
+}
+
+.figure__words {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s1);
+}
+
+.figure__term {
+	font-weight: 500;
+}
+
+.figure__text {
+	color: var(--ink-muted);
+}
+
+/* The twelve arrangements, as one plate's wide cell. */
+.pool {
+	grid-column: 1 / -1;
+	display: grid;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+	gap: var(--s5);
+	padding: var(--s3);
+}
+
+.pool .eva {
+	width: 100%;
+	height: auto;
+}
+
+/* On the wall, the case's cover is the mark itself, with air around it. */
+.cover--eva {
+	display: grid;
+	place-items: center;
+}
+
+.cover--eva .eva {
+	width: 44%;
+	height: auto;
+	aspect-ratio: 1;
+}
+
+@media (max-width: 600px) {
+	.figures {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.pool {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
 .video {
 	aspect-ratio: 2.341;
 }

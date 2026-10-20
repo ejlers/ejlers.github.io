@@ -55,6 +55,13 @@
 		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
 			<path d="M5 8l5 5 5-5" />
 		</symbol>
+		<!-- The fusion that makes EVA's circles one shape where they meet: a
+		     blur and a threshold, the same filter for every mark on the page. -->
+		<filter id="goo" x="-20%" y="-20%" width="140%" height="140%">
+			<feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+			<feColorMatrix in="blur" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 29 -11" result="goo" />
+			<feBlend in="SourceGraphic" in2="goo" />
+		</filter>
 	</svg>
 
 	<!-- The drawers lived here until August 2026, and links into them are
@@ -90,16 +97,17 @@
 					<span class="case__desc">Accounting Platform</span>
 					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
 				</span>
-				<span class="case__cover cover--inset cover--low"><img decoding="async" src="../img/work/economic/e1.png" alt="" width="1155" height="662"></span>
-			</a>
-			<a class="case case--theorg" href="./theorg/">
-				<span class="case__line">
-					<img class="case__mark" src="../img/logos/theorg-canvas.png" alt="" width="35" height="35">
-					<span class="case__name">The Org</span>
-					<span class="case__desc">Employee Engagement Platform</span>
-					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				<span class="case__cover cover--eva">
+					<svg class="eva" data-eva="hero" viewBox="0 0 100 100" role="img" aria-label="EVA's mark, e-conomic's assistant, alive: a turning pentagon and, every few seconds, a thought">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(71 79) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(29 79) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
+						</g>
+					</svg>
 				</span>
-				<span class="case__cover"><img decoding="async" src="../img/theorg/cover.jpg" alt="" width="1500" height="1000"></span>
 			</a>
 			<a class="case case--trackman" href="./trackman/">
 				<span class="case__line">
@@ -136,10 +144,21 @@
 					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
 				</span>
 				<span class="case__cover"><img loading="lazy" decoding="async" src="../img/work/ok/OK-2.png" alt="" width="1230" height="950"></span>
-			</a></nav>
+			</a>
+			<a class="case case--theorg" href="./theorg/">
+				<span class="case__line">
+					<img class="case__mark" src="../img/logos/theorg-canvas.png" alt="" width="35" height="35">
+					<span class="case__name">The Org</span>
+					<span class="case__desc">Employee Engagement Platform</span>
+					<svg width="20" height="20" class="case__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+				</span>
+				<span class="case__cover"><img decoding="async" src="../img/theorg/cover.jpg" alt="" width="1500" height="1000"></span>
+			</a>
+		</nav>
 	</main>
 
 	<script src="../js/site.js"></script>
+	<script src="../js/eva.js"></script>
 
 </body>
 
