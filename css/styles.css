@@ -959,17 +959,18 @@ p:not(.crumb) a,
 
 /* The big one, alone on a plate at the plates' own step. */
 .mark-plate {
-	display: grid;
-	place-items: center;
 	padding: var(--s8);
 	background: var(--canvas);
 	margin-top: var(--s7);
 }
 
+/* Centred the plain way, with auto margins, which every engine agrees on
+   even when the mark is wider than its room. */
 .mark-plate .eva {
 	width: min(260px, 100%);
 	aspect-ratio: 1;
 	height: auto;
+	margin-inline: auto;
 }
 
 /* On a phone the plate keeps the plates' own inset, so the mark has room. */
