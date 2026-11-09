@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="color-scheme" content="light dark">
+	<title>Privat</title>
+
+	<!-- Unlisted on purpose: not on the sitemap, and search engines are asked
+	     to pass it by. -->
+	<meta name="robots" content="noindex, nofollow">
+
+	<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+	<link rel="icon" href="/img/favicon.ico" sizes="any">
+
+	<!-- This page stands apart from the portfolio's design system on purpose.
+	     Everything personal is in le.bin, encrypted with the code; what is
+	     written here is only the door. The styles the page needs once it is
+	     open travel inside the encrypted file. -->
+	<style>
+		:root { --paper: #E8ECE4; --ink: #20302A; --mute: #4C5E55; --hair: rgba(32, 48, 42, .25); --press: rgba(32, 48, 42, .08); }
+		@media (prefers-color-scheme: dark) {
+			:root { --paper: #121A17; --ink: #DCE5DB; --mute: #9DB0A5; --hair: rgba(220, 229, 219, .28); --press: rgba(220, 229, 219, .1); }
+		}
+		html, body { height: 100%; }
+		body { margin: 0; background: var(--paper); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+		img { max-width: 100%; }
+		[hidden] { display: none !important; }
+		.door { min-height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 24px max(16px, env(safe-area-inset-right, 0px)) 24px max(16px, env(safe-area-inset-left, 0px)); }
+		.door form { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 14px; }
+		.door h1 { margin: 0; font: italic 400 28px/1.1 Georgia, 'Times New Roman', serif; }
+		.door p { margin: 0; color: var(--mute); }
+		.door .row { display: flex; gap: 8px; }
+		.door input[type="password"] { flex: 1; min-width: 0; font: inherit; font-size: 16px; color: var(--ink); background: none; border: 1px solid var(--hair); border-radius: 999px; padding: 10px 16px; }
+		.door button { font: inherit; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; font-size: 12px; color: var(--ink); background: none; border: 1px solid var(--ink); border-radius: 999px; padding: 10px 18px; cursor: pointer; }
+		.door button:hover { background: var(--press); }
+		.door button:disabled { opacity: .5; cursor: default; }
+		.door input:focus-visible, .door button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+		.door label.keep { display: flex; align-items: center; gap: 8px; color: var(--mute); font-size: 13px; }
+		.door .say { min-height: 1.45em; }
+	</style>
+</head>
+
+<body>
+	<main class="door" id="door">
+		<form id="form" autocomplete="off">
+			<h1>Privat side</h1>
+			<p>Skriv koden for at åbne siden.</p>
+			<div class="row">
+				<input type="password" id="code" aria-label="Kode" autocomplete="current-password" required>
+				<button type="submit" id="open">Åbn</button>
+			</div>
+			<label class="keep"><input type="checkbox" id="keep"> Husk koden på denne enhed</label>
+			<p class="say" id="say" role="status" aria-live="polite"></p>
+		</form>
+	</main>
+
+	<script>
+	(function () {
+		var form = document.getElementById('form'), code = document.getElementById('code'), say = document.getElementById('say'),
+			keep = document.getElementById('keep'), btn = document.getElementById('open'), KEY = 'le-kode';
+		var read = function (store) { try { return store.getItem(KEY); } catch (e) { return null; } };
+		var write = function (store, v) { try { v == null ? store.removeItem(KEY) : store.setItem(KEY, v); } catch (e) {} };
+
+		// le.bin is: 16 bytes of salt, 12 bytes of nonce, then the page itself,
+		// encrypted with AES-GCM under a key stretched from the code.
+		async function unlock(pw) {
+			var res = await fetch('le.bin'); if (!res.ok) throw new Error('net');
+			var buf = new Uint8Array(await res.arrayBuffer());
+			var base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+			var key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: buf.slice(0, 16), iterations: 900000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+			var plain;
+			try { plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(16, 28) }, key, buf.slice(28)); }
+			catch (e) { throw new Error('code'); }
+			return JSON.parse(new TextDecoder().decode(plain));
+		}
+		function show(app) {
+			document.title = app.title;
+			document.head.insertAdjacentHTML('beforeend', app.head);
+			document.getElementById('door').remove();
+			document.body.insertAdjacentHTML('beforeend', app.body);
+			window.__le = app.data;
+			var s = document.createElement('script'); s.textContent = app.script; document.body.appendChild(s);
+		}
+		async function attempt(pw, quiet) {
+			btn.disabled = true; if (!quiet) say.textContent = 'Åbner …';
+			try {
+				var app = await unlock(pw);
+				write(sessionStorage, pw); if (keep.checked) write(localStorage, pw);
+				show(app);
+			} catch (e) {
+				btn.disabled = false; write(sessionStorage, null); if (quiet) write(localStorage, null);
+				say.textContent = quiet ? '' : e.message === 'code' ? 'Koden passer ikke.' : 'Siden kunne ikke hentes. Prøv igen.';
+				if (!quiet) code.select();
+			}
+		}
+		form.addEventListener('submit', function (e) { e.preventDefault(); if (code.value) attempt(code.value, false); });
+		if (!window.crypto || !crypto.subtle) { say.textContent = 'Denne browser kan ikke åbne siden.'; btn.disabled = true; return; }
+		var saved = read(sessionStorage) || read(localStorage);
+		if (saved) attempt(saved, true); else code.focus();
+	})();
+	</script>
+</body>
+
+</html>
