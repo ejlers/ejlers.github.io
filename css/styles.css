@@ -867,10 +867,30 @@ p:not(.crumb) a,
    legible by where the picture is hung, on the dark wall, not by dimming
    the room.
 
+   The veil is multiplied into the picture, not laid over it. Laid over, a
+   neutral grey turns the navy of the sofa to mud, a film on the room;
+   multiplied, it deepens whatever colour is already there, so the floor
+   reads as the room getting darker and not as the page getting in the way.
+
    The body becomes its own stacking context so the picture can sit behind
    the page's content and still in front of the page's ground. */
 .night body {
 	isolation: isolate;
+}
+
+/* On a photograph a flat grey is a sticker: it is the same grey over the
+   wall, the sofa and the trousers, and belongs to none of them. So the
+   three greys this page uses become the ink itself with the room showing
+   through, each at the strength that lands on its own token over plain
+   paper: 56% is the muted ink, 40% the mark grey, 11% the hairline, and 4%
+   the row under a pointer. Over the picture they take a little of whatever
+   is behind them, and against any ground they clear at least the ratio the
+   flat grey did. */
+.night body {
+	--ink-muted: color-mix(in srgb, var(--ink) 56%, transparent);
+	--grey: color-mix(in srgb, var(--ink) 40%, transparent);
+	--rule: color-mix(in srgb, var(--ink) 11%, transparent);
+	--hover: color-mix(in srgb, var(--ink) 4%, transparent);
 }
 
 .backdrop {
@@ -904,10 +924,11 @@ p:not(.crumb) a,
 	inset: 0;
 	background: linear-gradient(to bottom,
 		color-mix(in srgb, var(--paper) 65%, transparent),
-		color-mix(in srgb, var(--paper) 15%, transparent) 12%,
-		color-mix(in srgb, var(--paper) 15%, transparent) calc(100% - 440px),
-		color-mix(in srgb, var(--paper) 80%, transparent) calc(100% - 280px),
-		color-mix(in srgb, var(--paper) 90%, transparent));
+		color-mix(in srgb, var(--paper) 10%, transparent) 12%,
+		color-mix(in srgb, var(--paper) 10%, transparent) calc(100% - 440px),
+		color-mix(in srgb, var(--paper) 72%, transparent) calc(100% - 280px),
+		color-mix(in srgb, var(--paper) 84%, transparent));
+	mix-blend-mode: multiply;
 }
 
 /* A window taller than it is wide is a narrow cut out of a wide picture.
@@ -937,7 +958,11 @@ p:not(.crumb) a,
 		object-position: 34% 0;
 	}
 
+	/* Here the picture ends inside the window, so the veil has to arrive
+	   at the paper itself, and only laying paper over the picture does
+	   that. */
 	.backdrop::after {
+		mix-blend-mode: normal;
 		background: linear-gradient(to bottom,
 			color-mix(in srgb, var(--paper) 60%, transparent),
 			color-mix(in srgb, var(--paper) 30%, transparent) 10%,
@@ -962,13 +987,6 @@ p:not(.crumb) a,
    same line as every other page's headline; the picture is why. */
 .night .display {
 	margin-top: auto;
-}
-
-/* A row under a pointer keeps a little of the room showing through. */
-@media (hover: hover) {
-	.night .index__row:hover {
-		background: color-mix(in srgb, var(--hover) 70%, transparent);
-	}
 }
 
 /* Paper is literal in print, and a dark room is a page of ink. */
