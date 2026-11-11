@@ -701,8 +701,9 @@ p:not(.crumb) a,
    top right, on the trail's line. The phone size exists because at 390px the
    full portrait is a third of the screen and 210px tall, which makes it the
    loudest thing on a page whose loudest thing should be the claim. It appears
-   where a page introduces the person, which is the front page and the CV, and
-   never inside content. Work shows work.
+   where a page introduces the person and has no picture of its own, which is
+   the CV, and never inside content: the front page has the room instead.
+   Work shows work.
 
    Its alt is empty on purpose. The name is already beside it in text, so a
    described portrait would have the page announce him twice. */
@@ -1318,7 +1319,7 @@ p:not(.crumb) a,
    never moves: layout is set from the first frame, and what arrives is the
    ink and the lines. Type settles from the muted grey into its own colour,
    hairlines draw left to right, and the only photographs — the portrait,
-   the marks — come up from grey, like a print developing.
+   the backdrop, the marks — come up from grey, like a print developing.
 
    A page performs once per visit, on its first sight: site.js keeps the
    score per path in sessionStorage and gives the body .develop only on
