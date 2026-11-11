@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="night">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="color-scheme" content="light dark">
+	<meta name="color-scheme" content="dark">
 	<title>Carl Ejlers</title>
 	<meta name="description" content="Carl Ejlers, product designer. Ten years designing digital products for startups, scale-ups and larger companies.">
 	<link rel="canonical" href="https://www.carlejlers.dk">
@@ -40,9 +40,9 @@
 	}
 	</script>
 
-	<!-- The browser chrome takes the paper it is sitting on. -->
-	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818">
+	<!-- The browser chrome takes the paper it is sitting on, and this page is
+	     night whatever the reader's scheme, so there is one paper to take. -->
+	<meta name="theme-color" content="#181818">
 
 	<link rel="preload" href="./fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
@@ -69,12 +69,21 @@
 
 <body class="floor">
 
+	<!-- The room behind the card. Its alt is empty for the portrait's reason:
+	     the name is beside it in text. The sizes say how wide the picture is
+	     actually drawn, the wider of the window and one and a half times its
+	     height: a width in vw alone would hand a tall phone a picture a
+	     third as sharp as it needs. -->
+	<picture class="backdrop">
+		<source type="image/avif" srcset="./img/backdrop/room-1280.avif 1280w, ./img/backdrop/room-1920.avif 1920w, ./img/backdrop/room-2880.avif 2880w" sizes="max(100vw, 150vh)">
+		<img src="./img/backdrop/room-1920.jpg" srcset="./img/backdrop/room-1280.jpg 1280w, ./img/backdrop/room-1920.jpg 1920w, ./img/backdrop/room-2880.jpg 2880w" sizes="max(100vw, 150vh)" alt="" width="2880" height="1916" fetchpriority="high" decoding="async">
+	</picture>
+
 	<div class="opener">
 		<h1 class="crumb">
 			<span class="crumb__here">Carl Ejlers</span>
 		</h1>
 	</div>
-	<img class="portrait-mark portrait-float" src="./img/carl.jpg" alt="" width="292" height="433">
 
 	<p class="display measure lede-gap">Ten years designing digital products.</p>
 

@@ -96,6 +96,29 @@
 	}
 }
 
+/* Colour, night: the dark scheme asked for by a page rather than by the
+   reader. The front page stands on a photograph of a dark room, and ink
+   that followed the reader's scheme would be dark type on a dark picture
+   for everyone in daylight, so that page takes the dark scheme outright.
+
+   These are the dark scheme's values and nothing else: not a third
+   palette, the second one under another condition. The check fails the
+   build if the two ever differ. Screen only, for the reason above. */
+@media screen {
+	.night:root {
+		color-scheme: dark;
+		--paper: #181818;
+		--ink: #ededed;
+		--ink-strong: #bdbdbd;
+		--ink-muted: #909090;
+		--grey: #6d6d6d;
+		--rule: #2f2f2f;
+		--fill: #272727;
+		--hover: #202020;
+		--canvas: #d9d9d9;
+	}
+}
+
 /* State still changes; it simply arrives already done. */
 @media (prefers-reduced-motion: reduce) {
 	:root {
@@ -826,6 +849,117 @@ p:not(.crumb) a,
 	}
 }
 
+/* --- Backdrop ------------------------------------------------------- */
+
+/* The front page's one photograph: the room, behind everything, filling the
+   window and holding still while a short page scrolls over it. It is the
+   only picture on the site that sits under type, so it carries a veil of
+   the page's own paper, mixed from the paper token and not a colour of its
+   own. The veil has three jobs, top to bottom:
+
+   a band along the top, heavy enough that the name clears 4.5:1 even on
+   white, because on a wide window the name lands on the lamp;
+   a light middle, where the picture is meant to read and the claim is kept
+   legible by where the picture is hung, on the dark wall;
+   a floor that is close to solid, because a hairline and a muted note
+   still have to clear their ratios on whatever the room puts behind them.
+
+   The body becomes its own stacking context so the picture can sit behind
+   the page's content and still in front of the page's ground. */
+.night body {
+	isolation: isolate;
+}
+
+.backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	overflow: hidden;
+}
+
+.backdrop img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 60% 40%;
+}
+
+.backdrop::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom,
+		color-mix(in srgb, var(--paper) 72%, transparent),
+		color-mix(in srgb, var(--paper) 45%, transparent) 12%,
+		color-mix(in srgb, var(--paper) 35%, transparent) 35%,
+		color-mix(in srgb, var(--paper) 82%, transparent) 70%,
+		color-mix(in srgb, var(--paper) 94%, transparent));
+}
+
+/* A window taller than it is wide is a narrow cut out of a wide picture, and
+   the centred cut puts the person under the claim. Hung further left, the
+   wall takes the claim and he sits to the right of it. */
+@media (max-aspect-ratio: 1/1) {
+	.backdrop img {
+		object-position: 14% 40%;
+	}
+}
+
+/* A phone has no empty middle: the claim follows the name and the rows
+   follow the claim. So the picture is hung at window height and pulled up
+   a third, which puts his face in the top right corner, where the portrait
+   stands on every page that has one, with the claim on the dark of the
+   laptop beneath it. The picture ends two thirds of the way down, and the
+   veil is solid paper before it does, so the rows stand on plain paper the
+   way they do everywhere else. */
+@media (max-width: 600px) {
+	.backdrop img {
+		top: -33%;
+		object-position: 34% 0;
+	}
+
+	.backdrop::after {
+		background: linear-gradient(to bottom,
+			color-mix(in srgb, var(--paper) 60%, transparent),
+			color-mix(in srgb, var(--paper) 30%, transparent) 10%,
+			color-mix(in srgb, var(--paper) 55%, transparent) 24%,
+			color-mix(in srgb, var(--paper) 90%, transparent) 46%,
+			var(--paper) 62%);
+	}
+}
+
+/* The trail has no paper of its own here: a solid bar across the top of a
+   photograph is a box, and the page is short enough that nothing needs to
+   slide underneath it. It rests where it always rests and does not stick. */
+.night .opener {
+	position: static;
+	background: none;
+}
+
+/* With no portrait above it, the claim would climb to the top of the window
+   and stand on the lamp. It shares the emptiness with the rows instead: one
+   auto margin above the claim, one above the index, so it settles over the
+   dark wall. This page gives up the promise that the claim starts on the
+   same line as every other page's headline; the picture is why. */
+.night .display {
+	margin-top: auto;
+}
+
+/* A row under a pointer keeps a little of the room showing through. */
+@media (hover: hover) {
+	.night .index__row:hover {
+		background: color-mix(in srgb, var(--hover) 70%, transparent);
+	}
+}
+
+/* Paper is literal in print, and a dark room is a page of ink. */
+@media print {
+	.backdrop {
+		display: none;
+	}
+}
+
 /* --- Media ---------------------------------------------------------- */
 
 /* Images in a set sit flush; a new set is separated by one step. */
@@ -1164,6 +1298,7 @@ p:not(.crumb) a,
 	.develop .crumb__here { animation: settle var(--t-develop) ease both; }
 	.develop .display { animation: settle var(--t-develop) ease 120ms both; }
 	.develop .portrait-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
+	.develop .backdrop img { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
 	.develop .article-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
 
 	/* The index draws itself: each row's rule, then its term, then the
