@@ -851,18 +851,21 @@ p:not(.crumb) a,
 
 /* --- Backdrop ------------------------------------------------------- */
 
-/* The front page's one photograph: the room, behind everything, filling the
-   window and holding still while a short page scrolls over it. It is the
-   only picture on the site that sits under type, so it carries a veil of
-   the page's own paper, mixed from the paper token and not a colour of its
-   own. The veil has three jobs, top to bottom:
+/* The front page's one photograph: the room, behind everything, holding
+   still while a short page scrolls over it. It is the only picture on the
+   site that sits under type, so it carries a veil of the page's own paper,
+   mixed from the paper token and not a colour of its own. The veil is as
+   little as the type allows, and it has two jobs:
 
-   a band along the top, heavy enough that the name clears 4.5:1 even on
-   white, because on a wide window the name lands on the lamp;
-   a light middle, where the picture is meant to read and the claim is kept
-   legible by where the picture is hung, on the dark wall;
-   a floor that is close to solid, because a hairline and a muted note
-   still have to clear their ratios on whatever the room puts behind them.
+   a band along the top, heavy enough that the name clears 4.5:1 even where
+   it lands on the lamp;
+   a floor under the index, measured from the bottom of the window in the
+   index's own height, because a muted note on grey trousers is the one
+   place the room and the type truly disagree.
+
+   Between the two the picture is left nearly alone: the claim is kept
+   legible by where the picture is hung, on the dark wall, not by dimming
+   the room.
 
    The body becomes its own stacking context so the picture can sit behind
    the page's content and still in front of the page's ground. */
@@ -877,12 +880,22 @@ p:not(.crumb) a,
 	overflow: hidden;
 }
 
+/* Hung larger than the window and to the left, so the person sits in the
+   upper right, the dark wall takes the claim, and the bright window is
+   mostly out of the frame. The picture is drawn 1.3 windows wide (and never
+   shorter than the window), and its height is the one number the rest is
+   worked from. The face is 44% of the way down the picture and belongs 22%
+   of the way down the window; where that would lift the picture's bottom
+   edge off the floor, the floor wins and the face sits lower. */
 .backdrop img {
+	--hung: max(86.67vw, 100vh);
 	position: absolute;
-	width: 100%;
-	height: 100%;
+	left: 0;
+	top: max(100vh - var(--hung), 22vh - var(--hung) * 0.44);
+	width: calc(var(--hung) * 1.5);
+	max-width: none;
+	height: var(--hung);
 	object-fit: cover;
-	object-position: 60% 40%;
 }
 
 .backdrop::after {
@@ -890,18 +903,21 @@ p:not(.crumb) a,
 	position: absolute;
 	inset: 0;
 	background: linear-gradient(to bottom,
-		color-mix(in srgb, var(--paper) 72%, transparent),
-		color-mix(in srgb, var(--paper) 45%, transparent) 12%,
-		color-mix(in srgb, var(--paper) 35%, transparent) 35%,
-		color-mix(in srgb, var(--paper) 82%, transparent) 70%,
-		color-mix(in srgb, var(--paper) 94%, transparent));
+		color-mix(in srgb, var(--paper) 65%, transparent),
+		color-mix(in srgb, var(--paper) 15%, transparent) 12%,
+		color-mix(in srgb, var(--paper) 15%, transparent) calc(100% - 440px),
+		color-mix(in srgb, var(--paper) 80%, transparent) calc(100% - 280px),
+		color-mix(in srgb, var(--paper) 90%, transparent));
 }
 
-/* A window taller than it is wide is a narrow cut out of a wide picture, and
-   the centred cut puts the person under the claim. Hung further left, the
-   wall takes the claim and he sits to the right of it. */
+/* A window taller than it is wide is a narrow cut out of a wide picture.
+   There the picture simply covers the window, hung left of centre: the wall
+   takes the claim and he sits to the right of it. */
 @media (max-aspect-ratio: 1/1) {
 	.backdrop img {
+		top: 0;
+		width: 100%;
+		height: 100%;
 		object-position: 14% 40%;
 	}
 }
@@ -916,6 +932,8 @@ p:not(.crumb) a,
 @media (max-width: 600px) {
 	.backdrop img {
 		top: -33%;
+		width: 100%;
+		height: 100%;
 		object-position: 34% 0;
 	}
 
