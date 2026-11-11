@@ -96,6 +96,29 @@
 	}
 }
 
+/* Colour, night: the dark scheme asked for by a page rather than by the
+   reader. The front page stands on a photograph of a dark room, and ink
+   that followed the reader's scheme would be dark type on a dark picture
+   for everyone in daylight, so that page takes the dark scheme outright.
+
+   These are the dark scheme's values and nothing else: not a third
+   palette, the second one under another condition. The check fails the
+   build if the two ever differ. Screen only, for the reason above. */
+@media screen {
+	.night:root {
+		color-scheme: dark;
+		--paper: #181818;
+		--ink: #ededed;
+		--ink-strong: #bdbdbd;
+		--ink-muted: #909090;
+		--grey: #6d6d6d;
+		--rule: #2f2f2f;
+		--fill: #272727;
+		--hover: #202020;
+		--canvas: #d9d9d9;
+	}
+}
+
 /* State still changes; it simply arrives already done. */
 @media (prefers-reduced-motion: reduce) {
 	:root {
@@ -678,8 +701,9 @@ p:not(.crumb) a,
    top right, on the trail's line. The phone size exists because at 390px the
    full portrait is a third of the screen and 210px tall, which makes it the
    loudest thing on a page whose loudest thing should be the claim. It appears
-   where a page introduces the person, which is the front page and the CV, and
-   never inside content. Work shows work.
+   where a page introduces the person and has no picture of its own, which is
+   the CV, and never inside content: the front page has the room instead.
+   Work shows work.
 
    Its alt is empty on purpose. The name is already beside it in text, so a
    described portrait would have the page announce him twice. */
@@ -823,6 +847,153 @@ p:not(.crumb) a,
 
 	.index {
 		padding-bottom: var(--s5);
+	}
+}
+
+/* --- Backdrop ------------------------------------------------------- */
+
+/* The front page's one photograph: the room, behind everything, holding
+   still while a short page scrolls over it. It is the only picture on the
+   site that sits under type, so it carries a veil of the page's own paper,
+   mixed from the paper token and not a colour of its own. The veil is as
+   little as the type allows, and it has two jobs:
+
+   a band along the top, heavy enough that the name clears 4.5:1 even where
+   it lands on the lamp;
+   a floor under the index, measured from the bottom of the window in the
+   index's own height, because a muted note on grey trousers is the one
+   place the room and the type truly disagree.
+
+   Between the two the picture is left nearly alone: the claim is kept
+   legible by where the picture is hung, on the dark wall, not by dimming
+   the room.
+
+   The veil is multiplied into the picture, not laid over it. Laid over, a
+   neutral grey turns the navy of the sofa to mud, a film on the room;
+   multiplied, it deepens whatever colour is already there, so the floor
+   reads as the room getting darker and not as the page getting in the way.
+
+   The body becomes its own stacking context so the picture can sit behind
+   the page's content and still in front of the page's ground. */
+.night body {
+	isolation: isolate;
+}
+
+/* On a photograph a flat grey is a sticker: it is the same grey over the
+   wall, the sofa and the trousers, and belongs to none of them. So the
+   three greys this page uses become the ink itself with the room showing
+   through, each at the strength that lands on its own token over plain
+   paper: 56% is the muted ink, 40% the mark grey, 11% the hairline, and 4%
+   the row under a pointer. Over the picture they take a little of whatever
+   is behind them, and against any ground they clear at least the ratio the
+   flat grey did. */
+.night body {
+	--ink-muted: color-mix(in srgb, var(--ink) 56%, transparent);
+	--grey: color-mix(in srgb, var(--ink) 40%, transparent);
+	--rule: color-mix(in srgb, var(--ink) 11%, transparent);
+	--hover: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	overflow: hidden;
+}
+
+/* Hung larger than the window and to the left, so the person sits in the
+   upper right, the dark wall takes the claim, and the bright window is
+   mostly out of the frame. The picture is drawn 1.3 windows wide (and never
+   shorter than the window), and its height is the one number the rest is
+   worked from. The face is 44% of the way down the picture and belongs 22%
+   of the way down the window; where that would lift the picture's bottom
+   edge off the floor, the floor wins and the face sits lower. */
+.backdrop img {
+	--hung: max(86.67vw, 100vh);
+	position: absolute;
+	left: 0;
+	top: max(100vh - var(--hung), 22vh - var(--hung) * 0.44);
+	width: calc(var(--hung) * 1.5);
+	max-width: none;
+	height: var(--hung);
+	object-fit: cover;
+}
+
+.backdrop::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom,
+		color-mix(in srgb, var(--paper) 65%, transparent),
+		color-mix(in srgb, var(--paper) 10%, transparent) 12%,
+		color-mix(in srgb, var(--paper) 10%, transparent) calc(100% - 440px),
+		color-mix(in srgb, var(--paper) 72%, transparent) calc(100% - 280px),
+		color-mix(in srgb, var(--paper) 84%, transparent));
+	mix-blend-mode: multiply;
+}
+
+/* A window taller than it is wide is a narrow cut out of a wide picture.
+   There the picture simply covers the window, hung left of centre: the wall
+   takes the claim and he sits to the right of it. */
+@media (max-aspect-ratio: 1/1) {
+	.backdrop img {
+		top: 0;
+		width: 100%;
+		height: 100%;
+		object-position: 14% 40%;
+	}
+}
+
+/* A phone has no empty middle: the claim follows the name and the rows
+   follow the claim. So the picture is hung at window height and pulled up
+   a third, which puts his face in the top right corner, where the portrait
+   stands on every page that has one, with the claim on the dark of the
+   laptop beneath it. The picture ends two thirds of the way down, and the
+   veil is solid paper before it does, so the rows stand on plain paper the
+   way they do everywhere else. */
+@media (max-width: 600px) {
+	.backdrop img {
+		top: -33%;
+		width: 100%;
+		height: 100%;
+		object-position: 34% 0;
+	}
+
+	/* Here the picture ends inside the window, so the veil has to arrive
+	   at the paper itself, and only laying paper over the picture does
+	   that. */
+	.backdrop::after {
+		mix-blend-mode: normal;
+		background: linear-gradient(to bottom,
+			color-mix(in srgb, var(--paper) 60%, transparent),
+			color-mix(in srgb, var(--paper) 30%, transparent) 10%,
+			color-mix(in srgb, var(--paper) 55%, transparent) 24%,
+			color-mix(in srgb, var(--paper) 90%, transparent) 46%,
+			var(--paper) 62%);
+	}
+}
+
+/* The trail has no paper of its own here: a solid bar across the top of a
+   photograph is a box, and the page is short enough that nothing needs to
+   slide underneath it. It rests where it always rests and does not stick. */
+.night .opener {
+	position: static;
+	background: none;
+}
+
+/* With no portrait above it, the claim would climb to the top of the window
+   and stand on the lamp. It shares the emptiness with the rows instead: one
+   auto margin above the claim, one above the index, so it settles over the
+   dark wall. This page gives up the promise that the claim starts on the
+   same line as every other page's headline; the picture is why. */
+.night .display {
+	margin-top: auto;
+}
+
+/* Paper is literal in print, and a dark room is a page of ink. */
+@media print {
+	.backdrop {
+		display: none;
 	}
 }
 
@@ -1148,7 +1319,7 @@ p:not(.crumb) a,
    never moves: layout is set from the first frame, and what arrives is the
    ink and the lines. Type settles from the muted grey into its own colour,
    hairlines draw left to right, and the only photographs — the portrait,
-   the marks — come up from grey, like a print developing.
+   the backdrop, the marks — come up from grey, like a print developing.
 
    A page performs once per visit, on its first sight: site.js keeps the
    score per path in sessionStorage and gives the body .develop only on
@@ -1164,6 +1335,7 @@ p:not(.crumb) a,
 	.develop .crumb__here { animation: settle var(--t-develop) ease both; }
 	.develop .display { animation: settle var(--t-develop) ease 120ms both; }
 	.develop .portrait-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
+	.develop .backdrop img { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
 	.develop .article-mark { animation: come-up calc(var(--t-develop) * 2) ease 150ms both; }
 
 	/* The index draws itself: each row's rule, then its term, then the
