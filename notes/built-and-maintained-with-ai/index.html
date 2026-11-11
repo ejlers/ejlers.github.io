@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="color-scheme" content="light dark">
+	<title>Built and maintained with AI &middot; Carl Ejlers</title>
+	<meta name="description" content="I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.">
+	<link rel="canonical" href="https://www.carlejlers.dk/notes/built-and-maintained-with-ai/">
+
+	<!-- The share card is the front page itself, at card size. -->
+	<meta property="og:title" content="Built and maintained with AI &middot; Carl Ejlers">
+	<meta property="og:description" content="I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.">
+	<meta property="og:image" content="https://www.carlejlers.dk/img/card.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:url" content="https://www.carlejlers.dk/notes/built-and-maintained-with-ai/">
+	<meta property="og:type" content="article">
+	<meta property="og:site_name" content="Carl Ejlers">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Built and maintained with AI &middot; Carl Ejlers">
+	<meta name="twitter:description" content="I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.">
+	<meta name="twitter:image" content="https://www.carlejlers.dk/img/card.png">
+
+	<link rel="icon" type="image/svg+xml" href="../../img/favicon.svg">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png">
+	<link rel="icon" href="../../img/favicon.ico" sizes="any">
+
+	<!-- The browser chrome takes the paper it is sitting on. -->
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818">
+
+	<link rel="preload" href="../../fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
+
+	<link rel="stylesheet" href="../../css/styles.css">
+	<link rel="stylesheet" href="../notes.css">
+
+	<!-- The next page is built when a link is hovered or pressed, so the
+	     crossing is instant and the develop starts the moment it is seen. -->
+	<script type="speculationrules">
+	{
+		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+	}
+	</script>
+</head>
+
+<body>
+
+	<svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+		<symbol id="i-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5" /></symbol>
+	</svg>
+
+	<div class="opener">
+		<p class="crumb">
+			<a href="../../">Carl Ejlers</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<a href="../">Notes</a>
+			<svg width="20" height="20" class="crumb__sep" aria-hidden="true" focusable="false"><use href="#i-chevron" /></svg>
+			<span class="crumb__here">Built and maintained with AI</span>
+		</p>
+	</div>
+
+	<main>
+
+		<div class="band">
+			<div class="col-8 stack">
+				<h1 class="display">Built and maintained with AI.</h1>
+				<p class="muted measure">I decide what this site should be; an AI agent builds it. Notes on the setup that makes that work.</p>
+			</div>
+			<div class="col-4 stack bottom">
+				<p class="muted">August 2026</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The idea</h2>
+			<div class="col-8 stack measure">
+				<p>This site is built and maintained with AI. I decide what it should be; an AI agent builds it. The interesting part is not the AI. It is the setup that keeps the site in order without anyone maintaining it by hand.</p>
+				<p>Documentation usually drifts. The product changes, someone forgets to update the description, and soon the description is wrong and nobody trusts it. This site avoids that with one move: nothing is written down twice. Every rule of the design is written in one place, and everything else reads it from there.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The architecture</h2>
+			<div class="col-8 stack measure">
+				<p>The <a href="../../css/styles.css">stylesheet</a> holds every value of the design: the colours, the sizes, the spaces, the timing of the motion. Next to each value, a comment says why it is what it is.</p>
+				<p>The <a href="../../system/">documentation</a> is a page on the site. It stores no values of its own; when you open it, it reads the current ones out of the stylesheet and shows them. It cannot be out of date, the same way a mirror cannot show last week.</p>
+				<p>The checker is a small program that reads every page and stops any change that breaks a rule it can measure: a colour outside the palette, a space off the scale, a line of text wider than comfortable reading.</p>
+				<p>And the agent reads all of it before it builds. This is why the written words matter more than ever. Guidelines used to be reference material for people. When an AI does the building, they become what it decides with: why something exists, how it should work, what it should communicate, what a person should feel. A reason that never got written down is a reason the agent cannot build from.</p>
+				<p>All of this is public. The <a href="https://github.com/ejlers/ejlers.github.io">repository</a> holds the whole build, and its log reads as the site's logbook: every commit says what changed.</p>
+				<p>Changing the site is now mostly a conversation. The agent knows the rules, the checker checks every change, and when a change produces a new rule, it is written down where the next change will read it.</p>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">The principles</h2>
+			<div class="col-8 stack">
+				<p class="measure">The <a href="../../system/">documentation</a> holds nine principles, each with a test you can fail, because a principle that cannot be failed is decoration. Here they are; the tests stand with the documentation:</p>
+				<div class="ledger">
+					<div class="ledger__row">
+						<span class="ledger__term">Function over decoration</span>
+						<span>Every part must do a job. What only decorates does not get in.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">When in doubt, take away</span>
+						<span>The design is made by removing. Nothing repeats what is already on screen, and what serves no purpose goes.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Claims from my mouth only</span>
+						<span>The site states nothing about the work I have not said myself. A missing fact gets a visible slot, not a guess.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">One size, many weights</span>
+						<span>What matters is said with weight and grey, never with a bigger font.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Rules, not boxes</span>
+						<span>Structure is hairlines and space. No cards, no shadows, no filled panels.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">The work is the only ornament</span>
+						<span>The interface is greyscale so the screenshots are the only colour on the page.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">One gesture, always signalled</span>
+						<span>The only interaction is opening a link, marked the same way every time. Nothing looks interactive where it is not.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Nothing moves</span>
+						<span>Layout stands from the first frame. Only appearance animates: colour settling, lines drawing, once, and never for readers who have turned motion off.</span>
+					</div>
+					<div class="ledger__row">
+						<span class="ledger__term">Quiet is not the same as faint</span>
+						<span>Restraint reduces the amount of text, never its contrast.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="band">
+			<h2 class="col-4 stick label">In short</h2>
+			<div class="col-8 stack measure">
+				<p>A design system does not have to be kept in order by memory. Write every value once, where everything else reads it. Put a check behind the rules. And write down the reasons, because the reasons are what an AI builds from. What is left for the designer is the oldest part of the job: deciding what the reasons are.</p>
+			</div>
+		</div>
+
+	</main>
+
+	<script src="../../js/site.js"></script>
+
+</body>
+
+</html>
