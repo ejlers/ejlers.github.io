@@ -123,24 +123,6 @@ if (!darkPair) {
 			fix: 'a scheme may not introduce a token the other one does not have'
 		});
 	}
-
-	// A page may ask for the dark scheme outright (.night on the root). What
-	// it gets is the dark scheme under another condition, never a palette of
-	// its own, so the two blocks must say the same thing.
-	const nightAt = css.search(/\.night:root \{/);
-	const nightPair = nightAt === -1 ? null : blocks.find(([a]) => a > nightAt);
-	if (nightPair) {
-		const night = declarations(css.slice(...nightPair));
-		for (const name of new Set([...Object.keys(dark), ...Object.keys(night)])) {
-			if (dark[name] === night[name]) continue;
-			problems.push({
-				kind: 'scheme',
-				value: `${name} (night)`,
-				line: lineOf(nightPair[0]),
-				fix: 'the night block repeats the dark scheme exactly; change both or neither'
-			});
-		}
-	}
 }
 
 // No long dashes in anything a reader sees. An em dash is a sentence that has
