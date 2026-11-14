@@ -1117,20 +1117,6 @@ p:not(.crumb) a,
 	color: var(--ink-muted);
 }
 
-/* The twelve arrangements, as one plate's wide cell. */
-.pool {
-	grid-column: 1 / -1;
-	display: grid;
-	grid-template-columns: repeat(6, minmax(0, 1fr));
-	gap: var(--s5);
-	padding: var(--s3);
-}
-
-.pool .eva {
-	width: 100%;
-	height: auto;
-}
-
 /* On the wall, the case's cover is the mark itself, with air around it. */
 .cover--eva {
 	display: grid;
@@ -1146,10 +1132,6 @@ p:not(.crumb) a,
 @media (max-width: 600px) {
 	.figures {
 		grid-template-columns: minmax(0, 1fr);
-	}
-
-	.pool {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }
 
