@@ -984,9 +984,9 @@ p:not(.crumb) a,
 	margin-top: var(--s4);
 }
 
-/* The plate that answers. The mark on the left with the word for what she
-   is doing under it, and on the right a term, one line and the button,
-   the way a figure carries its words. On a phone the two stack.
+/* The plate that answers. The mark on the left, and on the right a term,
+   one line and the button, the way a figure carries its words. On a phone
+   the two stack.
 
    The canvas is the same light grey in both schemes, so whatever is written
    on it is written dark in both: ink in daylight, and the paper at night,
@@ -1015,9 +1015,7 @@ p:not(.crumb) a,
 
 .ask-mark {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: var(--s2);
+	justify-content: center;
 }
 
 .mark-plate .ask-mark .eva {
@@ -1026,10 +1024,6 @@ p:not(.crumb) a,
 
 .eva.is-askable {
 	cursor: pointer;
-}
-
-.ask__state {
-	color: var(--on-canvas-muted);
 }
 
 .ask {
@@ -1053,7 +1047,7 @@ p:not(.crumb) a,
 }
 
 /* The solid button, drawn in the canvas's own dark. While she thinks it
-   holds its colour; the word under the mark says why it will not answer. */
+   holds its colour; the moving mark says why it will not answer. */
 .ask .ask__btn,
 .ask .ask__btn:disabled {
 	margin-top: var(--s3);

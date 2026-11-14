@@ -16,7 +16,7 @@
      ask    the slow turn, and a thought only when the reader asks for one:
             the button in the .ask row on the plate runs one thought, the
             same gather, six to eight constellations and settle as the
-            hero's, and the word under the mark says what she is doing.
+            hero's. The button rests until she has settled.
    Like the clips, a mark is its own control: press to hold, press again to
    let it run. A mark inside a link is not a control; the link is, and an
    asking mark is not either; its button is. Under prefers-reduced-motion
@@ -124,7 +124,6 @@
 			const row = plate && plate.querySelector('.ask');
 			if (!row) return;
 			const button = row.querySelector('button');
-			const state = plate.querySelector('.ask__state');
 			this.busy = false;
 			this.svg.classList.add('is-askable');
 			this.svg.addEventListener('click', () => button.click());
@@ -132,9 +131,7 @@
 				if (this.busy) return;
 				this.busy = true;
 				button.disabled = true;
-				state.textContent = 'Thinking';
 				await this.think();
-				state.textContent = 'At rest';
 				button.disabled = false;
 				this.busy = false;
 				if (document.activeElement === document.body) button.focus();
