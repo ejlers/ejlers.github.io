@@ -13,9 +13,14 @@
      rest   the slow turn and nothing else.
      think  constant regrouping, a new constellation every half second or
             so, never settling.
+     ask    the slow turn, and a thought only when the reader asks for one:
+            the button in the .ask row after the plate runs one thought,
+            the same gather, six to eight constellations and settle as the
+            hero's, and the word beside it says what she is doing.
    Like the clips, a mark is its own control: press to hold, press again to
-   let it run. A mark inside a link is not a control; the link is. Under
-   prefers-reduced-motion every mark stands where its markup put it. */
+   let it run. A mark inside a link is not a control; the link is, and an
+   asking mark is not either; its button is. Under prefers-reduced-motion
+   every mark stands where its markup put it, and the ask row stays hidden. */
 (() => {
 	const POOL = [
 		[[50, 14, 11], [84, 39, 11], [71, 79, 11], [29, 79, 11], [16, 39, 11]],
@@ -94,7 +99,8 @@
 			this.alive = true;
 			this.pick = picker();
 			this.apply();
-			if (!svg.closest('a')) this.control();
+			if (this.kind === 'ask') this.asking();
+			else if (!svg.closest('a')) this.control();
 			this.run();
 		}
 
@@ -109,6 +115,44 @@
 			svg.addEventListener('keydown', (e) => {
 				if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
 			});
+		}
+
+		/* The row after the plate: shown only now that the script can answer
+		   it. Asking again while she is thinking does nothing. */
+		asking() {
+			const row = this.svg.closest('.mark-plate')?.nextElementSibling;
+			if (!row || !row.classList.contains('ask')) return;
+			const button = row.querySelector('button');
+			const state = row.querySelector('.ask__state');
+			this.busy = false;
+			button.addEventListener('click', async () => {
+				if (this.busy) return;
+				this.busy = true;
+				button.disabled = true;
+				state.textContent = 'Thinking';
+				await this.think();
+				state.textContent = 'At rest';
+				button.disabled = false;
+				this.busy = false;
+			});
+			row.hidden = false;
+		}
+
+		/* One thought: gather to a point, pass through six to eight
+		   constellations at a varying pace, settle home and turn again. */
+		async think() {
+			this.spin = false;
+			this.go(GATHER, 420);
+			await this.wait(470);
+			const steps = rand(6, 8);
+			for (let n = 0; n < steps; n++) {
+				const d = rand(450, 750);
+				this.go(this.pick(), d);
+				await this.wait(d + 30);
+			}
+			this.go(HOME, 950);
+			await this.wait(980);
+			this.spin = true;
 		}
 
 		go(shape, dur) {
@@ -160,18 +204,7 @@
 			} else if (this.kind === 'hero') {
 				while (this.alive) {
 					await this.wait(rand(2500, 4000));
-					this.spin = false;
-					this.go(GATHER, 420);
-					await this.wait(470);
-					const steps = rand(6, 8);
-					for (let n = 0; n < steps; n++) {
-						const d = rand(450, 750);
-						this.go(this.pick(), d);
-						await this.wait(d + 30);
-					}
-					this.go(HOME, 950);
-					await this.wait(980);
-					this.spin = true;
+					await this.think();
 				}
 			}
 		}

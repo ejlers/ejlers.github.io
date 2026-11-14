@@ -90,7 +90,7 @@
 				<p class="measure">The same five circles, the same orange, the same fusion, now able to move. At rest they settle into a calm pentagon. When a question comes in they gather, then regroup into a constellation drawn for that question, and settle back once the answer is there.</p>
 			</div>
 			<div class="mark-plate">
-				<svg class="eva" data-eva="hero" viewBox="0 0 100 100" role="img" aria-label="EVA's mark: at rest a slowly turning pentagon, and every few seconds a thought">
+				<svg class="eva" data-eva="ask" id="eva-ask" viewBox="0 0 100 100" role="img" aria-label="EVA's mark: at rest a slowly turning pentagon">
 					<g filter="url(#goo)">
 						<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
 						<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
@@ -99,6 +99,12 @@
 						<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
 					</g>
 				</svg>
+			</div>
+			<!-- Hidden until eva.js can run it: without the script, or with
+			     motion turned off, there is nothing for the button to do. -->
+			<div class="ask" hidden>
+				<button type="button" class="btn btn--solid" aria-controls="eva-ask">Ask EVA</button>
+				<span class="ask__state" role="status" aria-live="polite">At rest</span>
 			</div>
 			<div class="figures">
 				<div class="figure">

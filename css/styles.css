@@ -980,8 +980,27 @@ p:not(.crumb) a,
 	}
 }
 
-.mark-plate + .figures {
+.mark-plate + .figures,
+.mark-plate + .ask + .figures {
 	margin-top: var(--s4);
+}
+
+/* Under the plate, on the paper: the button that sets her thinking and the
+   word for what she is doing. On the paper and not on the plate, because
+   the canvas is the same grey in both schemes and the solid button is not. */
+.ask {
+	display: flex;
+	align-items: center;
+	gap: var(--s4);
+	margin-top: var(--s4);
+}
+
+.ask[hidden] {
+	display: none;
+}
+
+.ask__state {
+	color: var(--ink-muted);
 }
 
 /* Three figures: a mark on its own square of canvas, its term and one
