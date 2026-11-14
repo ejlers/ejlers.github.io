@@ -984,51 +984,100 @@ p:not(.crumb) a,
 	margin-top: var(--s4);
 }
 
-/* On the plate, right under the mark, so pressing it reads as handling the
-   mark itself: the button that sets her thinking. It says what she is doing
-   while she does it, so it is the status as well. The mark answers a press
-   too; the button is there for the keyboard and for anyone who would not
-   guess. */
-.ask {
+/* The plate that answers. The mark on the left with the word for what she
+   is doing under it, and on the right a term, one line and the button,
+   the way a figure carries its words. On a phone the two stack.
+
+   The canvas is the same light grey in both schemes, so whatever is written
+   on it is written dark in both: ink in daylight, and the paper at night,
+   which is the same near-black. Its muted voice is that dark at 70%, and
+   clears 5.6:1 on the canvas either way. */
+.mark-plate:has(.ask) {
+	--on-canvas: var(--ink);
+	--on-canvas-muted: color-mix(in srgb, var(--on-canvas) 70%, transparent);
+	--on-canvas-ground: var(--canvas);
+}
+
+/* Two halves only once the right half is shown; without the script the
+   mark stands alone in the middle, as it always did. */
+.mark-plate:has(.ask:not([hidden])) {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+	gap: var(--s7);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.mark-plate:has(.ask) {
+		--on-canvas: var(--paper);
+	}
+}
+
+.ask-mark {
 	display: flex;
-	justify-content: center;
-	margin-top: var(--s2);
+	flex-direction: column;
+	align-items: center;
+	gap: var(--s2);
+}
+
+.mark-plate .ask-mark .eva {
+	width: min(220px, 100%);
 }
 
 .eva.is-askable {
 	cursor: pointer;
 }
 
+.ask__state {
+	color: var(--on-canvas-muted);
+}
+
+.ask {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--s2);
+}
+
 .ask[hidden] {
 	display: none;
 }
 
-/* The canvas is the same light grey in both schemes, so the button on it is
-   the dark one in both: ink on paper in daylight, and paper with its ink at
-   night, which is the same dark button the other way round. While she
-   thinks it holds its colour; the cursor alone says it will not answer. */
-.ask .btn:disabled {
-	border-color: var(--ink);
-	background: var(--ink);
-	color: var(--paper);
+.ask__term {
+	color: var(--on-canvas);
+	font-weight: 500;
+}
+
+.ask__text {
+	color: var(--on-canvas-muted);
+}
+
+/* The solid button, drawn in the canvas's own dark. While she thinks it
+   holds its colour; the word under the mark says why it will not answer. */
+.ask .ask__btn,
+.ask .ask__btn:disabled {
+	margin-top: var(--s3);
+	border-color: var(--on-canvas);
+	background: var(--on-canvas);
+	color: var(--on-canvas-ground);
+	cursor: pointer;
+}
+
+.ask .ask__btn:disabled {
 	cursor: default;
 }
 
-@media screen and (prefers-color-scheme: dark) {
-	.ask .btn,
-	.ask .btn:disabled {
-		border-color: var(--paper);
-		background: var(--paper);
-		color: var(--ink);
+@media (hover: hover) {
+	.ask .ask__btn:not(:disabled):hover {
+		border-color: var(--on-canvas-muted);
+		background: var(--on-canvas-muted);
 	}
 }
 
-@media (hover: hover) {
-	@media screen and (prefers-color-scheme: dark) {
-		.ask .btn:not(:disabled):hover {
-			border-color: var(--fill);
-			background: var(--fill);
-		}
+@media (max-width: 800px) {
+	.mark-plate:has(.ask:not([hidden])) {
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--s6);
 	}
 }
 

@@ -90,20 +90,24 @@
 				<p class="measure">The same five circles, the same orange, the same fusion, now able to move. At rest they settle into a calm pentagon. When a question comes in they gather, then regroup into a constellation drawn for that question, and settle back once the answer is there.</p>
 			</div>
 			<div class="mark-plate">
-				<svg class="eva" data-eva="ask" id="eva-ask" viewBox="0 0 100 100" role="img" aria-label="EVA's mark: at rest a slowly turning pentagon">
-					<g filter="url(#goo)">
-						<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
-						<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
-						<circle r="1" transform="translate(71 79) scale(11)" fill="#e89539" />
-						<circle r="1" transform="translate(29 79) scale(11)" fill="#e89539" />
-						<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
-					</g>
-				</svg>
+				<div class="ask-mark">
+					<svg class="eva" data-eva="ask" id="eva-ask" viewBox="0 0 100 100" role="img" aria-label="EVA's mark: at rest a slowly turning pentagon">
+						<g filter="url(#goo)">
+							<circle r="1" transform="translate(50 14) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(84 39) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(71 79) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(29 79) scale(11)" fill="#e89539" />
+							<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
+						</g>
+					</svg>
+					<span class="ask__state" aria-live="polite">At rest</span>
+				</div>
 				<!-- Hidden until eva.js can run it: without the script, or with
-				     motion turned off, there is nothing for the button to do.
-				     The button says what she is doing, so it is the status too. -->
-				<div class="ask" hidden aria-live="polite">
-					<button type="button" class="btn btn--solid" aria-controls="eva-ask">Ask EVA</button>
+				     motion turned off, there is nothing for the button to do. -->
+				<div class="ask" hidden>
+					<span class="ask__term">Ask her something</span>
+					<p class="ask__text measure">Each press sends EVA through one thought. The circles gather, pass through six to eight constellations, and settle back at rest.</p>
+					<button type="button" class="btn ask__btn" aria-controls="eva-ask">Ask EVA</button>
 				</div>
 			</div>
 			<div class="figures">
