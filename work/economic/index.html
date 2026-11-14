@@ -99,12 +99,12 @@
 						<circle r="1" transform="translate(16 39) scale(11)" fill="#e89539" />
 					</g>
 				</svg>
-			</div>
-			<!-- Hidden until eva.js can run it: without the script, or with
-			     motion turned off, there is nothing for the button to do. -->
-			<div class="ask" hidden>
-				<button type="button" class="btn btn--solid" aria-controls="eva-ask">Ask EVA</button>
-				<span class="ask__state" role="status" aria-live="polite">At rest</span>
+				<!-- Hidden until eva.js can run it: without the script, or with
+				     motion turned off, there is nothing for the button to do.
+				     The button says what she is doing, so it is the status too. -->
+				<div class="ask" hidden aria-live="polite">
+					<button type="button" class="btn btn--solid" aria-controls="eva-ask">Ask EVA</button>
+				</div>
 			</div>
 			<div class="figures">
 				<div class="figure">

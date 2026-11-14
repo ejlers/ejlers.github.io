@@ -14,9 +14,9 @@
      think  constant regrouping, a new constellation every half second or
             so, never settling.
      ask    the slow turn, and a thought only when the reader asks for one:
-            the button in the .ask row after the plate runs one thought,
-            the same gather, six to eight constellations and settle as the
-            hero's, and the word beside it says what she is doing.
+            the button in the .ask row on the plate runs one thought, the
+            same gather, six to eight constellations and settle as the
+            hero's, and reads "Thinking" until she has settled.
    Like the clips, a mark is its own control: press to hold, press again to
    let it run. A mark inside a link is not a control; the link is, and an
    asking mark is not either; its button is. Under prefers-reduced-motion
@@ -117,23 +117,24 @@
 			});
 		}
 
-		/* The row after the plate: shown only now that the script can answer
+		/* The row on the plate: shown only now that the script can answer
 		   it. Asking again while she is thinking does nothing. */
 		asking() {
-			const row = this.svg.closest('.mark-plate')?.nextElementSibling;
-			if (!row || !row.classList.contains('ask')) return;
+			const row = this.svg.parentElement.querySelector('.ask');
+			if (!row) return;
 			const button = row.querySelector('button');
-			const state = row.querySelector('.ask__state');
+			const label = button.textContent;
 			this.busy = false;
 			button.addEventListener('click', async () => {
 				if (this.busy) return;
 				this.busy = true;
 				button.disabled = true;
-				state.textContent = 'Thinking';
+				button.textContent = 'Thinking';
 				await this.think();
-				state.textContent = 'At rest';
+				button.textContent = label;
 				button.disabled = false;
 				this.busy = false;
+				button.focus();
 			});
 			row.hidden = false;
 		}

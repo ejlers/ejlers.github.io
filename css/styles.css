@@ -980,27 +980,49 @@ p:not(.crumb) a,
 	}
 }
 
-.mark-plate + .figures,
-.mark-plate + .ask + .figures {
+.mark-plate + .figures {
 	margin-top: var(--s4);
 }
 
-/* Under the plate, on the paper: the button that sets her thinking and the
-   word for what she is doing. On the paper and not on the plate, because
-   the canvas is the same grey in both schemes and the solid button is not. */
+/* On the plate, under the mark: the button that sets her thinking. It says
+   what she is doing while she does it, so it is the status as well. */
 .ask {
 	display: flex;
-	align-items: center;
-	gap: var(--s4);
-	margin-top: var(--s4);
+	justify-content: center;
+	margin-top: var(--s5);
 }
 
 .ask[hidden] {
 	display: none;
 }
 
-.ask__state {
-	color: var(--ink-muted);
+/* The canvas is the same light grey in both schemes, so the button on it is
+   the dark one in both: ink on paper in daylight, and paper with its ink at
+   night, which is the same dark button the other way round. While she
+   thinks it holds its colour; the cursor alone says it will not answer. */
+.ask .btn:disabled {
+	border-color: var(--ink);
+	background: var(--ink);
+	color: var(--paper);
+	cursor: default;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.ask .btn,
+	.ask .btn:disabled {
+		border-color: var(--paper);
+		background: var(--paper);
+		color: var(--ink);
+	}
+}
+
+@media (hover: hover) {
+	@media screen and (prefers-color-scheme: dark) {
+		.ask .btn:not(:disabled):hover {
+			border-color: var(--fill);
+			background: var(--fill);
+		}
+	}
 }
 
 /* Three figures: a mark on its own square of canvas, its term and one
