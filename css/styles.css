@@ -984,6 +984,97 @@ p:not(.crumb) a,
 	margin-top: var(--s4);
 }
 
+/* The plate that answers. The mark on the left, and on the right a term,
+   one line and the button, the way a figure carries its words. On a phone
+   the two stack.
+
+   The canvas is the same light grey in both schemes, so whatever is written
+   on it is written dark in both: ink in daylight, and the paper at night,
+   which is the same near-black. Its muted voice is that dark at 70%, and
+   clears 5.6:1 on the canvas either way. */
+.mark-plate:has(.ask) {
+	--on-canvas: var(--ink);
+	--on-canvas-muted: color-mix(in srgb, var(--on-canvas) 70%, transparent);
+	--on-canvas-ground: var(--canvas);
+}
+
+/* Two halves only once the right half is shown; without the script the
+   mark stands alone in the middle, as it always did. */
+.mark-plate:has(.ask:not([hidden])) {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+	gap: var(--s7);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	.mark-plate:has(.ask) {
+		--on-canvas: var(--paper);
+	}
+}
+
+.ask-mark {
+	display: flex;
+	justify-content: center;
+}
+
+.mark-plate .ask-mark .eva {
+	width: min(220px, 100%);
+}
+
+.eva.is-askable {
+	cursor: pointer;
+}
+
+.ask {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--s2);
+}
+
+.ask[hidden] {
+	display: none;
+}
+
+.ask__term {
+	color: var(--on-canvas);
+	font-weight: 500;
+}
+
+.ask__text {
+	color: var(--on-canvas-muted);
+}
+
+/* The solid button, drawn in the canvas's own dark. While she thinks it
+   holds its colour; the moving mark says why it will not answer. */
+.ask .ask__btn,
+.ask .ask__btn:disabled {
+	margin-top: var(--s3);
+	border-color: var(--on-canvas);
+	background: var(--on-canvas);
+	color: var(--on-canvas-ground);
+	cursor: pointer;
+}
+
+.ask .ask__btn:disabled {
+	cursor: default;
+}
+
+@media (hover: hover) {
+	.ask .ask__btn:not(:disabled):hover {
+		border-color: var(--on-canvas-muted);
+		background: var(--on-canvas-muted);
+	}
+}
+
+@media (max-width: 800px) {
+	.mark-plate:has(.ask:not([hidden])) {
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--s6);
+	}
+}
+
 /* Three figures: a mark on its own square of canvas, its term and one
    line beneath it on the paper, the same hierarchy every list uses. */
 .figures {
