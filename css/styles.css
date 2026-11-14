@@ -984,12 +984,19 @@ p:not(.crumb) a,
 	margin-top: var(--s4);
 }
 
-/* On the plate, under the mark: the button that sets her thinking. It says
-   what she is doing while she does it, so it is the status as well. */
+/* On the plate, right under the mark, so pressing it reads as handling the
+   mark itself: the button that sets her thinking. It says what she is doing
+   while she does it, so it is the status as well. The mark answers a press
+   too; the button is there for the keyboard and for anyone who would not
+   guess. */
 .ask {
 	display: flex;
 	justify-content: center;
-	margin-top: var(--s5);
+	margin-top: var(--s2);
+}
+
+.eva.is-askable {
+	cursor: pointer;
 }
 
 .ask[hidden] {

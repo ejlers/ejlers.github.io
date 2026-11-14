@@ -125,6 +125,8 @@
 			const button = row.querySelector('button');
 			const label = button.textContent;
 			this.busy = false;
+			this.svg.classList.add('is-askable');
+			this.svg.addEventListener('click', () => button.click());
 			button.addEventListener('click', async () => {
 				if (this.busy) return;
 				this.busy = true;
@@ -134,7 +136,7 @@
 				button.textContent = label;
 				button.disabled = false;
 				this.busy = false;
-				button.focus();
+				if (document.activeElement === document.body) button.focus();
 			});
 			row.hidden = false;
 		}
