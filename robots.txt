@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.carlejlers.dk/sitemap.xml
+Sitemap: https://carlejlers.dk/sitemap.xml
