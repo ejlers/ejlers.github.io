@@ -343,9 +343,10 @@ p:not(.crumb) a,
 	--on-cover-muted: color-mix(in srgb, var(--on-cover) 72%, transparent);
 	--on-cover-rule: color-mix(in srgb, var(--on-cover) 28%, transparent);
 	--cover-veil: var(--ink);
+	--cover-ground: var(--ink);
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
-	gap: var(--s7) var(--gutter);
+	gap: var(--s8) var(--gutter);
 	align-items: end;
 	padding-top: var(--s5);
 }
@@ -356,6 +357,7 @@ p:not(.crumb) a,
 	.plates {
 		--on-cover: var(--ink);
 		--cover-veil: var(--paper);
+		--cover-ground: var(--fill);
 	}
 }
 
@@ -409,7 +411,7 @@ p:not(.crumb) a,
 	display: flex;
 	align-items: baseline;
 	gap: var(--s3);
-	padding-top: var(--s3);
+	padding-top: var(--s4);
 }
 
 .case__id {
@@ -450,11 +452,12 @@ p:not(.crumb) a,
 /* On a desk, the pairs take their shapes and a full plate takes its words
    onto the picture: a hairline, the name over its disciplines in the first
    column, the one line beside them at the display size, the arrow at the
-   end. The veil under them is light and multiplied into the picture, so a
-   photograph's floor deepens in its own colour. */
+   end. Under them the picture runs out into a solid dark floor, so the
+   words never share their ground with whatever the picture holds there:
+   an interface is full of words of its own. */
 @media (min-width: 1101px) {
 	.case--full .case__cover {
-		aspect-ratio: 2 / 1;
+		aspect-ratio: 16 / 9;
 	}
 
 	.case--minor .case__cover {
@@ -466,21 +469,20 @@ p:not(.crumb) a,
 		position: absolute;
 		inset: 0;
 		background: linear-gradient(to bottom,
-			transparent calc(100% - 360px),
-			color-mix(in srgb, var(--cover-veil) 70%, transparent));
-		mix-blend-mode: multiply;
+			transparent calc(100% - 460px),
+			var(--cover-veil) calc(100% - 180px));
 	}
 
 	.case--full .case__caption {
 		position: absolute;
-		left: var(--s4);
-		right: var(--s4);
-		bottom: var(--s4);
+		left: var(--s6);
+		right: var(--s6);
+		bottom: var(--s6);
 		display: grid;
 		grid-template-columns: var(--term-col) minmax(0, 1fr) auto;
 		align-items: start;
 		gap: 0 var(--gutter);
-		padding-top: var(--s3);
+		padding-top: var(--s4);
 		border-top: var(--rule-w) solid var(--on-cover-rule);
 		color: var(--on-cover);
 	}
@@ -518,9 +520,9 @@ p:not(.crumb) a,
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1100px) {
 	.plates {
-		gap: var(--s5) var(--gutter);
+		gap: var(--s7) var(--gutter);
 	}
 }
 
@@ -1220,9 +1222,13 @@ p:not(.crumb) a,
 }
 
 /* On the wall, the case's cover is the mark itself, with air around it. */
+/* Her ground is the darkest grey each scheme has for a surface: the ink in
+   daylight, the fill at night, so the plate is a plate either way and the
+   orange is the only colour on it. */
 .cover--eva {
 	display: grid;
 	place-items: center;
+	background: var(--cover-ground);
 }
 
 .cover--eva .eva {
