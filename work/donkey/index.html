@@ -34,7 +34,7 @@
 
 	<link rel="preload" href="../../fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../../fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="../../css/styles.css?v=82d87be8">
+	<link rel="stylesheet" href="../../css/styles.css?v=9e8b0409">
 
 	<!-- The next page is built when a link is hovered or pressed, so the
 	     crossing is instant and the develop starts the moment it is seen. -->
@@ -42,6 +42,15 @@
 	{
 		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
 	}
+	</script>
+	<!-- The header's picture travels in from its plate on the work wall. If it
+	     has not arrived when the page is first shown, there is nothing to
+	     carry: the trip is called off and the header develops like any other. -->
+	<script>
+	addEventListener('pagereveal', function (event) {
+		var picture = document.querySelector('.hero__cover img');
+		if (event.viewTransition && !(picture && picture.complete)) event.viewTransition.skipTransition();
+	});
 	</script>
 </head>
 
@@ -66,14 +75,16 @@
 	</div>
 
 	<main id="case">
-	<div class="band">
-		<div class="col-8 stack">
-			<img class="article-mark" width="40" height="40" src="../../img/logos/donkey.png" alt="">
-			<h1 class="display article-head">Donkey Republic.</h1>
-			<p class="article-byline">Bike Rental Platform.</p>
-			<p class="muted measure">At Donkey Republic I was part of the team creating a global bike-rental platform. As Head of Design I worked closely with management and developers to research, plan, design, and build the core product while introducing new features for its 200,000+ users.</p>
-			<p class="article-kicker">Head of Design, March 2017 to September 2018.</p>
+	<header class="hero hero--donkey">
+		<span class="hero__cover"><picture><source media="(max-width: 1100px)" srcset="../../img/work/donkey/cover-set-small.jpg" width="1600" height="1200"><img fetchpriority="high" decoding="sync" src="../../img/work/donkey/header-2400.jpg" srcset="../../img/work/donkey/header-1600.jpg 1600w, ../../img/work/donkey/header-2400.jpg 2400w, ../../img/work/donkey/header.jpg 3200w" sizes="100vw" alt="" width="3200" height="1600"></picture></span>
+		<div class="hero__caption">
+			<h1 class="hero__name">Donkey Republic</h1>
+			<span class="hero__what">Bike Rental Platform</span>
 		</div>
+	</header>
+	<div class="band">
+		<p class="col-4 muted">Head of Design<br>March 2017 to September 2018</p>
+		<p class="col-8 measure">At Donkey Republic I was part of the team creating a global bike-rental platform. As Head of Design I worked closely with management and developers to research, plan, design, and build the core product while introducing new features for its 200,000+ users.</p>
 	</div>
 	<section class="band">
 		<h2 class="col-4 stick label">The film</h2>
@@ -121,7 +132,7 @@
 		</nav>
 	</main>
 
-	<script src="../../js/site.js?v=8a5e048b"></script>
+	<script src="../../js/site.js?v=13643c85"></script>
 
 </body>
 

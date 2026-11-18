@@ -25,3 +25,15 @@ for slug in ['economic','trackman','donkey','tv2','ok','theorg']:
          r'<img %s decoding="async" src="../%s" alt="" width="%d" height="%d"></picture></span>\2')%(sp,small.width,small.height,'fetchpriority="high"' if slug=='economic' else 'loading="lazy"',big,im.width,im.height)
     s,n=pat.subn(new,s); assert n==1,(slug,n); print(slug, im.size, q1, '| small', small.size, q2)
 open(p,'w').write(s)
+
+# The header shots: each case page opens on the wide shot of its scene, in three widths for three sizes
+# of window. The pages name these files themselves; nothing in the HTML is rewritten here.
+HEADER={'economic':'economic','trackman':'trackman','donkey':'donkey','theorg':'theorg','tv2':'tv2s','ok':'oks'}
+for slug,scene in HEADER.items():
+    f=next((O+f'{scene}-mix-{qq}-header.jpg' for qq in (q,'mid','test') if os.path.exists(O+f'{scene}-mix-{qq}-header.jpg')), None)
+    if not f: print(slug,'header: no shot in out/, left as it is'); continue
+    im=Image.open(f).convert('RGB')
+    for w,name in ((3200,'header.jpg'),(2400,'header-2400.jpg'),(1600,'header-1600.jpg')):
+        v=im if im.width==w else im.resize((w,w//2),Image.LANCZOS)
+        v.save(R+f'img/work/{slug}/{name}',quality=84,optimize=True,progressive=True)
+    print(slug,'header from',os.path.basename(f))

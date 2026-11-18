@@ -108,7 +108,11 @@ RES['economic']=(2400,1350)
 # and light, the camera further back.
 
 def tv2s():
-    gf,gw=base_set(side=1, key=(1.5,-0.5,0.75), key_size=0.35, key_power=34)
+    # The lamp stands low and near. In the wider header frame the table reaches closer to it and burns out,
+    # so there it stands further off along the same line, larger and stronger by the same measure: the
+    # light on the phone is the same, and it falls evenly across the rest.
+    far=1.7 if os.environ.get('HEADER') else 1.0
+    gf,gw=base_set(side=1, key=(1.5*far,-0.5*far,0.75*far), key_size=0.35*far, key_power=34*far*far)
     box('floor', (3.0,3.0,0.03), (0,0,0.015), gf['fill'], bevel=0.0015)
     box('panel', (0.035,1.6,0.9), (0.36,0.62,0.48), gw['hover'], bevel=0.0015, rot=(0,0,math.radians(28)))
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
@@ -124,6 +128,18 @@ def oks():
 RES['oks']=(1600,1200)
 
 globals()[which]()
+
+# --- The header shot ------------------------------------------------------------------------------
+# A case page opens on its cover, edge to edge of the window, and windows come in every shape. So the
+# header is the same scene in a 2:1 frame, pulled back: the device keeps clear of every edge, the extra
+# is plain wall and floor, and a wide or a flat window can crop into it without touching the work.
+# HEADER=1 turns it on; PULL is how far back (1 = the device as large as on the wall, per frame height).
+PULL={'economic':0.80,'trackman':0.82,'donkey':0.80,'theorg':0.80,'tv2s':0.80,'oks':0.80}
+HEADER=bool(os.environ.get('HEADER'))
+if HEADER:
+    c=bpy.context.scene.camera.data; w,h=RES[which]; k=float(os.environ.get('PULL') or PULL.get(which,0.8))*(w/h)/2.0
+    c.lens*=k; c.shift_x*=k; c.shift_y*=k            # the lens and the frame's slide are both counted in frame widths
+    RES[which]=(3200,1600)
 
 # --- Focus: measure it, and optionally set it from the display itself --------------------------
 def _display():
@@ -148,7 +164,7 @@ if os.environ.get('FOCUS')=='display' or (which in APERTURE and os.environ.get('
     bpy.context.scene.camera.data.dof.focus_distance=2*n*fr/(n+fr)      # the plane that blurs the near and far edge equally
     if which in APERTURE: bpy.context.scene.camera.data.dof.aperture_fstop=APERTURE[which]
 if os.environ.get('FSTOP'): bpy.context.scene.camera.data.dof.aperture_fstop=float(os.environ['FSTOP'])
-suffix=os.environ.get('SUFFIX','')
+suffix=os.environ.get('SUFFIX','')+('-header' if HEADER else '')
 if quality=='focus':
     focus_report(' '+(os.environ.get('FOCUS','as-is')+' f/'+os.environ.get('FSTOP','-'))+' ')
     sys.exit(0)

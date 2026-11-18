@@ -26,6 +26,25 @@
 	});
 })();
 
+/* A case's header picture is fetched the moment a plate is pointed at or
+   focused, so it is in hand by the time the plate is pressed and can make
+   the trip to its header (see Crossing pages in the stylesheet). Only on a
+   desk: below the columns the header uses the cut the plate already shows. */
+(() => {
+	const desk = window.matchMedia('(min-width: 1101px)');
+	document.querySelectorAll('.plates .case').forEach((plate) => {
+		const fetchHeader = () => {
+			if (!desk.matches || plate.header) return;
+			const at = new URL(plate.href).pathname.replace('/work/', '/img/work/');
+			plate.header = new Image();
+			plate.header.sizes = '100vw';
+			plate.header.srcset = at + 'header-1600.jpg 1600w, ' + at + 'header-2400.jpg 2400w, ' + at + 'header.jpg 3200w';
+		};
+		plate.addEventListener('pointerenter', fetchHeader);
+		plate.addEventListener('focus', fetchHeader);
+	});
+})();
+
 /* The page develops each time it is opened. The body gets .develop and
    the arrival plays: ink settles, rules draw, marks come up — all of it
    CSS, all of it behind prefers-reduced-motion. Pieces below the window
@@ -42,17 +61,51 @@
 
 	let sights = [];
 
+	/* A case's picture travels between its plate on the work wall and the
+	   header of its case (see Crossing pages in the stylesheet). A picture
+	   that travels is already in hand at both ends, so neither end develops
+	   it. Each page leaves a note of where the reader set out from and when;
+	   the next page reads it once, and only a fresh one counts. */
+	const HERE = location.pathname.replace(/index\.html$/, '');
+	window.addEventListener('pagehide', () => {
+		try { sessionStorage.setItem('crossing', HERE + ' ' + Date.now()); } catch (err) { /* no note, no harm */ }
+	});
+	const cameFrom = () => {
+		try {
+			const [path, at] = (sessionStorage.getItem('crossing') || '').split(' ');
+			sessionStorage.removeItem('crossing');
+			return path && Date.now() - Number(at) < 4000 ? path : '';
+		} catch (err) {
+			return '';
+		}
+	};
+	const caseOf = (path) => (path.match(/\/work\/([a-z0-9]+)\/$/) || [])[1] || '';
+
 	const develop = () => {
 		sights.forEach((sight) => sight.disconnect());
 		sights = [];
 
+		/* which end of a travelling picture this page is, if either: the plate
+		   on the wall the reader has come back to, or the header of the case
+		   whose plate was just opened */
+		const from = cameFrom();
+		const landed = caseOf(from) && /\/work\/$/.test(HERE) ? document.querySelector('.case--' + caseOf(from))
+			: /\/work\/$/.test(from) && caseOf(HERE) ? document.querySelector('.hero')
+			: null;
+		/* a header whose picture has not arrived made no trip (the page called
+		   it off), so it develops like any other */
+		const inHand = landed && (landed.matches('.case') || (landed.querySelector('img') || {}).complete);
+		if (inHand) landed.classList.add('landed', 'arrived');
+
 		document.body.classList.add('develop');
 
 		const waiting = document.querySelectorAll('.band + .band, .entry, .cycle, .ledger__row');
-		const plates = document.querySelectorAll('.case');
+		const plates = document.querySelectorAll('.case:not(.landed)');
+		const hero = document.querySelector('.hero:not(.landed)');
 		if (!('IntersectionObserver' in window)) {
 			waiting.forEach((el) => el.classList.add('arrived'));
 			plates.forEach((el) => el.classList.add('arrived'));
+			if (hero) hero.classList.add('arrived');
 			return;
 		}
 		/* First sight is the moment a piece enters the window, not a step
@@ -89,7 +142,7 @@
 		const PATIENCE = 3000;
 		const pause = (ms) => new Promise((done) => setTimeout(done, ms));
 		const ready = (el) => {
-			const img = el.querySelector('.case__cover img');
+			const img = el.querySelector('.case__cover img, .hero__cover img');
 			if (!img) return Promise.resolve();
 			img.loading = 'eager';
 			const loaded = img.complete ? Promise.resolve() : new Promise((done) => {
@@ -115,6 +168,9 @@
 		   develop at once; the rest are watched, from further out. */
 		const touch = window.matchMedia('(pointer: coarse)').matches;
 		const reach = touch ? Math.max(window.innerHeight, window.screen.height) : 0;
+		/* a case's header is the top of its page: always in view, always first */
+		if (hero) hang([hero]);
+
 		const first = [];
 		const later = [];
 		plates.forEach((el) => {
@@ -140,7 +196,7 @@
 		if (!event.persisted) return;
 		document.body.classList.remove('develop');
 		document.querySelectorAll('.arrived').forEach((el) => {
-			el.classList.remove('arrived');
+			el.classList.remove('arrived', 'landed');
 			el.style.removeProperty('--arrive');
 		});
 		void document.body.offsetWidth; /* the cleared state has to land before the arrival starts over */
