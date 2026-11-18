@@ -358,10 +358,9 @@ p:not(.crumb) a,
 	grid-column: span 4;
 }
 
-/* Covers on the canvas ground. A cover that holds an object rather than
-   a surface keeps air, contained instead of cropped; a cover that is a
-   surface fills its frame, and the position steps aim a crop that would
-   otherwise cut its subject. */
+/* Covers. Each is a picture made for its frame, in a desk cut and a
+   small-screen cut, so nothing here has to aim a crop; the canvas shows
+   only until the picture has loaded. */
 .case__cover {
 	display: block;
 	aspect-ratio: 3 / 2;
@@ -380,26 +379,6 @@ p:not(.crumb) a,
 	height: 100%;
 	object-fit: cover;
 	display: block;
-}
-
-.case__cover.cover--inset {
-	padding: var(--s5);
-}
-
-.cover--inset img {
-	object-fit: contain;
-}
-
-.cover--top img {
-	object-position: top;
-}
-
-.cover--low img {
-	object-position: 50% 72%;
-}
-
-.cover--right img {
-	object-position: 88% 50%;
 }
 
 /* The caption: the name, its disciplines on the line under it in the muted
@@ -1204,18 +1183,6 @@ p:not(.crumb) a,
 
 .figure__text {
 	color: var(--ink-muted);
-}
-
-/* On the wall, the case's cover is the mark itself, with air around it. */
-.cover--eva {
-	display: grid;
-	place-items: center;
-}
-
-.cover--eva .eva {
-	width: min(40%, 300px);
-	height: auto;
-	aspect-ratio: 1;
 }
 
 @media (max-width: 600px) {

@@ -13,11 +13,6 @@
      rest   the slow turn and nothing else.
      think  constant regrouping, a new constellation every half second or
             so, never settling.
-     point  the slow turn, and thinking for as long as a pointer rests on
-            the link the mark stands in (or the keyboard's focus does): the
-            circles gather, regroup constellation after constellation, and
-            settle home when the pointer leaves. A touch screen has no
-            pointer to rest, so there she thinks unasked, like the hero.
      ask    the slow turn, and a thought only when the reader asks for one:
             the button in the .ask row on the plate runs one thought, the
             same gather, six to eight constellations and settle as the
@@ -207,31 +202,10 @@
 					this.go(this.pick(), d);
 					await this.wait(d + 30);
 				}
-			} else if (this.kind === 'hero' || (this.kind === 'point' && !window.matchMedia('(hover: hover)').matches)) {
+			} else if (this.kind === 'hero') {
 				while (this.alive) {
 					await this.wait(rand(2500, 4000));
 					await this.think();
-				}
-			} else if (this.kind === 'point') {
-				const host = this.svg.closest('a') || this.svg;
-				let pointed = false;
-				host.addEventListener('pointerenter', () => { pointed = true; });
-				host.addEventListener('pointerleave', () => { pointed = false; });
-				host.addEventListener('focus', () => { pointed = true; });
-				host.addEventListener('blur', () => { pointed = false; });
-				while (this.alive) {
-					if (!pointed) { await this.wait(80); continue; }
-					this.spin = false;
-					this.go(GATHER, 420);
-					await this.wait(470);
-					while (this.alive && pointed) {
-						const d = rand(450, 750);
-						this.go(this.pick(), d);
-						await this.wait(d + 30);
-					}
-					this.go(HOME, 950);
-					await this.wait(980);
-					this.spin = true;
 				}
 			}
 		}
