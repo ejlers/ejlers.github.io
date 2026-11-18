@@ -333,7 +333,10 @@ p:not(.crumb) a,
 
    A plate's words are its name and its disciplines, and they stand under
    the cover: a row, the way the site has always captioned a picture.
-   Nothing is written on a cover. The whole plate is one link. */
+   The two full plates are the exception, on a desk only: their covers
+   keep a clear strip of floor along the bottom, and the words stand on
+   it, with one line about the work at the display size. The whole plate
+   is one link. */
 .plates {
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -418,6 +421,10 @@ p:not(.crumb) a,
 	color: var(--ink-muted);
 }
 
+.case__desc {
+	display: none;
+}
+
 .case__arrow {
 	flex: none;
 	width: 20px;
@@ -434,7 +441,12 @@ p:not(.crumb) a,
 	}
 }
 
-/* On a desk the plates take their shapes. */
+/* On a desk the plates take their shapes, and a full plate takes its words
+   onto the picture: a hairline, the name over its disciplines in the first
+   column, the one line beside them at the display size, the arrow at the
+   end. The covers are light in both schemes, so the words on them are dark
+   in both: the ink in daylight, the paper at night, the same near-black.
+   Nothing is laid over the picture to carry them; the floor is left clear. */
 @media (min-width: 1101px) {
 	.case--full .case__cover {
 		aspect-ratio: 16 / 9;
@@ -442,6 +454,55 @@ p:not(.crumb) a,
 
 	.case--minor .case__cover {
 		aspect-ratio: 4 / 5;
+	}
+
+	.case--full {
+		--on-cover: var(--ink);
+		--on-cover-muted: color-mix(in srgb, var(--on-cover) 68%, transparent);
+		--on-cover-rule: color-mix(in srgb, var(--on-cover) 22%, transparent);
+		position: relative;
+	}
+
+	.case--full .case__caption {
+		position: absolute;
+		left: var(--s6);
+		right: var(--s6);
+		bottom: var(--s6);
+		display: grid;
+		grid-template-columns: var(--term-col) minmax(0, 1fr) auto;
+		align-items: start;
+		gap: 0 var(--gutter);
+		padding-top: var(--s4);
+		border-top: var(--rule-w) solid var(--on-cover-rule);
+		color: var(--on-cover);
+	}
+
+	.case--full .case__id {
+		flex-direction: column;
+	}
+
+	.case--full .case__tags {
+		color: var(--on-cover-muted);
+	}
+
+	.case--full .case__desc {
+		display: block;
+		max-width: 22em;
+		font-size: 34px;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+	}
+
+	.case--full .case__arrow {
+		align-self: end;
+		color: var(--on-cover-muted);
+	}
+}
+
+@media screen and (min-width: 1101px) and (prefers-color-scheme: dark) {
+	.case--full {
+		--on-cover: var(--paper);
 	}
 }
 
