@@ -321,83 +321,71 @@ p:not(.crumb) a,
 
 /* --- Work wall ------------------------------------------------------- */
 
-/* The work page is a wall of plates: one per case, two to a row, each a
-   hairline-topped row with a cover hanging under it. The row is the list
-   row the site already reads in, and the arrow means departure — opening
-   a case is leaving for its page, so the whole plate is one link. */
+/* The work page is a wall of plates, one per case, and the wall has a
+   rhythm instead of a grid of equals: a plate the full width of the page,
+   then a pair that splits it two thirds to one third, then a full plate,
+   then a pair the other way round. The spans are the system's own (12, 8
+   and 4), so the wall is as strict as any band; what moves is which plate
+   gets which.
+
+   A pair shares a floor. The wide plate lies down (3:2) and the narrow one
+   stands up (4:5), so their tops step and their captions sit on one line.
+
+   Each plate is a picture with its words written on it: the case's name,
+   its disciplines, one line on what the work was, and the arrow that means
+   departure. The whole plate is one link. */
 .plates {
+	--on-cover: var(--paper);
+	--on-cover-muted: color-mix(in srgb, var(--on-cover) 72%, transparent);
+	--cover-veil: var(--ink);
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 0 var(--gutter);
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: var(--s7) var(--gutter);
+	align-items: end;
 	padding-top: var(--s5);
 }
 
-@media (max-width: 900px) {
+/* A cover's words are light in both schemes, because the veil they stand
+   on is dark in both: the ink in daylight, the paper at night, the same
+   near-black either way. */
+@media screen and (prefers-color-scheme: dark) {
 	.plates {
-		grid-template-columns: minmax(0, 1fr);
+		--on-cover: var(--ink);
+		--cover-veil: var(--paper);
 	}
 }
 
 .case {
-	display: flex;
-	flex-direction: column;
-	padding: 0 0 var(--s6);
-	border-top: var(--rule-w) solid var(--rule);
-	color: var(--ink);
+	position: relative;
+	display: block;
+	grid-column: span 12;
+	color: var(--on-cover);
 }
 
-/* The line carries the row's own padding, so the pointer's ground has a
-   row to paint and stops there: the plate keeps its gap to the cover. */
-.case__line {
-	display: flex;
-	align-items: center;
-	gap: var(--s3);
-	padding: var(--s3) 0;
-	transition: background-color var(--t-confirm) ease;
+.case--major {
+	grid-column: span 8;
 }
 
-.case__mark {
-	flex: none;
-	width: 35px;
-	height: 35px;
+.case--minor {
+	grid-column: span 4;
 }
 
-.case__name {
-	font-weight: 500;
-}
-
-.case__desc {
-	color: var(--ink-muted);
-}
-
-.case__arrow {
-	flex: none;
-	width: 20px;
-	height: 20px;
-	margin-left: auto;
-	overflow: visible;
-	color: var(--grey);
-}
-
-@media (hover: hover) {
-	.case:hover .case__line {
-		background: var(--hover);
-	}
-
-	.case:hover .arrow__shaft {
-		stroke-dashoffset: 0;
-	}
-}
-
-/* Covers on the canvas ground, one shared ratio. A cover that holds an
-   object rather than a surface keeps air, contained instead of cropped;
-   a cover that is a surface fills the frame, and the two object-position
-   steps aim a crop that would otherwise cut its subject. */
+/* Covers on the canvas ground. A cover that is a surface fills its frame;
+   the position steps aim a crop that would otherwise cut its subject. */
 .case__cover {
+	position: relative;
 	display: block;
 	aspect-ratio: 3 / 2;
 	background: var(--canvas);
 	overflow: hidden;
+}
+
+.case--full .case__cover {
+	aspect-ratio: 2 / 1;
+}
+
+.case--minor .case__cover {
+	aspect-ratio: 4 / 5;
 }
 
 .case__cover img {
@@ -407,24 +395,133 @@ p:not(.crumb) a,
 	display: block;
 }
 
-.case__cover.cover--inset {
-	padding: var(--s5);
-}
-
-.cover--inset img {
-	object-fit: contain;
-}
-
 .cover--top img {
 	object-position: top;
 }
 
-.cover--low img {
-	object-position: 50% 72%;
+.cover--right img {
+	object-position: 88% 50%;
 }
 
-/* A phone holds the mark and the name; the byline waits for the article. */
-@media (max-width: 900px) {
+/* The veil the words stand on: nothing over the upper picture, close to
+   solid under the caption, measured from the floor in the caption's own
+   height. Multiplied into the picture, so it deepens the cover's colours
+   where a grey laid over them would dull them. */
+.case__cover::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom,
+		transparent calc(100% - 320px),
+		color-mix(in srgb, var(--cover-veil) 78%, transparent) calc(100% - 120px),
+		color-mix(in srgb, var(--cover-veil) 90%, transparent));
+	mix-blend-mode: multiply;
+}
+
+/* The caption: who and which disciplines in the first column, the one line
+   beside them, the arrow at the row's end. On a narrow plate they stack. */
+.case__caption {
+	position: absolute;
+	left: var(--s4);
+	right: var(--s4);
+	bottom: var(--s4);
+	display: grid;
+	grid-template-columns: var(--term-col) minmax(0, 1fr) auto;
+	align-items: end;
+	gap: var(--s1) var(--gutter);
+}
+
+.case__id {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.case__name {
+	font-weight: 500;
+}
+
+.case__tags,
+.case__desc {
+	color: var(--on-cover-muted);
+}
+
+.case__desc {
+	max-width: var(--measure);
+	text-wrap: balance;
+}
+
+.case__arrow {
+	width: 20px;
+	height: 20px;
+	overflow: visible;
+	color: var(--on-cover-muted);
+}
+
+.case--minor .case__caption {
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.case--minor .case__id,
+.case--minor .case__desc {
+	grid-column: 1;
+}
+
+.case--minor .case__arrow {
+	grid-column: 2;
+	grid-row: 1 / span 2;
+}
+
+@media (hover: hover) {
+	.case:hover .arrow__shaft {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* Below the columns the wall is one plate after another, each at the full
+   width, and the caption stacks everywhere. A phone keeps the name and the
+   disciplines; the line waits for the article. */
+@media (max-width: 1100px) {
+	.case,
+	.case--major,
+	.case--minor {
+		grid-column: span 12;
+	}
+
+	.case--full .case__cover,
+	.case--minor .case__cover {
+		aspect-ratio: 3 / 2;
+	}
+
+	/* A small plate has no 320px to spare, so its veil is measured in
+	   shares of the plate. */
+	.case__cover::after {
+		background: linear-gradient(to bottom,
+			transparent 35%,
+			color-mix(in srgb, var(--cover-veil) 78%, transparent) 78%,
+			color-mix(in srgb, var(--cover-veil) 90%, transparent));
+	}
+
+	.case__caption {
+		grid-template-columns: minmax(0, 1fr) auto;
+	}
+
+	.case__id,
+	.case__desc {
+		grid-column: 1;
+	}
+
+	.case__arrow {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+	}
+}
+
+@media (max-width: 600px) {
+	.plates {
+		gap: var(--s5) var(--gutter);
+	}
+
 	.case__desc {
 		display: none;
 	}
@@ -826,6 +923,14 @@ p:not(.crumb) a,
 	}
 }
 
+/* --- Ending --------------------------------------------------------- */
+
+/* Every page ends the way the front page does: on the two rows that reach
+   him. The index component, one full step under whatever came last. */
+.ending {
+	margin-top: var(--s8);
+}
+
 /* --- Media ---------------------------------------------------------- */
 
 /* Images in a set sit flush; a new set is separated by one step. */
@@ -1124,9 +1229,10 @@ p:not(.crumb) a,
 }
 
 .cover--eva .eva {
-	width: 44%;
+	width: min(40%, 340px);
 	height: auto;
 	aspect-ratio: 1;
+	margin-bottom: var(--s7);
 }
 
 @media (max-width: 600px) {
@@ -1337,36 +1443,12 @@ p:not(.crumb) a,
 	.develop .entry__mark { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 300ms); }
 	.develop .entry.arrived .entry__mark { filter: none; }
 
-	/* A case plate develops the way the rows do: its rule draws, its name
-	   comes up with its ink settling, and the cover, the byline, the mark
-	   and the arrow turn up after it. */
-	.develop .case { border-top-color: transparent; position: relative; }
-	.develop .case::before {
-		content: "";
-		position: absolute;
-		top: calc(-1 * var(--rule-w));
-		left: 0;
-		right: 0;
-		height: var(--rule-w);
-		background: var(--rule);
-		transform-origin: left;
-		transform: scaleX(0);
-	}
-	.develop .case.arrived::before { animation: draw var(--t-develop) ease-out var(--arrive, 0ms) forwards; }
-	.develop .case .case__name { opacity: 0; }
-	.develop .case.arrived .case__name {
-		animation:
-			turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) forwards,
-			settle var(--t-develop) ease calc(var(--arrive, 0ms) + 120ms) both;
-	}
+	/* A case plate develops at first sight: the cover turns up, and its
+	   caption a beat after it. */
 	.develop .case > .case__cover,
-	.develop .case .case__desc,
-	.develop .case .case__arrow,
-	.develop .case .case__mark { opacity: 0; }
-	.develop .case.arrived > .case__cover,
-	.develop .case.arrived .case__desc,
-	.develop .case.arrived .case__arrow,
-	.develop .case.arrived .case__mark { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
+	.develop .case .case__caption { opacity: 0; }
+	.develop .case.arrived > .case__cover { animation: turn-up var(--t-develop) ease var(--arrive, 0ms) forwards; }
+	.develop .case.arrived .case__caption { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
 
 	/* A case's More work list develops the way the front page's index
 	   does, at first sight rather than at the page's own arrival far
