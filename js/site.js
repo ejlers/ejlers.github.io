@@ -53,6 +53,9 @@
    page again does: by a link, a reload, or the back button, including
    when the browser hands back the page it kept instead of loading it.
 
+   One return is not an opening: the work wall, come back to from a case.
+   The reader has just seen it, so it stands complete.
+
    A prerendered page waits: the speculation rules let the browser build
    the next page before it is asked for, and a develop that played in
    that hidden window would be spent on nobody. First sight means seen. */
@@ -100,6 +103,12 @@
 		   picture has not arrived made no trip (the page called it off), and
 		   develops like any other. */
 		const from = cameFrom();
+
+		/* Coming back from a case, the wall is not arriving: the reader left it
+		   a moment ago and has seen it. It is simply there, as they left it,
+		   behind the page's own short crossing. */
+		if (caseOf(from) && /\/work\/$/.test(HERE)) return;
+
 		const landed = /\/work\/$/.test(from) && caseOf(HERE) ? document.querySelector('.hero') : null;
 		if (landed && (landed.querySelector('img') || {}).complete) landed.classList.add('landed', 'arrived');
 
