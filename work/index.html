@@ -36,7 +36,7 @@
 
 	<link rel="preload" href="../fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="../css/styles.css?v=9ecc1d7a">
+	<link rel="stylesheet" href="../css/styles.css?v=bc46baea">
 
 	<!-- The next page is built when a link is hovered or pressed, so the
 	     crossing is instant and the develop starts the moment it is seen. -->
@@ -45,32 +45,35 @@
 		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
 	}
 	</script>
-	<!-- Coming back from a case by the trail's "Work" is the same trip as the
-	     back button: the case's picture travels home to its plate. The back
-	     button returns the wall to where it was; a link opens it at the top,
-	     where the plate may not be. So before the page is first shown, the
-	     wall is put back where the reader left it, or else at the plate.
-	     Whichever comes first does it, the page's first showing or site.js,
-	     and the other finds it done. -->
+	<!-- A case's picture travels one way: from its plate here into the case's
+	     header. Coming back is a plain crossing, because a trip home depends
+	     on the wall standing exactly where the plate is at exactly the moment
+	     the page is shown, and a wall still finding its place makes the
+	     picture jump. So when this page is the one arriving, its plates give
+	     up the names that would pair them with a header (.arriving, see
+	     Crossing pages in the stylesheet), and take them back once the
+	     crossing is over, for the next plate that is pressed.
+
+	     The back button returns the wall to where it was; the trail's "Work"
+	     is a link, and a link opens a page at the top. So after a case the
+	     wall is put back where the reader left it. Whichever comes first does
+	     it, the page's first showing or site.js, and the other finds it done. -->
 	<script>
 	function putWallBack() {
 		try {
 			var note = (sessionStorage.getItem('crossing') || '').split(' ');
-			var slug = (note[0].match(/\/work\/([a-z0-9]+)\/$/) || [])[1];
-			if (!slug || Date.now() - Number(note[1]) > 4000) return;
-			var plate = document.querySelector('.case--' + slug);
-			if (!plate) return;
-			var shows = function () {
-				var box = plate.getBoundingClientRect();
-				return box.top < innerHeight * 0.75 && box.bottom > innerHeight * 0.25;
-			};
-			if (shows()) return;
+			if (!/\/work\/[a-z0-9]+\/$/.test(note[0]) || Date.now() - Number(note[1]) > 4000) return;
 			var was = sessionStorage.getItem('wall-at');
-			if (was !== null) scrollTo({ top: Number(was), behavior: 'instant' });
-			if (!shows()) plate.scrollIntoView({ block: 'center', behavior: 'instant' });
+			if (was !== null && Math.abs(scrollY - Number(was)) > 1) scrollTo({ top: Number(was), behavior: 'instant' });
 		} catch (err) { /* no note, no harm: the wall opens at the top */ }
 	}
-	addEventListener('pagereveal', putWallBack);
+	addEventListener('pagereveal', function (event) {
+		putWallBack();
+		if (!event.viewTransition) return;
+		var root = document.documentElement;
+		root.classList.add('arriving');
+		event.viewTransition.finished.finally(function () { root.classList.remove('arriving'); });
+	});
 	</script>
 </head>
 
@@ -186,7 +189,7 @@
 		</nav>
 	</main>
 
-	<script src="../js/site.js?v=c53317ea"></script>
+	<script src="../js/site.js?v=64c91993"></script>
 
 </body>
 

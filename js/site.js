@@ -61,9 +61,9 @@
 
 	let sights = [];
 
-	/* A case's picture travels between its plate on the work wall and the
+	/* A case's picture travels from its plate on the work wall into the
 	   header of its case (see Crossing pages in the stylesheet). A picture
-	   that travels is already in hand at both ends, so neither end develops
+	   that has travelled is already in hand, so its header does not develop
 	   it. Each page leaves a note of where the reader set out from and when;
 	   the next page reads it once, and only a fresh one counts. */
 	const HERE = location.pathname.replace(/index\.html$/, '');
@@ -90,20 +90,18 @@
 		sights.forEach((sight) => sight.disconnect());
 		sights = [];
 
-		/* which end of a travelling picture this page is, if either: the plate
-		   on the wall the reader has come back to, or the header of the case
-		   whose plate was just opened */
-		/* the work wall, returned to by the trail, is first put back where the
+		/* the work wall, returned to after a case, is first put back where the
 		   reader left it (work/index.html), while the note still says where from */
 		if (typeof window.putWallBack === 'function') window.putWallBack();
+
+		/* A picture travels one way, from its plate into the case's header, so
+		   the only page that receives one is a case opened from the wall. Its
+		   header is then already in hand and does not develop. A header whose
+		   picture has not arrived made no trip (the page called it off), and
+		   develops like any other. */
 		const from = cameFrom();
-		const landed = caseOf(from) && /\/work\/$/.test(HERE) ? document.querySelector('.case--' + caseOf(from))
-			: /\/work\/$/.test(from) && caseOf(HERE) ? document.querySelector('.hero')
-			: null;
-		/* a header whose picture has not arrived made no trip (the page called
-		   it off), so it develops like any other */
-		const inHand = landed && (landed.matches('.case') || (landed.querySelector('img') || {}).complete);
-		if (inHand) landed.classList.add('landed', 'arrived');
+		const landed = /\/work\/$/.test(from) && caseOf(HERE) ? document.querySelector('.hero') : null;
+		if (landed && (landed.querySelector('img') || {}).complete) landed.classList.add('landed', 'arrived');
 
 		document.body.classList.add('develop');
 
