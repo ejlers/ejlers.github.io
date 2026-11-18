@@ -36,4 +36,5 @@ for slug,scene in HEADER.items():
     for w,name in ((3200,'header.jpg'),(2400,'header-2400.jpg'),(1600,'header-1600.jpg')):
         v=im if im.width==w else im.resize((w,w//2),Image.LANCZOS)
         v.save(R+f'img/work/{slug}/{name}',quality=84,optimize=True,progressive=True)
+        v.save(R+f'img/work/{slug}/{name[:-4]}.webp',quality=84,method=6)      # a third of the weight; the JPEG stays for browsers without it
     print(slug,'header from',os.path.basename(f))

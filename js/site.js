@@ -38,7 +38,7 @@
 			const at = new URL(plate.href).pathname.replace('/work/', '/img/work/');
 			plate.header = new Image();
 			plate.header.sizes = '100vw';
-			plate.header.srcset = at + 'header-1600.jpg 1600w, ' + at + 'header-2400.jpg 2400w, ' + at + 'header.jpg 3200w';
+			plate.header.srcset = at + 'header-1600.webp 1600w, ' + at + 'header-2400.webp 2400w, ' + at + 'header.webp 3200w';
 		};
 		plate.addEventListener('pointerenter', fetchHeader);
 		plate.addEventListener('focus', fetchHeader);
