@@ -1592,8 +1592,14 @@ p:not(.crumb) a,
 }
 
 /* A case's picture is the third: the plate on the work wall and the header
-   of its case are one picture in two places, so it travels from the one to
-   the other, and its words go with it. */
+   of its case are one picture in two places, so it travels from the plate
+   into the header, and its words go with it.
+
+   One way only. Coming back, the wall is a page finding its place again,
+   and a picture sent home to a plate that has not settled jumps. So when
+   the wall is the page arriving it carries .arriving (work/index.html) and
+   its plates give up their names: the header leaves with its page, the
+   wall arrives as a page, and the crossing is a plain one. */
 .case--economic > .case__cover, .hero--economic > .hero__cover { view-transition-name: cover-economic; }
 .case--trackman > .case__cover, .hero--trackman > .hero__cover { view-transition-name: cover-trackman; }
 .case--donkey > .case__cover, .hero--donkey > .hero__cover { view-transition-name: cover-donkey; }
@@ -1606,6 +1612,11 @@ p:not(.crumb) a,
 .case--theorg > .case__caption, .hero--theorg > .hero__caption { view-transition-name: words-theorg; }
 .case--tv2 > .case__caption, .hero--tv2 > .hero__caption { view-transition-name: words-tv2; }
 .case--ok > .case__caption, .hero--ok > .hero__caption { view-transition-name: words-ok; }
+
+.arriving .case > .case__cover,
+.arriving .case > .case__caption {
+	view-transition-name: none;
+}
 
 .case > .case__cover, .hero > .hero__cover { view-transition-class: travelling-cover; }
 .case > .case__caption, .hero > .hero__caption { view-transition-class: travelling-words; }
