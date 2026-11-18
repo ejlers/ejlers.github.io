@@ -819,6 +819,12 @@ p:not(.crumb) a,
 	padding-top: var(--s3);
 	padding-bottom: var(--s3);
 	background: var(--paper);
+	/* Its paper runs to the window's edges while the trail stays in the page's
+	   column: a case's header picture is as wide as the window, and a bar only
+	   as wide as the column would let the picture show past both its ends as
+	   the page scrolls under it. */
+	margin-inline: calc(50% - 50vw);
+	padding-inline: calc(50vw - 50%);
 }
 
 /* --- Portrait ------------------------------------------------------- */
