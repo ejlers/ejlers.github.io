@@ -89,20 +89,45 @@
 	};
 	const caseOf = (path) => (path.match(/\/work\/([a-z0-9]+)\/$/) || [])[1] || '';
 
+	/* Where the reader has just come from, read once per arrival: when the
+	   script first runs, and again when the browser hands back a page it
+	   kept. The work wall is put back where it was left first
+	   (work/index.html), while the note still says where from. */
+	let came = '';
+	const arrive = () => {
+		if (typeof window.putWallBack === 'function') window.putWallBack();
+		came = cameFrom();
+	};
+	arrive();
+
+	/* A page arrives in one of two ways, never both at once. It develops,
+	   or it crosses softly from the page before. The soft crossing belongs
+	   to the wall and its cases: a plate's picture travelling into its
+	   header, and the wall standing complete on the way back. Every other
+	   arrival develops, so there the crossing is called off and the page is
+	   simply there to develop, as it is on a reload. The page being left
+	   knows where the reader is going and the page arriving knows where
+	   they came from; whichever of the two the browser lets speak calls it. */
+	const wallAndCase = (a, b) => (/\/work\/$/.test(a) && caseOf(b)) || (caseOf(a) && /\/work\/$/.test(b));
+	window.addEventListener('pageswap', (event) => {
+		if (!event.viewTransition || !event.activation || !event.activation.entry) return;
+		const to = new URL(event.activation.entry.url).pathname.replace(/index\.html$/, '');
+		if (!wallAndCase(HERE, to)) event.viewTransition.skipTransition();
+	});
+	window.addEventListener('pagereveal', (event) => {
+		if (event.viewTransition && came && !wallAndCase(came, HERE)) event.viewTransition.skipTransition();
+	});
+
 	const develop = () => {
 		sights.forEach((sight) => sight.disconnect());
 		sights = [];
-
-		/* the work wall, returned to after a case, is first put back where the
-		   reader left it (work/index.html), while the note still says where from */
-		if (typeof window.putWallBack === 'function') window.putWallBack();
 
 		/* A picture travels one way, from its plate into the case's header, so
 		   the only page that receives one is a case opened from the wall. Its
 		   header is then already in hand and does not develop. A header whose
 		   picture has not arrived made no trip (the page called it off), and
 		   develops like any other. */
-		const from = cameFrom();
+		const from = came;
 
 		/* Coming back from a case, the wall is not arriving: the reader left it
 		   a moment ago and has seen it. It is simply there, as they left it,
@@ -215,6 +240,7 @@
 			el.style.removeProperty('--arrive');
 		});
 		void document.body.offsetWidth; /* the cleared state has to land before the arrival starts over */
+		arrive();
 		develop();
 	});
 })();
