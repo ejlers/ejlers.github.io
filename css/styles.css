@@ -442,7 +442,8 @@ p:not(.crumb) a,
 }
 
 /* On a desk the plates take their shapes, and a full plate takes its words
-   onto the picture: a hairline, the name over its disciplines in the first
+   onto the picture: no rule of its own, since the picture already has the
+   line where wall meets floor; the name over its disciplines in the first
    column, the one line beside them a step above the reading size (24px,
    between the reading size and the display size), the arrow at the end. The covers are light in both schemes, so the words on them are dark
    in both: the ink in daylight, the paper at night, the same near-black.
@@ -459,7 +460,6 @@ p:not(.crumb) a,
 	.case--full {
 		--on-cover: var(--ink);
 		--on-cover-muted: color-mix(in srgb, var(--on-cover) 68%, transparent);
-		--on-cover-rule: color-mix(in srgb, var(--on-cover) 22%, transparent);
 		position: relative;
 	}
 
@@ -472,8 +472,7 @@ p:not(.crumb) a,
 		grid-template-columns: var(--term-col) minmax(0, 1fr) auto;
 		align-items: start;
 		gap: 0 var(--gutter);
-		padding-top: var(--s4);
-		border-top: var(--rule-w) solid var(--on-cover-rule);
+		padding-top: 0;
 		color: var(--on-cover);
 	}
 
