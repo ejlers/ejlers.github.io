@@ -26,12 +26,13 @@
 	});
 })();
 
-/* The page develops, once. On a path's first view this visit, the body
-   gets .develop and the arrival plays: ink settles, rules draw, marks come
-   up — all of it CSS, all of it behind prefers-reduced-motion. Pieces
-   below the window (bands, entries, work rows) wait for first sight and
-   are marked .arrived as the reader reaches them; scrolling back replays
-   nothing, and a return to the page skips the whole thing. A reload is a new visit.
+/* The page develops each time it is opened. The body gets .develop and
+   the arrival plays: ink settles, rules draw, marks come up — all of it
+   CSS, all of it behind prefers-reduced-motion. Pieces below the window
+   (bands, entries, work rows) wait for first sight and are marked .arrived
+   as the reader reaches them; scrolling back replays nothing. Opening the
+   page again does: by a link, a reload, or the back button, including
+   when the browser hands back the page it kept instead of loading it.
 
    A prerendered page waits: the speculation rules let the browser build
    the next page before it is asked for, and a develop that played in
@@ -39,17 +40,11 @@
 (() => {
 	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+	let sights = [];
+
 	const develop = () => {
-		try {
-			const key = 'developed:' + location.pathname;
-			/* a reload asks to see the page arrive again; a return by a link or
-			   the back button does not */
-			const nav = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
-			if (sessionStorage.getItem(key) && !(nav && nav.type === 'reload')) return;
-			sessionStorage.setItem(key, '1');
-		} catch (err) {
-			/* storage refused: develop anyway, at worst it plays again */
-		}
+		sights.forEach((sight) => sight.disconnect());
+		sights = [];
 
 		document.body.classList.add('develop');
 
@@ -76,6 +71,7 @@
 				if (now.length) sighted(now);
 			}, { rootMargin: margin });
 			pieces.forEach((el) => sight.observe(el));
+			sights.push(sight);
 		};
 
 		/* everything sighted together develops top to bottom, one step apart */
@@ -89,7 +85,7 @@
 		   And plates develop in a line, each a clear beat after the one above
 		   it, so a wall of them reads as arriving one by one. A picture that
 		   takes too long is not waited for. */
-		const BEAT = 220;
+		const BEAT = 360;
 		const PATIENCE = 3000;
 		const pause = (ms) => new Promise((done) => setTimeout(done, ms));
 		const ready = (el) => {
@@ -121,7 +117,12 @@
 		const reach = touch ? Math.max(window.innerHeight, window.screen.height) : 0;
 		const first = [];
 		const later = [];
-		plates.forEach((el) => (el.getBoundingClientRect().top < reach ? first : later).push(el));
+		plates.forEach((el) => {
+			/* a plate already scrolled past is not on screen either: it waits
+			   to be seen like the rest, and takes no beat from those that are */
+			const box = el.getBoundingClientRect();
+			(box.top < reach && box.bottom > 0 ? first : later).push(el);
+		});
 		hang(first);
 		watch(later, touch ? '0px 0px 20% 0px' : '0px 0px 15% 0px', hang);
 	};
@@ -131,4 +132,18 @@
 	} else {
 		develop();
 	}
+
+	/* The back button often shows the page the browser kept, finished, with
+	   no script run. That is still the page being opened: clear what has
+	   arrived and let it develop again. */
+	window.addEventListener('pageshow', (event) => {
+		if (!event.persisted) return;
+		document.body.classList.remove('develop');
+		document.querySelectorAll('.arrived').forEach((el) => {
+			el.classList.remove('arrived');
+			el.style.removeProperty('--arrive');
+		});
+		void document.body.offsetWidth; /* the cleared state has to land before the arrival starts over */
+		develop();
+	});
 })();
