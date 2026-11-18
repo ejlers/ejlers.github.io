@@ -1398,13 +1398,15 @@ p:not(.crumb) a,
 	   the faintest grey the system has, a step off the page in either
 	   scheme and nowhere near the picture's own tone, so the page never
 	   looks shorter than it is and the picture arrives as a change. When
-	   the picture is ready it turns up in the frame, and its caption a beat
-	   after. site.js sets the order: one plate after another. */
+	   the picture is ready it turns up in the frame with its caption, the
+	   two as one piece: a caption that trailed its picture landed with the
+	   next plate and read as belonging to it. site.js sets the order: one
+	   plate after another. */
 	.develop .case > .case__cover { background: var(--hover); }
 	.develop .case > .case__cover img,
 	.develop .case .case__caption { opacity: 0; }
 	.develop .case.arrived > .case__cover img { animation: turn-up calc(var(--t-develop) * 1.3) ease forwards; }
-	.develop .case.arrived .case__caption { animation: turn-up var(--t-develop) ease 320ms forwards; }
+	.develop .case.arrived .case__caption { animation: turn-up calc(var(--t-develop) * 1.3) ease forwards; }
 
 	/* A case's More work list develops the way the front page's index
 	   does, at first sight rather than at the page's own arrival far
