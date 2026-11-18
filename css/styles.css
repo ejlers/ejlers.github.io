@@ -1395,12 +1395,15 @@ p:not(.crumb) a,
 	.develop .entry.arrived .entry__mark { filter: none; }
 
 	/* A case plate is on the wall from the first frame: its frame stands as
-	   the plain ground, so the page never looks shorter than it is. At first
-	   sight the picture turns up in it, and its caption a beat after. */
+	   a quiet fill, close to the page in either scheme, so the page never
+	   looks shorter than it is and nothing bright waits there empty. When
+	   the picture is ready it turns up in the frame, and its caption a beat
+	   after. site.js sets the order: one plate after another. */
+	.develop .case > .case__cover { background: var(--fill); }
 	.develop .case > .case__cover img,
 	.develop .case .case__caption { opacity: 0; }
-	.develop .case.arrived > .case__cover img { animation: turn-up var(--t-develop) ease var(--arrive, 0ms) forwards; }
-	.develop .case.arrived .case__caption { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
+	.develop .case.arrived > .case__cover img { animation: turn-up var(--t-develop) ease forwards; }
+	.develop .case.arrived .case__caption { animation: turn-up var(--t-develop) ease 240ms forwards; }
 
 	/* A case's More work list develops the way the front page's index
 	   does, at first sight rather than at the page's own arrival far
