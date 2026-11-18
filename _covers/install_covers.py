@@ -36,7 +36,7 @@ open(p,'w').write(s)
 # The header shots: each case page opens on the wide shot of its scene, in three widths for three sizes
 # of window. The pages name these files themselves; nothing in the HTML is rewritten here.
 CARD_X={'theorg':0.03}        # a card's window slid sideways, as a share of the shot's width, where the device sits off the middle
-HEADER={'economic':'economic','trackman':'trackman','donkey':'donkey','theorg':'theorg','tv2':'tv2s','ok':'oks'}
+HEADER={'economic':'economic','trackman':'trackman','donkey':'donkey','theorg':'theorg','tv2':'tv2','ok':'ok'}
 for slug,scene in HEADER.items():
     f=next((O+f'{scene}-mix-{qq}-header.jpg' for qq in (q,'mid','test') if os.path.exists(O+f'{scene}-mix-{qq}-header.jpg')), None)
     if not f: print(slug,'header: no shot in out/, left as it is'); continue

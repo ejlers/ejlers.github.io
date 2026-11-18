@@ -93,8 +93,10 @@ HEADER=1 b3d/bin/python scenes.py -- trackman final mix
 ```
 
 `HEADER=1` turns any scene into its header shot (`out/<scene>-mix-<quality>-header.png` and `.jpg`).
-How far back each one stands is the `PULL` table in `scenes.py`. The tall covers have no header shot of
-their own; their small-screen scenes (`tv2s`, `oks`) are used.
+How far back each one stands is the `PULL` table in `scenes.py`. Every header shot is made from the
+same scene, and so the same camera, as the cover on the Work page; that is what lets the picture travel
+between the two. The tall covers (`tv2`, `ok`) are no exception: their header shots stand at pull 1, the
+phone as large as on the cover.
 
 TrackMan's launch monitor goes on the same way, with the scene's pull as a last number:
 
