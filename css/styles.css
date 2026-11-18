@@ -1395,11 +1395,12 @@ p:not(.crumb) a,
 	.develop .entry.arrived .entry__mark { filter: none; }
 
 	/* A case plate is on the wall from the first frame: its frame stands as
-	   a quiet fill, close to the page in either scheme, so the page never
-	   looks shorter than it is and nothing bright waits there empty. When
+	   the faintest grey the system has, a step off the page in either
+	   scheme and nowhere near the picture's own tone, so the page never
+	   looks shorter than it is and the picture arrives as a change. When
 	   the picture is ready it turns up in the frame, and its caption a beat
 	   after. site.js sets the order: one plate after another. */
-	.develop .case > .case__cover { background: var(--fill); }
+	.develop .case > .case__cover { background: var(--hover); }
 	.develop .case > .case__cover img,
 	.develop .case .case__caption { opacity: 0; }
 	.develop .case.arrived > .case__cover img { animation: turn-up var(--t-develop) ease forwards; }
