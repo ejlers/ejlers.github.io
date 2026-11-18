@@ -28,6 +28,7 @@ open(p,'w').write(s)
 
 # The header shots: each case page opens on the wide shot of its scene, in three widths for three sizes
 # of window. The pages name these files themselves; nothing in the HTML is rewritten here.
+CARD_X={'theorg':0.03}        # a card's window slid sideways, as a share of the shot's width, where the device sits off the middle
 HEADER={'economic':'economic','trackman':'trackman','donkey':'donkey','theorg':'theorg','tv2':'tv2s','ok':'oks'}
 for slug,scene in HEADER.items():
     f=next((O+f'{scene}-mix-{qq}-header.jpg' for qq in (q,'mid','test') if os.path.exists(O+f'{scene}-mix-{qq}-header.jpg')), None)
@@ -37,4 +38,8 @@ for slug,scene in HEADER.items():
         v=im if im.width==w else im.resize((w,w//2),Image.LANCZOS)
         v.save(R+f'img/work/{slug}/{name}',quality=84,optimize=True,progressive=True)
         v.save(R+f'img/work/{slug}/{name[:-4]}.webp',quality=84,method=6)      # a third of the weight; the JPEG stays for browsers without it
+    # The share card: the picture a link to the case shows in a message or a feed (1200 by 630). It is the
+    # header shot seen closer, because a card is read small: the middle 78% of its height.
+    ch=round(im.height*0.78); cw=round(ch*1200/630); x=round((im.width-cw)/2+CARD_X.get(slug,0)*im.width); y=(im.height-ch)//2
+    im.crop((x,y,x+cw,y+ch)).resize((1200,630),Image.LANCZOS).save(R+f'img/work/{slug}/card.jpg',quality=88,optimize=True,progressive=True)
     print(slug,'header from',os.path.basename(f))

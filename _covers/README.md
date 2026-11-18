@@ -102,7 +102,9 @@ TrackMan's launch monitor goes on the same way, with the scene's pull as a last 
 python3 radar.py trackman-mix-final-header.png 0.30 0.756 0.925 trackman-mix-final-header.jpg 0.82
 ```
 
-`install_covers.py` writes the header shots too, in three widths per case.
+`install_covers.py` writes the header shots too, in three widths per case, each as a WebP and a JPEG. It
+also writes each case's share card (`card.jpg`, the picture a link to the case shows in a message or a
+feed): the header shot seen closer.
 
 One thing ties the header shot to the stylesheet. Pressing a plate on the Work page carries its picture
 into the case's header, and for the two to line up the stylesheet has to know each shot's pull: the
