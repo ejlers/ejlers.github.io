@@ -5,7 +5,8 @@ import numpy as np
 HERE=os.path.dirname(os.path.abspath(__file__))+'/'
 O=HERE+'out/'; base_name=sys.argv[1]; relscale=float(sys.argv[2]); relleft=float(sys.argv[3]); relfoot=float(sys.argv[4]); out_name=sys.argv[5]
 pull=float(sys.argv[6]) if len(sys.argv)>6 else None                          # given for the header shot: the same PULL the scene was rendered with
-base=Image.open(O+base_name).convert('RGB')                                # the raw render, before glow and grain
+os.makedirs(O, exist_ok=True)
+base=Image.open(next(d+base_name for d in (O,HERE+'masters/') if os.path.exists(d+base_name))).convert('RGB')    # the raw render, before glow and grain: just made (out/) or kept (masters/)
 W,H=base.size
 # Size and place are given as on the wall cover (a 16:9 frame). The header shot is the same view pulled
 # back in a wider frame, so the wall cover's frame sits in its middle, smaller: Wref by Href.

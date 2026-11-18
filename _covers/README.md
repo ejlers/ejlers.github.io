@@ -31,7 +31,36 @@ Set by Carl. They hold for every cover.
 | `sheet.py` | A contact sheet of all six, for looking at them together. |
 | `tex/` | The screens shown on the devices, the keyboard, and the launch monitor cut-out. |
 
-Renders go to `out/`, which is not kept in the repository.
+Renders go to `out/`, which is not kept in the repository. The finished ones are: see below.
+
+## The finished renders
+
+`masters/` holds the finished full-quality render of every picture on the site, as it stood when it was
+last published:
+
+- the eight covers (`<scene>-mix-final.jpg`): the six on the Work page and the two small-screen scenes;
+- the six header shots (`<scene>-mix-final-header.jpg`);
+- TrackMan's two raw renders (`.png`), the room without the launch monitor, so the launch monitor can be
+  moved or resized without rendering the room again.
+
+Everything that reads a render looks in `out/` first and then here. So from a fresh copy of the
+repository, with nothing rendered:
+
+```bash
+python3 install_covers.py final
+```
+
+rebuilds every cover, header picture and share card on the site exactly as published, and
+
+```bash
+python3 radar.py trackman-mix-final.png 0.30 0.756 0.925 trackman-mix-final.jpg
+```
+
+places the launch monitor again. Only a change to a scene itself needs Blender.
+
+When a picture is rendered anew and published, copy its finished `.jpg` from `out/` over the one in
+`masters/` (and for TrackMan the raw `.png` too), in the same change. That is what keeps this folder
+the truth about what is on the site.
 
 ## Setting up
 
