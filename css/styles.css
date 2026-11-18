@@ -1591,24 +1591,19 @@ p:not(.crumb) a,
 
 /* A case's picture is the third: the plate on the work wall and the header
    of its case are one picture in two places, so it travels from the one to
-   the other, and its words go with it. The two tall plates do not make the
-   trip on a desk, where their header is a different, wider shot; below the
-   columns every plate and its header are the same cut, and all six go. */
+   the other, and its words go with it. */
 .case--economic > .case__cover, .hero--economic > .hero__cover { view-transition-name: cover-economic; }
 .case--trackman > .case__cover, .hero--trackman > .hero__cover { view-transition-name: cover-trackman; }
 .case--donkey > .case__cover, .hero--donkey > .hero__cover { view-transition-name: cover-donkey; }
 .case--theorg > .case__cover, .hero--theorg > .hero__cover { view-transition-name: cover-theorg; }
+.case--tv2 > .case__cover, .hero--tv2 > .hero__cover { view-transition-name: cover-tv2; }
+.case--ok > .case__cover, .hero--ok > .hero__cover { view-transition-name: cover-ok; }
 .case--economic > .case__caption, .hero--economic > .hero__caption { view-transition-name: words-economic; }
 .case--trackman > .case__caption, .hero--trackman > .hero__caption { view-transition-name: words-trackman; }
 .case--donkey > .case__caption, .hero--donkey > .hero__caption { view-transition-name: words-donkey; }
 .case--theorg > .case__caption, .hero--theorg > .hero__caption { view-transition-name: words-theorg; }
-
-@media (max-width: 1100px) {
-	.case--tv2 > .case__cover, .hero--tv2 > .hero__cover { view-transition-name: cover-tv2; }
-	.case--ok > .case__cover, .hero--ok > .hero__cover { view-transition-name: cover-ok; }
-	.case--tv2 > .case__caption, .hero--tv2 > .hero__caption { view-transition-name: words-tv2; }
-	.case--ok > .case__caption, .hero--ok > .hero__caption { view-transition-name: words-ok; }
-}
+.case--tv2 > .case__caption, .hero--tv2 > .hero__caption { view-transition-name: words-tv2; }
+.case--ok > .case__caption, .hero--ok > .hero__caption { view-transition-name: words-ok; }
 
 .case > .case__cover, .hero > .hero__cover { view-transition-class: travelling-cover; }
 .case > .case__caption, .hero > .hero__caption { view-transition-class: travelling-words; }
@@ -1668,4 +1663,6 @@ p:not(.crumb) a,
 	::view-transition-image-pair(cover-trackman) { --pull: 0.82; }
 	::view-transition-image-pair(cover-donkey) { --pull: 0.8; }
 	::view-transition-image-pair(cover-theorg) { --pull: 0.8; }
+	::view-transition-image-pair(cover-tv2) { --pull: 1; }
+	::view-transition-image-pair(cover-ok) { --pull: 1; }
 }
