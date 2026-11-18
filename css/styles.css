@@ -335,18 +335,11 @@ p:not(.crumb) a,
    the cover: a row, the way the site has always captioned a picture.
    Nothing is written on a cover. The whole plate is one link. */
 .plates {
-	--cover-ground: var(--ink);
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
 	gap: var(--s8) var(--gutter);
 	align-items: end;
 	padding-top: var(--s5);
-}
-
-@media screen and (prefers-color-scheme: dark) {
-	.plates {
-		--cover-ground: var(--fill);
-	}
 }
 
 .case {
@@ -363,8 +356,10 @@ p:not(.crumb) a,
 	grid-column: span 4;
 }
 
-/* Covers. A cover that is a surface fills its frame; the position steps
-   aim a crop that would otherwise cut its subject. */
+/* Covers on the canvas ground. A cover that holds an object rather than
+   a surface keeps air, contained instead of cropped; a cover that is a
+   surface fills its frame, and the position steps aim a crop that would
+   otherwise cut its subject. */
 .case__cover {
 	display: block;
 	aspect-ratio: 3 / 2;
@@ -377,6 +372,14 @@ p:not(.crumb) a,
 	height: 100%;
 	object-fit: cover;
 	display: block;
+}
+
+.case__cover.cover--inset {
+	padding: var(--s5);
+}
+
+.cover--inset img {
+	object-fit: contain;
 }
 
 .cover--top img {
@@ -1152,13 +1155,9 @@ p:not(.crumb) a,
 }
 
 /* On the wall, the case's cover is the mark itself, with air around it. */
-/* Her ground is the darkest grey each scheme has for a surface: the ink in
-   daylight, the fill at night, so the plate is a plate either way and the
-   orange is the only colour on it. */
 .cover--eva {
 	display: grid;
 	place-items: center;
-	background: var(--cover-ground);
 }
 
 .cover--eva .eva {
