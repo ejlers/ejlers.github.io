@@ -515,8 +515,8 @@ p:not(.crumb) a,
    further back, so a window of any shape crops into plain wall and floor
    and never into the work.
 
-   On a desk the name and what it is stand on the picture, bottom left, in
-   the page's own text column: the trail above, the name, and the text
+   On a desk the name, in display, and what it is stand on the picture,
+   bottom left, in the page's own text column: the trail above, the name, and the text
    below share one left edge. The picture stops short of the window's
    floor so the first lines under it are in view, never grows flatter
    than the shot allows, and never shrinks to a strip. Below the columns
@@ -563,6 +563,12 @@ p:not(.crumb) a,
 	margin-inline: auto;
 	padding-inline: var(--page-x);
 	color: var(--on-cover);
+}
+
+/* The name is the page's name, so it is set in display, the one larger size,
+   with the step under it that a display line always takes. */
+.hero__name {
+	margin-bottom: var(--s1);
 }
 
 .hero__what {
