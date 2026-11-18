@@ -1623,27 +1623,65 @@ p:not(.crumb) a,
 	}
 
 	/* Two pictures faded across each other would show the device twice, at
-	   two sizes. So only one makes the trip, and it is always the header's:
-	   on the way in it is the new page's picture, on the way back the old
-	   one's, and the plate's own is not drawn until the trip is over. It
-	   fills the frame as the frame changes, cropped and never stretched. */
+	   two sizes. So where a plate and a header meet, only one picture makes
+	   the trip, and it is always the header's: on the way in it is the new
+	   page's picture, on the way back the old one's, and the plate's own is
+	   not drawn until the trip is over. It fills the frame as the frame
+	   changes, cropped and never stretched.
+
+	   That holds only for a picture with a partner on the other page. One
+	   without (:only-child: every plate when the wall is reached from the
+	   front page, the five plates that are not the case being opened, a
+	   header reached from another case) makes no trip. It crosses with the
+	   rest of its page, at the page's own speed, and whatever it is doing
+	   by itself, developing included, shows through as it does. */
 	::view-transition-old(.travelling-cover),
 	::view-transition-new(.travelling-cover) {
 		height: 100%;
 		object-fit: cover;
-		animation-duration: calc(var(--t-open) * 1.5);
-		animation-timing-function: ease;
-		animation-fill-mode: both;
 	}
 
+	::view-transition-old(.travelling-words),
+	::view-transition-new(.travelling-words) {
+		animation-duration: var(--t-open);
+	}
+
+	/* With a partner: the header's picture alone, drawing back or closing in. */
 	:root:has(.hero)::view-transition-old(.travelling-cover),
 	:root:has(.plates)::view-transition-new(.travelling-cover) {
 		display: none;
 	}
 
+	:root:has(.hero)::view-transition-new(.travelling-cover),
+	:root:has(.plates)::view-transition-old(.travelling-cover) {
+		animation-duration: calc(var(--t-open) * 1.5);
+		animation-timing-function: ease;
+		animation-fill-mode: both;
+	}
+
 	:root:has(.hero)::view-transition-new(.travelling-cover) { animation-name: travel-in; }
 	:root:has(.plates)::view-transition-old(.travelling-cover) { animation-name: travel-out; }
 
+	/* Without one: drawn again, and crossing as the page does. These come
+	   after the rules above and undo them, because a pseudo-element here
+	   takes :only-child and nothing that says its opposite. */
+	:root:has(.hero)::view-transition-old(.travelling-cover):only-child,
+	:root:has(.hero)::view-transition-new(.travelling-cover):only-child,
+	:root:has(.plates)::view-transition-old(.travelling-cover):only-child,
+	:root:has(.plates)::view-transition-new(.travelling-cover):only-child {
+		display: block;
+		animation-duration: var(--t-open);
+		animation-timing-function: ease;
+		animation-fill-mode: both;
+	}
+
+	:root:has(.hero)::view-transition-old(.travelling-cover):only-child,
+	:root:has(.plates)::view-transition-old(.travelling-cover):only-child { animation-name: cross-out; }
+	:root:has(.hero)::view-transition-new(.travelling-cover):only-child,
+	:root:has(.plates)::view-transition-new(.travelling-cover):only-child { animation-name: cross-in; }
+
+	@keyframes cross-out { to { opacity: 0; } }
+	@keyframes cross-in { from { opacity: 0; } }
 	@keyframes travel-in { from { transform: scale(var(--zoom, 1)); } }
 	@keyframes travel-out { to { transform: scale(var(--zoom, 1)); } }
 }
