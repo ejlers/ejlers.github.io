@@ -14,15 +14,22 @@ SMALL={'economic':0.105,'trackman':0.118,'donkey':0.02,'theorg':0.111,'tv2':'tv2
 p=R+'work/index.html'; s=open(p).read()
 for slug in ['economic','trackman','donkey','tv2','ok','theorg']:
     im,q1=src(slug); big=f'img/work/{slug}/cover-set.jpg'; im.save(R+big,quality=88,optimize=True,progressive=True)
+    im.save(R+big[:-4]+'.webp',quality=84,method=6)                # every cover also as a WebP, about a third of the weight; the JPEG is the fallback
     sm=SMALL[slug]
     if isinstance(sm,str): small,q2=src(sm)
     else:
         w,h=im.size; cw=round(h*4/3); x=max(0,min(round(sm*w),w-cw)); small=im.crop((x,0,x+cw,h)); q2=q1
     if small.width>1600: small=small.resize((1600,1200),Image.LANCZOS)
     sp=f'img/work/{slug}/cover-set-small.jpg'; small.save(R+sp,quality=88,optimize=True,progressive=True)
+    small.save(R+sp[:-4]+'.webp',quality=84,method=6)
     pat=re.compile(r'(<a class="case [^"]*case--%s"[^>]*>\s*)<span class="case__cover[^"]*">.*?</span>(\s*<span class="case__caption">)'%slug, re.S)
-    new=(r'\1<span class="case__cover"><picture><source media="(max-width: 1100px)" srcset="../%s" width="%d" height="%d">'
-         r'<img %s decoding="async" src="../%s" alt="" width="%d" height="%d"></picture></span>\2')%(sp,small.width,small.height,'fetchpriority="high"' if slug=='economic' else 'loading="lazy"',big,im.width,im.height)
+    new=(r'\1<span class="case__cover"><picture>'
+         r'<source media="(max-width: 1100px)" type="image/webp" srcset="../%s" width="%d" height="%d">'
+         r'<source media="(max-width: 1100px)" srcset="../%s" width="%d" height="%d">'
+         r'<source type="image/webp" srcset="../%s" width="%d" height="%d">'
+         r'<img %s decoding="async" src="../%s" alt="" width="%d" height="%d"></picture></span>\2')%(
+         sp[:-4]+'.webp',small.width,small.height, sp,small.width,small.height, big[:-4]+'.webp',im.width,im.height,
+         'fetchpriority="high"' if slug=='economic' else 'loading="lazy"',big,im.width,im.height)
     s,n=pat.subn(new,s); assert n==1,(slug,n); print(slug, im.size, q1, '| small', small.size, q2)
 open(p,'w').write(s)
 
