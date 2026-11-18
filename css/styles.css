@@ -322,21 +322,26 @@ p:not(.crumb) a,
 /* --- Work wall ------------------------------------------------------- */
 
 /* The work page is a wall of plates, one per case, and the wall has a
-   rhythm instead of a grid of equals: a plate the full width of the page,
-   then a pair that splits it two thirds to one third, then a full plate,
-   then a pair the other way round. The spans are the system's own (12, 8
-   and 4), so the wall is as strict as any band; what moves is which plate
-   gets which.
+   rhythm instead of a grid of equals: the plates that can carry it run the
+   full width of the page, and the rest hang in pairs that split it two
+   thirds to one third, then the other way round. The spans are the
+   system's own (12, 8 and 4), so the wall is as strict as any band; what
+   moves is which plate gets which.
 
    A pair shares a floor. The wide plate lies down (3:2) and the narrow one
    stands up (4:5), so their tops step and their captions sit on one line.
 
-   Each plate is a picture with its words written on it: the case's name,
-   its disciplines, one line on what the work was, and the arrow that means
-   departure. The whole plate is one link. */
+   A plate's words are its name and its disciplines, and they stand under
+   the cover: a row, the way the site has always captioned a picture. Only
+   a full plate carries its words on the picture, and only on a desk: there
+   the cover is a photograph or a dark ground, never the canvas, so the
+   words need no help, and its one line about the work is set at the
+   display size, the only place besides a page's headline that is. The
+   whole plate is one link. */
 .plates {
 	--on-cover: var(--paper);
 	--on-cover-muted: color-mix(in srgb, var(--on-cover) 72%, transparent);
+	--on-cover-rule: color-mix(in srgb, var(--on-cover) 28%, transparent);
 	--cover-veil: var(--ink);
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -345,9 +350,8 @@ p:not(.crumb) a,
 	padding-top: var(--s5);
 }
 
-/* A cover's words are light in both schemes, because the veil they stand
-   on is dark in both: the ink in daylight, the paper at night, the same
-   near-black either way. */
+/* A full cover's words are light in both schemes, because the picture they
+   stand on is dark in both. */
 @media screen and (prefers-color-scheme: dark) {
 	.plates {
 		--on-cover: var(--ink);
@@ -359,7 +363,7 @@ p:not(.crumb) a,
 	position: relative;
 	display: block;
 	grid-column: span 12;
-	color: var(--on-cover);
+	color: var(--ink);
 }
 
 .case--major {
@@ -370,22 +374,14 @@ p:not(.crumb) a,
 	grid-column: span 4;
 }
 
-/* Covers on the canvas ground. A cover that is a surface fills its frame;
-   the position steps aim a crop that would otherwise cut its subject. */
+/* Covers. A cover that is a surface fills its frame; the position steps
+   aim a crop that would otherwise cut its subject. */
 .case__cover {
 	position: relative;
 	display: block;
 	aspect-ratio: 3 / 2;
 	background: var(--canvas);
 	overflow: hidden;
-}
-
-.case--full .case__cover {
-	aspect-ratio: 2 / 1;
-}
-
-.case--minor .case__cover {
-	aspect-ratio: 4 / 5;
 }
 
 .case__cover img {
@@ -399,41 +395,27 @@ p:not(.crumb) a,
 	object-position: top;
 }
 
+.cover--low img {
+	object-position: 50% 72%;
+}
+
 .cover--right img {
 	object-position: 88% 50%;
 }
 
-/* The veil the words stand on: nothing over the upper picture, close to
-   solid under the caption, measured from the floor in the caption's own
-   height. Multiplied into the picture, so it deepens the cover's colours
-   where a grey laid over them would dull them. */
-.case__cover::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(to bottom,
-		transparent calc(100% - 320px),
-		color-mix(in srgb, var(--cover-veil) 78%, transparent) calc(100% - 120px),
-		color-mix(in srgb, var(--cover-veil) 90%, transparent));
-	mix-blend-mode: multiply;
-}
-
-/* The caption: who and which disciplines in the first column, the one line
-   beside them, the arrow at the row's end. On a narrow plate they stack. */
+/* The caption under a cover: the name, its disciplines beside it in the
+   muted ink, and the arrow that means departure at the row's end. */
 .case__caption {
-	position: absolute;
-	left: var(--s4);
-	right: var(--s4);
-	bottom: var(--s4);
-	display: grid;
-	grid-template-columns: var(--term-col) minmax(0, 1fr) auto;
-	align-items: end;
-	gap: var(--s1) var(--gutter);
+	display: flex;
+	align-items: baseline;
+	gap: var(--s3);
+	padding-top: var(--s3);
 }
 
 .case__id {
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 0 var(--s3);
 	min-width: 0;
 }
 
@@ -441,35 +423,22 @@ p:not(.crumb) a,
 	font-weight: 500;
 }
 
-.case__tags,
-.case__desc {
-	color: var(--on-cover-muted);
+.case__tags {
+	color: var(--ink-muted);
 }
 
 .case__desc {
-	max-width: var(--measure);
-	text-wrap: balance;
+	display: none;
 }
 
 .case__arrow {
+	flex: none;
 	width: 20px;
 	height: 20px;
+	margin-left: auto;
+	align-self: center;
 	overflow: visible;
-	color: var(--on-cover-muted);
-}
-
-.case--minor .case__caption {
-	grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.case--minor .case__id,
-.case--minor .case__desc {
-	grid-column: 1;
-}
-
-.case--minor .case__arrow {
-	grid-column: 2;
-	grid-row: 1 / span 2;
+	color: var(--grey);
 }
 
 @media (hover: hover) {
@@ -478,52 +447,80 @@ p:not(.crumb) a,
 	}
 }
 
-/* Below the columns the wall is one plate after another, each at the full
-   width, and the caption stacks everywhere. A phone keeps the name and the
-   disciplines; the line waits for the article. */
+/* On a desk, the pairs take their shapes and a full plate takes its words
+   onto the picture: a hairline, the name over its disciplines in the first
+   column, the one line beside them at the display size, the arrow at the
+   end. The veil under them is light and multiplied into the picture, so a
+   photograph's floor deepens in its own colour. */
+@media (min-width: 1101px) {
+	.case--full .case__cover {
+		aspect-ratio: 2 / 1;
+	}
+
+	.case--minor .case__cover {
+		aspect-ratio: 4 / 5;
+	}
+
+	.case--full .case__cover::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to bottom,
+			transparent calc(100% - 360px),
+			color-mix(in srgb, var(--cover-veil) 70%, transparent));
+		mix-blend-mode: multiply;
+	}
+
+	.case--full .case__caption {
+		position: absolute;
+		left: var(--s4);
+		right: var(--s4);
+		bottom: var(--s4);
+		display: grid;
+		grid-template-columns: var(--term-col) minmax(0, 1fr) auto;
+		align-items: start;
+		gap: 0 var(--gutter);
+		padding-top: var(--s3);
+		border-top: var(--rule-w) solid var(--on-cover-rule);
+		color: var(--on-cover);
+	}
+
+	.case--full .case__id {
+		flex-direction: column;
+	}
+
+	.case--full .case__tags {
+		color: var(--on-cover-muted);
+	}
+
+	.case--full .case__desc {
+		display: block;
+		max-width: 22em;
+		font-size: 34px;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+		text-wrap: balance;
+	}
+
+	.case--full .case__arrow {
+		align-self: end;
+		color: var(--on-cover-muted);
+	}
+}
+
+/* Below the columns the wall is one plate after another at the full
+   width, every cover the same shape and every caption under its cover. */
 @media (max-width: 1100px) {
 	.case,
 	.case--major,
 	.case--minor {
 		grid-column: span 12;
 	}
-
-	.case--full .case__cover,
-	.case--minor .case__cover {
-		aspect-ratio: 3 / 2;
-	}
-
-	/* A small plate has no 320px to spare, so its veil is measured in
-	   shares of the plate. */
-	.case__cover::after {
-		background: linear-gradient(to bottom,
-			transparent 35%,
-			color-mix(in srgb, var(--cover-veil) 78%, transparent) 78%,
-			color-mix(in srgb, var(--cover-veil) 90%, transparent));
-	}
-
-	.case__caption {
-		grid-template-columns: minmax(0, 1fr) auto;
-	}
-
-	.case__id,
-	.case__desc {
-		grid-column: 1;
-	}
-
-	.case__arrow {
-		grid-column: 2;
-		grid-row: 1 / span 2;
-	}
 }
 
 @media (max-width: 600px) {
 	.plates {
 		gap: var(--s5) var(--gutter);
-	}
-
-	.case__desc {
-		display: none;
 	}
 }
 
@@ -1229,10 +1226,20 @@ p:not(.crumb) a,
 }
 
 .cover--eva .eva {
-	width: min(40%, 340px);
+	width: min(40%, 300px);
 	height: auto;
 	aspect-ratio: 1;
-	margin-bottom: var(--s7);
+}
+
+/* On a desk the mark stands clear of the words under it. */
+@media (min-width: 1101px) {
+	.case--full .cover--eva .eva {
+		margin-bottom: var(--s8);
+	}
+
+	.case--full .cover--eva::after {
+		display: none;
+	}
 }
 
 @media (max-width: 600px) {
