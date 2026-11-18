@@ -360,7 +360,8 @@ p:not(.crumb) a,
 
 /* Covers. Each is a picture made for its frame, in a desk cut and a
    small-screen cut, so nothing here has to aim a crop; the canvas shows
-   only until the picture has loaded. */
+   until the picture has loaded, and stands as the empty frame until the
+   plate is first seen. */
 .case__cover {
 	display: block;
 	aspect-ratio: 3 / 2;
@@ -1393,11 +1394,12 @@ p:not(.crumb) a,
 	.develop .entry__mark { filter: grayscale(1); transition: filter calc(var(--t-develop) * 2) ease calc(var(--arrive, 0ms) + 300ms); }
 	.develop .entry.arrived .entry__mark { filter: none; }
 
-	/* A case plate develops at first sight: the cover turns up, and its
-	   caption a beat after it. */
-	.develop .case > .case__cover,
+	/* A case plate is on the wall from the first frame: its frame stands as
+	   the plain ground, so the page never looks shorter than it is. At first
+	   sight the picture turns up in it, and its caption a beat after. */
+	.develop .case > .case__cover img,
 	.develop .case .case__caption { opacity: 0; }
-	.develop .case.arrived > .case__cover { animation: turn-up var(--t-develop) ease var(--arrive, 0ms) forwards; }
+	.develop .case.arrived > .case__cover img { animation: turn-up var(--t-develop) ease var(--arrive, 0ms) forwards; }
 	.develop .case.arrived .case__caption { animation: turn-up var(--t-develop) ease calc(var(--arrive, 0ms) + 240ms) forwards; }
 
 	/* A case's More work list develops the way the front page's index
