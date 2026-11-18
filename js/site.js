@@ -68,7 +68,12 @@
 	   the next page reads it once, and only a fresh one counts. */
 	const HERE = location.pathname.replace(/index\.html$/, '');
 	window.addEventListener('pagehide', () => {
-		try { sessionStorage.setItem('crossing', HERE + ' ' + Date.now()); } catch (err) { /* no note, no harm */ }
+		try {
+			sessionStorage.setItem('crossing', HERE + ' ' + Date.now());
+			/* and where the wall stood, so a return by the trail finds it there
+			   (work/index.html puts it back before the page is first shown) */
+			if (/\/work\/$/.test(HERE)) sessionStorage.setItem('wall-at', String(Math.round(window.scrollY)));
+		} catch (err) { /* no note, no harm */ }
 	});
 	const cameFrom = () => {
 		try {
@@ -88,6 +93,9 @@
 		/* which end of a travelling picture this page is, if either: the plate
 		   on the wall the reader has come back to, or the header of the case
 		   whose plate was just opened */
+		/* the work wall, returned to by the trail, is first put back where the
+		   reader left it (work/index.html), while the note still says where from */
+		if (typeof window.putWallBack === 'function') window.putWallBack();
 		const from = cameFrom();
 		const landed = caseOf(from) && /\/work\/$/.test(HERE) ? document.querySelector('.case--' + caseOf(from))
 			: /\/work\/$/.test(from) && caseOf(HERE) ? document.querySelector('.hero')
