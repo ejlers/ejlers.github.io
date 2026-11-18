@@ -2,6 +2,7 @@
 	"name": "carlejlers-dk",
 	"private": true,
 	"scripts": {
-		"check": "node tools/check-tokens.mjs"
+		"check": "node tools/check-tokens.mjs && node tools/stamp.mjs --check",
+		"stamp": "node tools/stamp.mjs"
 	}
 }
