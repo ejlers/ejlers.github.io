@@ -402,19 +402,20 @@ p:not(.crumb) a,
 	object-position: 88% 50%;
 }
 
-/* The caption under a cover: the name, its disciplines beside it in the
-   muted ink, and the arrow that means departure at the row's end. */
+/* The caption: the name, its disciplines on the line under it in the muted
+   ink, and the arrow that means departure at the end of that second line.
+   One shape for every plate at every width, whether it stands under the
+   cover or on it. */
 .case__caption {
 	display: flex;
-	align-items: baseline;
+	align-items: flex-end;
 	gap: var(--s3);
 	padding-top: var(--s4);
 }
 
 .case__id {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 0 var(--s3);
+	flex-direction: column;
 	min-width: 0;
 }
 
@@ -426,12 +427,12 @@ p:not(.crumb) a,
 	color: var(--ink-muted);
 }
 
+/* As tall as a line of text, so it sits centred on the last line. */
 .case__arrow {
 	flex: none;
 	width: 20px;
-	height: 20px;
+	height: 1.5em;
 	margin-left: auto;
-	align-self: center;
 	overflow: visible;
 	color: var(--grey);
 }
@@ -474,16 +475,11 @@ p:not(.crumb) a,
 		color: var(--on-cover);
 	}
 
-	.case--full .case__id {
-		flex-direction: column;
-	}
-
 	.case--full .case__tags {
 		color: var(--on-cover-muted);
 	}
 
 	.case--full .case__arrow {
-		align-self: end;
 		color: var(--on-cover-muted);
 	}
 }
