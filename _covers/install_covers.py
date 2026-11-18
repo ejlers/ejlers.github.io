@@ -2,12 +2,16 @@
 import re, sys, os
 from PIL import Image
 HERE=os.path.dirname(os.path.abspath(__file__)); R=os.path.dirname(HERE)+'/'; O=HERE+'/out/'
+# A render is looked for in out/ first (what was just made here), then in masters/ (the finished renders
+# kept in the repository), so the site's pictures can be rebuilt without rendering anything.
+M=HERE+'/masters/'
+def find(name): return next((d+name for d in (O,M) if os.path.exists(d+name)), None)
 q=sys.argv[1] if len(sys.argv)>1 else 'mid'
 def src(n):
     for qq in (q,'mid','test'):
         for ext in ('jpg','png'):
-            f=O+f'{n}-mix-{qq}.{ext}'
-            if os.path.exists(f): return Image.open(f).convert('RGB'), qq
+            f=find(f'{n}-mix-{qq}.{ext}')
+            if f: return Image.open(f).convert('RGB'), qq
     raise SystemExit('missing '+n)
 # small-screen 4:3: a window cut from the desk version (left edge as a share of the width), or its own photograph
 SMALL={'economic':0.105,'trackman':0.118,'donkey':0.02,'theorg':0.111,'tv2':'tv2s','ok':'oks'}
@@ -38,8 +42,8 @@ open(p,'w').write(s)
 CARD_X={'theorg':0.03}        # a card's window slid sideways, as a share of the shot's width, where the device sits off the middle
 HEADER={'economic':'economic','trackman':'trackman','donkey':'donkey','theorg':'theorg','tv2':'tv2','ok':'ok'}
 for slug,scene in HEADER.items():
-    f=next((O+f'{scene}-mix-{qq}-header.jpg' for qq in (q,'mid','test') if os.path.exists(O+f'{scene}-mix-{qq}-header.jpg')), None)
-    if not f: print(slug,'header: no shot in out/, left as it is'); continue
+    f=next((find(f'{scene}-mix-{qq}-header.jpg') for qq in (q,'mid','test') if find(f'{scene}-mix-{qq}-header.jpg')), None)
+    if not f: print(slug,'header: no shot in out/ or masters/, left as it is'); continue
     im=Image.open(f).convert('RGB')
     for w,name in ((3200,'header.jpg'),(2400,'header-2400.jpg'),(1600,'header-1600.jpg')):
         v=im if im.width==w else im.resize((w,w//2),Image.LANCZOS)
