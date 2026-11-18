@@ -1500,8 +1500,8 @@ p:not(.crumb) a,
 	.develop .case > .case__cover { background: var(--hover); }
 	.develop .case > .case__cover img,
 	.develop .case .case__caption { opacity: 0; }
-	.develop .case.arrived > .case__cover img { animation: turn-up calc(var(--t-develop) * 1.6) linear forwards; }
-	.develop .case.arrived .case__caption { animation: turn-up calc(var(--t-develop) * 1.6) linear forwards; }
+	.develop .case.arrived > .case__cover img { animation: turn-up calc(var(--t-develop) * 1.25) linear forwards; }
+	.develop .case.arrived .case__caption { animation: turn-up calc(var(--t-develop) * 1.25) linear forwards; }
 
 	/* A case's header develops the way a plate does: the frame stands, the
 	   picture and its words turn up together when the picture is ready.
@@ -1512,7 +1512,7 @@ p:not(.crumb) a,
 	.develop .hero > .hero__cover img,
 	.develop .hero > .hero__caption { opacity: 0; }
 	.develop .hero.arrived > .hero__cover img,
-	.develop .hero.arrived > .hero__caption { animation: turn-up calc(var(--t-develop) * 1.6) linear forwards; }
+	.develop .hero.arrived > .hero__caption { animation: turn-up calc(var(--t-develop) * 1.25) linear forwards; }
 	.develop .hero.landed > .hero__cover img,
 	.develop .hero.landed > .hero__caption,
 	.develop .case.landed > .case__cover img,
