@@ -76,7 +76,22 @@
 			pieces.forEach((el) => sight.observe(el));
 		};
 		watch(waiting, '0px');
-		watch(plates, '0px 0px 15% 0px');
+
+		/* A touch screen draws the page under the browser's own bars, so what
+		   is on screen at the start reaches further than the window it
+		   reports, and it may report nothing more until a finger moves. So
+		   there the first plates are measured against the whole screen and
+		   develop at once; the rest are watched, from further out. */
+		const touch = window.matchMedia('(pointer: coarse)').matches;
+		const reach = touch ? Math.max(window.innerHeight, window.screen.height) : 0;
+		const later = [];
+		let step = 0;
+		plates.forEach((el) => {
+			if (el.getBoundingClientRect().top >= reach) { later.push(el); return; }
+			el.style.setProperty('--arrive', (step++) * 80 + 'ms');
+			el.classList.add('arrived');
+		});
+		watch(later, touch ? '0px 0px 20% 0px' : '0px 0px 15% 0px');
 	};
 
 	if (document.prerendering) {
