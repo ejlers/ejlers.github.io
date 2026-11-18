@@ -82,6 +82,34 @@ It needs a `final` render of every cover in `out/`, the two small-screen scenes 
 
 Then look at the Work page at laptop and phone width before publishing.
 
+## The header shots
+
+Each case page opens on its cover from one edge of the window to the other. That picture is the same
+scene in a 2:1 frame, pulled back, so the device keeps clear of every edge and a window of any shape
+crops into plain wall and floor.
+
+```bash
+HEADER=1 b3d/bin/python scenes.py -- trackman final mix
+```
+
+`HEADER=1` turns any scene into its header shot (`out/<scene>-mix-<quality>-header.png` and `.jpg`).
+How far back each one stands is the `PULL` table in `scenes.py`. The tall covers have no header shot of
+their own; their small-screen scenes (`tv2s`, `oks`) are used.
+
+TrackMan's launch monitor goes on the same way, with the scene's pull as a last number:
+
+```bash
+python3 radar.py trackman-mix-final-header.png 0.30 0.756 0.925 trackman-mix-final-header.jpg 0.82
+```
+
+`install_covers.py` writes the header shots too, in three widths per case, each as a WebP and a JPEG. It
+also writes each case's share card (`card.jpg`, the picture a link to the case shows in a message or a
+feed): the header shot seen closer.
+
+One thing ties the header shot to the stylesheet. Pressing a plate on the Work page carries its picture
+into the case's header, and for the two to line up the stylesheet has to know each shot's pull: the
+`--pull` values at the end of `css/styles.css`. Change a pull here and change it there.
+
 ## Changing a cover
 
 Everything about a cover's composition is in its function in `scenes.py`: where the surfaces are, where the device lies, where the camera stands and what it looks at. Change, render at `test`, look, repeat; render `final` only when it is right.

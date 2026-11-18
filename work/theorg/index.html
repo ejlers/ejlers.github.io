@@ -34,7 +34,7 @@
 
 	<link rel="preload" href="../../fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../../fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="../../css/styles.css?v=82d87be8">
+	<link rel="stylesheet" href="../../css/styles.css?v=3bfe530a">
 
 	<!-- The next page is built when a link is hovered or pressed, so the
 	     crossing is instant and the develop starts the moment it is seen. -->
@@ -42,6 +42,15 @@
 	{
 		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
 	}
+	</script>
+	<!-- The header's picture travels in from its plate on the work wall. If it
+	     has not arrived when the page is first shown, there is nothing to
+	     carry: the trip is called off and the header develops like any other. -->
+	<script>
+	addEventListener('pagereveal', function (event) {
+		var picture = document.querySelector('.hero__cover img');
+		if (event.viewTransition && !(picture && picture.complete)) event.viewTransition.skipTransition();
+	});
 	</script>
 </head>
 
@@ -66,14 +75,16 @@
 	</div>
 
 	<main id="case">
-	<div class="band">
-		<div class="col-8 stack">
-			<img class="article-mark" width="40" height="40" src="../../img/logos/theorg-canvas.png" alt="">
-			<h1 class="display article-head">The Org.</h1>
-			<p class="article-byline">Employee Engagement Platform.</p>
-			<p class="muted measure">The Org is an online employee engagement platform with the world&#8217;s largest network of org charts. It is a Series B company backed by some of the world&#8217;s leading venture funds, including Sequoia, Tiger Global, and Founders Fund.</p>
-			<p class="article-kicker">Senior, then Lead Product Designer, December 2021 to August 2023.</p>
+	<header class="hero hero--theorg">
+		<span class="hero__cover"><picture><source media="(max-width: 1100px)" type="image/webp" srcset="../../img/work/theorg/cover-set-small.webp" width="1600" height="1200"><source media="(max-width: 1100px)" srcset="../../img/work/theorg/cover-set-small.jpg" width="1600" height="1200"><source type="image/webp" srcset="../../img/work/theorg/header-1600.webp 1600w, ../../img/work/theorg/header-2400.webp 2400w, ../../img/work/theorg/header.webp 3200w" sizes="100vw"><img fetchpriority="high" decoding="sync" src="../../img/work/theorg/header-2400.jpg" srcset="../../img/work/theorg/header-1600.jpg 1600w, ../../img/work/theorg/header-2400.jpg 2400w, ../../img/work/theorg/header.jpg 3200w" sizes="100vw" alt="" width="3200" height="1600"></picture></span>
+		<div class="hero__caption">
+			<h1 class="hero__name display">The Org.</h1>
+			<span class="hero__what">Employee Engagement Platform.</span>
 		</div>
+	</header>
+	<div class="band">
+		<p class="col-4 muted">Senior, then Lead Product Designer<br>December 2021 to August 2023</p>
+		<p class="col-8 measure">The Org is an online employee engagement platform with the world&#8217;s largest network of org charts. It is a Series B company backed by some of the world&#8217;s leading venture funds, including Sequoia, Tiger Global, and Founders Fund.</p>
 	</div>
 	<section class="band">
 		<h2 class="col-4 stick label">The dashboard</h2>
@@ -121,7 +132,7 @@
 		</nav>
 	</main>
 
-	<script src="../../js/site.js?v=8a5e048b"></script>
+	<script src="../../js/site.js?v=98f202b2"></script>
 
 </body>
 

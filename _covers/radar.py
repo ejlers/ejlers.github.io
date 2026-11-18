@@ -4,8 +4,13 @@ from PIL import Image, ImageFilter
 import numpy as np
 HERE=os.path.dirname(os.path.abspath(__file__))+'/'
 O=HERE+'out/'; base_name=sys.argv[1]; relscale=float(sys.argv[2]); relleft=float(sys.argv[3]); relfoot=float(sys.argv[4]); out_name=sys.argv[5]
+pull=float(sys.argv[6]) if len(sys.argv)>6 else None                          # given for the header shot: the same PULL the scene was rendered with
 base=Image.open(O+base_name).convert('RGB')                                # the raw render, before glow and grain
-W,H=base.size; scale=relscale*W/2400; left=round(relleft*W); foot=round(relfoot*H)
+W,H=base.size
+# Size and place are given as on the wall cover (a 16:9 frame). The header shot is the same view pulled
+# back in a wider frame, so the wall cover's frame sits in its middle, smaller: Wref by Href.
+Href=pull*H if pull else H; Wref=Href*16/9 if pull else W
+scale=relscale*Wref/2400; left=round(W/2+(relleft-0.5)*Wref); foot=round(H/2+(relfoot-0.5)*Href)
 r=Image.open(HERE+'tex/radar-src.png').convert('RGBA')
 a=np.asarray(r).astype('float32'); al=a[...,3]
 soft=al<200; al[soft]=np.minimum(255,al[soft]*1.25)                                               # the cut-out's own soft shadow, a little lighter to sit with the scene's
@@ -15,7 +20,7 @@ a[...,3]=al; r=Image.fromarray(a.astype('uint8'),'RGBA')
 # radar's own eye level; here the camera stands above it, so both edges must rise towards the right.
 x0=round(left-416*scale); y0=round(foot-875*scale)
 SHIFT=0.09                                                                # the render's frame is slid this share of its width, so everything sits further right
-VP=((6.719+SHIFT)*W, 0.5*H-0.165*W)                                               # where the wall's horizontal lines meet, from the camera
+VP=(W/2+(6.719+SHIFT-0.5)*Wref, 0.5*H-0.165*Wref)                                               # where the wall's horizontal lines meet, from the camera
 src=[(435,116),(999,149),(934,676),(415,725)]                            # the radar's back face, measured in the picture: TL, TR, BR, BL
 def aim(p_fixed, p_move):
     fx,fy=x0+p_fixed[0]*scale, y0+p_fixed[1]*scale; mx=x0+p_move[0]*scale
@@ -40,7 +45,7 @@ A_=np.asarray(r).astype('float32'); hh,ww=A_.shape[:2]; yy,xx=np.mgrid[0:hh,0:ww
 edge=np.minimum.reduce([xx,yy,ww-1-xx,hh-1-yy]); A_[...,3]*=np.clip(edge/120.0,0,1); r=Image.fromarray(A_.astype('uint8'),'RGBA')
 x0-=round(PAD*scale); y0-=round(PAD*scale)
 print('corners moved (source px): top right up', round(src[1][1]-dst[1][1]), ', bottom right up', round(src[2][1]-dst[2][1]), ', bottom left to the left', round(src[3][0]-dst[3][0]))
-w,h=round(r.width*scale),round(r.height*scale); r=r.resize((w,h),Image.LANCZOS).filter(ImageFilter.GaussianBlur(0.9*W/2400))   # the floor here is just in front of the focus
+w,h=round(r.width*scale),round(r.height*scale); r=r.resize((w,h),Image.LANCZOS).filter(ImageFilter.GaussianBlur(0.9*Wref/2400))   # the floor here is just in front of the focus
 im=base.convert('RGBA'); im.alpha_composite(r,(x0,y0)); im=im.convert('RGB')
 # the same lens glow and film grain as every other cover
 A=np.asarray(im).astype('float32'); hi=np.clip((A-225)/30,0,1)*255
