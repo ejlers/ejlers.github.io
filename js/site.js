@@ -50,22 +50,33 @@
 
 		document.body.classList.add('develop');
 
-		const waiting = document.querySelectorAll('.band + .band, .entry, .case, .cycle, .ledger__row');
+		const waiting = document.querySelectorAll('.band + .band, .entry, .cycle, .ledger__row');
+		const plates = document.querySelectorAll('.case');
 		if (!('IntersectionObserver' in window)) {
 			waiting.forEach((el) => el.classList.add('arrived'));
+			plates.forEach((el) => el.classList.add('arrived'));
 			return;
 		}
-		const seen = new IntersectionObserver((entries) => {
-			/* everything sighted together develops top to bottom, one step apart */
-			let step = 0;
-			for (const entry of entries) {
-				if (!entry.isIntersecting) continue;
-				entry.target.style.setProperty('--arrive', (step++) * 80 + 'ms');
-				entry.target.classList.add('arrived');
-				seen.unobserve(entry.target);
-			}
-		}, { rootMargin: '0px 0px -10% 0px' });
-		waiting.forEach((el) => seen.observe(el));
+		/* First sight is the moment a piece enters the window, not a step
+		   inside it: a phone shows the page under its own toolbar, and a piece
+		   held back there reads as a page that has ended. A plate is a large
+		   picture, so it starts a little before the edge and is under way by
+		   the time it is looked at. */
+		const watch = (pieces, margin) => {
+			const sight = new IntersectionObserver((entries, seen) => {
+				/* everything sighted together develops top to bottom, one step apart */
+				let step = 0;
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue;
+					entry.target.style.setProperty('--arrive', (step++) * 80 + 'ms');
+					entry.target.classList.add('arrived');
+					seen.unobserve(entry.target);
+				}
+			}, { rootMargin: margin });
+			pieces.forEach((el) => sight.observe(el));
+		};
+		watch(waiting, '0px');
+		watch(plates, '0px 0px 15% 0px');
 	};
 
 	if (document.prerendering) {
