@@ -70,14 +70,23 @@
 	   it. Each page leaves a note of where the reader set out from and when;
 	   the next page reads it once, and only a fresh one counts. */
 	const HERE = location.pathname.replace(/index\.html$/, '');
-	window.addEventListener('pagehide', () => {
+	/* The note is left as early as the page knows the reader is going: at
+	   the press on a link, again when the crossing is about to start, and
+	   last when the page is hidden. Early matters, because a browser may
+	   have built the next page already and hand it over at once. */
+	const leaveNote = () => {
 		try {
 			sessionStorage.setItem('crossing', HERE + ' ' + Date.now());
-			/* and where the wall stood, so a return by the trail finds it there
+			/* and where the wall stood, so a return finds it there
 			   (work/index.html puts it back before the page is first shown) */
 			if (/\/work\/$/.test(HERE)) sessionStorage.setItem('wall-at', String(Math.round(window.scrollY)));
 		} catch (err) { /* no note, no harm */ }
-	});
+	};
+	document.addEventListener('click', (event) => {
+		if (event.target.closest && event.target.closest('a[href]')) leaveNote();
+	}, true);
+	window.addEventListener('pageswap', leaveNote);
+	window.addEventListener('pagehide', leaveNote);
 	const cameFrom = () => {
 		try {
 			const [path, at] = (sessionStorage.getItem('crossing') || '').split(' ');
@@ -90,15 +99,17 @@
 	const caseOf = (path) => (path.match(/\/work\/([a-z0-9]+)\/$/) || [])[1] || '';
 
 	/* Where the reader has just come from, read once per arrival: when the
-	   script first runs, and again when the browser hands back a page it
-	   kept. The work wall is put back where it was left first
+	   script first runs, or, on a page the browser built ahead of the press
+	   (the speculation rules), when it is actually handed over, since until
+	   then nobody has left anywhere; and again when the browser hands back
+	   a page it kept. The work wall is put back where it was left first
 	   (work/index.html), while the note still says where from. */
 	let came = '';
 	const arrive = () => {
 		if (typeof window.putWallBack === 'function') window.putWallBack();
 		came = cameFrom();
 	};
-	arrive();
+	if (!document.prerendering) arrive();
 
 	/* A page arrives in one of two ways, never both at once. It develops,
 	   or it crosses softly from the page before. The soft crossing belongs
@@ -224,7 +235,7 @@
 	};
 
 	if (document.prerendering) {
-		document.addEventListener('prerenderingchange', develop, { once: true });
+		document.addEventListener('prerenderingchange', () => { arrive(); develop(); }, { once: true });
 	} else {
 		develop();
 	}
