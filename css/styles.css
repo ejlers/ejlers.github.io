@@ -50,9 +50,10 @@
 
 	/* Measure */
 	--measure: 600px;
-	--term-col: 300px; /* the first column, everywhere it appears: index terms
-	                      and the labels' column, so bylines and media start
-	                      on the same line down a page */
+	--term-col: 300px; /* an index's first column below the desk's columns,
+	                      where a row is a line of two and there is no grid
+	                      to stand on; on a desk the first column is the
+	                      grid's first four */
 
 	/* The trail's floor: its 24px line plus the two s3 insets over and
 	   under it. What rides the top of the window rests here, directly
@@ -606,32 +607,14 @@ p:not(.crumb) a,
 	margin-top: var(--s7);
 }
 
-/* More work: the front page's index rows, each with the case's mark at
-   the row size. The band above already spaces the list, so it brings no
-   floor geometry of its own. */
+/* More work: the front page's index rows, a case's name and what it is.
+   The band above already spaces the list, so it brings no floor geometry
+   of its own. Its columns are the index's own (see Index, below): inside
+   a band's eight columns the name starts where the band's text starts,
+   and at every narrower width it is an index like any other. */
 .morework {
 	margin-top: 0;
 	padding-bottom: 0;
-}
-
-.mini__mark {
-	flex: none;
-	width: 35px;
-	height: 35px;
-}
-
-@media (max-width: 900px) {
-	.morework .index__note {
-		display: none;
-	}
-
-	/* With no byline, a row is one line again: the mark and the name
-	   centre on it. The front page's index keeps the site's own mobile
-	   shape. */
-	.morework .index__row {
-		align-items: center;
-		flex-wrap: nowrap;
-	}
 }
 
 /* --- Layout ---------------------------------------------------------- */
@@ -942,6 +925,50 @@ p:not(.crumb) a,
 	height: 20px;
 	margin-left: auto;
 	color: var(--grey);
+}
+
+/* On a desk a row is laid on the page's own twelve columns, so a list has
+   the two edges every band has and no third of its own: the term on the
+   page's left edge, where a band's label stands, and the note on the fifth
+   column, where a band's text starts. Down a page the labels, the terms,
+   the text and the notes then fall on two lines, on the front page as at
+   the foot of a case.
+
+   An index inside a band's eight columns (More work) is those eight: its
+   term starts on the band's text edge, its note half-way along. */
+@media (min-width: 1101px) {
+	.index__row {
+		display: grid;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		column-gap: var(--gutter);
+	}
+
+	.index__term {
+		grid-column: span 4;
+		width: auto;
+	}
+
+	.index__note {
+		grid-column: span 7;
+	}
+
+	.index__arrow {
+		grid-column: 12;
+		justify-self: end;
+		margin-left: 0;
+	}
+
+	.morework .index__row {
+		grid-template-columns: repeat(8, minmax(0, 1fr));
+	}
+
+	.morework .index__note {
+		grid-column: span 3;
+	}
+
+	.morework .index__arrow {
+		grid-column: 8;
+	}
 }
 
 @media (hover: hover) {
@@ -1427,13 +1454,12 @@ p:not(.crumb) a,
 	.develop .index__row:nth-child(5) .index__term { animation-delay: 640ms; }
 
 	.develop .index__note,
-	.develop .index__arrow,
-	.develop .mini__mark { opacity: 0; animation: turn-up var(--t-develop) ease forwards; }
-	.develop .index__row:nth-child(1) .index__note, .develop .index__row:nth-child(1) .index__arrow, .develop .index__row:nth-child(1) .mini__mark { animation-delay: 440ms; }
-	.develop .index__row:nth-child(2) .index__note, .develop .index__row:nth-child(2) .index__arrow, .develop .index__row:nth-child(2) .mini__mark { animation-delay: 520ms; }
-	.develop .index__row:nth-child(3) .index__note, .develop .index__row:nth-child(3) .index__arrow, .develop .index__row:nth-child(3) .mini__mark { animation-delay: 600ms; }
-	.develop .index__row:nth-child(4) .index__note, .develop .index__row:nth-child(4) .index__arrow, .develop .index__row:nth-child(4) .mini__mark { animation-delay: 680ms; }
-	.develop .index__row:nth-child(5) .index__note, .develop .index__row:nth-child(5) .index__arrow, .develop .index__row:nth-child(5) .mini__mark { animation-delay: 760ms; }
+	.develop .index__arrow { opacity: 0; animation: turn-up var(--t-develop) ease forwards; }
+	.develop .index__row:nth-child(1) .index__note, .develop .index__row:nth-child(1) .index__arrow { animation-delay: 440ms; }
+	.develop .index__row:nth-child(2) .index__note, .develop .index__row:nth-child(2) .index__arrow { animation-delay: 520ms; }
+	.develop .index__row:nth-child(3) .index__note, .develop .index__row:nth-child(3) .index__arrow { animation-delay: 600ms; }
+	.develop .index__row:nth-child(4) .index__note, .develop .index__row:nth-child(4) .index__arrow { animation-delay: 680ms; }
+	.develop .index__row:nth-child(5) .index__note, .develop .index__row:nth-child(5) .index__arrow { animation-delay: 760ms; }
 
 	/* A first band's side column — the CV's contact, a note's date —
 	   comes up while the claim settles. */
@@ -1523,23 +1549,18 @@ p:not(.crumb) a,
 	   above it: every animation the index grammar carries holds, paused
 	   through its delay, until the band arrives, then plays with its own
 	   stagger. An index nested in any future band animates the same way,
-	   with nothing more to declare. The marks come up from grey besides,
-	   the way every mark on the site does. */
+	   with nothing more to declare. */
 	.develop .morework .index__row::before,
 	.develop .morework .index__row:last-child::after,
 	.develop .morework .index__term,
 	.develop .morework .index__note,
-	.develop .morework .index__arrow,
-	.develop .morework .mini__mark { animation-play-state: paused; }
+	.develop .morework .index__arrow { animation-play-state: paused; }
 	.develop .band.arrived .morework .index__row::before,
 	.develop .band.arrived .morework .index__row:last-child::after,
 	.develop .band.arrived .morework .index__term,
 	.develop .band.arrived .morework .index__note,
-	.develop .band.arrived .morework .index__arrow,
-	.develop .band.arrived .morework .mini__mark { animation-play-state: running; }
+	.develop .band.arrived .morework .index__arrow { animation-play-state: running; }
 
-	.develop .morework .mini__mark { filter: grayscale(1); }
-	.develop .band.arrived .morework .mini__mark { filter: none; transition: filter calc(var(--t-develop) * 2) ease 300ms; }
 
 	@keyframes settle { from { color: var(--ink-muted); } }
 	@keyframes come-up { from { filter: grayscale(1); } }
