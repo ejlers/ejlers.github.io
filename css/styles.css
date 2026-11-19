@@ -342,7 +342,7 @@ p:not(.crumb) a,
    A pair shares a floor. The wide plate lies down (3:2) and the narrow one
    stands up (4:5), so their tops step and their captions sit on one line.
 
-   A plate's words are its name and its disciplines, and they stand under
+   A plate's words are its name and what it is, and they stand under
    the cover: a row, the way the site has always captioned a picture.
    The two full plates are the exception, on a desk only: their covers
    keep a clear strip of floor along the bottom, and the same words stand
@@ -393,7 +393,7 @@ p:not(.crumb) a,
 	display: block;
 }
 
-/* The caption: the name, its disciplines on the line under it in the muted
+/* The caption: the name, what it is on the line under it in the muted
    ink, and the arrow that means departure at the end of that second line.
    One shape for every plate at every width, whether it stands under the
    cover or on it. */
@@ -414,7 +414,7 @@ p:not(.crumb) a,
 	font-weight: 500;
 }
 
-.case__tags {
+.case__what {
 	color: var(--ink-muted);
 }
 
@@ -435,7 +435,7 @@ p:not(.crumb) a,
 }
 
 /* On a desk the plates take their shapes, and a full plate takes its words
-   onto the picture: the name over its disciplines in the bottom left corner
+   onto the picture: the name over what it is in the bottom left corner
    and the arrow in the bottom right, with no rule of their own, since the
    picture already has the line where wall meets floor. The covers are light
    in both schemes, so the words on them are dark in both: the ink in
@@ -466,7 +466,7 @@ p:not(.crumb) a,
 		color: var(--on-cover);
 	}
 
-	.case--full .case__tags {
+	.case--full .case__what {
 		color: var(--on-cover-muted);
 	}
 
