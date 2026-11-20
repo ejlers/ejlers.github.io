@@ -57,8 +57,8 @@ def tv2():
     camera((0.0,-0.08,0.60),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
         hd=bool(os.environ.get('HEADER'))   # the wide shot shows far more floor: a larger window, and the softer, lighter shade of the small-screen cut
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, spread=0.45 if hd else 1.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False, shade=0.7 if hd else 1.0)
-        if hd: pnl.visible_shadow=False   # in the wide shot the panel's shadow ends abruptly in view; the window gives the light instead
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, spread=0.45 if hd else 3.8, strength=float(os.environ.get('SUN','0.6')), only_sun=False, shade=0.7)   # the tall cover as soft and light as the wide shot, so the picture does not change character as it travels into the header
+        pnl.visible_shadow=False   # the window gives the light; the panel's shadow would end abruptly in the wide shot, and the tall cover matches it
 RES['tv2']=(1440,1800)
 
 def ok():
