@@ -91,3 +91,20 @@ save(im,'bike-bold.png')
 # a single patch of sun in a wide shade.
 im,d=canvas(2000,2000); d.rectangle([0,0,1000,2000],fill=255); im.save(os.path.join(OUT,'edge.png')); print('edge.png')
 im,d=canvas(3000,3000); d.rectangle([0,0,3000,3000],fill=255); d.rectangle([1100,900,1900,2100],fill=0); im.save(os.path.join(OUT,'opening.png')); print('opening.png')
+
+# Foliage: a branch's leaves between the sun and the table. Seen soft, only dapples of light and shade
+# remain; no leaf should be readable on its own.
+import random
+rnd=random.Random(7)
+im,d=canvas(2400,2400)
+for _ in range(4):                                                   # a few branches across the frame
+    x,y=rnd.uniform(-200,2600),rnd.uniform(-200,600); ang=rnd.uniform(0.6,1.4)
+    for k in range(60):
+        x+=math.cos(ang)*45; y+=math.sin(ang)*45; ang+=rnd.uniform(-0.12,0.12)
+        d.line([(x,y),(x-math.cos(ang)*45,y-math.sin(ang)*45)],fill=255,width=14)
+        for _ in range(2):                                           # leaves along it
+            a=rnd.uniform(0,2*math.pi); r=rnd.uniform(40,170); lx,ly=x+math.cos(a)*r,y+math.sin(a)*r
+            L,W=rnd.uniform(60,120),rnd.uniform(28,50); t=rnd.uniform(0,math.pi)
+            pts=[(lx+math.cos(t)*L*math.cos(u)-math.sin(t)*W*math.sin(u), ly+math.sin(t)*L*math.cos(u)+math.cos(t)*W*math.sin(u)) for u in [i*math.pi/10 for i in range(20)]]
+            d.polygon(pts,fill=255)
+save(im,'foliage.png')

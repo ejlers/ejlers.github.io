@@ -42,8 +42,8 @@ def donkey():
     box('floor', (5.0,5.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig,H,Tk,scr=phone(T+'donkey.png'); rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); c=(0.0,0.0,top+Tk/2); rig.location=c
     camera((0.09,-0.25,top+0.66),(0.006,-0.012,top), lens=85, fstop=8, focus=c); sheen(scr, slide=(-0.6,0.3,0))
-    if PEOPLE:   # light in the room: one soft edge of shade across the table's far corner
-        figure_shadow('edge', T+'shadows/edge.png', (-0.07, 0.05, top+0.001), az=70, el=50, width=1.2, dist=0.16, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=35)
+    if PEOPLE:   # light in the room: sun through leaves outside, dappled across the table
+        figure_shadow('foliage', T+'shadows/foliage.png', (0.02, 0.0, top+0.001), az=70, el=55, width=0.9, dist=0.25, spread=1.8, strength=float(os.environ.get('SUN','0.7')))
 RES['donkey']=(1920,1280)
 
 def tv2():
@@ -184,7 +184,7 @@ if quality=='focus':
     focus_report(' '+(os.environ.get('FOCUS','as-is')+' f/'+os.environ.get('FSTOP','-'))+' ')
     sys.exit(0)
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
-EXPOSURE=float(os.environ.get('EXPO', {'economic':-0.22,'trackman':-0.45,'donkey':-0.07,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
+EXPOSURE=float(os.environ.get('EXPO', {'economic':-0.22,'trackman':-0.45,'donkey':-0.2,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
