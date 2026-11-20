@@ -43,7 +43,7 @@ def donkey():
     rig,H,Tk,scr=phone(T+'donkey.png'); rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); c=(0.0,0.0,top+Tk/2); rig.location=c
     camera((0.09,-0.25,top+0.66),(0.006,-0.012,top), lens=85, fstop=8, focus=c); sheen(scr, slide=(-0.6,0.3,0))
     if PEOPLE:   # light in the room: sun through leaves outside, dappled across the table
-        figure_shadow('foliage', T+'shadows/foliage.png', (0.02, 0.0, top+0.001), az=70, el=55, width=0.9, dist=0.25, spread=1.8, strength=float(os.environ.get('SUN','0.7')))
+        figure_shadow('foliage', T+'shadows/foliage.png', (0.02, 0.0, top+0.001), az=-19, el=44, width=0.9, dist=0.25, spread=1.8, strength=float(os.environ.get('SUN','0.7')))
 RES['donkey']=(1920,1280)
 
 def tv2():
@@ -184,7 +184,13 @@ if quality=='focus':
     focus_report(' '+(os.environ.get('FOCUS','as-is')+' f/'+os.environ.get('FSTOP','-'))+' ')
     sys.exit(0)
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
-EXPOSURE=float(os.environ.get('EXPO', {'economic':-0.22,'trackman':-0.45,'donkey':-0.2,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
+# Where a scene's sun would lift it, the room's lamps are turned down to make up for it, not the exposure:
+# exposure would dim the device's screen with everything else. (Screens light themselves.)
+ROOM={'donkey':0.82}.get(which) if PEOPLE else None
+if ROOM:
+    for o in bpy.context.scene.objects:
+        if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM
+EXPOSURE=float(os.environ.get('EXPO', {'economic':-0.22,'trackman':-0.45,'donkey':0.0,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
