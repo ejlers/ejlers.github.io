@@ -196,7 +196,7 @@ if quality=='focus':
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
 # Where a scene's sun would lift it, the room's lamps are turned down to make up for it, not the exposure:
 # exposure would dim the device's screen with everything else. (Screens light themselves.)
-ROOM={'donkey':0.88,'economic':float(os.environ.get('ROOMK','0.85'))}.get(which) if PEOPLE else None
+ROOM={'donkey':0.88,'economic':float(os.environ.get('ROOMK','0.74'))}.get(which) if PEOPLE else None
 if ROOM:
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM
