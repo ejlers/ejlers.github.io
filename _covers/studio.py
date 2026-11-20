@@ -319,3 +319,13 @@ def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o is not so: o.light_linking.blocker_collection=coll
     return p
+
+def sun(name, az, el, strength, spread=2.0, dim_room=1.0):
+    """A plain sun from az/el (as figure_shadow), for a crisper shadow under a device. dim_room scales the
+    room's other lamps (not the screen's sheen), so the scene keeps its brightness."""
+    a,e=math.radians(az),math.radians(el)
+    to_sun=Vector((math.sin(a)*math.cos(e), -math.cos(a)*math.cos(e), math.sin(e))).normalized()
+    for o in bpy.context.scene.objects:
+        if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=dim_room
+    s=bpy.data.lights.new(name,'SUN'); s.energy=strength; s.angle=math.radians(spread)
+    so=link(bpy.data.objects.new(name,s)); so.rotation_euler=(-to_sun).to_track_quat('-Z','Y').to_euler(); return so
