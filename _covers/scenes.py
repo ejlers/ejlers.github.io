@@ -43,7 +43,7 @@ def donkey():
     rig,H,Tk,scr=phone(T+'donkey.png'); rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); c=(0.0,0.0,top+Tk/2); rig.location=c
     camera((0.09,-0.25,top+0.66),(0.006,-0.012,top), lens=85, fstop=8, focus=c); sheen(scr, slide=(-0.6,0.3,0))
     if PEOPLE:   # light in the room: sun through leaves outside, dappled across the table
-        figure_shadow('foliage', T+'shadows/foliage.png', (0.02, 0.0, top+0.001), az=-19, el=44, width=0.9, dist=0.25, spread=1.8, strength=float(os.environ.get('SUN','0.7')))
+        figure_shadow('dapples', T+'shadows/dapples.png', (0.02, 0.0, top+0.001), az=-19, el=44, width=1.0, dist=0.45, spread=0.8, strength=float(os.environ.get('SUN','0.75')))
 RES['donkey']=(1920,1280)
 
 def tv2():
@@ -186,7 +186,7 @@ if quality=='focus':
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
 # Where a scene's sun would lift it, the room's lamps are turned down to make up for it, not the exposure:
 # exposure would dim the device's screen with everything else. (Screens light themselves.)
-ROOM={'donkey':0.82}.get(which) if PEOPLE else None
+ROOM={'donkey':0.9}.get(which) if PEOPLE else None
 if ROOM:
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM

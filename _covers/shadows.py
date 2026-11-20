@@ -108,3 +108,16 @@ for _ in range(4):                                                   # a few bra
             pts=[(lx+math.cos(t)*L*math.cos(u)-math.sin(t)*W*math.sin(u), ly+math.sin(t)*L*math.cos(u)+math.cos(t)*W*math.sin(u)) for u in [i*math.pi/10 for i in range(20)]]
             d.polygon(pts,fill=255)
 save(im,'foliage.png')
+
+# Dappled light, as under a tree: the canopy is mostly shade (white), with many small gaps of sun (black),
+# clustered unevenly. Real dapples are round, little images of the sun through the gaps, so the gaps are
+# small irregular blobs, not leaf shapes; the softness at render time rounds them further.
+rnd=random.Random(11)
+im,d=canvas(3000,3000); d.rectangle([0,0,3000,3000],fill=255)
+centres=[(rnd.uniform(0,3000),rnd.uniform(0,3000)) for _ in range(14)]
+for _ in range(420):
+    cx,cy=rnd.choice(centres); x=rnd.gauss(cx,320); y=rnd.gauss(cy,320)
+    r=abs(rnd.gauss(0,1))*26+8
+    pts=[(x+r*rnd.uniform(0.7,1.3)*math.cos(a),y+r*rnd.uniform(0.7,1.3)*math.sin(a)) for a in [k*math.pi/5 for k in range(10)]]
+    d.polygon(pts,fill=0)
+save(im,'dapples.png')
