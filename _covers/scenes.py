@@ -50,6 +50,7 @@ RES['donkey']=(1920,1280)
 # Every version of a case (cover, small-screen cut, header shot) takes its light from here, so the light
 # can never drift apart between them. Values are figure_shadow's.
 TV2_WINDOW=dict(az=70, el=40, spread=3.8, shade=0.7, strength=0.6)
+TV2_NEAR=float(os.environ.get('NEAR','0.52'))   # matched by measurement: the shade's contrast on the floor equals the wide shot's
 
 def tv2():
     # D: lying on the floor, from straight above, a panel's soft shadow across the floor
@@ -64,6 +65,7 @@ def tv2():
         hd=bool(os.environ.get('HEADER'))   # the wide shot needs a larger cut-out further off to cover its floor; the light it makes is the same
         L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength']))
         if hd: L_['spread']=0.45   # further off, so a smaller sun makes the same softness on the floor
+        else: L_['shade']*=TV2_NEAR   # close up, the same cut-out darkens the floor about twice as much as in the wide shot
         figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, only_sun=False, **L_)
         pnl.visible_shadow=False   # the window gives the light; the panel's shadow would end abruptly in the wide shot, and the tall cover matches it
 RES['tv2']=(1440,1800)
@@ -149,7 +151,7 @@ def tv2s():
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
     camera((0.0,-0.09,0.03+0.70),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
-        L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength']))
+        L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength'])); L_['shade']*=TV2_NEAR
         figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=0.55, dist=0.10, only_sun=False, **L_)
 RES['tv2s']=(1600,1200)
 
