@@ -114,8 +114,14 @@ def economic():
     rig,W,D,scr=laptop(T+'economic-lap.png', open_deg=106)
     rig.location=(-0.02,0.10,0.04); rig.rotation_euler=Euler((0,0,math.radians(12)))
     camera((0.38,-0.97,0.36),(-0.02,0.12,0.150), lens=62, fstop=8, shift=(0,-0.052)); sheen(scr, power=0.5, slide=(0.9,0,0.3))
-    if PEOPLE:   # light in the room: one soft edge of shade across the wall, the laptop in the light
-        figure_shadow('edge', T+'shadows/edge.png', (-0.22, 0.5025-0.002, 0.50), az=-40, el=25, width=2.0, dist=0.35, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=-30)
+    if PEOPLE:   # light in the room, from the key lamp's side (front right), so it agrees with the laptop's own shadow
+        v=os.environ.get('LIGHT','edge')
+        if v=='edge':     # one soft edge of shade across the wall, the laptop in the light
+            figure_shadow('edge', T+'shadows/edge.png', (-0.30, 0.5025-0.002, 0.55), az=19, el=44, width=2.0, dist=0.6, spread=2.5, strength=float(os.environ.get('SUN','0.9')), roll=-25)
+        elif v=='window': # a window's soft light on the wall behind, as on TV2's floor
+            figure_shadow('window', T+'shadows/window.png', (0.10, 0.5025-0.002, 0.45), az=19, el=44, width=0.9, dist=0.6, spread=1.2, strength=float(os.environ.get('SUN','0.9')), shade=0.6)
+        elif v=='opening':# a single patch of sun on the wall and floor, no frame
+            figure_shadow('opening', T+'shadows/opening.png', (0.15, 0.40, 0.25), az=19, el=44, width=1.6, dist=0.6, spread=2.5, strength=float(os.environ.get('SUN','1.2')), roll=10)
 RES['economic']=(2400,1350)
 
 # --- Small-screen versions --------------------------------------------------------------------
@@ -190,11 +196,11 @@ if quality=='focus':
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
 # Where a scene's sun would lift it, the room's lamps are turned down to make up for it, not the exposure:
 # exposure would dim the device's screen with everything else. (Screens light themselves.)
-ROOM={'donkey':0.88}.get(which) if PEOPLE else None
+ROOM={'donkey':0.88,'economic':float(os.environ.get('ROOMK','0.85'))}.get(which) if PEOPLE else None
 if ROOM:
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM
-EXPOSURE=float(os.environ.get('EXPO', {'economic':-0.22,'trackman':-0.45,'donkey':0.0,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
+EXPOSURE=float(os.environ.get('EXPO', {'economic':0.0,'trackman':-0.45,'donkey':0.0,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
