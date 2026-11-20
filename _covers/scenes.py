@@ -43,7 +43,7 @@ def donkey():
     rig,H,Tk,scr=phone(T+'donkey.png'); rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); c=(0.0,0.0,top+Tk/2); rig.location=c
     camera((0.09,-0.25,top+0.66),(0.006,-0.012,top), lens=85, fstop=8, focus=c); sheen(scr, slide=(-0.6,0.3,0))
     if PEOPLE:   # a bicycle parked beside the table: the shadow of its front wheel and handlebar across the top
-        figure_shadow('bike', T+'shadows/bike.png', (0.21, 0.03, top+0.001), az=70, el=55, width=0.34, dist=0.06, spread=1.5, strength=float(os.environ.get('SUN','0.6')))
+        figure_shadow('bike', T+'shadows/bike-bold.png', (0.20, 0.04, top+0.001), az=70, el=55, width=0.34, dist=0.04, spread=1.0, strength=float(os.environ.get('SUN','0.6')))
 RES['donkey']=(1920,1280)
 
 def tv2():
@@ -83,7 +83,7 @@ def theorg():
     rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); rig.location=(px,py,top+Tk/2)
     camera((0.0,-0.035,top+0.90),(0.0,0.0,top), lens=70, fstop=8); sheen(scr, power=0.6, slide=(-0.6,0.2,0))
     if PEOPLE:   # a team standing round the far side of the table: their heads and shoulders reach in from the top
-        figure_shadow('team', T+'shadows/team.png', (0.03, 0.235, top+0.001), az=180, el=40, width=0.36, dist=0.12, spread=2.5, strength=float(os.environ.get('SUN','0.6')))
+        figure_shadow('team', T+'shadows/team.png', (0.20, 0.22, top+0.001), az=145, el=38, width=0.34, dist=0.10, spread=2.0, strength=float(os.environ.get('SUN','2.0')))
 RES['theorg']=(1920,1280)
 
 def trackman():
@@ -98,8 +98,8 @@ def trackman():
     # seen from the left: the screen's left side is nearest and the wall runs away to the right, so the
     # wall faces the floor on the right, where the radar stands looking back at the screen
     camera((-0.26,-1.10,0.30),(0.10,0.20,0.30), lens=62, fstop=8, shift=(-0.09,-0.165))   # the frame slid left, so screen and radar sit centred together
-    if PEOPLE:   # the shadow of a golfer at the top of the backswing, cast on the wall left of the screen
-        figure_shadow('golfer', T+'shadows/golfer.png', (0.56, CY+1.30*K-0.002, 0.04+0.110), az=-35, el=16, width=0.17, dist=0.16, spread=2.5, strength=float(os.environ.get('SUN','0.6')))
+    if PEOPLE:   # a man walking past just behind the camera: his long shadow across the floor towards the wall
+        figure_shadow('walker', T+'shadows/walker.png', (-0.12, 0.10, 0.041), az=-12, el=24, width=0.19, dist=0.55, spread=1.5, strength=float(os.environ.get('SUN','2.0')))
 RES['trackman']=(2400,1350)
 
 def economic():
@@ -182,8 +182,9 @@ if quality=='focus':
     focus_report(' '+(os.environ.get('FOCUS','as-is')+' f/'+os.environ.get('FSTOP','-'))+' ')
     sys.exit(0)
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
+EXPOSURE=float(os.environ.get('EXPO', {'donkey':-0.15,'theorg':-0.35,'tv2':0.0,'trackman':-0.75}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
-render(out, res=(int(w*k),int(h*k)), samples=spp)
+render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
 from PIL import Image, ImageFilter
 import numpy as np

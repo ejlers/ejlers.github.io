@@ -61,3 +61,27 @@ for k in range(18):
 limb(d,c,(1000,470),34); limb(d,(1000,470),(1000,330),30)
 limb(d,(640,300),(1360,300),30); limb(d,(640,300),(560,380),28); limb(d,(1360,300),(1440,380),28)
 save(im,'bike.png')
+
+# A man walking past, side on, mid-stride: one arm forward, one back.
+im,d=canvas(1300,2000)
+head(d,(700,180),100)
+d.ellipse([650,260,740,360],fill=255)                                            # neck
+d.polygon([(540,330),(830,320),(860,520),(820,980),(560,990),(520,560)],fill=255)  # coat, shoulders to hips
+d.ellipse([540,900,840,1100],fill=255)                                           # hips
+body(d,[(650,1050),(470,1480),(330,1900)],78)                                     # back leg, behind
+body(d,[(740,1050),(880,1460),(1000,1880)],80)                                    # front leg, reaching
+d.ellipse([230,1860,450,1960],fill=255); d.ellipse([940,1840,1160,1940],fill=255)
+body(d,[(600,420),(470,700),(400,940)],56)                                       # arm swinging back
+body(d,[(800,420),(920,700),(1010,920)],56)                                      # arm swinging forward
+save(im,'walker.png')
+
+# The bicycle again, bolder: fewer, thicker spokes and a heavier rim, so it reads as a bike when soft.
+im,d=canvas(2000,2000)
+c=(1000,1250); R=620
+d.ellipse([c[0]-R,c[1]-R,c[0]+R,c[1]+R],outline=255,width=110)
+for k in range(8):
+    a=k*math.pi/4+0.2; d.line([c,(c[0]+R*math.cos(a),c[1]+R*math.sin(a))],fill=255,width=26)
+d.ellipse([c[0]-70,c[1]-70,c[0]+70,c[1]+70],fill=255)
+limb(d,c,(1000,470),46); limb(d,(1000,470),(1000,320),40)
+limb(d,(600,290),(1400,290),42); limb(d,(600,290),(500,400),38); limb(d,(1400,290),(1500,400),38)
+save(im,'bike-bold.png')
