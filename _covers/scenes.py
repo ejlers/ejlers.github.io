@@ -97,7 +97,7 @@ def theorg():
     camera((0.0,-0.035,top+0.90),(0.0,0.0,top), lens=70, fstop=8); sheen(scr, power=0.6, slide=(-0.6,0.2,0))
     if PEOPLE:   # light in the room: a soft, wide band of sun across the table's far corner, the tablet half in it.
         # From the key lamp's own direction (high, front left), so it agrees with the tablet's shadow.
-        figure_shadow('opening', T+'shadows/opening.png', (0.02, 0.19, top+0.001), az=-39, el=72, width=1.3, dist=1.0, spread=float(os.environ.get('SPREAD','7.0')), strength=float(os.environ.get('SUN','0.45')), roll=float(os.environ.get('ROLL','60')))
+        figure_shadow('opening', T+'shadows/opening.png', (0.02, 0.19, top+0.001), az=-39, el=72, width=1.3, dist=1.0, spread=float(os.environ.get('SPREAD','7.0')), strength=float(os.environ.get('SUN','1.1')), roll=float(os.environ.get('ROLL','60')))
 RES['theorg']=(1920,1280)
 
 def trackman():
