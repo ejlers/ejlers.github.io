@@ -141,6 +141,14 @@ One thing ties the header shot to the stylesheet. Pressing a plate on the Work p
 into the case's header, and for the two to line up the stylesheet has to know each shot's pull: the
 `--pull` values at the end of `css/styles.css`. Change a pull here and change it there.
 
+## The front page's shots (parked)
+
+The front page's backdrop (pointing at Work puts the cases behind the page) uses a third, wider shot of
+each scene: `SUFFIX=-far HEADER=1 PULL=<p>` with economic 0.56, trackman 0.6, donkey 0.52, theorg 0.55,
+tv2 0.55, ok 0.62; TrackMan's launch monitor is placed with `radar.py ... 0.6`. The installer writes
+them as `front.webp` and prints where each device's middle is, for the SHOTS table in `js/site.js`.
+The finished ones are in `masters/` (`*-far-header`).
+
 ## Changing a cover
 
 Everything about a cover's composition is in its function in `scenes.py`: where the surfaces are, where the device lies, where the camera stands and what it looks at. Change, render at `test`, look, repeat; render `final` only when it is right.

@@ -119,14 +119,35 @@
 	   simply there to develop, as it is on a reload. The page being left
 	   knows where the reader is going and the page arriving knows where
 	   they came from; whichever of the two the browser lets speak calls it. */
+	/* A device that cannot keep the frames coming (on battery saving, or
+	   simply tired) gets the pages without the crossing: a travelling
+	   picture that stutters is worse than none. Its pace is taken once per
+	   visit, in a quiet moment after the first page has settled: the middle
+	   frame of a short run. Under 40 frames a second, it is calm from then on. */
+	const calm = () => { try { return sessionStorage.getItem('calm') === '1'; } catch (err) { return false; } };
+	const takePace = () => {
+		try { if (sessionStorage.getItem('calm') !== null) return; } catch (err) { return; }
+		const gaps = [];
+		let last = 0;
+		const frame = (t) => {
+			if (last) gaps.push(t - last);
+			last = t;
+			if (gaps.length < 24) { requestAnimationFrame(frame); return; }
+			gaps.sort((x, y) => x - y);
+			try { sessionStorage.setItem('calm', gaps[12] > 25 ? '1' : '0'); } catch (err) { /* no note, no harm */ }
+		};
+		setTimeout(() => { if (!document.hidden) requestAnimationFrame(frame); }, 1600);
+	};
+	if (document.readyState === 'complete') takePace(); else window.addEventListener('load', takePace, { once: true });
+
 	const wallAndCase = (a, b) => (/\/work\/$/.test(a) && caseOf(b)) || (caseOf(a) && /\/work\/$/.test(b));
 	window.addEventListener('pageswap', (event) => {
 		if (!event.viewTransition || !event.activation || !event.activation.entry) return;
 		const to = new URL(event.activation.entry.url).pathname.replace(/index\.html$/, '');
-		if (!wallAndCase(HERE, to)) event.viewTransition.skipTransition();
+		if (calm() || !wallAndCase(HERE, to)) event.viewTransition.skipTransition();
 	});
 	window.addEventListener('pagereveal', (event) => {
-		if (event.viewTransition && came && !wallAndCase(came, HERE)) event.viewTransition.skipTransition();
+		if (event.viewTransition && (calm() || (came && !wallAndCase(came, HERE)))) event.viewTransition.skipTransition();
 	});
 
 	const develop = () => {

@@ -1,0 +1,244 @@
+diff --git a/css/styles.css b/css/styles.css
+index 2268c91..d87f5b2 100644
+--- a/css/styles.css
++++ b/css/styles.css
+@@ -1008,6 +1008,113 @@ p:not(.crumb) a,
+ 	}
+ }
+ 
++/* --- The front page's backdrop ---------------------------------------- */
++
++/* Pointing at the Work row turns the page into the work: a case's wide
++   shot takes the whole window, behind everything, and gives way to the
++   next case every few seconds for as long as the pointer stays. The page
++   does not move: the name, the claim and the rows stand where they stood,
++   now in a room. The portrait steps out while it lasts, since a room holds
++   one picture.
++
++   Each shot is placed, not cropped: the device's own middle lands on the
++   middle of the open ground, right of the claim and above the rows, and
++   the picture is made exactly large enough to reach all four edges of the
++   window from there (--ix and --iy say where the device is in its shot;
++   site.js sets them per case).
++
++   The shots are light in both schemes, so the page's ink is the dark one
++   in both while a shot is up, and its greys are that ink thinned, the way
++   the words on a case's header are. Only where a pointer can hover, and
++   only on a desk: below the columns there is no open ground to stand in. */
++.backdrop {
++	--tx: calc(50vw + 300px);
++	--ty: calc(50vh - 120px);
++	position: fixed;
++	inset: 0;
++	z-index: -1;
++	overflow: hidden;
++	background: var(--canvas);
++	opacity: 0;
++	pointer-events: none;
++	transition: opacity var(--t-close) ease-in;
++}
++
++.backdrop img {
++	--h: max(calc(var(--ty) / var(--iy)), calc((100vh - var(--ty)) / (1 - var(--iy))), calc(var(--tx) / (2 * var(--ix))), calc((100vw - var(--tx)) / (2 * (1 - var(--ix)))));
++	position: absolute;
++	left: calc(var(--tx) - var(--h) * 2 * var(--ix));
++	top: calc(var(--ty) - var(--h) * var(--iy));
++	width: calc(var(--h) * 2);
++	height: var(--h);
++	max-width: none;
++	opacity: 0;
++	transition: opacity var(--t-develop) ease;
++}
++
++.backdrop img.is-up {
++	opacity: 1;
++}
++
++/* Which case it is, on the page's left edge just above the rows: under the
++   claim, the one corner every shot leaves open. */
++.backdrop__name {
++	position: fixed;
++	left: max(var(--page-x), calc((100vw - var(--page-max)) / 2));
++	bottom: calc(var(--rows) + var(--s3));
++	display: flex;
++	gap: var(--s2);
++	color: var(--ink-muted);
++	opacity: 0;
++	pointer-events: none;
++	transition: opacity var(--t-close) ease-in;
++}
++
++.backdrop__name b {
++	color: var(--ink);
++}
++
++.in-a-room .backdrop,
++.in-a-room .backdrop__name {
++	opacity: 1;
++	transition: opacity var(--t-open) ease-out;
++}
++
++body.in-a-room {
++	--on-shot: var(--ink);
++	--ink-muted: color-mix(in srgb, var(--on-shot) 68%, transparent);
++	--grey: color-mix(in srgb, var(--on-shot) 50%, transparent);
++	--rule: color-mix(in srgb, var(--on-shot) 14%, transparent);
++	--hover: color-mix(in srgb, var(--on-shot) 5%, transparent);
++	background: transparent;
++}
++
++@media screen and (prefers-color-scheme: dark) {
++	body.in-a-room {
++		--on-shot: var(--paper);
++		--ink: var(--on-shot);
++	}
++}
++
++.in-a-room .opener {
++	background: transparent;
++}
++
++/* Words and lines change ink at the pace the shot comes and goes, so they
++   are never the page's colour on the shot or the shot's on the page. */
++.floor .crumb__here,
++.floor .display,
++.floor .index__row,
++.floor .index__note,
++.floor .index__arrow,
++.floor .portrait-mark {
++	transition: color var(--t-open) ease, border-color var(--t-open) ease, background-color var(--t-confirm) ease, opacity var(--t-open) ease;
++}
++
++.in-a-room .portrait-mark {
++	opacity: 0;
++}
++
+ /* --- Ending --------------------------------------------------------- */
+ 
+ /* Every page ends the way the front page does: on the two rows that reach
+diff --git a/index.html b/index.html
+index b0bfdc3..56ba6b4 100644
+--- a/index.html
++++ b/index.html
+@@ -79,7 +79,7 @@
+ 	<p class="display measure lede-gap">Ten years designing digital products.</p>
+ 
+ 	<nav class="index" aria-label="Pages">
+-		<a class="index__row" href="./work/">
++		<a class="index__row" href="./work/" data-covers>
+ 			<span class="index__term">Work</span>
+ 			<span class="index__note">Selected projects, 2015 to now</span>
+ 			<svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
+diff --git a/js/site.js b/js/site.js
+index 7cd57da..5a0f137 100644
+--- a/js/site.js
++++ b/js/site.js
+@@ -276,3 +276,86 @@
+ 		develop();
+ 	});
+ })();
++
++/* The front page's backdrop (see the stylesheet). Pointing at the Work row
++   puts a case's wide shot behind the page and steps to the next case at an
++   interval while the pointer stays; it picks up where it left off the next
++   time. The shots are fetched at the first pointing, never before, and one
++   ahead after that. Where motion is unwelcome there is one shot and no
++   stepping. Each entry: the case, its name, the shot, and where in the
++   shot the device's middle is, as shares of its width and height. */
++(() => {
++	const row = document.querySelector('.index__row[data-covers]');
++	if (!row || !window.matchMedia('(hover: hover) and (min-width: 1101px)').matches) return;
++	/* TRIAL: only with ?preview in the address until it is approved */
++	if (!/[?&]preview\b/.test(location.search)) return;
++
++	const SHOTS = [
++		['economic', 'Visma e-conomic', 'front', 0.508, 0.451],
++		['trackman', 'TrackMan', 'front', 0.486, 0.472],
++		['donkey', 'Donkey Republic', 'front', 0.498, 0.467],
++		['tv2', 'TV2 Regionerne', 'front', 0.498, 0.501],
++		['ok', 'OK', 'front', 0.489, 0.519],
++		['theorg', 'The Org', 'front', 0.527, 0.438],
++	];
++	const HOLD = 2400;
++	const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++	const at = new URL('../img/work/', row.href).pathname;
++
++	let room = null;
++	let label = null;
++	let shots = [];
++	let now = -1;
++	let timer = null;
++
++	const fetchShot = (i) => {
++		const img = shots[i];
++		if (img.src) return;
++		const [slug, , file] = SHOTS[i];
++		img.sizes = Math.ceil(img.getBoundingClientRect().width || window.innerWidth * 1.6) + 'px';
++		img.srcset = at + slug + '/' + file + '-2400.webp 2400w, ' + at + slug + '/' + file + '.webp 3200w';
++		img.src = at + slug + '/' + file + '-2400.webp';
++	};
++
++	const show = (i) => {
++		now = i;
++		fetchShot(i);
++		fetchShot((i + 1) % SHOTS.length);
++		shots.forEach((img, k) => img.classList.toggle('is-up', k === i));
++		label.firstChild.textContent = SHOTS[i][1];
++		label.lastChild.textContent = (i + 1) + ' / ' + SHOTS.length;
++	};
++
++	const build = () => {
++		room = document.createElement('div');
++		room.className = 'backdrop';
++		room.setAttribute('aria-hidden', 'true');
++		shots = SHOTS.map(([, , , ix, iy]) => {
++			const img = new Image();
++			img.alt = '';
++			img.decoding = 'async';
++			img.style.setProperty('--ix', ix);
++			img.style.setProperty('--iy', iy);
++			room.appendChild(img);
++			return img;
++		});
++		label = document.createElement('p');
++		label.className = 'backdrop__name';
++		label.setAttribute('aria-hidden', 'true');
++		label.append(document.createElement('b'), document.createElement('span'));
++		document.body.append(room, label);
++	};
++
++	row.addEventListener('pointerenter', () => {
++		if (!room) build();
++		/* the rows' height, so the name can stand just above them */
++		label.style.setProperty('--rows', Math.round(window.innerHeight - row.getBoundingClientRect().top) + 'px');
++		show(now < 0 ? 0 : now);
++		document.body.classList.add('in-a-room');
++		if (!still) timer = setInterval(() => show((now + 1) % SHOTS.length), HOLD);
++	});
++	row.addEventListener('pointerleave', () => {
++		clearInterval(timer);
++		document.body.classList.remove('in-a-room');
++	});
++})();
+diff --git a/system/index.html b/system/index.html
+index 6623acd..ed8382d 100644
+--- a/system/index.html
++++ b/system/index.html
+@@ -524,7 +524,7 @@
+ 					<div class="spec">
+ 						<span>Index</span>
+ 						<span class="spec__value">A row per page</span>
+-						<span class="spec__note">The site pointing at itself. The same row a case&#8217;s More work list uses, at reading size and never the display size, so the page keeps exactly one display line. Its rows sit on the floor of the window, which is what turns the empty middle into intent. The front page is this component and a headline, and nothing else. On a desk a row stands on the page&#8217;s own columns: the term on the left edge, where a band&#8217;s label stands, and the note on the fifth column, where a band&#8217;s text starts. So a list has the two edges every band has and no third of its own, and the More work list, set inside a band, starts its names on the text&#8217;s edge.</span>
++						<span class="spec__note">The site pointing at itself. The same row a case&#8217;s More work list uses, at reading size and never the display size, so the page keeps exactly one display line. Its rows sit on the floor of the window, which is what turns the empty middle into intent. The front page is this component and a headline, and nothing else, until the Work row is pointed at: then the cases take the whole window behind the page, a still at a time, the portrait steps out, and the words stand in the room. On a desk a row stands on the page&#8217;s own columns: the term on the left edge, where a band&#8217;s label stands, and the note on the fifth column, where a band&#8217;s text starts. So a list has the two edges every band has and no third of its own, and the More work list, set inside a band, starts its names on the text&#8217;s edge.</span>
+ 					</div>
+ 					<div class="spec">
+ 						<span>Section heading</span>
+@@ -645,7 +645,7 @@
+ 				<div class="grid-3">
+ 					<div class="block">
+ 						<span class="block__title">Did they cause it?</span>
+-						<span class="block__body">Every animation after the arrival traces back to one click. The develop is the one exception, spent before reading begins: once each time the page is opened, on first sight, never on a timer.</span>
++						<span class="block__body">Every animation after the arrival traces back to one click. The develop is one exception, spent before reading begins: once each time the page is opened, on first sight. The front page's backdrop is the other: pointing at Work puts the cases behind the page one after another, a few seconds each, for as long as the pointer stays. It is the only thing on the site that moves on a timer, and it stops the moment the pointer leaves. Under reduced motion it shows one case and holds.</span>
+ 					</div>
+ 					<div class="block">
+ 						<span class="block__title">Does removing it lose information?</span>
