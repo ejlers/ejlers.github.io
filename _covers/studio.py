@@ -1,6 +1,6 @@
 # A small studio: a canvas-grey cove, plain blocks in the site's greys, one device.
 import bpy, bmesh, math, sys, json, os
-from mathutils import Vector, Euler
+from mathutils import Vector, Euler, Quaternion
 
 def lin(h):
     h=h.lstrip('#'); c=[int(h[i:i+2],16)/255 for i in (0,2,4)]
@@ -281,3 +281,41 @@ def render(path, res=(1800,1200), samples=160, exposure=0.0):
     s.render.image_settings.file_format='PNG'; s.render.filepath=path
     s.cycles.max_bounces=6; s.cycles.caustics_reflective=False; s.cycles.caustics_refractive=False
     bpy.ops.render.render(write_still=True)
+
+def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0, wall=False):
+    """A low sun, and in its path a cut-out figure the camera never sees: only its shadow lands, on the
+    surface at `target`. az/el: where the sun is, in degrees (az 0 = from the camera's side, -Y; 90 = from
+    +X). The cut-out stands `dist` metres from the target towards the sun, square to the light, so its
+    shadow is its own shape at its own size; `spread` is the sun's angular size, which softens it."""
+    a,e=math.radians(az),math.radians(el)
+    to_sun=Vector((math.sin(a)*math.cos(e), -math.cos(a)*math.cos(e), math.sin(e))).normalized()
+    s=bpy.data.lights.new(name+'-sun','SUN'); s.energy=strength; s.angle=math.radians(spread)
+    # the studio's curved backdrop rises far behind everything; a sun from behind would only light its far side
+    for o in bpy.context.scene.objects:
+        if o.name.startswith('cove'): o.visible_shadow=False
+    so=link(bpy.data.objects.new(name+'-sun',s)); so.rotation_euler=(-to_sun).to_track_quat('-Z','Y').to_euler()
+    img=bpy.data.images.load(png, check_existing=True); h=width*img.size[1]/img.size[0]
+    m=bpy.data.materials.new(name); m.use_nodes=True; nt=m.node_tree; N=nt.nodes; L=nt.links
+    for n in list(N): N.remove(n)
+    out=N.new('ShaderNodeOutputMaterial'); mix=N.new('ShaderNodeMixShader'); tr=N.new('ShaderNodeBsdfTransparent'); df=N.new('ShaderNodeBsdfDiffuse')
+    df.inputs['Color'].default_value=(0,0,0,1)
+    t=N.new('ShaderNodeTexImage'); t.image=img; t.extension='EXTEND' if wall else 'CLIP'   # wall: the window's frame runs on into a wall, so no light gets round its edge
+    mul=N.new('ShaderNodeMath'); mul.operation='MULTIPLY'; mul.inputs[1].default_value=shade; L.new(t.outputs['Color'], mul.inputs[0])   # shade<1: the cut-out lets some light through, so its shadow is lighter
+    L.new(mul.outputs[0], mix.inputs['Fac']); L.new(tr.outputs[0], mix.inputs[1]); L.new(df.outputs[0], mix.inputs[2]); L.new(mix.outputs[0], out.inputs['Surface'])
+    if wall:   # a much larger plane, the picture in its middle and its edge carried out to all sides
+        tc=N.new('ShaderNodeTexCoord'); mp=N.new('ShaderNodeMapping'); mp.inputs['Location'].default_value=(-2.0,-2.0,0); mp.inputs['Scale'].default_value=(5,5,1)
+        L.new(tc.outputs['UV'], mp.inputs['Vector']); L.new(mp.outputs['Vector'], t.inputs['Vector'])
+        p=plane_xz(name, width*5, h*5, m)
+    else:
+        p=plane_xz(name, width, h, m)
+    if mirror: p.scale.x=-1
+    p.location=Vector(target)+to_sun*dist
+    p.rotation_euler=(Quaternion(to_sun, math.radians(roll)) @ to_sun.to_track_quat('-Y','Z')).to_euler()
+    for attr in ('visible_camera','visible_glossy','visible_transmission','visible_diffuse'): setattr(p, attr, False)
+    # the cut-out stands in the sun's way and no other light's: every other lamp ignores it
+    if not only_sun: return p
+    coll=bpy.data.collections.new(name+'-only-sun'); coll.objects.link(p)
+    for co in coll.collection_objects: co.light_linking.link_state='EXCLUDE'
+    for o in bpy.context.scene.objects:
+        if o.type=='LIGHT' and o is not so: o.light_linking.blocker_collection=coll
+    return p
