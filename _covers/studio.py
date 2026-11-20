@@ -327,5 +327,9 @@ def sun(name, az, el, strength, spread=2.0, dim_room=1.0):
     to_sun=Vector((math.sin(a)*math.cos(e), -math.cos(a)*math.cos(e), math.sin(e))).normalized()
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=dim_room
+    for o in bpy.context.scene.objects:   # the curved backdrop rises behind everything; a sun from behind would only light its far side
+        if o.name.startswith('cove'): o.visible_shadow=False
     s=bpy.data.lights.new(name,'SUN'); s.energy=strength; s.angle=math.radians(spread)
-    so=link(bpy.data.objects.new(name,s)); so.rotation_euler=(-to_sun).to_track_quat('-Z','Y').to_euler(); return so
+    so=link(bpy.data.objects.new(name,s)); so.rotation_euler=(-to_sun).to_track_quat('-Z','Y').to_euler()
+    if 'glass-only' in bpy.data.collections: so.light_linking.receiver_collection=bpy.data.collections['glass-only']   # like the room's lamps, never in the screen's glass
+    return so
