@@ -52,11 +52,13 @@ def tv2():
     far=1.7 if os.environ.get('HEADER') else 1.0
     gf,gw=base_set(side=1, key=(1.5*far,-0.5*far,0.75*far), key_size=0.35*far, key_power=34*far*far)
     box('floor', (3.0,3.0,0.03), (0,0,0.015), gf['fill'], bevel=0.0015)
-    box('panel', (0.035,1.6,0.9), (0.36,0.62,0.48), gw['hover'], bevel=0.0015, rot=(0,0,math.radians(28)))
+    pnl=box('panel', (0.035,1.6,0.9), (0.36,0.62,0.48), gw['hover'], bevel=0.0015, rot=(0,0,math.radians(28)))
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
     camera((0.0,-0.08,0.60),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=0.55, dist=0.10, spread=1.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False)   # as Carl liked it: the window shades the room's lamps too
+        hd=bool(os.environ.get('HEADER'))   # the wide shot shows far more floor: a larger window, and the softer, lighter shade of the small-screen cut
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, spread=0.45 if hd else 1.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False, shade=0.7 if hd else 1.0)
+        if hd: pnl.visible_shadow=False   # in the wide shot the panel's shadow ends abruptly in view; the window gives the light instead
 RES['tv2']=(1440,1800)
 
 def ok():

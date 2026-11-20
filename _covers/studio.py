@@ -282,7 +282,7 @@ def render(path, res=(1800,1200), samples=160, exposure=0.0):
     s.cycles.max_bounces=6; s.cycles.caustics_reflective=False; s.cycles.caustics_refractive=False
     bpy.ops.render.render(write_still=True)
 
-def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0):
+def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0, wall=False):
     """A low sun, and in its path a cut-out figure the camera never sees: only its shadow lands, on the
     surface at `target`. az/el: where the sun is, in degrees (az 0 = from the camera's side, -Y; 90 = from
     +X). The cut-out stands `dist` metres from the target towards the sun, square to the light, so its
@@ -299,10 +299,15 @@ def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2
     for n in list(N): N.remove(n)
     out=N.new('ShaderNodeOutputMaterial'); mix=N.new('ShaderNodeMixShader'); tr=N.new('ShaderNodeBsdfTransparent'); df=N.new('ShaderNodeBsdfDiffuse')
     df.inputs['Color'].default_value=(0,0,0,1)
-    t=N.new('ShaderNodeTexImage'); t.image=img; t.extension='CLIP'
+    t=N.new('ShaderNodeTexImage'); t.image=img; t.extension='EXTEND' if wall else 'CLIP'   # wall: the window's frame runs on into a wall, so no light gets round its edge
     mul=N.new('ShaderNodeMath'); mul.operation='MULTIPLY'; mul.inputs[1].default_value=shade; L.new(t.outputs['Color'], mul.inputs[0])   # shade<1: the cut-out lets some light through, so its shadow is lighter
     L.new(mul.outputs[0], mix.inputs['Fac']); L.new(tr.outputs[0], mix.inputs[1]); L.new(df.outputs[0], mix.inputs[2]); L.new(mix.outputs[0], out.inputs['Surface'])
-    p=plane_xz(name, width, h, m)
+    if wall:   # a much larger plane, the picture in its middle and its edge carried out to all sides
+        tc=N.new('ShaderNodeTexCoord'); mp=N.new('ShaderNodeMapping'); mp.inputs['Location'].default_value=(-2.0,-2.0,0); mp.inputs['Scale'].default_value=(5,5,1)
+        L.new(tc.outputs['UV'], mp.inputs['Vector']); L.new(mp.outputs['Vector'], t.inputs['Vector'])
+        p=plane_xz(name, width*5, h*5, m)
+    else:
+        p=plane_xz(name, width, h, m)
     if mirror: p.scale.x=-1
     p.location=Vector(target)+to_sun*dist
     p.rotation_euler=(Quaternion(to_sun, math.radians(roll)) @ to_sun.to_track_quat('-Y','Z')).to_euler()
