@@ -273,13 +273,16 @@ def world(strength=0.35):
     w=bpy.data.worlds.new('w'); w.use_nodes=True; bpy.context.scene.world=w
     bg=w.node_tree.nodes['Background']; bg.inputs['Color'].default_value=(1,1,1,1); bg.inputs['Strength'].default_value=strength
 
-def render(path, res=(1800,1200), samples=160, exposure=0.0):
+def render(path, res=(1800,1200), samples=160, exposure=0.0, save_only=False):
     s=bpy.context.scene; s.render.resolution_x, s.render.resolution_y=res; s.render.resolution_percentage=100
     s.cycles.samples=samples; s.cycles.use_denoising=True; s.cycles.use_adaptive_sampling=True; s.cycles.adaptive_threshold=0.02
     s.render.threads_mode='AUTO'
     s.view_settings.view_transform='Standard'; s.view_settings.look='None'; s.view_settings.exposure=exposure
     s.render.image_settings.file_format='PNG'; s.render.filepath=path
     s.cycles.max_bounces=6; s.cycles.caustics_reflective=False; s.cycles.caustics_refractive=False
+    if save_only:   # a Blender file to open in the app: the scene as built, every picture packed inside it
+        s.render.filepath='//'+os.path.basename(path)
+        bpy.ops.file.pack_all(); bpy.ops.wm.save_as_mainfile(filepath=save_only, compress=True); return
     bpy.ops.render.render(write_still=True)
 
 def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0, wall=False, sun_only_cut=False):

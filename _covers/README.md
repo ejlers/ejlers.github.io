@@ -43,6 +43,8 @@ last published:
 - TrackMan's two raw renders (`.png`), the room without the launch monitor, so the launch monitor can be
   moved or resized without rendering the room again.
 
+- `blend/`: every one of those pictures as a Blender file (see "Opening a scene in Blender" below).
+
 Everything that reads a render looks in `out/` first and then here. So from a fresh copy of the
 repository, with nothing rendered:
 
@@ -59,8 +61,51 @@ python3 radar.py trackman-mix-final.png 0.30 0.756 0.925 trackman-mix-final.jpg
 places the launch monitor again. Only a change to a scene itself needs Blender.
 
 When a picture is rendered anew and published, copy its finished `.jpg` from `out/` over the one in
-`masters/` (and for TrackMan the raw `.png` too), in the same change. That is what keeps this folder
+`masters/` (and for TrackMan the raw `.png` too), and save its Blender file again into `masters/blend/`
+(below), in the same change. That is what keeps this folder
 the truth about what is on the site.
+
+## Opening a scene in Blender
+
+`masters/blend/` holds each published picture as a Blender file (Blender 5.3 or later): the room, the
+device, the lights, the light in the room and the camera exactly as the final render had them, with the
+screens and shadow pictures packed inside, so a file opens on its own anywhere. Open one, press F12 and
+Blender renders the picture. Two things are added after the render and are not in the file: the faint
+lens glow and film grain (the end of `scenes.py`), and TrackMan's launch monitor (`radar.py`).
+
+A change made by hand in Blender stays in that file only. To keep it, carry it back into the scene's
+function in `scenes.py`, so the next render from the scripts has it too.
+
+To save the files again after changing a scene, use the quality `blend`, with the same settings as the
+render (the table below), and copy the result from `out/` to `masters/blend/`, dropping `-people` from
+the name:
+
+```bash
+PEOPLE=1 b3d/bin/python scenes.py -- tv2 blend mix
+```
+
+## The light in the room
+
+Five of the covers have daylight falling into the room: a soft sun, and in its path a cut-out the camera
+never sees, so only its shadow lands (`figure_shadow` in `studio.py`, the cut-outs drawn by `shadows.py`
+into `tex/shadows/`). It is switched on with `PEOPLE=1`, and the render's name then ends in `-people`;
+copy it to the plain name before installing. OK's light (a plain sun from the top right, its shadow
+falling in front of the phone) is part of its scene and needs no switch. TrackMan has none.
+
+The light is matched to the room by turning the room's lamps down, never by exposure, which would dim
+the screens with everything else. Each cover's light and how far the lamps go down are in its function
+and in the `ROOM` table in `scenes.py`.
+
+| Picture | Light | Settings |
+| --- | --- | --- |
+| e-conomic | an edge of shade on the wall | `PEOPLE=1` |
+| Donkey Republic | soft dapples, as through leaves | `PEOPLE=1` |
+| The Org | a soft edge of shade across the table | `PEOPLE=1` |
+| TV2 (and `tv2s`) | a window's light on the floor | `PEOPLE=1` |
+| OK (and `oks`) | sun from the top right | none |
+| TrackMan | none | none |
+
+Add `HEADER=1` to any of them for the header shot.
 
 ## Setting up
 

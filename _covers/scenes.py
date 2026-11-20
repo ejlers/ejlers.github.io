@@ -217,7 +217,10 @@ if ROOM:
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM
 EXPOSURE=float(os.environ.get('EXPO', {'economic':0.0,'trackman':-0.45,'donkey':0.0,'theorg':0.0,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
-w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
+w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150),'blend':(1,150)}[quality]
+if quality=='blend':   # no render: save the scene as a Blender file, set up exactly as the final render
+    render(out, res=(w,h), samples=spp, exposure=EXPOSURE, save_only=out.replace('-blend','-final').replace('.png','.blend'))
+    print('saved',out.replace('-blend','-final').replace('.png','.blend')); sys.exit(0)
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
 from PIL import Image, ImageFilter
