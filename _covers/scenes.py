@@ -80,7 +80,7 @@ def ok():
     rig,H,Tk,scr=phone(T+'ok.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(16*m)),'XYZ'); rig.location=(0.10,0.06,0.06+Tk/2)
     camera((X(-0.020),-0.285,0.40),(X(0.112),0.058,0.06), lens=85, fstop=8); sheen(scr, slide=(-0.6*m,0.2,0))
     # a sun, the room's lamps turned down to match so the picture keeps its brightness
-    sun('crisp', az=float(os.environ.get('CRISPAZ',180+10*m)), el=float(os.environ.get('CRISPEL','32')), strength=float(os.environ.get('CRISP','1.0')), spread=3.0, dim_room=float(os.environ.get('CRISPROOM','0.72')))   # from behind: the phone's shadow falls in front of it
+    sun('crisp', az=float(os.environ.get('CRISPAZ',180+10*m)), el=float(os.environ.get('CRISPEL','32')), strength=float(os.environ.get('CRISP','1.0')), spread=3.0, dim_room=float(os.environ.get('CRISPROOM','0.79')))   # from behind: the phone's shadow falls in front of it
 RES['ok']=(1440,1800)
 
 def theorg():
@@ -165,7 +165,7 @@ def oks():
     rig,H,Tk,scr=phone(T+'ok.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(16)),'XYZ'); rig.location=(0.10,0.06,0.06+Tk/2)
     camera((-0.053,-0.337,0.455),(0.100,0.062,0.06), lens=85, fstop=8); sheen(scr, slide=(-0.6,0.2,0))
     # a sun from the key lamp's own direction, the room's lamps turned down to match: the phone's shadow a little crisper
-    sun('crisp', az=float(os.environ.get('CRISPAZ','161')), el=float(os.environ.get('CRISPEL','26')), strength=float(os.environ.get('CRISP','0.9')), spread=3.0, dim_room=float(os.environ.get('CRISPROOM','0.62')))
+    sun('crisp', az=float(os.environ.get('CRISPAZ',190)), el=float(os.environ.get('CRISPEL','32')), strength=float(os.environ.get('CRISP','1.0')), spread=3.0, dim_room=float(os.environ.get('CRISPROOM','0.79')))   # as ok()
 RES['oks']=(1600,1200)
 
 globals()[which]()
