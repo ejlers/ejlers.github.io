@@ -46,6 +46,11 @@ def donkey():
         figure_shadow('dapples', T+'shadows/dapples.png', (0.02, 0.0, top+0.001), az=-19, el=44, width=1.0, dist=0.6, spread=2.2, strength=float(os.environ.get('SUN','0.9')))
 RES['donkey']=(1920,1280)
 
+# --- Light in the room, one setting per case -------------------------------------------------------
+# Every version of a case (cover, small-screen cut, header shot) takes its light from here, so the light
+# can never drift apart between them. Values are figure_shadow's.
+TV2_WINDOW=dict(az=70, el=40, spread=3.8, shade=0.7, strength=0.6)
+
 def tv2():
     # D: lying on the floor, from straight above, a panel's soft shadow across the floor
     # (the lamp stands further off for the header shot, as in tv2s below, and for the same reason)
@@ -56,8 +61,10 @@ def tv2():
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
     camera((0.0,-0.08,0.60),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
-        hd=bool(os.environ.get('HEADER'))   # the wide shot shows far more floor: a larger window, and the softer, lighter shade of the small-screen cut
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, spread=0.45 if hd else 3.8, strength=float(os.environ.get('SUN','0.6')), only_sun=False, shade=0.7)   # the tall cover as soft and light as the wide shot, so the picture does not change character as it travels into the header
+        hd=bool(os.environ.get('HEADER'))   # the wide shot needs a larger cut-out further off to cover its floor; the light it makes is the same
+        L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength']))
+        if hd: L_['spread']=0.45   # further off, so a smaller sun makes the same softness on the floor
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, only_sun=False, **L_)
         pnl.visible_shadow=False   # the window gives the light; the panel's shadow would end abruptly in the wide shot, and the tall cover matches it
 RES['tv2']=(1440,1800)
 
@@ -137,11 +144,13 @@ def tv2s():
     far=1.7 if os.environ.get('HEADER') else 1.0
     gf,gw=base_set(side=1, key=(1.5*far,-0.5*far,0.75*far), key_size=0.35*far, key_power=34*far*far)
     box('floor', (3.0,3.0,0.03), (0,0,0.015), gf['fill'], bevel=0.0015)
-    box('panel', (0.035,1.6,0.9), (0.36,0.62,0.48), gw['hover'], bevel=0.0015, rot=(0,0,math.radians(28)))
+    pnl=box('panel', (0.035,1.6,0.9), (0.36,0.62,0.48), gw['hover'], bevel=0.0015, rot=(0,0,math.radians(28)))
+    if PEOPLE: pnl.visible_shadow=False   # as in tv2(): the window gives the light
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
     camera((0.0,-0.09,0.03+0.70),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=0.55, dist=0.10, spread=3.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False, shade=0.55)   # as Carl liked it: the window shades the room's lamps too
+        L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength']))
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=0.55, dist=0.10, only_sun=False, **L_)
 RES['tv2s']=(1600,1200)
 
 def oks():
