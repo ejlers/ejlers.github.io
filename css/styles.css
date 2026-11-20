@@ -1605,9 +1605,20 @@ p:not(.crumb) a,
 		navigation: auto;
 	}
 
-	::view-transition-old(root),
+	/* The new page is laid down at once and the old one fades away over it.
+	   To the eye that is the same dissolve as fading both, at half the cost:
+	   one window-sized layer blending instead of two, which is what lets a
+	   tired device keep up while a picture travels across it as well. */
 	::view-transition-new(root) {
-		animation-duration: var(--t-open);
+		animation: none;
+	}
+
+	::view-transition-old(root) {
+		animation: fade-away var(--t-open) ease both;
+	}
+
+	@keyframes fade-away {
+		to { opacity: 0; }
 	}
 }
 
