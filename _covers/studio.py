@@ -1,6 +1,6 @@
 # A small studio: a canvas-grey cove, plain blocks in the site's greys, one device.
 import bpy, bmesh, math, sys, json, os
-from mathutils import Vector, Euler
+from mathutils import Vector, Euler, Quaternion
 
 def lin(h):
     h=h.lstrip('#'); c=[int(h[i:i+2],16)/255 for i in (0,2,4)]
@@ -282,7 +282,7 @@ def render(path, res=(1800,1200), samples=160, exposure=0.0):
     s.cycles.max_bounces=6; s.cycles.caustics_reflective=False; s.cycles.caustics_refractive=False
     bpy.ops.render.render(write_still=True)
 
-def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False):
+def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True):
     """A low sun, and in its path a cut-out figure the camera never sees: only its shadow lands, on the
     surface at `target`. az/el: where the sun is, in degrees (az 0 = from the camera's side, -Y; 90 = from
     +X). The cut-out stands `dist` metres from the target towards the sun, square to the light, so its
@@ -304,6 +304,12 @@ def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2
     p=plane_xz(name, width, h, m)
     if mirror: p.scale.x=-1
     p.location=Vector(target)+to_sun*dist
-    p.rotation_euler=to_sun.to_track_quat('-Y','Z').to_euler()
+    p.rotation_euler=(Quaternion(to_sun, math.radians(roll)) @ to_sun.to_track_quat('-Y','Z')).to_euler()
     for attr in ('visible_camera','visible_glossy','visible_transmission','visible_diffuse'): setattr(p, attr, False)
+    # the cut-out stands in the sun's way and no other light's: every other lamp ignores it
+    if not only_sun: return p
+    coll=bpy.data.collections.new(name+'-only-sun'); coll.objects.link(p)
+    for co in coll.collection_objects: co.light_linking.link_state='EXCLUDE'
+    for o in bpy.context.scene.objects:
+        if o.type=='LIGHT' and o is not so: o.light_linking.blocker_collection=coll
     return p

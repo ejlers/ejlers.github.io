@@ -85,3 +85,9 @@ d.ellipse([c[0]-70,c[1]-70,c[0]+70,c[1]+70],fill=255)
 limb(d,c,(1000,470),46); limb(d,(1000,470),(1000,320),40)
 limb(d,(600,290),(1400,290),42); limb(d,(600,290),(500,400),38); limb(d,(1400,290),(1500,400),38)
 save(im,'bike-bold.png')
+
+# Light without a figure. 'edge': one straight edge of shade, as when a wall beside a window cuts the sun
+# off (white blocks the sun, so the left half is the shade). 'opening': a window's opening with no frame,
+# a single patch of sun in a wide shade.
+im,d=canvas(2000,2000); d.rectangle([0,0,1000,2000],fill=255); im.save(os.path.join(OUT,'edge.png')); print('edge.png')
+im,d=canvas(3000,3000); d.rectangle([0,0,3000,3000],fill=255); d.rectangle([1100,900,1900,2100],fill=0); im.save(os.path.join(OUT,'opening.png')); print('opening.png')

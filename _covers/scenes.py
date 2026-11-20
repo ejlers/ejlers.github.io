@@ -42,8 +42,8 @@ def donkey():
     box('floor', (5.0,5.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig,H,Tk,scr=phone(T+'donkey.png'); rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); c=(0.0,0.0,top+Tk/2); rig.location=c
     camera((0.09,-0.25,top+0.66),(0.006,-0.012,top), lens=85, fstop=8, focus=c); sheen(scr, slide=(-0.6,0.3,0))
-    if PEOPLE:   # a bicycle parked beside the table: the shadow of its front wheel and handlebar across the top
-        figure_shadow('bike', T+'shadows/bike-bold.png', (0.20, 0.04, top+0.001), az=70, el=55, width=0.34, dist=0.04, spread=1.0, strength=float(os.environ.get('SUN','0.6')))
+    if PEOPLE:   # light in the room: one soft edge of shade across the table's far corner
+        figure_shadow('edge', T+'shadows/edge.png', (-0.07, 0.05, top+0.001), az=70, el=50, width=1.2, dist=0.16, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=35)
 RES['donkey']=(1920,1280)
 
 def tv2():
@@ -56,7 +56,7 @@ def tv2():
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
     camera((0.0,-0.08,0.60),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=0.55, dist=0.10, spread=1.5, strength=float(os.environ.get('SUN','0.6')))
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=0.55, dist=0.10, spread=1.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False)   # as Carl liked it: the window shades the room's lamps too
 RES['tv2']=(1440,1800)
 
 def ok():
@@ -66,6 +66,8 @@ def ok():
     box('under', (3.0,3.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig,H,Tk,scr=phone(T+'ok.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(16)),'XYZ'); rig.location=(0.10,0.06,0.06+Tk/2)
     camera((-0.020,-0.285,0.40),(0.112,0.058,0.06), lens=85, fstop=8); sheen(scr, slide=(-0.6,0.2,0))
+    if PEOPLE:   # light in the room: a faint patch of sun across the slab's far corner
+        figure_shadow('opening', T+'shadows/opening.png', (-0.03, 0.14, 0.061), az=-120, el=40, width=0.9, dist=0.20, spread=1.5, strength=float(os.environ.get('SUN','1.0')), roll=20)
 RES['ok']=(1440,1800)
 
 def theorg():
@@ -82,8 +84,8 @@ def theorg():
     box('floor', (5.0,5.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); rig.location=(px,py,top+Tk/2)
     camera((0.0,-0.035,top+0.90),(0.0,0.0,top), lens=70, fstop=8); sheen(scr, power=0.6, slide=(-0.6,0.2,0))
-    if PEOPLE:   # a team standing round the far side of the table: their heads and shoulders reach in from the top
-        figure_shadow('team', T+'shadows/team.png', (0.20, 0.22, top+0.001), az=145, el=38, width=0.34, dist=0.10, spread=2.0, strength=float(os.environ.get('SUN','2.0')))
+    if PEOPLE:   # light in the room: a patch of sun from a window out of frame, across the table's far corner
+        figure_shadow('opening', T+'shadows/opening.png', (-0.17, 0.09, top+0.001), az=200, el=40, width=1.2, dist=0.30, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=25)
 RES['theorg']=(1920,1280)
 
 def trackman():
@@ -98,8 +100,8 @@ def trackman():
     # seen from the left: the screen's left side is nearest and the wall runs away to the right, so the
     # wall faces the floor on the right, where the radar stands looking back at the screen
     camera((-0.26,-1.10,0.30),(0.10,0.20,0.30), lens=62, fstop=8, shift=(-0.09,-0.165))   # the frame slid left, so screen and radar sit centred together
-    if PEOPLE:   # a man walking past just behind the camera: his long shadow across the floor towards the wall
-        figure_shadow('walker', T+'shadows/walker.png', (-0.12, 0.10, 0.041), az=-12, el=24, width=0.19, dist=0.55, spread=1.5, strength=float(os.environ.get('SUN','2.0')))
+    if PEOPLE:   # light in the room: a long patch of low sun across the floor in front of the screen
+        figure_shadow('opening', T+'shadows/opening.png', (0.10, -0.30, 0.041), az=-62, el=30, width=2.4, dist=0.8, spread=1.5, strength=float(os.environ.get('SUN','2.4')), roll=0)
 RES['trackman']=(2400,1350)
 
 def economic():
@@ -110,8 +112,8 @@ def economic():
     rig,W,D,scr=laptop(T+'economic-lap.png', open_deg=106)
     rig.location=(-0.02,0.10,0.04); rig.rotation_euler=Euler((0,0,math.radians(12)))
     camera((0.38,-0.97,0.36),(-0.02,0.12,0.150), lens=62, fstop=8, shift=(0,-0.052)); sheen(scr, power=0.5, slide=(0.9,0,0.3))
-    if PEOPLE:   # someone leaning in to look, off to the right: their shadow on the wall beside the laptop
-        figure_shadow('leaning', T+'shadows/leaning.png', (0.33, 0.5025-0.002, 0.30), az=-22, el=12, width=0.38, dist=0.12, spread=2.5, strength=float(os.environ.get('SUN','0.6')), mirror=True)
+    if PEOPLE:   # light in the room: one soft edge of shade across the wall, the laptop in the light
+        figure_shadow('edge', T+'shadows/edge.png', (-0.22, 0.5025-0.002, 0.50), az=-40, el=25, width=2.0, dist=0.35, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=-30)
 RES['economic']=(2400,1350)
 
 # --- Small-screen versions --------------------------------------------------------------------
@@ -182,7 +184,7 @@ if quality=='focus':
     focus_report(' '+(os.environ.get('FOCUS','as-is')+' f/'+os.environ.get('FSTOP','-'))+' ')
     sys.exit(0)
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
-EXPOSURE=float(os.environ.get('EXPO', {'donkey':-0.15,'theorg':-0.35,'tv2':0.0,'trackman':-0.75}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
+EXPOSURE=float(os.environ.get('EXPO', {'economic':-0.22,'trackman':-0.45,'donkey':-0.07,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
