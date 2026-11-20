@@ -19,4 +19,6 @@ To pick it up again, from the repository root:
 git apply _covers/parked/front-backdrop.patch
 ```
 
-then `node tools/stamp.mjs` and `npm run check`.
+then `node tools/stamp.mjs` and `npm run check`. If the site has changed since and the patch no longer
+applies, `git apply --3way` merges it; the stamps after `?v=` are the usual conflict, and running
+`node tools/stamp.mjs` settles them.

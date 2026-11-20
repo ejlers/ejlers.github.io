@@ -1,5 +1,5 @@
 diff --git a/css/styles.css b/css/styles.css
-index 7b08d40..9e087fa 100644
+index 2268c91..d87f5b2 100644
 --- a/css/styles.css
 +++ b/css/styles.css
 @@ -1008,6 +1008,113 @@ p:not(.crumb) a,
@@ -117,18 +117,9 @@ index 7b08d40..9e087fa 100644
  
  /* Every page ends the way the front page does: on the two rows that reach
 diff --git a/index.html b/index.html
-index dbf5a14..3cc2f15 100644
+index b0bfdc3..56ba6b4 100644
 --- a/index.html
 +++ b/index.html
-@@ -47,7 +47,7 @@
- 	<link rel="preload" href="./fonts/switzer-300.woff2" as="font" type="font/woff2" crossorigin>
- 	<link rel="preload" href="./fonts/switzer-500.woff2" as="font" type="font/woff2" crossorigin>
- 
--	<link rel="stylesheet" href="./css/styles.css?v=cc27bfa8">
-+	<link rel="stylesheet" href="./css/styles.css?v=824a94f2">
- 
- 	<!-- The portfolio lived here until August 2026, and links into its
- 	     drawers are still out in the world. A hash that belongs to the work
 @@ -79,7 +79,7 @@
  	<p class="display measure lede-gap">Ten years designing digital products.</p>
  
@@ -138,20 +129,11 @@ index dbf5a14..3cc2f15 100644
  			<span class="index__term">Work</span>
  			<span class="index__note">Selected projects, 2015 to now</span>
  			<svg width="20" height="20" class="index__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="arrow__shaft" d="M17 10h-19" /><path d="M12 5l5 5-5 5" /></svg>
-@@ -101,7 +101,7 @@
- 		</a>
- 	</nav>
- 
--	<script src="./js/site.js?v=193749a2"></script>
-+	<script src="./js/site.js?v=9dbafd3e"></script>
- 
- </body>
- 
 diff --git a/js/site.js b/js/site.js
-index d862625..9e98e9b 100644
+index 7cd57da..5a0f137 100644
 --- a/js/site.js
 +++ b/js/site.js
-@@ -255,3 +255,86 @@
+@@ -276,3 +276,86 @@
  		develop();
  	});
  })();
@@ -239,18 +221,9 @@ index d862625..9e98e9b 100644
 +	});
 +})();
 diff --git a/system/index.html b/system/index.html
-index f5d7267..814f53f 100644
+index 6623acd..ed8382d 100644
 --- a/system/index.html
 +++ b/system/index.html
-@@ -23,7 +23,7 @@
- 	<!-- The site's own stylesheet, not a copy of it. Every swatch, measurement
- 	     and component below is rendered by the same rules the portfolio uses,
- 	     so this page cannot describe something the site no longer does. -->
--	<link rel="stylesheet" href="../css/styles.css?v=cc27bfa8">
-+	<link rel="stylesheet" href="../css/styles.css?v=824a94f2">
- 	<link rel="stylesheet" href="./system.css?v=d435ed0d">
- 
- 	<script>document.documentElement.classList.remove('no-js');</script>
 @@ -524,7 +524,7 @@
  					<div class="spec">
  						<span>Index</span>
