@@ -282,7 +282,7 @@ def render(path, res=(1800,1200), samples=160, exposure=0.0):
     s.cycles.max_bounces=6; s.cycles.caustics_reflective=False; s.cycles.caustics_refractive=False
     bpy.ops.render.render(write_still=True)
 
-def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True):
+def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0):
     """A low sun, and in its path a cut-out figure the camera never sees: only its shadow lands, on the
     surface at `target`. az/el: where the sun is, in degrees (az 0 = from the camera's side, -Y; 90 = from
     +X). The cut-out stands `dist` metres from the target towards the sun, square to the light, so its
@@ -300,7 +300,8 @@ def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2
     out=N.new('ShaderNodeOutputMaterial'); mix=N.new('ShaderNodeMixShader'); tr=N.new('ShaderNodeBsdfTransparent'); df=N.new('ShaderNodeBsdfDiffuse')
     df.inputs['Color'].default_value=(0,0,0,1)
     t=N.new('ShaderNodeTexImage'); t.image=img; t.extension='CLIP'
-    L.new(t.outputs['Color'], mix.inputs['Fac']); L.new(tr.outputs[0], mix.inputs[1]); L.new(df.outputs[0], mix.inputs[2]); L.new(mix.outputs[0], out.inputs['Surface'])
+    mul=N.new('ShaderNodeMath'); mul.operation='MULTIPLY'; mul.inputs[1].default_value=shade; L.new(t.outputs['Color'], mul.inputs[0])   # shade<1: the cut-out lets some light through, so its shadow is lighter
+    L.new(mul.outputs[0], mix.inputs['Fac']); L.new(tr.outputs[0], mix.inputs[1]); L.new(df.outputs[0], mix.inputs[2]); L.new(mix.outputs[0], out.inputs['Surface'])
     p=plane_xz(name, width, h, m)
     if mirror: p.scale.x=-1
     p.location=Vector(target)+to_sun*dist

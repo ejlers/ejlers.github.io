@@ -133,7 +133,7 @@ def tv2s():
     rig,H,Tk,scr=phone(T+'tv2.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(-18)),'XYZ'); rig.location=(0.0,0.0,0.03+Tk/2)
     camera((0.0,-0.09,0.03+0.70),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=0.55, dist=0.10, spread=3.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False)   # as Carl liked it: the window shades the room's lamps too
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), az=70, el=40, width=0.55, dist=0.10, spread=3.5, strength=float(os.environ.get('SUN','0.6')), only_sun=False, shade=0.55)   # as Carl liked it: the window shades the room's lamps too
 RES['tv2s']=(1600,1200)
 
 def oks():
