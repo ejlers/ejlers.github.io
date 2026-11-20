@@ -95,8 +95,9 @@ def theorg():
     box('floor', (5.0,5.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); rig.location=(px,py,top+Tk/2)
     camera((0.0,-0.035,top+0.90),(0.0,0.0,top), lens=70, fstop=8); sheen(scr, power=0.6, slide=(-0.6,0.2,0))
-    if PEOPLE:   # light in the room: a patch of sun from a window out of frame, across the table's far corner
-        figure_shadow('opening', T+'shadows/opening.png', (-0.17, 0.09, top+0.001), az=200, el=40, width=1.2, dist=0.30, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=25)
+    if PEOPLE:   # light in the room: a soft, wide band of sun across the table's far corner, the tablet half in it.
+        # From the key lamp's own direction (high, front left), so it agrees with the tablet's shadow.
+        figure_shadow('opening', T+'shadows/opening.png', (0.02, 0.19, top+0.001), az=-39, el=72, width=1.3, dist=1.0, spread=float(os.environ.get('SPREAD','7.0')), strength=float(os.environ.get('SUN','0.45')), roll=float(os.environ.get('ROLL','60')))
 RES['theorg']=(1920,1280)
 
 def trackman():
@@ -207,11 +208,11 @@ if quality=='focus':
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
 # Where a scene's sun would lift it, the room's lamps are turned down to make up for it, not the exposure:
 # exposure would dim the device's screen with everything else. (Screens light themselves.)
-ROOM={'donkey':0.88,'economic':float(os.environ.get('ROOMK','0.74'))}.get(which) if PEOPLE else None
+ROOM={'donkey':0.88,'theorg':float(os.environ.get('ROOMK','0.88')),'economic':float(os.environ.get('ROOMK','0.74'))}.get(which) if PEOPLE else None
 if ROOM:
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM
-EXPOSURE=float(os.environ.get('EXPO', {'economic':0.0,'trackman':-0.45,'donkey':0.0,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
+EXPOSURE=float(os.environ.get('EXPO', {'economic':0.0,'trackman':-0.45,'donkey':0.0,'theorg':0.0,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
