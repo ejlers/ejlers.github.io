@@ -282,7 +282,7 @@ def render(path, res=(1800,1200), samples=160, exposure=0.0):
     s.cycles.max_bounces=6; s.cycles.caustics_reflective=False; s.cycles.caustics_refractive=False
     bpy.ops.render.render(write_still=True)
 
-def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0, wall=False):
+def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2.0, mirror=False, roll=0.0, only_sun=True, shade=1.0, wall=False, sun_only_cut=False):
     """A low sun, and in its path a cut-out figure the camera never sees: only its shadow lands, on the
     surface at `target`. az/el: where the sun is, in degrees (az 0 = from the camera's side, -Y; 90 = from
     +X). The cut-out stands `dist` metres from the target towards the sun, square to the light, so its
@@ -312,6 +312,12 @@ def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2
     p.location=Vector(target)+to_sun*dist
     p.rotation_euler=(Quaternion(to_sun, math.radians(roll)) @ to_sun.to_track_quat('-Y','Z')).to_euler()
     for attr in ('visible_camera','visible_glossy','visible_transmission','visible_diffuse'): setattr(p, attr, False)
+    # sun_only_cut: the sun's light is shaped by the cut-out alone; the device casts no shadow of its own in
+    # it (a near sun gives a hard one), so the device's shadow stays the room lamps' soft one
+    if sun_only_cut:
+        sc=bpy.data.collections.new(name+'-sun-blocker'); sc.objects.link(p)
+        for co in sc.collection_objects: co.light_linking.link_state='INCLUDE'
+        so.light_linking.blocker_collection=sc
     # the cut-out stands in the sun's way and no other light's: every other lamp ignores it
     if not only_sun: return p
     coll=bpy.data.collections.new(name+'-only-sun'); coll.objects.link(p)
@@ -319,3 +325,17 @@ def figure_shadow(name, png, target, az, el, width, dist, spread=2.0, strength=2
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o is not so: o.light_linking.blocker_collection=coll
     return p
+
+def sun(name, az, el, strength, spread=2.0, dim_room=1.0):
+    """A plain sun from az/el (as figure_shadow), for a crisper shadow under a device. dim_room scales the
+    room's other lamps (not the screen's sheen), so the scene keeps its brightness."""
+    a,e=math.radians(az),math.radians(el)
+    to_sun=Vector((math.sin(a)*math.cos(e), -math.cos(a)*math.cos(e), math.sin(e))).normalized()
+    for o in bpy.context.scene.objects:
+        if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=dim_room
+    for o in bpy.context.scene.objects:   # the curved backdrop rises behind everything; a sun from behind would only light its far side
+        if o.name.startswith('cove'): o.visible_shadow=False
+    s=bpy.data.lights.new(name,'SUN'); s.energy=strength; s.angle=math.radians(spread)
+    so=link(bpy.data.objects.new(name,s)); so.rotation_euler=(-to_sun).to_track_quat('-Z','Y').to_euler()
+    if 'glass-only' in bpy.data.collections: so.light_linking.receiver_collection=bpy.data.collections['glass-only']   # like the room's lamps, never in the screen's glass
+    return so

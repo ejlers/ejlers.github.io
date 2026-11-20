@@ -66,19 +66,21 @@ def tv2():
         L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength']))
         if hd: L_['spread']=0.45   # further off, so a smaller sun makes the same softness on the floor
         else: L_['shade']*=TV2_NEAR   # close up, the same cut-out darkens the floor about twice as much as in the wide shot
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, only_sun=False, **L_)
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, only_sun=False, sun_only_cut=True, **L_)
         pnl.visible_shadow=False   # the window gives the light; the panel's shadow would end abruptly in the wide shot, and the tall cover matches it
 RES['tv2']=(1440,1800)
 
 def ok():
-    # E: lying on a large slab, from above at an angle
-    gf,gw=base_set(side=-1)
-    box('slab', (1.6,1.1,0.06), (0.45,0.25,0.03), gf['fill'], bevel=0.002, rot=(0,0,math.radians(-12)))
+    # E: lying on a large slab, from above at an angle. FLIP=1 mirrors the whole set-up about the phone,
+    # so the camera looks at it from the other side (the screen itself is not mirrored).
+    m=-1 if os.environ.get('FLIP') else 1; X=lambda x: 0.10+(x-0.10)*m
+    gf,gw=base_set(side=-1*m)
+    box('slab', (1.6,1.1,0.06), (X(0.45),0.25,0.03), gf['fill'], bevel=0.002, rot=(0,0,math.radians(-12*m)))
     box('under', (3.0,3.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
-    rig,H,Tk,scr=phone(T+'ok.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(16)),'XYZ'); rig.location=(0.10,0.06,0.06+Tk/2)
-    camera((-0.020,-0.285,0.40),(0.112,0.058,0.06), lens=85, fstop=8); sheen(scr, slide=(-0.6,0.2,0))
-    if PEOPLE:   # light in the room: a faint patch of sun across the slab's far corner
-        figure_shadow('opening', T+'shadows/opening.png', (-0.03, 0.14, 0.061), az=-120, el=40, width=0.9, dist=0.20, spread=1.5, strength=float(os.environ.get('SUN','1.0')), roll=20)
+    rig,H,Tk,scr=phone(T+'ok.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(16*m)),'XYZ'); rig.location=(0.10,0.06,0.06+Tk/2)
+    camera((X(-0.020),-0.285,0.40),(X(0.112),0.058,0.06), lens=85, fstop=8); sheen(scr, slide=(-0.6*m,0.2,0))
+    # a sun, the room's lamps turned down to match so the picture keeps its brightness
+    sun('crisp', az=float(os.environ.get('CRISPAZ',180-35*m)), el=float(os.environ.get('CRISPEL','32')), strength=float(os.environ.get('CRISP','1.0')), spread=3.0, dim_room=float(os.environ.get('CRISPROOM','0.79')))   # from behind: the phone's shadow falls in front of it
 RES['ok']=(1440,1800)
 
 def theorg():
@@ -86,7 +88,7 @@ def theorg():
     # The whole tablet is in the frame. It is turned a few degrees, and its lower left corner
     # hangs just over the table's edge (Carl's call: an exception to "never on an edge", and only a little).
     # lit from high overhead, so the thin tablet throws only a short, soft shadow
-    gf,gw=base_set(side=-1, key=(-0.40,-0.50,2.55), key_size=1.1, key_power=20)
+    gf,gw=base_set(side=-1, key=(-0.40,-0.50,2.55), key_size=float(os.environ.get('KEYSZ','0.55')), key_power=20)   # a smaller key than before (1.1): the tablet's shadow visible
     top=0.42; yaw=math.radians(5); th=math.radians(-9); D=1.3; over=0.014
     rig,W,H,Tk,scr=tablet(T+'theorg.png')
     px,py=0.030,0.034
@@ -95,8 +97,9 @@ def theorg():
     box('floor', (5.0,5.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig.rotation_euler=Euler((math.radians(-90),0,yaw),'XYZ'); rig.location=(px,py,top+Tk/2)
     camera((0.0,-0.035,top+0.90),(0.0,0.0,top), lens=70, fstop=8); sheen(scr, power=0.6, slide=(-0.6,0.2,0))
-    if PEOPLE:   # light in the room: a patch of sun from a window out of frame, across the table's far corner
-        figure_shadow('opening', T+'shadows/opening.png', (-0.17, 0.09, top+0.001), az=200, el=40, width=1.2, dist=0.30, spread=1.5, strength=float(os.environ.get('SUN','0.8')), roll=25)
+    if PEOPLE:   # light in the room: a soft, wide band of sun across the table's far corner, the tablet half in it.
+        # From the key lamp's own direction (high, front left), so it agrees with the tablet's shadow.
+        figure_shadow('edge', T+'shadows/edge.png', (float(os.environ.get('EX','-0.10')), float(os.environ.get('EY','-0.02')), top+0.001), az=-39, el=float(os.environ.get('EL','58')), width=2.0, dist=0.8, spread=float(os.environ.get('SPREAD','12.0')), strength=float(os.environ.get('SUN','0.9')), roll=float(os.environ.get('ROLL','220')))
 RES['theorg']=(1920,1280)
 
 def trackman():
@@ -152,7 +155,7 @@ def tv2s():
     camera((0.0,-0.09,0.03+0.70),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
         L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength'])); L_['shade']*=TV2_NEAR
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=0.55, dist=0.10, only_sun=False, **L_)
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=0.55, dist=0.10, only_sun=False, sun_only_cut=True, **L_)
 RES['tv2s']=(1600,1200)
 
 def oks():
@@ -161,6 +164,8 @@ def oks():
     box('under', (3.0,3.0,0.02), (0,0,0.01), gf['rule'], bevel=0.002)
     rig,H,Tk,scr=phone(T+'ok.png'); rig.rotation_euler=Euler((math.radians(-90),0,math.radians(16)),'XYZ'); rig.location=(0.10,0.06,0.06+Tk/2)
     camera((-0.053,-0.337,0.455),(0.100,0.062,0.06), lens=85, fstop=8); sheen(scr, slide=(-0.6,0.2,0))
+    # a sun from the key lamp's own direction, the room's lamps turned down to match: the phone's shadow a little crisper
+    sun('crisp', az=float(os.environ.get('CRISPAZ',145)), el=float(os.environ.get('CRISPEL','32')), strength=float(os.environ.get('CRISP','1.0')), spread=3.0, dim_room=float(os.environ.get('CRISPROOM','0.79')))   # as ok()
 RES['oks']=(1600,1200)
 
 globals()[which]()
@@ -207,11 +212,11 @@ if quality=='focus':
 out=os.path.dirname(os.path.abspath(__file__))+f'/out/{which}-{look}-{quality}{suffix}.png'
 # Where a scene's sun would lift it, the room's lamps are turned down to make up for it, not the exposure:
 # exposure would dim the device's screen with everything else. (Screens light themselves.)
-ROOM={'donkey':0.88,'economic':float(os.environ.get('ROOMK','0.74'))}.get(which) if PEOPLE else None
+ROOM={'donkey':0.88,'theorg':float(os.environ.get('ROOMK','0.8')),'economic':float(os.environ.get('ROOMK','0.74'))}.get(which) if PEOPLE else None
 if ROOM:
     for o in bpy.context.scene.objects:
         if o.type=='LIGHT' and o.data.type!='SUN' and not o.name.startswith('sheen'): o.data.energy*=ROOM
-EXPOSURE=float(os.environ.get('EXPO', {'economic':0.0,'trackman':-0.45,'donkey':0.0,'theorg':-0.07,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
+EXPOSURE=float(os.environ.get('EXPO', {'economic':0.0,'trackman':-0.45,'donkey':0.0,'theorg':0.0,'ok':-0.2}.get(which,0))) if PEOPLE else 0.0   # a sun added to a scene lifts it; this brings it back to the cover's own level
 w,h=RES[which]; k,spp={'test':(3/8,32),'mid':(0.7,80),'final':(1,150)}[quality]
 render(out, res=(int(w*k),int(h*k)), samples=spp, exposure=EXPOSURE)
 # the lens and the film: a faint glow around the brightest parts and a fine grain over everything
