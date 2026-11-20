@@ -66,7 +66,7 @@ def tv2():
         L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength']))
         if hd: L_['spread']=0.45   # further off, so a smaller sun makes the same softness on the floor
         else: L_['shade']*=TV2_NEAR   # close up, the same cut-out darkens the floor about twice as much as in the wide shot
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, only_sun=False, **L_)
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=1.0 if hd else 0.55, dist=0.85 if hd else 0.10, only_sun=False, sun_only_cut=True, **L_)
         pnl.visible_shadow=False   # the window gives the light; the panel's shadow would end abruptly in the wide shot, and the tall cover matches it
 RES['tv2']=(1440,1800)
 
@@ -155,7 +155,7 @@ def tv2s():
     camera((0.0,-0.09,0.03+0.70),(0.0,0.0,0.03), lens=85, fstop=8); sheen(scr, slide=(-0.7,0.3,0))
     if PEOPLE:   # morning: the window's light across the floor, the phone in one pane of it
         L_=dict(TV2_WINDOW); L_['strength']=float(os.environ.get('SUN',L_['strength'])); L_['shade']*=TV2_NEAR
-        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=0.55, dist=0.10, only_sun=False, **L_)
+        figure_shadow('window', T+'shadows/window.png', (0.10, 0.09, 0.031), width=0.55, dist=0.10, only_sun=False, sun_only_cut=True, **L_)
 RES['tv2s']=(1600,1200)
 
 def oks():
